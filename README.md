@@ -41,6 +41,10 @@ Baba is us is a video game made for a school project. It is heavily inspired fro
 
 ### Controller API
 
+`public User getUser();`
+
+`public User getPartner();`
+
 `public void sendEvent(Event event);`
 
 `public boolean wasLevelUpdated(Event event);`
