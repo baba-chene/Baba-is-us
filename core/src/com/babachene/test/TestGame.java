@@ -14,7 +14,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
  * Classe de test qui sert à montrer quelques bases pour afficher des trucs
- * avec libGDX. Pour le moment, j'ai compris une méthode pour afficher le monde.
+ * avec libGDX. Pour le moment, j'ai compris une méthode pour afficher le monde
+ * entre deux grosses barres noires lorsque les dimensions de la fenêtre ne
+ * correspondent pas à celle du jeu (qui a ses dimensions virtuelles fixées).
  * <p>
  * <li>Le mode fullscreen chope la souris et la rend inutilisable si on revient
  * au bureau. Sortir du mode plein écran résout le problème.
@@ -25,7 +27,8 @@ public class TestGame extends ApplicationAdapter {
 	
 	/** Dimensions virtuelles du monde, en lien avec le FitViewport
 	 * Attention, il se passe des trucs chelous si ces valeurs sont plus petites
-	 * que config.width ou config.height dans le DesktopLauncher.*/
+	 * que config.width ou config.height dans le DesktopLauncher.
+	 */
 	public static int W = 1920, H = 1080;
 	
 	private static Color backgroundColor = new Color(0.35f, 0.4f, 0.2f, 1);
@@ -93,7 +96,7 @@ public class TestGame extends ApplicationAdapter {
 		sr.setColor(Color.CYAN);
 		sr.ellipse(W / 2f, H / 2f, 150, 20, 45f);
 		sr.setColor(Color.CHARTREUSE);
-		sr.circle(0, 0, 20);
+		sr.circle(0, 0, 100);
 		sr.end();
 		
 		/*
