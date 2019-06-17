@@ -174,6 +174,13 @@ public class LevelMap {
 		}
 		
 	}
-
-
+	
+	public void addEntity(int x, int y, Entity entity) {
+		this.mapMatrix[x][y].addEntity(entity);
+	}
+	
+	public void clearEntities(int x, int y)
+	{
+		this.mapMatrix[x][y].clearEntities();
+	}
 }

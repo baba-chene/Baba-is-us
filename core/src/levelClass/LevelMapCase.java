@@ -79,4 +79,8 @@ public class LevelMapCase {
 		else
 			containsPushableEntity = true;
 	}
+	
+	public void clearEntities() {
+		this.entityStack = new LinkedList<Entity>();
+	}
 }
