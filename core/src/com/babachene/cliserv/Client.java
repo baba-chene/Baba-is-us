@@ -111,25 +111,25 @@ public class Client implements Runnable {
 
     public void run() {
         while(true) {
-            synchronized(this) {
-                switch (state) {
-                    case Connecting :
-                        startConnection();
-                        break;
-                    case Connected :
-                        sendEvents();
-                        receiveUpdates();
-                        break;
-                    case Disconnecting :
-                        endConnection();
-                        break;
-                    case Disconnected :
-                        try {
-                            wait();
-                        } catch (InterruptedException ie) {
-                            ie.printStackTrace();
-                        }
-                        break;
+            switch (state) {
+                case Connecting :
+                    startConnection();
+                    break;
+                case Connected :
+                    sendEvents();
+                    receiveUpdates();
+                    break;
+                case Disconnecting :
+                    endConnection();
+                    break;
+                case Disconnected :
+                    synchronized(this) {
+                    try {
+                        wait();
+                    } catch (InterruptedException ie) {
+                        ie.printStackTrace();
+                    }
+                    break;
                 }
             }
             try {
@@ -225,6 +225,14 @@ public class Client implements Runnable {
         }
         clearEventBuffer();
     }
+    
+    private void checkTime() {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - updateTime > 10000) {
+            LOGGER.warning("[Client] Connection lost : no update received for too long");
+            state = State.Disconnecting;
+        }
+    }
 
     private void receiveUpdates() {
         try {
@@ -239,14 +247,12 @@ public class Client implements Runnable {
                 LOGGER.warning("[Client] Buffer full, update dropped");
 
         } catch (InterruptedIOException iioe) {
-            long currentTime = System.currentTimeMillis();
-            if (currentTime - updateTime > 10000) {
-                LOGGER.warning("[Client] Connection lost : no update received for too long");
-                state = State.Disconnecting;
-            }
+        	checkTime();
         } catch (ClassNotFoundException e) {
+        	checkTime();
 			e.printStackTrace();
 		} catch (IOException e) {
+			checkTime();
 			e.printStackTrace();
 		}
     }

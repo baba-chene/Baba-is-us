@@ -98,7 +98,7 @@ public class Server implements Runnable {
     public void disconnect() {
         try {
 			clientSocket.close();
-	        LOGGER.info("[Server] Closing connection...");
+	        LOGGER.info("[Server] Closing connection to client...");
 	        state = State.Disconnecting;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -247,6 +247,14 @@ public class Server implements Runnable {
         }
         clearUpdateBuffer();
     }
+    
+    private void checkTime() {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - eventTime > 10000) {
+            LOGGER.warning("[Server] Connection lost : no event received for too long");
+            state = State.Disconnecting;
+        }
+    }
 
     private void receiveEvents() {
         try {
@@ -261,14 +269,12 @@ public class Server implements Runnable {
                 LOGGER.warning("[Server] Buffer full, event dropped");
 
         } catch (InterruptedIOException iioe) {
-            long currentTime = System.currentTimeMillis();
-            if (currentTime - eventTime > 10000) {
-                LOGGER.warning("[Server] Connection lost : no event received for too long");
-                state = State.Disconnecting;
-            }
+        	checkTime();
         } catch (ClassNotFoundException e) {
+        	checkTime();
 			e.printStackTrace();
 		} catch (IOException e) {
+			checkTime();
 			e.printStackTrace();
 		}
     }
