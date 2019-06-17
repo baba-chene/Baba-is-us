@@ -40,7 +40,7 @@ public abstract class Entity {
 	public void setSink(boolean isSink) {
 		this.isSink = isSink;
 	}
-	public boolean isStop() {
+	public boolean isBlock() {
 		return isBlock;
 	}
 	public void setStop(boolean isStop) {
