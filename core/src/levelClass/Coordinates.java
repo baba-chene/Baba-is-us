@@ -1,12 +1,12 @@
 package levelClass;
 
-public class ObjectCoordinates {
+public class Coordinates {
 
 	private LevelMap map;
 	private int xPosition;
 	private int yPosition;
 
-	public ObjectCoordinates(LevelMap map, int xPosition, int yPosition) {
+	public Coordinates(LevelMap map, int xPosition, int yPosition) {
 		super();
 		this.map = map;
 		this.xPosition = xPosition;
@@ -47,14 +47,14 @@ public class ObjectCoordinates {
 
 	public void moveUp()
 	{
-		if (yPosition< map.getyLength() && map.isFree(xPosition, yPosition+1))
-			yPosition +=1;
+		if (yPosition> 0 && map.isFree(xPosition, yPosition-1))
+			yPosition -=1;
 	}
 
 	public void moveDown()
 	{
-		if (yPosition>0 && map.isFree(xPosition, yPosition-1))
-			yPosition -=1;
+		if (yPosition<map.getyLength() && map.isFree(xPosition, yPosition+1))
+			yPosition +=1;
 	}
 
 }

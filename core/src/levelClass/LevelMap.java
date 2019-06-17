@@ -1,12 +1,13 @@
 package levelClass;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.LinkedList;
 
 public class LevelMap {
 
 	private int xLength;
 	private int yLength;	
-	private ArrayList<LevelGroupOfObjects> mapObjects;
+	private LinkedList<LevelGroupOfEntities> mapEntities;
 	private LevelMapCase[][] mapMatrix;
 
 	public LevelMap(int xLength, int yLength) { //Creates a map of dimension xLength*yLength with cases filled with "empty".
@@ -19,13 +20,13 @@ public class LevelMap {
 				mapMatrix[i][j] = new LevelMapCase(i, j, this);
 			}
 	}
-		this.mapObjects = new ArrayList<LevelGroupOfObjects>();
+		this.mapEntities = new LinkedList<LevelGroupOfEntities>();
 	}
 
-	public ArrayList<LevelGroupOfObjects> getMapObjects() {
-		return mapObjects;
+	public LinkedList<LevelGroupOfEntities> getMapEntities() {
+		return mapEntities;
 	}
-	public void setMapObjects(ArrayList<LevelGroupOfObjects> mapObjects) {
+	public void setMapEntities(LinkedList<LevelGroupOfEntities> mapEntities) {
 	}
 	public int getxLength() {
 		return xLength;
