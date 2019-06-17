@@ -12,18 +12,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-/**
- * Classe de test qui sert à montrer quelques bases pour afficher des trucs
- * avec libGDX. Pour le moment, j'ai compris une méthode pour afficher le monde
- * entre deux grosses barres noires lorsque les dimensions de la fenêtre ne
- * correspondent pas à celle du jeu (qui a ses dimensions virtuelles fixées).
- * <p>
- * <li>Le mode fullscreen chope la souris et la rend inutilisable si on revient
- * au bureau. Sortir du mode plein écran résout le problème.
- * </li><p>
- * @author jeremy
- */
-public class TestGame extends ApplicationAdapter {
+public class LevelGame extends ApplicationAdapter {
 	
 	/** Dimensions virtuelles du monde, en lien avec le FitViewport
 	 * Attention, il se passe des trucs chelous si ces valeurs sont plus petites
@@ -31,9 +20,9 @@ public class TestGame extends ApplicationAdapter {
 	 */
 	public static final int W = 1920, H = 1080;
 	
-	private static Color backgroundColor = new Color(0.35f, 0.4f, 0.2f, 1);
+	private static final Color backgroundColor = new Color(0.35f, 0.4f, 0.2f, 1);
 	
-	// Je ne sais toujours ce qu'est un batch.
+	// Je ne sais toujours pas ce qu'est un batch.
 	private ShapeRenderer sr;
 	private SpriteBatch sb;
 	
@@ -42,7 +31,7 @@ public class TestGame extends ApplicationAdapter {
 	// Caméra pour la 2D.
 	private OrthographicCamera cam;
 	
-	public TestGame() {}
+	public LevelGame() {}
 	
 	/////////////////////////////////////////
 	
@@ -70,7 +59,7 @@ public class TestGame extends ApplicationAdapter {
 	public void render() {
 		Gdx.gl.glClearColor(.0f, .0f, .0f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//		Gdx.gl.glViewport(viewport.getScreenX(), viewport.getScreenY(), viewport.getScreenWidth(), viewport.getScreenHeight());
+	//	Gdx.gl.glViewport(viewport.getScreenX(), viewport.getScreenY(), viewport.getScreenWidth(), viewport.getScreenHeight());
 		
 		if (Gdx.input.isKeyPressed(Keys.ESCAPE))
 			Gdx.app.exit();
@@ -84,7 +73,7 @@ public class TestGame extends ApplicationAdapter {
 		
 		// Très important : c'est ça qui manquait et que j'ai résolu par hasard au commit f9a873a6b16b955da84dda3dcc0e813ccd4664f9
 		sr.setProjectionMatrix(cam.combined);
-//		sr.setTransformMatrix(cam.combined);
+	//	sr.setTransformMatrix(cam.combined);
 		// Les shape renderers doivent avoir un argument dans begin.
 		sr.begin(ShapeType.Filled);
 		sr.setColor(backgroundColor);
@@ -131,6 +120,5 @@ public class TestGame extends ApplicationAdapter {
 	public void dispose() {
 		sr.dispose();
 		sb.dispose();
-	};
-	
+	}
 }

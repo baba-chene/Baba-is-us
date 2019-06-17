@@ -1,6 +1,6 @@
 package com.babachene.desktop;
 
-import com.babachene.test.TestGame;
+import com.babachene.libgdx.MainGame;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
@@ -13,6 +13,6 @@ public class DesktopLauncher {
 		config.width  = 800;//TestGame.W;
 		config.title="Just a test game.";
 		
-		new LwjglApplication(new TestGame(), config);
+		new LwjglApplication(new MainGame(), config);
 	}
 }
