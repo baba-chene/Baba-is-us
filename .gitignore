@@ -1,3 +1,6 @@
+## Jérémy specific ignoring
+/assets-building/
+
 ## Java
 
 *.class
