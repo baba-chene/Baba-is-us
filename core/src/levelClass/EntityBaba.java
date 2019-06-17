@@ -7,9 +7,5 @@ public class EntityBaba extends Entity {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public EntityBaba(Coordinates coordinates, LevelMap map) {
-		super(coordinates, map);
-		// TODO Auto-generated constructor stub
-	}
 
 }

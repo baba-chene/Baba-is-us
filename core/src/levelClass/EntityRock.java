@@ -7,9 +7,5 @@ public class EntityRock extends Entity {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public EntityRock(Coordinates coordinates, LevelMap map) {
-		super(coordinates, map);
-		// TODO Auto-generated constructor stub
-	}
 
 }

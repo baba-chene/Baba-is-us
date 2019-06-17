@@ -16,8 +16,7 @@ public class LevelMapCase {
 	public boolean isFree() {
 		return isFree;
 	}
-	public void setentity(boolean isFree) {
-	}
+
 	public Entity getEntity() {
 		return entity;
 	}

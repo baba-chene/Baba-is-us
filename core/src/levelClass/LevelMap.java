@@ -38,5 +38,13 @@ public class LevelMap {
 	public boolean isFree (int x, int y) {
 		return mapMatrix[x][y].isFree();
 	}
+	
+	public boolean isPushable(int x, int y) {
+		return mapMatrix[x][y].getEntity().isPushable();
+	}
+
+	public LevelMapCase[][] getMapMatrix() {
+		return mapMatrix;
+	}
 
 }

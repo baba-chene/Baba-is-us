@@ -6,10 +6,5 @@ public class EntityWall extends Entity {
 		super(x, y, map);
 		// TODO Auto-generated constructor stub
 	}
-	
-	public EntityWall(Coordinates coordinates, LevelMap map) {
-		super(coordinates, map);
-		// TODO Auto-generated constructor stub
-	}
 
 }

@@ -8,12 +8,6 @@ public class EntityText extends Entity {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public EntityText(Coordinates coordinates, LevelMap map) {
-		super(coordinates, map);
-		this.isPushable = true;
-		// TODO Auto-generated constructor stub
-		
-		//Overwrite methods
-	}
 
+	
 }

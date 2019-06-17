@@ -7,9 +7,5 @@ public class EntityEmpty extends Entity {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public EntityEmpty(Coordinates coordinates, LevelMap map) {
-		super(coordinates, map);
-		// TODO Auto-generated constructor stub
-	}
 
 }
