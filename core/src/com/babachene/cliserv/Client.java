@@ -67,7 +67,7 @@ public class Client implements Runnable {
         	currentState = state;
         }
         LOGGER.info("[Client] Attempting to connect...");
-        if(currentState == State.Disconnecting || currentState == State.Disconnected) {
+        if(currentState != State.Connected) {
             if(hostSet) {
                 this.nextState = State.Connecting;
                 synchronized(this) {
