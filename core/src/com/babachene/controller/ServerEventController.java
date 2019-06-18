@@ -3,9 +3,11 @@ package com.babachene.controller;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.logging.Logger;
 
-import com.babachene.controller.events.GameEvent;
-import com.babachene.controller.updates.GameUpdate;
+import com.babachene.cliserv.Event;
+import com.babachene.cliserv.Server;
+import com.babachene.cliserv.Update;
 import com.babachene.logic.Logic;
+import com.badlogic.gdx.InputProcessor;
 
 public class ServerEventController {
 
@@ -19,7 +21,7 @@ public class ServerEventController {
 	private int eventBufferLength;
 	private Update update;
 
-    public EventController(Server server, InputProcessor inputProcessor, Logic logic, int eventBufferLength) {
+    public ServerEventController(Server server, InputProcessor inputProcessor, Logic logic, int eventBufferLength) {
     	
 		this.eventBufferLength = eventBufferLength;
 		this.server = server;

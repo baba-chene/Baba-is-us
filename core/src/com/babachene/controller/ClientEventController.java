@@ -3,9 +3,11 @@ package com.babachene.controller;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.logging.Logger;
 
-import com.babachene.controller.events.GameEvent;
-import com.babachene.controller.updates.GameUpdate;
+import com.babachene.cliserv.Client;
+import com.babachene.cliserv.Event;
+import com.babachene.cliserv.Update;
 import com.babachene.logic.Logic;
+import com.badlogic.gdx.InputProcessor;
 
 public class ClientEventController {
 
@@ -18,12 +20,11 @@ public class ClientEventController {
 	private Event event;
 	private Update update;
 
-    public ClientEventController(Server server, InputProcessor inputProcessor, Logic logic) {
+    public ClientEventController(Client client, InputProcessor inputProcessor, Logic logic) {
     	
-		this.server = server;
+		this.client = client;
 		this.inputProcessor = inputProcessor;
 		this.logic = logic;
-        eventBuffer = new ArrayBlockingQueue<Event>(eventBufferLength);
         
 		LOGGER.info("[Client Event Controller] Started");
 	}
