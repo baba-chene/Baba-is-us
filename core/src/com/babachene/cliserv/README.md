@@ -50,7 +50,7 @@ Disconnects from the current client, and returns to listening on the last port s
 `void shutdown()`
 Terminates the current thread.
 
-`void addUpdate(Update update)
+`void addUpdate(Update update)`
 Adds the event to the update buffer.
 
 `boolean isEventBufferEmpty()`
