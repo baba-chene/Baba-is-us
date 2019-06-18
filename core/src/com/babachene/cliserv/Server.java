@@ -307,6 +307,7 @@ public class Server implements Runnable {
     private void receiveEvents() {
         try {
             Event event = (Event) in.readObject();
+        	LOGGER.info("[Server] Event received");
             eventTime = System.currentTimeMillis();
             event.updateConnection(this);
 

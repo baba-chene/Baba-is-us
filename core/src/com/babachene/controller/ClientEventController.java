@@ -30,6 +30,7 @@ public class ClientEventController {
 
     private boolean fetchEvent() {
         if(eventGiver.size() > 0) {
+        	LOGGER.fine("[Client Event Controller] Event received from input processor");
             event = eventGiver.pollEvent();
             return true;
         }
@@ -38,6 +39,7 @@ public class ClientEventController {
 
     private boolean fetchUpdate() {
     	if(!client.isUpdateBufferEmpty()) {
+        	LOGGER.fine("[Client Event Controller] Update received from client");
     		update = client.getUpdate();
     		return true;
     	}
@@ -45,10 +47,14 @@ public class ClientEventController {
     }
 
 	public void update() {
-		if(fetchUpdate())
+		if(fetchUpdate()) {
+        	LOGGER.fine("[Client Event Controller] Update sent to logic");
 			logic.processUpdate(update);
+		}
 		if(fetchEvent()) {
+        	LOGGER.fine("[Client Event Controller] Event sent to client");
 			client.addEvent(event);
+        	LOGGER.fine("[Client Event Controller] Event sent to logic");
 			logic.processEvent(event);
 		}
     }

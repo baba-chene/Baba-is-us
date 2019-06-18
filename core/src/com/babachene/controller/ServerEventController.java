@@ -40,14 +40,19 @@ public class ServerEventController {
     }
 
     private void fetchEvents() {
-        if(!server.isEventBufferEmpty())
+        if(!server.isEventBufferEmpty()) {
+    		LOGGER.fine("[Server Event Controller] Event received from server");
             addEvent(server.getEvent());
-        if(eventGiver.size() > 0)
+        }
+        if(eventGiver.size() > 0) {
+    		LOGGER.fine("[Server Event Controller] Event received from input processor");
             addEvent(eventGiver.pollEvent());
+        }
     }
 
     private boolean solveEvent() {
     	if(eventBuffer.size() > 0) {
+    		LOGGER.fine("[Server Event Controller] Event sent to logic");
     		update = logic.processEvent(eventBuffer.poll());
     		return true;
     	}
@@ -55,6 +60,7 @@ public class ServerEventController {
     }
 
     private void sendUpdate() {
+		LOGGER.fine("[Server Event Controller] Update sent to server");
     	server.addUpdate(update);
     }
 

@@ -15,7 +15,7 @@ public class LevelInputProcessor extends InputAdapter {
 	private EventGiver eventGiver;
 	/** flag for insuring the event methods return the correct boolean. */
 	private boolean flag = false;
-	/** For remembering if the key was pressed or realesed when an event occurs on it. */
+	/** For remembering if the key was pressed or released when an event occurs on it. */
 	private boolean zRequestDown = false, resetRequestDown = false;
 	
 	public LevelInputProcessor(KeyboardMap km, EventGiver eventGiver) {
