@@ -33,14 +33,24 @@ public class Server implements Runnable {
     private volatile boolean running = true;
 
     private enum State {
-        Closed,
-        Opening,
-        Opened,
-        Connected,
-        Disconnecting,
-        DisconnectingAndClosing,
-        Closing,
-        ShuttingDown,
+        Closed("CLOSED"),
+        Opening("OPENING"),
+        Opened("OPENED"),
+        Connected("CONNECTED"),
+        Disconnecting("DISCONNECTING"),
+        DisconnectingAndClosing("DISCONNECTINGANDCLOSING"),
+        Closing("CLOSING"),
+        ShuttingDown("SHUTTINGDOWN");
+        
+        private String name = "";
+        
+        State(String name) {
+        	this.name = name;
+        }
+        
+        public String toString() {
+        	return name;
+        }
     }
 
     private volatile State state = State.Closed;
@@ -130,6 +140,8 @@ public class Server implements Runnable {
     public void run() {
         while(running) {
         	synchronized(this) {
+        		if (state != nextState)
+        			LOGGER.info("[Server] Changed state from " + state + " to " + nextState);
         		state = nextState;
         	}
             switch (state) {
@@ -200,6 +212,8 @@ public class Server implements Runnable {
     		nextState = State.Opened;
     	} catch (IOException e) {
     		e.printStackTrace();
+            LOGGER.warning("[Server] Server could no listen on port " + port);
+    		nextState = State.Closed;
     	}
     }
 

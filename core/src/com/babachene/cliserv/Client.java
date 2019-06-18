@@ -35,11 +35,21 @@ public class Client implements Runnable {
     private volatile boolean running = true;
     
     private enum State {
-        Connecting,
-        Connected,
-        Disconnecting,
-        Disconnected,
-        ShuttingDown,
+        Connecting("CONNECTING"),
+        Connected("CONNECTED"),
+        Disconnecting("DISCONNECTING"),
+        Disconnected("DISCONNECTED"),
+        ShuttingDown("SHUTTINGDOWN");
+        
+        private String name = "";
+        
+        State(String name) {
+        	this.name = name;
+        }
+        
+        public String toString() {
+        	return name;
+        }
     }
 
     private volatile State state = State.Disconnected;
@@ -138,6 +148,8 @@ public class Client implements Runnable {
     public void run() {
         while(running) {
         	synchronized(this) {
+        		if (state != nextState)
+        			LOGGER.info("[Client] Changed state from " + state + " to " + nextState);
         		state = nextState;
         	}
             switch (state) {
