@@ -12,7 +12,7 @@ public class Server implements Runnable {
 
     private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-    private int port;
+    private volatile int port;
 
     private ServerSocket serverSocket;
     private Socket clientSocket;
@@ -29,6 +29,8 @@ public class Server implements Runnable {
     private long lastUpdateTime;
 
     private Thread thread;
+    
+    private volatile boolean running = true;
 
     private enum State {
         Closed,
@@ -38,9 +40,11 @@ public class Server implements Runnable {
         Disconnecting,
         DisconnectingAndClosing,
         Closing,
+        ShuttingDown,
     }
 
-    private State state = State.Closed;
+    private volatile State state = State.Closed;
+    private volatile State nextState = State.Closed;
 
     public Server(int eventBufferLength, int updateBufferLength) {
         eventBuffer = new Event[eventBufferLength];
@@ -54,26 +58,54 @@ public class Server implements Runnable {
         synchronized(this) {
             this.port = port;
             LOGGER.info("[Server] Server set to listen on " + port);
-            LOGGER.info("[Server] Server is asked to listen on " + port);
-            state = State.Opening;
+            LOGGER.info("[Server] Asked to listen on " + port);
+            nextState = State.Opening;
             this.notify();
         }
     }
     
     public void open() {
+        LOGGER.info("[Server] Asked to listen on " + port);
+        nextState = State.Opening;
         synchronized(this) {
-            LOGGER.info("[Server] Server is asked to listen on " + port);
-            state = State.Opening;
             this.notify();
         }
     }
 
     public void close() {
-        if(state == State.Connected)
-            state = State.DisconnectingAndClosing;
+    	LOGGER.info("[Server] Asked to close");
+    	State currentState;
+    	synchronized(this) {
+    		currentState = state;	
+    	}
+        if(currentState == State.Connected)
+            nextState = State.DisconnectingAndClosing;
         else
-            state = State.Closing;
+            nextState = State.Closing;
         LOGGER.info("[Server] Server is closing...");
+    }
+
+    public void disconnect() {
+    	LOGGER.info("[Server] Asked to disconnect");
+    	State currentState;
+    	synchronized(this) {
+    		currentState = state;	
+    	}
+        if(currentState != State.Connected) {
+    	    LOGGER.warning("[Server] Can't disconnect, no client is connected");
+    	    return;
+        }
+	    nextState = State.Disconnecting;
+	    LOGGER.info("[Server] Closing connection to client...");
+    }
+    
+    public void shutdown() {
+		LOGGER.info("[Server] Shutting down for good...");
+		running = false;
+    	synchronized(this) {
+    		this.notify();
+    	}
+		nextState = State.ShuttingDown;
     }
 
     public void addUpdate(Update update) {
@@ -95,18 +127,11 @@ public class Server implements Runnable {
         return eventBuffer[resIndex];
     }
 
-    public void disconnect() {
-        try {
-			clientSocket.close();
-	        LOGGER.info("[Server] Closing connection to client...");
-	        state = State.Disconnecting;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    }
-
     public void run() {
-        while(true) {
+        while(running) {
+        	synchronized(this) {
+        		state = nextState;
+        	}
             switch (state) {
                 case Closed :
                     synchronized(this) {
@@ -137,6 +162,8 @@ public class Server implements Runnable {
                 case Closing:
                     stopListening();
                     break;
+                case ShuttingDown:
+                	break;
             }
             try {
                 Thread.sleep(1);
@@ -144,6 +171,7 @@ public class Server implements Runnable {
                 ie.printStackTrace();
             }
         }
+		LOGGER.info("[Server] Shut down.");
     }
 
     private void listen() {
@@ -151,7 +179,7 @@ public class Server implements Runnable {
             clientSocket = serverSocket.accept();
             out = new ObjectOutputStream(clientSocket.getOutputStream());
             in = new ObjectInputStream(clientSocket.getInputStream());
-            state = State.Connected;
+            nextState = State.Connected;
             LOGGER.info("[Server] Client connected.");
         } catch(InterruptedIOException iioe) {
             try {
@@ -169,7 +197,7 @@ public class Server implements Runnable {
     		serverSocket = new ServerSocket(port);
     		serverSocket.setSoTimeout(1000);
             LOGGER.info("[Server] Server listening on port " + port);
-    		state = State.Opened;
+    		nextState = State.Opened;
     	} catch (IOException e) {
     		e.printStackTrace();
     	}
@@ -197,13 +225,14 @@ public class Server implements Runnable {
         clearEventBuffer();
         clearUpdateBuffer();
         try {
-			out.writeObject(new DisconnectUpdate());
+        	if(out != null)
+			    out.writeObject(new DisconnectUpdate());
 	        clientSocket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
         LOGGER.info("[Server] Connection with client closed.");
-        state = State.Opened;
+        nextState = State.Opened;
     }
 
     private void stopListening() {
@@ -212,7 +241,7 @@ public class Server implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        state = State.Closed;
+        nextState = State.Closed;
         LOGGER.info("[Server] Server stopped listening.");
     }
 
@@ -252,7 +281,7 @@ public class Server implements Runnable {
         long currentTime = System.currentTimeMillis();
         if (currentTime - eventTime > 10000) {
             LOGGER.warning("[Server] Connection lost : no event received for too long");
-            state = State.Disconnecting;
+            nextState = State.Disconnecting;
         }
     }
 

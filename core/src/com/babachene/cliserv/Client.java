@@ -3,6 +3,7 @@ package com.babachene.cliserv;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.io.InterruptedIOException;
@@ -12,8 +13,8 @@ public class Client implements Runnable {
 
     private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-    private String IPAdress;
-    private int port;
+    private volatile String IPAdress;
+    private volatile int port;
     private boolean hostSet = false;
 
     private Socket socket;
@@ -31,14 +32,18 @@ public class Client implements Runnable {
 
     private Thread thread;
 
+    private volatile boolean running = true;
+    
     private enum State {
         Connecting,
         Connected,
         Disconnecting,
         Disconnected,
+        ShuttingDown,
     }
 
-    private State state = State.Disconnected;
+    private volatile State state = State.Disconnected;
+    private volatile State nextState = State.Disconnected;
 
     public Client(int eventBufferLength, int updateBufferLength) {
         eventBuffer = new Event[eventBufferLength];
@@ -56,37 +61,49 @@ public class Client implements Runnable {
     }
 
     public void connect() {
+        LOGGER.info("[Client] Asked to connect to current host.");
+    	State currentState;
         synchronized(this) {
-            LOGGER.info("[Client] Attempting to connect...");
-            if(state == State.Disconnecting || state == State.Disconnected) {
-                if(hostSet) {
-                    this.state = State.Connecting;
-                    this.notify();
-                    LOGGER.info("[Client] Connecting to host at " + IPAdress + ":" + port + "...");
-                } else
-                    LOGGER.warning("[Client] Can't connect, IPAdress or port is missing");
-
-            } else
-                LOGGER.info("[Client] You're already connected, no need connect again");
+        	currentState = state;
         }
+        LOGGER.info("[Client] Attempting to connect...");
+        if(currentState == State.Disconnecting || currentState == State.Disconnected) {
+            if(hostSet) {
+                this.nextState = State.Connecting;
+                synchronized(this) {
+                	this.notify();
+                }
+                LOGGER.info("[Client] Connecting to host at " + IPAdress + ":" + port + "...");
+            } else
+        LOGGER.warning("[Client] Can't connect, IPAdress or port is missing");
+
+        } else
+            LOGGER.info("[Client] You're already connected, no need connect again");
     }
 
     public void connect(String IPAdress, int port) {
+        LOGGER.info("[Client] Asked to connect to new host at " + IPAdress + ":" + port + "...");
+        this.IPAdress = IPAdress;
+        this.port = port;
+        nextState = State.Connecting;
         synchronized(this) {
-            this.IPAdress = IPAdress;
-            this.port = port;
-            state = State.Connecting;
             this.notify();
-            hostSet = true;
-            LOGGER.info("[Client] Connecting to host at " + IPAdress + ":" + port + "...");
         }
+        hostSet = true;
+        LOGGER.info("[Client] Connecting to host at " + IPAdress + ":" + port + "...");
     }
 
     public void disconnect() {
-        if(state == State.Disconnecting || state == State.Disconnected) {
+    	LOGGER.info("[Client] Asked to disconnect.");
+    	State currentState;
+    	synchronized(this) {
+    		currentState = state;
+    	}
+        if(currentState == State.Disconnecting || currentState == State.Disconnected) {
             LOGGER.info("[Client] Can't disconnect, you aren't connected to any server");
+            return;
         }
-        state = State.Disconnecting;
+        nextState = State.Disconnecting;
         LOGGER.info("[Client] Disconnecting...");
     }
 
@@ -108,9 +125,21 @@ public class Client implements Runnable {
         updateBufferStartIndex = (updateBufferStartIndex + 1 ) % updateBuffer.length;
         return updateBuffer[resIndex];
     }
+    
+    public void shutdown() {
+		LOGGER.info("[Client] Shutting down for good...");
+		running = false;
+    	synchronized(this) {
+    		this.notify();
+    	}
+		nextState = State.ShuttingDown;
+    }
 
     public void run() {
-        while(true) {
+        while(running) {
+        	synchronized(this) {
+        		state = nextState;
+        	}
             switch (state) {
                 case Connecting :
                     startConnection();
@@ -131,6 +160,8 @@ public class Client implements Runnable {
                     }
                     break;
                 }
+                case ShuttingDown :
+                	break;
             }
             try {
                 Thread.sleep(1);
@@ -138,27 +169,31 @@ public class Client implements Runnable {
                 ie.printStackTrace();
             }
         }
+		LOGGER.info("[Client] Shut down.");
     }
 
     private void startConnection() {
         if(!hostSet) {
             LOGGER.warning("[Client] Can't connect, IPAdress or port is missing");
-            state = State.Disconnected;
+            nextState = State.Disconnected;
             return;
         }
         try {
-            socket = new Socket(IPAdress, port);
+        	socket = new Socket();
+        	socket.connect(new InetSocketAddress(IPAdress, port), 3000);
             socket.setSoTimeout(10);
             in = new ObjectInputStream(socket.getInputStream());
             out = new ObjectOutputStream(socket.getOutputStream());
             LOGGER.info("[Client] Connection established with host");
-            state = State.Connected;
+            nextState = State.Connected;
             updateTime = System.currentTimeMillis();
+        } catch (InterruptedIOException iioe) {
         } catch (UnknownHostException e) {
-            state = State.Disconnected;
+            nextState = State.Disconnected;
             LOGGER.warning("[Client] No host found at " + IPAdress + ":" + port);
         } catch (IOException e) {
-            state = State.Disconnected;
+            nextState = State.Disconnected;
+            LOGGER.warning("[Client] Connection could not be established with " + IPAdress + ":" + port);
             e.printStackTrace();
         }
     }
@@ -185,13 +220,14 @@ public class Client implements Runnable {
         clearEventBuffer();
         clearUpdateBuffer();
         try {
-			out.writeObject(new DisconnectEvent());
+        	if(out != null)
+			    out.writeObject(new DisconnectEvent());
 	        socket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
         LOGGER.info("[Client] Connection closed.");
-        state = State.Disconnected;
+        nextState = State.Disconnected;
     }
 
     private void sendEvents() {
@@ -230,7 +266,7 @@ public class Client implements Runnable {
         long currentTime = System.currentTimeMillis();
         if (currentTime - updateTime > 10000) {
             LOGGER.warning("[Client] Connection lost : no update received for too long");
-            state = State.Disconnecting;
+            nextState = State.Disconnecting;
         }
     }
 
