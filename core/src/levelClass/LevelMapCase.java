@@ -90,6 +90,7 @@ public class LevelMapCase {
 	}
 
 	public void updateContainsPushable() {
+		this.containsPushableEntity = false;
 		for (Entity e:entityStack) {
 			if (e.isPushable())
 			{

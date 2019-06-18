@@ -19,7 +19,6 @@ public abstract class Entity {
 		this.xPosition = x;
 		this.yPosition = y;
 		this.typeOfEntity =typeOfEntity;
-		this.isPushable=true;
 		
 	}
 

@@ -1,7 +1,8 @@
 package levelClass;
 
+import java.util.Collections;
 import java.util.LinkedList;
-import java.util.LinkedList;
+import java.util.List;
 
 public class LevelGroupOfEntities {
 	private LevelMap map;
@@ -109,6 +110,7 @@ public class LevelGroupOfEntities {
 	}
 	
 	public void moveLeft() {
+		Collections.sort(listOfEntities,new xPositionComparator());
 		for (Entity e : listOfEntities)
 		{
 			this.map.moveLeft(e);
@@ -116,6 +118,8 @@ public class LevelGroupOfEntities {
 	}
 	
 	public void moveRigth() {
+		Collections.sort(listOfEntities,new yPositionComparator());
+		Collections.reverse(listOfEntities);
 		for (Entity e : listOfEntities)
 		{
 			this.map.moveRigth(e);
@@ -123,6 +127,7 @@ public class LevelGroupOfEntities {
 	}
 	
 	public void moveUp() {
+		Collections.sort(listOfEntities,new xPositionComparator());
 		for (Entity e : listOfEntities)
 		{
 			this.map.moveUp(e);
@@ -130,6 +135,8 @@ public class LevelGroupOfEntities {
 	}
 	
 	public void moveDown() {
+		Collections.sort(listOfEntities,new xPositionComparator());
+		Collections.reverse(listOfEntities);
 		for (Entity e : listOfEntities)
 		{
 			this.map.moveDown(e);
