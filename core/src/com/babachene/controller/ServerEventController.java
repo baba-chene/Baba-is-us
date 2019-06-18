@@ -7,25 +7,25 @@ import com.babachene.cliserv.Event;
 import com.babachene.cliserv.Server;
 import com.babachene.cliserv.Update;
 import com.babachene.logic.Logic;
-import com.badlogic.gdx.InputProcessor;
+import com.babachene.userinput.EventGiver;
 
 public class ServerEventController {
 
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	private Server server;
-	private InputProcessor inputProcessor;
+	private EventGiver eventGiver;
 	private Logic logic;
 
 	private ArrayBlockingQueue<Event> eventBuffer;
 	private int eventBufferLength;
 	private Update update;
 
-    public ServerEventController(Server server, InputProcessor inputProcessor, Logic logic, int eventBufferLength) {
+    public ServerEventController(Server server, EventGiver eventGiver, Logic logic, int eventBufferLength) {
     	
 		this.eventBufferLength = eventBufferLength;
 		this.server = server;
-		this.inputProcessor = inputProcessor;
+		this.eventGiver = eventGiver;
 		this.logic = logic;
         eventBuffer = new ArrayBlockingQueue<Event>(eventBufferLength);
         
@@ -42,8 +42,8 @@ public class ServerEventController {
     private void fetchEvents() {
         if(!server.isEventBufferEmpty())
             addEvent(server.getEvent());
-        if(!inputProcessor.isEventBufferEmpty())
-            addEvent(inputProcessor.getEvent());
+        if(eventGiver.size() > 0)
+            addEvent(eventGiver.pollEvent());
     }
 
     private boolean solveEvent() {
