@@ -9,6 +9,8 @@ public class MainTest {
 		LevelMap map = new LevelMap(5,5);
 	//	EntityBaba baba = new EntityBaba(2,2,map);
 		map.addEntity(2, 2, "rock");
+		map.addEntity(2, 3, "rock");
+		map.addEntity(3, 2, "rock");
 		String test = "textrock";
 		System.out.println(test.substring(4));
 		map.moveRigth("rock");

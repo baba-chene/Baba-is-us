@@ -15,15 +15,17 @@ public class LevelMap {
 		super();
 		this.xLength = xLength;
 		this.yLength = yLength;
+		this.mapEntities = new LinkedList<LevelGroupOfEntities>();
+		this.existingGroups = new LinkedList<String>();
+		this.numberOfGroupEntities = 0;
 		mapMatrix = new LevelMapCase[xLength][yLength];
 		for (int i = 0;i< xLength; i++) {
 			for (int j = 0;j< yLength; j++) {
 				mapMatrix[i][j] = new LevelMapCase(i, j, this);
+				this.addEntity(i, j, new EntityEmpty(i, j, this));
 			}
 	}
-		this.mapEntities = new LinkedList<LevelGroupOfEntities>();
-		this.existingGroups = new LinkedList<String>();
-		this.numberOfGroupEntities = 0;
+
 	}
 
 	public LinkedList<LevelGroupOfEntities> getMapEntities() {
@@ -202,6 +204,19 @@ public class LevelMap {
 			}
 			this.mapEntities.get(i).addEntity(entity);
 		}
+	}
+	
+	public void removeEntity(Entity entity) {
+		String entityType = entity.getTypeOfEntity();
+		int x = entity.getxPosition();
+		int y = entity.getyPosition();
+		this.mapMatrix[x][y].removeEntity(entity);
+		int i = 0;
+		while (this.mapEntities.get(i).getTypeOfEntities() != entityType)
+		{
+			i++;
+		}
+		this.mapEntities.get(i).removeEntity(entity);
 	}
 	
 	public void addEntity(int x, int y, String typeOfEntity)
