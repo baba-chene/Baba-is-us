@@ -16,4 +16,9 @@ public abstract class Renderer {
 	 */
 	abstract void render();
 	
+	/*
+	 * Considered method. In case the renderers stores their data (i.e. x y) and
+	 * require a call to update() to upadte any data.
+	 */
+	//update()
 }

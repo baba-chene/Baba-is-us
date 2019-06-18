@@ -1,13 +1,12 @@
 package com.babachene.libgdx;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 /**
  * Root class for all the states of the game. It handles basic
  * libgdx stuff, and awaits implementation for the three method
  * that are called in the game loop :
- * <code><li>processInput</li>
+ * <li><code>processInput</code> (already depreciated)</li><code>
  * <li>update</li>
  * <li>render</li>
  * </code>
@@ -32,9 +31,12 @@ public abstract class GameState {
 	
 	/**
 	 * Process the user's input. Not to be mistaken
-	 * with <code>update()</code>.
+	 * with <code>update()</code>
+	 * <p>
+	 * <u>HOWERVER</u><br>There is another way to process input which
+	 * is libgdx's InputProcessor interface.
 	 */
-	public abstract void processInput();
+	public void processInput() {}
 	
 	/**
 	 * Update this game state, the <code>processInput</code>

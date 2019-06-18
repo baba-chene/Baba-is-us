@@ -1,6 +1,6 @@
 package com.babachene.libgdx;
 
-import com.babachene.libgdx.test.TestGameState;
+import com.babachene.libgdx.gui.MainMenu;
 
 public class MainGame extends StateBasedGame {
 	
@@ -12,8 +12,7 @@ public class MainGame extends StateBasedGame {
 	
 	@Override
 	public void create() {
-		
-		TestGameState.main(this);
+		this.push(new MainMenu());
 	}
 	
 	
