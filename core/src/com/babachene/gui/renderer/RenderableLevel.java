@@ -1,4 +1,4 @@
-package com.babachene.libgdx.renderer;
+package com.babachene.gui.renderer;
 
 /**
  * Represents a level. It should take up the entire

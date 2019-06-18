@@ -1,4 +1,4 @@
-package com.babachene.libgdx.renderer;
+package com.babachene.gui.renderer;
 
 /**
  * Objects designed to render graphics.

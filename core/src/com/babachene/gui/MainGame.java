@@ -1,6 +1,6 @@
-package com.babachene.libgdx;
+package com.babachene.gui;
 
-import com.babachene.libgdx.gui.MainMenu;
+import com.babachene.gui.menus.MainMenu;
 
 public class MainGame extends StateBasedGame {
 	

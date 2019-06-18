@@ -1,4 +1,4 @@
-package com.babachene.libgdx;
+package com.babachene.gui;
 
 /**
  * A wrapper class for storing the most global data

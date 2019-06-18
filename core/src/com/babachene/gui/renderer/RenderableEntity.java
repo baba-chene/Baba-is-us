@@ -1,4 +1,4 @@
-package com.babachene.libgdx.renderer;
+package com.babachene.gui.renderer;
 
 /**
  * Represents an entity that is to be rendered. It must provide

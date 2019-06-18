@@ -1,4 +1,4 @@
-package com.babachene.libgdx;
+package com.babachene.gui;
 
 import java.util.Deque;
 import java.util.LinkedList;

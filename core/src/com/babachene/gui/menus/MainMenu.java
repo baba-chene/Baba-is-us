@@ -1,7 +1,7 @@
-package com.babachene.libgdx.gui;
+package com.babachene.gui.menus;
 
-import com.babachene.libgdx.BabaIsUs;
-import com.babachene.libgdx.GameState;
+import com.babachene.gui.BabaIsUs;
+import com.babachene.gui.GameState;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;

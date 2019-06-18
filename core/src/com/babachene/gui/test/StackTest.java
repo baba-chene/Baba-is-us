@@ -1,8 +1,8 @@
-package com.babachene.libgdx.test;
+package com.babachene.gui.test;
 
-import com.babachene.libgdx.GameState;
-import com.babachene.libgdx.MainGame;
-import com.babachene.libgdx.StateBasedGame;
+import com.babachene.gui.GameState;
+import com.babachene.gui.MainGame;
+import com.babachene.gui.StateBasedGame;
 
 public class StackTest {
 

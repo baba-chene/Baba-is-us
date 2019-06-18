@@ -1,8 +1,8 @@
-package com.babachene.libgdx.test;
+package com.babachene.gui.test;
 
-import com.babachene.libgdx.BabaIsUs;
-import com.babachene.libgdx.GameState;
-import com.babachene.libgdx.MainGame;
+import com.babachene.gui.BabaIsUs;
+import com.babachene.gui.GameState;
+import com.babachene.gui.MainGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;

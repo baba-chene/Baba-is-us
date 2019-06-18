@@ -1,4 +1,4 @@
-package com.babachene.libgdx;
+package com.babachene.gui;
 
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
