@@ -18,7 +18,7 @@ Baba is us is a video game made for a school project. It is heavily inspired fro
 - [ ] Rendering
 - [ ] Editor
 
-##### Server/Client
+##### [Server/Client](https://github.com/baba-chene/Baba-is-us/tree/server-client/core/src/com/babachene/cliserv)
 
 - [x] Client sockets
 - [x] Server sockets
