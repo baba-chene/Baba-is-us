@@ -9,7 +9,7 @@ public class MainTest {
 		EntityBaba baba = new EntityBaba(4,0,map);
 		EntityRock rock1 = new EntityRock(3,0,map);
 		EntityRock rock2 = new EntityRock(2,0,map);
-		map.moveUp(baba);
+		map.moveRigth("Rock");
 		System.out.println(rock1.getyPosition());
 		map.moveUp(baba);
 		System.out.println(rock1.getyPosition());

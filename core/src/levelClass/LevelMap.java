@@ -8,6 +8,7 @@ public class LevelMap {
 	private int yLength;	
 	private int numberOfGroupEntities;
 	private LinkedList<LevelGroupOfEntities> mapEntities;
+	private LinkedList<String> existingGroups;
 	private LevelMapCase[][] mapMatrix;
 
 	public LevelMap(int xLength, int yLength) { //Creates a map of dimension xLength*yLength with cases filled with "empty".
@@ -21,6 +22,7 @@ public class LevelMap {
 			}
 	}
 		this.mapEntities = new LinkedList<LevelGroupOfEntities>();
+		this.existingGroups = new LinkedList<String>();
 		this.numberOfGroupEntities = 0;
 	}
 
@@ -163,7 +165,7 @@ public class LevelMap {
 		moveLeft(entity.getxPosition(),entity.getyPosition(),list);
 	}
 	
-	public boolean moveLeft(int x, int y, LinkedList<Entity> list) {
+	public boolean moveLeft(int x, int y, LinkedList<Entity> list) {                 //Recursively finds the pushable entities that needs to move.
 		LinkedList<Entity> entitiesMoved = list;
 		if (y > 0)
 		{
@@ -181,19 +183,73 @@ public class LevelMap {
 	}
 	
 	public void addEntity(int x, int y, Entity entity) {
-		this.mapMatrix[x][y].addEntity(entity);
-		boolean groupExists = false;
-		for (int i =0; i< numberOfGroupEntities;i++) {
-
+		this.mapMatrix[x][y].addEntity(entity);										//First we add the entity to the corresponding map case
+		String entityType = entity.getTypeOfEntity();
+		if (!existingGroups.contains(entityType))									//Then we add the entity to the corresponding group of entities. If the group doesn't exist we create one.
+		{																			
+			LevelGroupOfEntities group = new LevelGroupOfEntities(entityType,this);
+			group.addEntity(entity);
+			this.mapEntities.add(group);
+			this.existingGroups.add(entityType);
+		}
+		else
+		{
+			int i = 0;
+			while (this.mapEntities.get(i).getTypeOfEntities() != entityType)
+			{
+				i++;
+			}
+			this.mapEntities.get(i).addEntity(entity);
 		}
 	}
 	
-	public void clearEntities(int x, int y)
+	public void clearEntities(int x, int y)										//Removes all the entities from a Map case.
 	{
 		this.mapMatrix[x][y].clearEntities();
 	}
 	
 	public LevelMapCase getMapCase(int x, int y) {
 		return this.mapMatrix[x][y];
+	}
+	
+	public void moveRigth(String s) {
+		if (existingGroups.contains(s)) {
+			int i = 0;
+			while (mapEntities.get(i).getTypeOfEntities() != s) {
+				i++;
+			}
+			mapEntities.get(i).moveRigth();
+		}
+			
+	}
+	public void moveLeft(String s) {
+		if (existingGroups.contains(s)) {
+			int i = 0;
+			while (mapEntities.get(i).getTypeOfEntities() != s) {
+				i++;
+			}
+			mapEntities.get(i).moveLeft();
+		}
+			
+	}
+	public void moveUp(String s) {
+		if (existingGroups.contains(s)) {
+			int i = 0;
+			while (mapEntities.get(i).getTypeOfEntities() != s) {
+				i++;
+			}
+			mapEntities.get(i).moveUp();
+		}
+			
+	}
+	public void moveDown(String s) {
+		if (existingGroups.contains(s)) {
+			int i = 0;
+			while (mapEntities.get(i).getTypeOfEntities() != s) {
+				i++;
+			}
+			mapEntities.get(i).moveDown();
+		}
+			
 	}
 }

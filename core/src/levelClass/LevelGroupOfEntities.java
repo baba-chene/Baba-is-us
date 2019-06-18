@@ -4,13 +4,15 @@ import java.util.LinkedList;
 import java.util.LinkedList;
 
 public class LevelGroupOfEntities {
+	private LevelMap map;
 	private String typeOfEntities;
 	private int numberOfEntities;
 	private LinkedList<Entity> listOfEntities;
 	private LevelPlayer player;
 
-	public LevelGroupOfEntities(String typeOfEntities) {
+	public LevelGroupOfEntities(String typeOfEntities, LevelMap map) {
 		super();
+		this.map= map;
 		this.typeOfEntities = typeOfEntities;
 		this.numberOfEntities = 0;
 		this.listOfEntities = new LinkedList<Entity>();
@@ -106,7 +108,33 @@ public class LevelGroupOfEntities {
 		}
 	}
 	
+	public void moveLeft() {
+		for (Entity e : listOfEntities)
+		{
+			this.map.moveLeft(e);
+		}
+	}
 	
+	public void moveRigth() {
+		for (Entity e : listOfEntities)
+		{
+			this.map.moveRigth(e);
+		}
+	}
+	
+	public void moveUp() {
+		for (Entity e : listOfEntities)
+		{
+			this.map.moveUp(e);
+		}
+	}
+	
+	public void moveDown() {
+		for (Entity e : listOfEntities)
+		{
+			this.map.moveDown(e);
+		}
+	}
 	
 	
 	
