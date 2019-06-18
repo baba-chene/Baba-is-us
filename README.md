@@ -20,8 +20,8 @@ Baba is us is a video game made for a school project. It is heavily inspired fro
 
 ##### Server/Client
 
-- [ ] Client sockets
-- [ ] Server sockets
+- [x] Client sockets
+- [x] Server sockets
 - [ ] APIs
 
 ##### Navigation
