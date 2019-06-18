@@ -118,7 +118,7 @@ public class Server implements Runnable {
 		nextState = State.ShuttingDown;
     }
 
-    public void addUpdate(Update update) {
+    public synchronized void addUpdate(Update update) {
         if(updateBufferSize < updateBuffer.length) {
             updateBuffer[updateBufferSize] = update;
             updateBufferSize++;
@@ -126,11 +126,11 @@ public class Server implements Runnable {
             LOGGER.warning("[Server] Buffer full, update dropped");
     }
 
-    public boolean isEventBufferEmpty() {
+    public synchronized boolean isEventBufferEmpty() {
         return eventBufferSize == 0;
     }
 
-    public Event getEvent() {
+    public synchronized Event getEvent() {
         eventBufferSize--;
         int resIndex = eventBufferStartIndex;
         eventBufferStartIndex = (eventBufferStartIndex + 1 ) % eventBuffer.length;
@@ -217,7 +217,7 @@ public class Server implements Runnable {
     	}
     }
 
-    private void clearUpdateBuffer() {
+    private synchronized void clearUpdateBuffer() {
         for (int i = 0; i < updateBufferSize; i++) {
             updateBuffer[i] = null;
         }
@@ -225,7 +225,7 @@ public class Server implements Runnable {
         LOGGER.fine("[Server] Update buffer cleared");
     }
 
-    private void clearEventBuffer() {
+    private synchronized void clearEventBuffer() {
         int n = eventBuffer.length;
         for (int i = 0; i < eventBufferSize; i++) {
             eventBuffer[(i + eventBufferStartIndex) % n] = null;
@@ -261,15 +261,20 @@ public class Server implements Runnable {
 
     private void sendUpdates() {
     	boolean sent = false;
-        for (int i = 0; i < updateBufferSize; i++) {
-            try {
-				out.writeObject(updateBuffer[i]);
-				sent = true;
-	            lastUpdateTime = System.currentTimeMillis();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-        }
+    	
+    	synchronized(this) {
+            for (int i = 0; i < updateBufferSize; i++) {
+                try {
+			    	out.writeObject(updateBuffer[i]);
+				    sent = true;
+	                lastUpdateTime = System.currentTimeMillis();
+			    } catch (IOException e) {
+				    e.printStackTrace();
+			    }
+            }
+            clearUpdateBuffer();
+    	}
+    	
         long currentTime = System.currentTimeMillis();
         if(currentTime - lastUpdateTime > 1000) {
             try {
@@ -281,6 +286,7 @@ public class Server implements Runnable {
 				e.printStackTrace();
 			}
         }
+        
         if(sent) {
             try {
     			out.flush();
@@ -288,7 +294,6 @@ public class Server implements Runnable {
     			e.printStackTrace();
     		}
         }
-        clearUpdateBuffer();
     }
     
     private void checkTime() {
@@ -305,11 +310,13 @@ public class Server implements Runnable {
             eventTime = System.currentTimeMillis();
             event.updateConnection(this);
 
-            if(eventBufferSize < eventBuffer.length) {
-                eventBuffer[eventBufferSize] = event;
-                eventBufferSize++;
-            } else
-                LOGGER.warning("[Server] Buffer full, event dropped");
+            synchronized(this) {
+                if(eventBufferSize < eventBuffer.length) {
+                    eventBuffer[eventBufferSize] = event;
+                    eventBufferSize++;
+                } else
+                    LOGGER.warning("[Server] Buffer full, event dropped");
+            }
 
         } catch (InterruptedIOException iioe) {
         	checkTime();

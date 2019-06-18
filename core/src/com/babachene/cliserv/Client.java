@@ -117,7 +117,7 @@ public class Client implements Runnable {
         LOGGER.info("[Client] Disconnecting...");
     }
 
-    public void addEvent(Event event) {
+    public synchronized void addEvent(Event event) {
         if(eventBufferSize < eventBuffer.length) {
             eventBuffer[eventBufferSize] = event;
             eventBufferSize++;
@@ -125,11 +125,11 @@ public class Client implements Runnable {
             LOGGER.warning("[Client] Buffer full, event dropped");
     }
 
-    public boolean isUpdateBufferEmpty() {
+    public synchronized boolean isUpdateBufferEmpty() {
         return updateBufferSize == 0;
     }
 
-    public Update getUpdate() {
+    public synchronized Update getUpdate() {
         updateBufferSize--;
         int resIndex = updateBufferStartIndex;
         updateBufferStartIndex = (updateBufferStartIndex + 1 ) % updateBuffer.length;
@@ -210,7 +210,7 @@ public class Client implements Runnable {
         }
     }
 
-    private void clearEventBuffer() {
+    private synchronized void clearEventBuffer() {
         for (int i = 0; i < eventBufferSize; i++) {
             eventBuffer[i] = null;
         }
@@ -218,7 +218,7 @@ public class Client implements Runnable {
         LOGGER.fine("[Client] Event buffer cleared");
     }
 
-    private void clearUpdateBuffer() {
+    private synchronized void clearUpdateBuffer() {
         int n = updateBuffer.length;
         for (int i = 0; i < updateBufferSize; i++) {
             eventBuffer[(i + updateBufferStartIndex) % n] = null;
@@ -244,15 +244,20 @@ public class Client implements Runnable {
 
     private void sendEvents() {
     	boolean sent = false;
-        for (int i = 0; i < eventBufferSize; i++) {
-            try {
-				out.writeObject(eventBuffer[i]);
-				sent = true;
-	            lastEventTime = System.currentTimeMillis();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-        }
+    	
+    	synchronized(this) {
+            for (int i = 0; i < eventBufferSize; i++) {
+                try {
+    				out.writeObject(eventBuffer[i]);
+    				sent = true;
+    	            lastEventTime = System.currentTimeMillis();
+    			} catch (IOException e) {
+    				e.printStackTrace();
+    			}
+            }
+            clearEventBuffer();
+    	}
+    	
         long currentTime = System.currentTimeMillis();
         if(currentTime - lastEventTime > 1000) {
             try {
@@ -264,6 +269,7 @@ public class Client implements Runnable {
 				e.printStackTrace();
 			}
         }
+        
         if(sent) {
             try {
     			out.flush();
@@ -271,7 +277,6 @@ public class Client implements Runnable {
     			e.printStackTrace();
     		}     	
         }
-        clearEventBuffer();
     }
     
     private void checkTime() {
@@ -288,11 +293,13 @@ public class Client implements Runnable {
             updateTime = System.currentTimeMillis();
             update.updateConnection(this);
 
-            if(updateBufferSize < updateBuffer.length) {
-                updateBuffer[updateBufferSize] = update;
-                updateBufferSize++;
-            } else
-                LOGGER.warning("[Client] Buffer full, update dropped");
+            synchronized(this) {
+                if(updateBufferSize < updateBuffer.length) {
+                    updateBuffer[updateBufferSize] = update;
+                    updateBufferSize++;
+                } else
+                    LOGGER.warning("[Client] Buffer full, update dropped");
+            }
 
         } catch (InterruptedIOException iioe) {
         	checkTime();
