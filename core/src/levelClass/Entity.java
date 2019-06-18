@@ -2,7 +2,8 @@ package levelClass;
 
 public abstract class Entity {
 
-	protected boolean isAlive;
+	private final String typeOfEntity;
+
 	protected LevelMap map;
 	protected int xPosition;
 	protected int yPosition;
@@ -12,39 +13,39 @@ public abstract class Entity {
 	protected boolean isWin;
 
 
-	public Entity(int x, int y, LevelMap map) {
+	public Entity(int x, int y, LevelMap map,String typeOfEntity) {
 		super();
 		this.map = map;
 		this.xPosition = x;
 		this.yPosition = y;
+		this.typeOfEntity =typeOfEntity;
+		this.isPushable=true;
+		
 	}
 
 
-
-	public boolean isAlive() {
-		return isAlive;
-	}
-	public void setAlive(boolean isAlive) {
-		this.isAlive = isAlive;
-	}
 
 	public boolean isPushable() {
 		return isPushable;
 	}
 	public void setPushable(boolean isPushable) {
 		this.isPushable = isPushable;
+		this.map.getMapCase(xPosition, yPosition).updateContainsPushable();
 	}
 	public boolean isSink() {
 		return isSink;
 	}
 	public void setSink(boolean isSink) {
 		this.isSink = isSink;
+		this.map.getMapCase(xPosition, yPosition).updateIsSink();
 	}
 	public boolean isBlock() {
 		return isBlock;
 	}
-	public void setStop(boolean isStop) {
-		this.isBlock = isStop;
+	public void setBlock(boolean isBlock) {
+		this.isBlock = isBlock;
+		this.map.getMapCase(xPosition, yPosition).updateIsFree();
+
 	}
 	public boolean isWin() {
 		return isWin;
@@ -76,4 +77,9 @@ public abstract class Entity {
 	public void setyPosition(int yPosition) {
 		this.yPosition = yPosition;
 	}
+	
+	public String getTypeOfEntity() {
+		return typeOfEntity;
+	}
+	
 }

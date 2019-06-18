@@ -1,12 +1,12 @@
 package levelClass;
 
 import java.util.LinkedList;
-import java.util.LinkedList;
 
 public class LevelMap {
 
 	private int xLength;
 	private int yLength;	
+	private int numberOfGroupEntities;
 	private LinkedList<LevelGroupOfEntities> mapEntities;
 	private LevelMapCase[][] mapMatrix;
 
@@ -21,6 +21,7 @@ public class LevelMap {
 			}
 	}
 		this.mapEntities = new LinkedList<LevelGroupOfEntities>();
+		this.numberOfGroupEntities = 0;
 	}
 
 	public LinkedList<LevelGroupOfEntities> getMapEntities() {
@@ -181,10 +182,18 @@ public class LevelMap {
 	
 	public void addEntity(int x, int y, Entity entity) {
 		this.mapMatrix[x][y].addEntity(entity);
+		boolean groupExists = false;
+		for (int i =0; i< numberOfGroupEntities;i++) {
+
+		}
 	}
 	
 	public void clearEntities(int x, int y)
 	{
 		this.mapMatrix[x][y].clearEntities();
+	}
+	
+	public LevelMapCase getMapCase(int x, int y) {
+		return this.mapMatrix[x][y];
 	}
 }

@@ -7,6 +7,7 @@ public class LevelMapCase {
 	private int xPosition;
 	private int yPosition;
 	private int blockEntityCounter;
+	private boolean isSink;
 	private boolean isFree;
 	private boolean containsPushableEntity;
 	private LinkedList<Entity> pushableEntityList;
@@ -60,24 +61,43 @@ public class LevelMapCase {
 		
 	}
 	
+
 	public LinkedList<Entity> getPushableEntityList() {
 		return pushableEntityList;
 	}
 	public void setPushableEntityList(LinkedList<Entity> pushableEntityList) {
 		this.pushableEntityList = pushableEntityList;
 	}
+	
+	public void setFree(boolean isFree) {
+		this.isFree = isFree;
+	}
+	
+	public void updateIsSink() {
+		this.isSink = false;
+		for (Entity e:entityStack) {
+			if (e.isSink())
+				this.isSink=true;
+		}
+	}
+	
 	public void updateIsFree() {
-		if (blockEntityCounter>0 || !(pushableEntityList.isEmpty()))
-			isFree = false;
-		else
-			isFree = true;
+		this.isFree = true;
+		for (Entity e:entityStack) {
+			if (e.isBlock() || e.isPushable)
+				this.isFree = false;
+		}
 	}
 
 	public void updateContainsPushable() {
-		if (pushableEntityList.isEmpty())
-			containsPushableEntity = false;
-		else
-			containsPushableEntity = true;
+		for (Entity e:entityStack) {
+			if (e.isPushable())
+			{
+				this.containsPushableEntity = true;
+				if(!(pushableEntityList.contains(e)))
+					pushableEntityList.add(e);
+			}
+		}
 	}
 	
 	public void clearEntities() {
