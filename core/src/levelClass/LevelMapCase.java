@@ -6,18 +6,20 @@ public class LevelMapCase {
 
 	private int xPosition;
 	private int yPosition;
-	private int blockEntityCounter;
 	private boolean isSink;
+	private Entity sinkEntity;
 	private boolean isFree;
 	private boolean containsPushableEntity;
+	private boolean isEmpty;
 	private LinkedList<Entity> pushableEntityList;
 	private LinkedList<Entity> entityStack;
 
 	public LevelMapCase(int x, int y, LevelMap map) {
 		this.xPosition = x;
 		this.yPosition = y;
-		this.blockEntityCounter =0;
 		this.isFree = true;
+		this.isEmpty = true;
+		this.isSink = false;
 		this.containsPushableEntity = false;
 		this.entityStack = new LinkedList<Entity>();
 		entityStack.add(new EntityEmpty(x, y, map));
@@ -39,18 +41,25 @@ public class LevelMapCase {
 		entityStack.add(entity);
 		if (entity.isPushable())
 			pushableEntityList.add(entity);
-		if(entity.isBlock)
-			blockEntityCounter +=1;
+		if (entity.isSink())
+			sinkEntity = entity;
+		if (entityStack.size()>1)
+		{
+			removeEmpty();
+		}
+			
 		updateIsFree();
 		updateContainsPushable();
+		updateIsSink();
+		
+			
 	}
 	
 	public void removeEntity(Entity entity) {
 		if (entityStack.contains(entity))
 		{
 			entityStack.remove(entity);
-			if (entity.isBlock())
-				blockEntityCounter -=1;
+
 		}
 		if (pushableEntityList.contains(entity))
 		{
@@ -79,6 +88,7 @@ public class LevelMapCase {
 			if (e.isSink())
 				this.isSink=true;
 		}
+		
 	}
 	
 	public void updateIsFree() {
@@ -101,6 +111,9 @@ public class LevelMapCase {
 		}
 	}
 	
+	public void removeEmpty() {
+		
+	}
 	public void clearEntities() {
 		this.entityStack = new LinkedList<Entity>();
 	}

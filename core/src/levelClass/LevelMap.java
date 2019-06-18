@@ -189,6 +189,7 @@ public class LevelMap {
 		{																			
 			LevelGroupOfEntities group = new LevelGroupOfEntities(entityType,this);
 			group.addEntity(entity);
+			this.numberOfGroupEntities ++;
 			this.mapEntities.add(group);
 			this.existingGroups.add(entityType);
 		}
@@ -200,6 +201,36 @@ public class LevelMap {
 				i++;
 			}
 			this.mapEntities.get(i).addEntity(entity);
+		}
+	}
+	
+	public void addEntity(int x, int y, String typeOfEntity)
+	{
+		switch(typeOfEntity)
+		{
+		case "baba":
+			addEntity(x,y,new EntityBaba(x,y,this));
+			break;
+		case "empty":
+			addEntity(x,y,new EntityEmpty(x,y,this));
+			break;
+		case "wall":
+			addEntity(x,y,new EntityWall(x,y,this));
+			break;
+		case "water":
+			addEntity(x,y,new EntityWater(x,y,this));
+			break;
+		case "lava":
+			addEntity(x,y,new EntityLava(x,y,this));
+			break;
+		case "rock":
+			addEntity(x,y,new EntityRock(x,y,this));
+			break;
+		case "skull":
+			addEntity(x,y,new EntitySkull(x,y,this));
+			break;
+		default:
+			addEntity(x,y,new EntityText(x,y,this,typeOfEntity));
 		}
 	}
 	
