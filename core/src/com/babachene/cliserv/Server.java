@@ -307,12 +307,13 @@ public class Server implements Runnable {
     private void receiveEvents() {
         try {
             Event event = (Event) in.readObject();
+        	LOGGER.info("[Server] Event received");
             eventTime = System.currentTimeMillis();
             event.updateConnection(this);
 
             synchronized(this) {
                 if(eventBufferSize < eventBuffer.length) {
-                    eventBuffer[eventBufferSize] = event;
+                    eventBuffer[eventBufferStartIndex + eventBufferSize] = event;
                     eventBufferSize++;
                 } else
                     LOGGER.warning("[Server] Buffer full, event dropped");
