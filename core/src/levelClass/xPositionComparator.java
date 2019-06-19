@@ -2,6 +2,9 @@ package levelClass;
 import java.util.Comparator;
 
 public class xPositionComparator implements Comparator<Entity> {
+	/*
+	 * Simply allows to sort entities by their xPosition, to prevent some bugs.
+	 */
 
 	@Override
 	public int compare(Entity e1, Entity e2) {

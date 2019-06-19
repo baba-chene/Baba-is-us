@@ -11,8 +11,6 @@ public class MainTest {
 		map.addEntity(2, 2, "rock");
 		map.addEntity(2, 3, "rock");
 		map.addEntity(3, 2, "rock");
-		String test = "textrock";
-		System.out.println(test.substring(4));
 		map.moveRigth("rock");
 		map.moveUp("rock");
 		map.moveLeft("rock");

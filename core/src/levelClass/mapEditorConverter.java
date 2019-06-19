@@ -5,6 +5,9 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class mapEditorConverter {
+	/* This class is used to convert the data from the level editor into level data that is actually playable. 
+	 * It first reads the file and then convert it to a LevelMap object with the good properties.
+	 */
 private int largeur;
 private int hauteur;
 private String[][] tab;
@@ -14,8 +17,8 @@ public mapEditorConverter(int largeur, int hauteur) {
 	super();
 	this.largeur = largeur;
 	this.hauteur = hauteur;
-	this.tab = new String[hauteur][largeur];
-	this.map = new LevelMap(hauteur, largeur);
+	this.tab = new String[hauteur][largeur]; //This will contains the input of the file
+	this.map = new LevelMap(hauteur, largeur); //This is the result of the main method.
 }
 
 public void open(String fileName) throws IOException {

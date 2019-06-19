@@ -5,6 +5,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class LevelGroupOfEntities {
+	
+	/* Basically is an list of entities of the same type. They are mainly so that the player can control different entities
+	 * of the map at the same time. It also allows to manage the rules easily, if a rules changes like for example "rock is push",
+	 * we just have to apply the rule to the group of entity and it will set all the rocks to isPush." 
+	 */
 	private LevelMap map;
 	private String typeOfEntities;
 	private int numberOfEntities;
@@ -14,9 +19,9 @@ public class LevelGroupOfEntities {
 	public LevelGroupOfEntities(String typeOfEntities, LevelMap map) {
 		super();
 		this.map= map;
-		this.typeOfEntities = typeOfEntities;
+		this.typeOfEntities = typeOfEntities; //There is only one type of entity allowed in a Group of entities
 		this.numberOfEntities = 0;
-		this.listOfEntities = new LinkedList<Entity>();
+		this.listOfEntities = new LinkedList<Entity>(); //Contains the entities of the group
 		player = new LevelPlayer();
 	}
 
@@ -61,7 +66,8 @@ public class LevelGroupOfEntities {
 		}
 	}
 	
-	public void groupIsBlock() {
+	//The following methods set the attributes isWin, isPush ... to true or false to all the entities of the group.
+	public void groupIsBlock() {             
 		for (Entity e :listOfEntities) {
 			e.setBlock(true);
 		}
@@ -108,6 +114,8 @@ public class LevelGroupOfEntities {
 			e.setWin(false);
 		}
 	}
+	
+	//The following methods move all the entities of the group if it's possible.
 	
 	public void moveLeft() {
 		Collections.sort(listOfEntities,new xPositionComparator());

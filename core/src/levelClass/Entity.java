@@ -2,7 +2,11 @@ package levelClass;
 
 public abstract class Entity {
 
-	private final String typeOfEntity;
+	/* An entity in the game represents an object that has some properties. The entity can be several things,
+	 * like a rock, Baba, a wall, empty or even some text. The properties are the ability to be pushed, to make
+	 * a map case blocking the players moves. 
+	 */
+	private final String typeOfEntity; //Rock, Baba, Wall..
 
 	protected LevelMap map;
 	protected int xPosition;

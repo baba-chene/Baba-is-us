@@ -3,20 +3,25 @@ package levelClass;
 import java.util.LinkedList;
 
 public class LevelMapCase {
+	/* A case of the map contains a lot of information. First of all it contains the stack of entities that are located on this case
+	 * but also the properties of the entities that it contains.  
+	 */
 
 	private int xPosition;
 	private int yPosition;
 	private LevelMap map;
-	private boolean isSink;
-	private Entity sinkEntity;
-	private EntityEmpty entityEmpty;
-	private boolean isFree;
+	private boolean isSink;			 //True if it contains an entity with isSink
+	private Entity sinkEntity; 		 //There can only be one entity with isSink, we keep track of it to destroy it if another entity comes by.
+	private EntityEmpty entityEmpty; //This entity will be alone in the stack as long as there is no other entities. It comes back in the stack
+									 //after all the other entities of the case moved.
+	private boolean isFree;			 //Means that there is no pushable or block entities on the case
 	private boolean containsPushableEntity;
-	private boolean isEmpty;
+	private boolean isEmpty;		 //There is only entityEmpty in the stack. 
 	private LinkedList<Entity> pushableEntityList;
 	private LinkedList<Entity> entityStack;
 
 	public LevelMapCase(int x, int y, LevelMap map) {
+		//Only used when a map is created and before adding anything to it, so it's initially empty.
 		this.xPosition = x;
 		this.yPosition = y;
 		this.map = map;
@@ -42,36 +47,27 @@ public class LevelMapCase {
 
 	public void addEntity(Entity entity) {
 		entityStack.add(entity);
-		if(entity.getTypeOfEntity()== "empty")           //Is only used when the map is created, to ensure there is always an EmptyEntity in Empty cases.  
+		if(entity.getTypeOfEntity()== "empty")       //Is only used when the map is created, to ensure there is always an EmptyEntity in Empty cases.  
 			this.entityEmpty = (EntityEmpty) entity;
 		if (entity.isPushable())
 			pushableEntityList.add(entity);
 		if (entity.isSink())
 			sinkEntity = entity;
-		if (entityStack.size()>1) // We remove the EntityEmpty when something else is on the case
+		if (entityStack.size()>1)					 // We remove the EntityEmpty when something else is on the case
 		{
 			removeEntityEmpty();
-		}
-			
+		}											 //We look if the new entity has special effects on the case
 		updateIsFree();
 		updateContainsPushable();
-		updateIsSink();
-		
-			
+		updateIsSink();	
 	}
 	
 	public void removeEntity(Entity entity) {
-		if (entityStack.contains(entity))
-		{
-			entityStack.remove(entity);
-
-		}
-		if (pushableEntityList.contains(entity))
-		{
-			pushableEntityList.remove(entity);
-		}
+		entityStack.remove(entity);
+		pushableEntityList.remove(entity);
 		if (entityStack.isEmpty())
 			this.map.addEntity(xPosition, yPosition, entityEmpty);
+		 															//We look if the removal of the entity has special effects on the case
 		updateIsFree();
 		updateContainsPushable();
 		
@@ -89,7 +85,7 @@ public class LevelMapCase {
 		this.isFree = isFree;
 	}
 	
-	public void updateIsSink() {
+	public void updateIsSink() { //We look after all the entities to check if one is Sink, so we initially set it to false.
 		this.isSink = false;
 		for (Entity e:entityStack) {
 			if (e.isSink())
@@ -112,7 +108,7 @@ public class LevelMapCase {
 			if (e.isPushable())
 			{
 				this.containsPushableEntity = true;
-				if(!(pushableEntityList.contains(e)))
+				if(!(pushableEntityList.contains(e))) //To avoid duplicates.
 					pushableEntityList.add(e);
 			}
 		}

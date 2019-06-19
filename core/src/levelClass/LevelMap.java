@@ -4,11 +4,14 @@ import java.util.LinkedList;
 
 public class LevelMap {
 
+	/* The map in the game controls everything in the level. As it has an overall view of the available tiles of the map, it gives
+	 * the possibility to add/remove an entity in the level, but also to move the entities. 
+	 */
 	private int xLength;
 	private int yLength;	
 	private int numberOfGroupEntities;
-	private LinkedList<LevelGroupOfEntities> mapEntities;
-	private LinkedList<String> existingGroups;
+	private LinkedList<LevelGroupOfEntities> mapEntities; //All the existing group of entities in the map, initially there is only the group of empty entities.
+	private LinkedList<String> existingGroups; //Allows to fast-check if a group of entities already exists, to ensure we never have 2 groups of rocks for example.
 	private LevelMapCase[][] mapMatrix;
 
 	public LevelMap(int xLength, int yLength) { //Creates a map of dimension xLength*yLength with cases filled with "empty".
@@ -16,12 +19,12 @@ public class LevelMap {
 		this.xLength = xLength;
 		this.yLength = yLength;
 		this.mapEntities = new LinkedList<LevelGroupOfEntities>();
-		this.existingGroups = new LinkedList<String>();
+		this.existingGroups = new LinkedList<String>(); 
 		this.numberOfGroupEntities = 0;
 		mapMatrix = new LevelMapCase[xLength][yLength];
 		for (int i = 0;i< xLength; i++) {
 			for (int j = 0;j< yLength; j++) {
-				mapMatrix[i][j] = new LevelMapCase(i, j, this);
+				mapMatrix[i][j] = new LevelMapCase(i, j, this);			//Initially we fill the mapCases with emptyEntities
 				this.addEntity(i, j, new EntityEmpty(i, j, this));
 			}
 	}
@@ -40,7 +43,7 @@ public class LevelMap {
 		return yLength;
 	}
 
-	public boolean isFree (int x, int y) {
+	public boolean isFree (int x, int y) {	//isFree means that an entity can move on this case (there can already be another entity).
 		return mapMatrix[x][y].isFree();
 	}
 	
@@ -48,7 +51,7 @@ public class LevelMap {
 		return mapMatrix;
 	}
 	
-	public void moveRigthMultipleEntities(LinkedList<Entity> list) {
+	public void moveRigthMultipleEntities(LinkedList<Entity> list) { //Moves to the rigth all the entities that are able to do so.
 		int n = list.size();
 		for(int i = 0; i<n;i++){
 			Entity entity = list.get(i);
@@ -59,13 +62,13 @@ public class LevelMap {
 			mapMatrix[x][y+1].addEntity(entity);
 		}
 	}
-	public void moveRigth(Entity entity) {
+	public void moveRigth(Entity entity) {							//Same method than the one below with more convenient arguments
 		LinkedList<Entity> list = new LinkedList<Entity>();
 		list.add(entity);
 		moveRigth(entity.getxPosition(),entity.getyPosition(),list);
 	}
 	
-	public boolean moveRigth(int x, int y, LinkedList<Entity> list) {
+	public boolean moveRigth(int x, int y, LinkedList<Entity> list) {  //Recursively finds the pushable entities that needs to move.
 		LinkedList<Entity> entitiesMoved = list;
 		if (y < this.yLength -1)
 		{
@@ -167,7 +170,7 @@ public class LevelMap {
 		moveLeft(entity.getxPosition(),entity.getyPosition(),list);
 	}
 	
-	public boolean moveLeft(int x, int y, LinkedList<Entity> list) {                 //Recursively finds the pushable entities that needs to move.
+	public boolean moveLeft(int x, int y, LinkedList<Entity> list) {                 
 		LinkedList<Entity> entitiesMoved = list;
 		if (y > 0)
 		{
@@ -210,16 +213,16 @@ public class LevelMap {
 		String entityType = entity.getTypeOfEntity();
 		int x = entity.getxPosition();
 		int y = entity.getyPosition();
-		this.mapMatrix[x][y].removeEntity(entity);
-		int i = 0;
-		while (this.mapEntities.get(i).getTypeOfEntities() != entityType)
+		this.mapMatrix[x][y].removeEntity(entity);  					  //First we remove the entity from the mapCase.
+		int i = 0;	
+		while (this.mapEntities.get(i).getTypeOfEntities() != entityType) //We look for the group of entities that contains the entity.
 		{
 			i++;
 		}
-		this.mapEntities.get(i).removeEntity(entity);
+		this.mapEntities.get(i).removeEntity(entity);					  //We remove it from the group.
 	}
 	
-	public void addEntity(int x, int y, String typeOfEntity)
+	public void addEntity(int x, int y, String typeOfEntity)			  //Easy to use method to add an entity to the map.
 	{
 		switch(typeOfEntity)
 		{
@@ -258,10 +261,10 @@ public class LevelMap {
 		return this.mapMatrix[x][y];
 	}
 	
-	public void moveRigth(String s) {
+	public void moveRigth(String s) {								//If s = "rock", moves all the rocks of the map to the rigth.
 		if (existingGroups.contains(s)) {
 			int i = 0;
-			while (mapEntities.get(i).getTypeOfEntities() != s) {
+			while (mapEntities.get(i).getTypeOfEntities() != s) {   //Looking for the good group of entities.
 				i++;
 			}
 			mapEntities.get(i).moveRigth();
