@@ -22,7 +22,6 @@ public class ServerEventController {
 	private Update update;
 
     public ServerEventController(Server server, EventGiver eventGiver, Logic logic, int eventBufferLength) {
-    	
 		this.eventBufferLength = eventBufferLength;
 		this.server = server;
 		this.eventGiver = eventGiver;
