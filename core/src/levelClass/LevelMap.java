@@ -10,7 +10,7 @@ public class LevelMap {
 	private int xLength;
 	private int yLength;	
 	private int numberOfGroupEntities;
-	private LinkedList<LevelGroupOfEntities> mapEntities; //All the existing group of entities in the map, initially there is only the group of empty entities.
+	private static LinkedList<LevelGroupOfEntities> mapEntities; //All the existing group of entities in the map, initially there is only the group of empty entities.
 	private LinkedList<String> existingGroups; //Allows to fast-check if a group of entities already exists, to ensure we never have 2 groups of rocks for example.
 	private LevelMapCase[][] mapMatrix;
 
@@ -293,11 +293,14 @@ public class LevelMap {
 			
 	}
 
-	public LevelGroupOfEntities findGroup(String s) {
+	public static LevelGroupOfEntities findGroup(String s) {
 		int i =0;
-		while(this.mapEntities.get(i).getTypeOfEntities()!= s)
+		while(mapEntities.get(i).getTypeOfEntities()!= s)
 			i++;
-		return this.mapEntities.get(i);
+		if (i!= mapEntities.size())
+			return mapEntities.get(i);
+		else 
+			return null;
 	}
 	
 	public void setIsWin(String typeOfEntities, boolean value)

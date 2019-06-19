@@ -2,21 +2,13 @@ package levelClass;
 
 public class EntityText extends Entity {
 	
-private String typeOfText ;
 	
-	public EntityText(int x, int y, LevelMap map) {
+	public EntityText(int x, int y, LevelMap map, String typeOfEntity) {
 		super(x, y, map,"text");
 		this.isPushable = true;
-		this.typeOfText = "";
+		this.typeOfEntity = "text";
+		this.text = typeOfEntity.substring(4);; //Because in the editor we get "textrock" , "textis" ...
 		// TODO Auto-generated constructor stub
 	}
-	
-	public EntityText(int x, int y, LevelMap map, String typeOfText) {
-		super(x, y, map,"text");
-		this.isPushable = true;
-		this.typeOfText = typeOfText.substring(4);;
-		// TODO Auto-generated constructor stub
-	}
-	
-	
+
 }

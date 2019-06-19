@@ -6,7 +6,7 @@ public abstract class Entity {
 	 * like a rock, Baba, a wall, empty or even some text. The properties are the ability to be pushed, to make
 	 * a map case blocking the players moves. 
 	 */
-	private final String typeOfEntity; //Rock, Baba, Wall..
+	protected String typeOfEntity; //Rock, Baba, Wall..
 
 	protected LevelMap map;
 	protected int xPosition;
@@ -15,14 +15,25 @@ public abstract class Entity {
 	protected boolean isSink;
 	protected boolean isBlock;
 	protected boolean isWin;
+	protected String text;
+
+
+
+
+	public String getText() {
+		return text;
+	}
+
 
 
 	public Entity(int x, int y, LevelMap map,String typeOfEntity) {
 		super();
 		this.map = map;
+		this.text ="";
 		this.xPosition = x;
 		this.yPosition = y;
 		this.typeOfEntity =typeOfEntity;
+
 		
 	}
 

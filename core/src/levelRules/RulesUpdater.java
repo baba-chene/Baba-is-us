@@ -1,5 +1,132 @@
 package levelRules;
 
+import java.util.LinkedList;
+
+import levelClass.EntityText;
+import levelClass.LevelGroupOfEntities;
+import levelClass.LevelMap;
+
 public class RulesUpdater {
 
+	private LinkedList<Rule> ruleList;
+	private LinkedList<Subject> subjectList;
+	private LinkedList<Attribute> attributeList;
+	private LinkedList<LogicWord> logicList;
+	private LinkedList<Verb> verbList;
+	private LevelMap map;
+	private int xLength;
+	private int yLength;
+	private Text[][] textTab;
+
+
+	public RulesUpdater(LevelMap map) {
+		this.ruleList = new LinkedList<Rule>();
+		this.map = map;
+		this.xLength = map.getxLength();
+		this.yLength = map.getyLength();
+		this.textTab = new Text[xLength][yLength];
+		this.verbList = new LinkedList<Verb>();
+		this.logicList = new LinkedList<LogicWord>();
+		this.attributeList = new LinkedList<Attribute>();
+		this.subjectList = new LinkedList<Subject>();
+		LevelGroupOfEntities textEntities = LevelMap.findGroup("text");
+		for (int i =0; i<textEntities.getNumberOfEntities();i++) {
+			EntityText entity = (EntityText) textEntities.getListOfEntities().get(i);
+			String text = entity.getText();
+			int x = entity.getxPosition();
+			int y = entity.getyPosition();
+			switch(text) { //Ok I know but I don't see another way to do it ..
+			case "is":
+			case "has":
+				Verb verb = new Verb(x,y,text,this);
+				this.verbList.add(verb);
+				this.textTab[x][y] = verb;
+				break;
+			case "rock":
+			case "wall":
+			case "baba":
+			case "skull":
+			case "lava":
+			case "water":
+				Noun noun = new Noun(x,y,text,this);
+				this.textTab[x][y] = noun;
+				break;
+			case "and":
+			case "not":
+				LogicWord logic = new LogicWord(x, y, text,this);
+				this.logicList.add(logic);
+				this.textTab[x][y] = logic;
+				break;
+			case "sink":
+			case "push":
+			case "block":
+			case "you":
+			case "win":
+				Property property = new Property(x,y,text,this);
+				this.textTab[x][y] = property;
+				break;
+			}
+		}
+		
+	}
+	
+	public int getxLength() {
+		return xLength;
+	}
+
+	public int getyLength() {
+		return yLength;
+	}
+	
+	public void findHRule(Verb verb) {
+		Subject subject = new Subject();
+		Text previous = verb.findHPrevious();
+		// We find all the subjects that concern the verb (ex : Baba And Rock is ... => subjectList = ["Baba","Rock"])
+		while(previous.isNoun)
+		{
+			subject.addSubject(previous);
+			if (previous.findHPrevious().getText() != "and")
+				break;
+			previous = previous.findHPrevious().findHPrevious(); //On saute la case qui contient le and
+		}
+		// We do the same for the attributes (ex ... is Sink and Rock => nounList = ["Rock"], propertyList = ["sink"])
+		Attribute attribute = new Attribute();
+		Text next = verb.findHNext();
+			while(next.isProperty||next.isNoun) {
+				if (next.isProperty)
+					attribute.addProperty(next);
+				if (next.isNoun)
+					attribute.addNoun(next);
+				if(next.findHNext().getText() != "and")
+					break;
+				next = next.findHNext().findHNext();
+			}
+		if (!subject.isEmpty() && !attribute.isEmpty())
+		{
+			ruleList.add(new Rule(subject, attribute, verb));
+		}
+	}
+	public void findVRule(Verb verb) {
+		
+	}
+	public void updateHRules(){
+		for (Verb verb : verbList) {
+			findHRule(verb);
+		}
+	}
+	public void updateVRules() {
+		for (Verb verb : verbList) {
+			findVRule(verb);
+	}
+}
+	public void updateRules() {
+		this.ruleList = new LinkedList<Rule>();
+		updateHRules();
+		updateVRules();
+		//add here the method that executes the rules of ruleList
+	}
+	public Text getText(int x, int y) {
+		return this.textTab[x][y];
+	}
+	
 }

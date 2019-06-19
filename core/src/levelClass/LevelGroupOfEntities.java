@@ -44,11 +44,7 @@ public class LevelGroupOfEntities {
 		return listOfEntities;
 	}
 
-	public LinkedList<Entity> getEntitiesList()
-	{
-		LinkedList<Entity> coordinatesList = new LinkedList<Entity>();
-		return null;
-	}
+
 	
 	public void removeEntity(Entity entity) {
 		if (listOfEntities.contains(entity)) {
