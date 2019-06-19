@@ -11,10 +11,10 @@ public class LevelMapCase {
 	private int yPosition;
 	private LevelMap map;
 	private boolean isSink;			 //True if it contains an entity with isSink
-	private EntityEmpty entityEmpty; //This entity will be alone in the stack as long as there is no other entities. It comes back in the stack
-									 //after all the other entities of the case moved.
+	private boolean isWin;			 //after all the other entities of the case moved.
 	private boolean isFree;			 //Means that there is no pushable or block entities on the case
 	private boolean containsPushableEntity;
+	private EntityEmpty entityEmpty; //This entity will be alone in the stack as long as there is no other entities. It comes back in the stack if there is nothing else.
 	private LinkedList<Entity> pushableEntityList;
 	private LinkedList<Entity> entityStack;
 
@@ -25,6 +25,7 @@ public class LevelMapCase {
 		this.map = map;
 		this.isFree = true;
 		this.isSink = false;
+		this.isWin = false;
 		this.containsPushableEntity = false;
 		this.entityStack = new LinkedList<Entity>();
 		entityEmpty = new EntityEmpty(x, y, map);
@@ -115,6 +116,14 @@ public class LevelMapCase {
 				if(!(pushableEntityList.contains(e))) //To avoid duplicates.
 					pushableEntityList.add(e);
 			}
+		}
+	}
+	
+	public void updateIsWin() {
+		this.isWin = false;
+		for (Entity e:entityStack) {
+			if (e.isWin())
+				this.isWin = true;
 		}
 	}
 	

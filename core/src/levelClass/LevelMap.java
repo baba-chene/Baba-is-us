@@ -51,7 +51,7 @@ public class LevelMap {
 		return mapMatrix;
 	}
 	
-	public void moveRigthMultipleEntities(LinkedList<Entity> list) { //Moves to the rigth all the entities that are able to do so.
+	private void moveRightMultipleEntities(LinkedList<Entity> list) { //Moves to the right all the entities that are able to do so.
 		int n = list.size();
 		for(int i = 0; i<n;i++){
 			Entity entity = list.get(i);
@@ -62,30 +62,30 @@ public class LevelMap {
 			mapMatrix[x][y+1].addEntity(entity);
 		}
 	}
-	public void moveRigth(Entity entity) {							//Same method than the one below with more convenient arguments
+	public void moveRight(Entity entity) {							//Same method than the one below with more convenient arguments
 		LinkedList<Entity> list = new LinkedList<Entity>();
 		list.add(entity);
-		moveRigth(entity.getxPosition(),entity.getyPosition(),list);
+		moveRight(entity.getxPosition(),entity.getyPosition(),list);
 	}
 	
-	public boolean moveRigth(int x, int y, LinkedList<Entity> list) {  //Recursively finds the pushable entities that needs to move.
+	private boolean moveRight(int x, int y, LinkedList<Entity> list) {  //Recursively finds the pushable entities that needs to move.
 		LinkedList<Entity> entitiesMoved = list;
 		if (y < this.yLength -1)
 		{
 			if(mapMatrix[x][y+1].isFree()) {
-				moveRigthMultipleEntities(entitiesMoved);
+				moveRightMultipleEntities(entitiesMoved);
 				return true;
 				}
 			if(mapMatrix[x][y+1].containsPushableEntity()) {
 				entitiesMoved.addAll(mapMatrix[x][y+1].getPushableEntityList());
-				moveRigth(x,y+1,entitiesMoved);
+				moveRight(x,y+1,entitiesMoved);
 			}
 				
 		}
 		return false;
 	}
 	
-	public void moveUpMultipleEntities(LinkedList<Entity> list) {
+	private void moveUpMultipleEntities(LinkedList<Entity> list) {
 		int n = list.size();
 		for(int i = 0; i<n;i++){
 			Entity entity = list.get(i);
@@ -102,7 +102,7 @@ public class LevelMap {
 		moveUp(entity.getxPosition(),entity.getyPosition(),list);
 	}
 	
-	public boolean moveUp(int x, int y, LinkedList<Entity> list) {
+	private boolean moveUp(int x, int y, LinkedList<Entity> list) {
 		LinkedList<Entity> entitiesMoved = list;
 		if (x > 0)
 		{
@@ -119,7 +119,7 @@ public class LevelMap {
 		return false;
 	}
 	
-	public void moveDownMultipleEntities(LinkedList<Entity> list) {
+	private void moveDownMultipleEntities(LinkedList<Entity> list) {
 		int n = list.size();
 		for(int i = 0; i<n;i++){
 			Entity entity = list.get(i);
@@ -136,7 +136,7 @@ public class LevelMap {
 		moveDown(entity.getxPosition(),entity.getyPosition(),list);
 	}
 	
-	public boolean moveDown(int x, int y, LinkedList<Entity> list) {
+	private boolean moveDown(int x, int y, LinkedList<Entity> list) {
 		LinkedList<Entity> entitiesMoved = list;
 		if (x < xLength -1)
 		{
@@ -153,7 +153,7 @@ public class LevelMap {
 		return false;
 	}
 	
-	public void moveLeftMultipleEntities(LinkedList<Entity> list) {
+	private void moveLeftMultipleEntities(LinkedList<Entity> list) {
 		int n = list.size();
 		for(int i = 0; i<n;i++){
 			Entity entity = list.get(i);
@@ -170,7 +170,7 @@ public class LevelMap {
 		moveLeft(entity.getxPosition(),entity.getyPosition(),list);
 	}
 	
-	public boolean moveLeft(int x, int y, LinkedList<Entity> list) {                 
+	private boolean moveLeft(int x, int y, LinkedList<Entity> list) {                 
 		LinkedList<Entity> entitiesMoved = list;
 		if (y > 0)
 		{
@@ -252,13 +252,13 @@ public class LevelMap {
 		return this.mapMatrix[x][y];
 	}
 	
-	public void moveRigth(String s) {								//If s = "rock", moves all the rocks of the map to the rigth.
+	public void moveRight(String s) {								//If s = "rock", moves all the rocks of the map to the right.
 		if (existingGroups.contains(s)) {
 			int i = 0;
 			while (mapEntities.get(i).getTypeOfEntities() != s) {   //Looking for the good group of entities.
 				i++;
 			}
-			mapEntities.get(i).moveRigth();
+			mapEntities.get(i).moveRight();
 		}
 			
 	}

@@ -68,26 +68,35 @@ public class LevelGroupOfEntities {
 	
 	//The following methods set the attributes isWin, isPush ... to true or false to all the entities of the group.
 	public void setIsBlock(boolean value) {             
-		for (Entity e :listOfEntities) {
+		for (int i = listOfEntities.size()-1; i>-1;i--) {
+			Entity e = listOfEntities.get(i);
 			e.setBlock(value);
+			this.map.getMapCase(e.getxPosition(),e.getyPosition()).updateIsFree(); //we update the properties of the map case accordingly.
 		}
 	}
 	
 	public void setIsPush(boolean value) {
-		for (Entity e :listOfEntities) {
+		for (int i = listOfEntities.size()-1; i>-1;i--) {
+			Entity e = listOfEntities.get(i);
 			e.setPushable(value);
+			this.map.getMapCase(e.getxPosition(),e.getyPosition()).updateContainsPushable();
 		}
 	}
 	
 	public void setIsSink(boolean value) {
-		for (Entity e :listOfEntities) {
+		for (int i = listOfEntities.size()-1; i>-1;i--) {
+			Entity e = listOfEntities.get(i);
 			e.setSink(value);
+			this.map.getMapCase(e.getxPosition(),e.getyPosition()).updateIsSink();
 		}
 	}
 	
 	public void setIsWin(boolean value) {
-		for (Entity e :listOfEntities) {
+		for (int i = listOfEntities.size()-1; i>-1;i--) {
+			Entity e = listOfEntities.get(i);
 			e.setWin(value);
+			this.map.getMapCase(e.getxPosition(),e.getyPosition()).updateIsWin();
+
 		}
 	}
 	
@@ -105,12 +114,12 @@ public class LevelGroupOfEntities {
 		}
 	}
 	
-	public void moveRigth() {
+	public void moveRight() {
 		Collections.sort(listOfEntities,new yPositionComparator());
 		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
 			Entity e = listOfEntities.get(i);
-			this.map.moveRigth(e);
+			this.map.moveRight(e);
 		}
 	}
 	
