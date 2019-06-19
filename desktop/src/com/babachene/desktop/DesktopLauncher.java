@@ -1,6 +1,8 @@
 package com.babachene.desktop;
 
+import com.babachene.MyGdxGame;
 import com.babachene.gui.MainGame;
+import com.babachene.test.TestGame;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 

@@ -82,11 +82,14 @@ public abstract class StateBasedGame implements ApplicationListener {
 	 * @param newState - the newgame state.
 	 */
 	public synchronized void push(GameState newState) {
+		
 		if (newState == null)
 			throw new IllegalArgumentException("Pushed game state is null.");
 		stack.push(newState);
 		
 		setState(newState);
+		
+		System.out.println("Stack length = "+stack.size());
 	}
 	
 	/**
@@ -96,6 +99,7 @@ public abstract class StateBasedGame implements ApplicationListener {
 	 * for the game.
 	 */
 	public synchronized void pop() {
+	
 		assert ! stack.isEmpty(); // Ben ouais.
 		if (stack.isEmpty())
 			throw new RuntimeException("The game state stack is empty : it shouldn't be.");
@@ -104,6 +108,8 @@ public abstract class StateBasedGame implements ApplicationListener {
 			throw new RuntimeException("The game state stack has been made empty : it shouldn't be.");
 		// Set the game state to the new head of the stack.
 		setState(stack.peek());
+		
+		System.out.println("Stack length = "+stack.size());
 	}
 	
 	private final void setState(GameState newState) {
