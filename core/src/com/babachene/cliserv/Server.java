@@ -313,7 +313,7 @@ public class Server implements Runnable {
 
             synchronized(this) {
                 if(eventBufferSize < eventBuffer.length) {
-                    eventBuffer[eventBufferSize] = event;
+                    eventBuffer[eventBufferStartIndex + eventBufferSize] = event;
                     eventBufferSize++;
                 } else
                     LOGGER.warning("[Server] Buffer full, event dropped");

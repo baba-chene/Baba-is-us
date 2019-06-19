@@ -295,7 +295,7 @@ public class Client implements Runnable {
 
             synchronized(this) {
                 if(updateBufferSize < updateBuffer.length) {
-                    updateBuffer[updateBufferSize] = update;
+                    updateBuffer[updateBufferStartIndex + updateBufferSize] = update;
                     updateBufferSize++;
                 } else
                     LOGGER.warning("[Client] Buffer full, update dropped");
