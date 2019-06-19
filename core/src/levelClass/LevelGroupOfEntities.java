@@ -67,60 +67,40 @@ public class LevelGroupOfEntities {
 	}
 	
 	//The following methods set the attributes isWin, isPush ... to true or false to all the entities of the group.
-	public void groupIsBlock() {             
+	public void setIsBlock(boolean value) {             
 		for (Entity e :listOfEntities) {
-			e.setBlock(true);
+			e.setBlock(value);
 		}
 	}
 	
-	public void groupIsPushable() {
+	public void setIsPush(boolean value) {
 		for (Entity e :listOfEntities) {
-			e.setPushable(true);
+			e.setPushable(value);
 		}
 	}
 	
-	public void groupIsSink() {
+	public void setIsSink(boolean value) {
 		for (Entity e :listOfEntities) {
-			e.setSink(true);
+			e.setSink(value);
 		}
 	}
 	
-	public void groupIsWin() {
+	public void setIsWin(boolean value) {
 		for (Entity e :listOfEntities) {
-			e.setWin(true);
+			e.setWin(value);
 		}
 	}
 	
-	public void groupIsNotBlock() {
-		for (Entity e :listOfEntities) {
-			e.setBlock(false);
-		}
-	}
-	
-	public void groupIsNotPushable() {
-		for (Entity e :listOfEntities) {
-			e.setPushable(false);
-		}
-	}
-	
-	public void groupIsNotSink() {
-		for (Entity e :listOfEntities) {
-			e.setSink(false);
-		}
-	}
-	
-	public void groupIsNotWin() {
-		for (Entity e :listOfEntities) {
-			e.setWin(false);
-		}
-	}
+
 	
 	//The following methods move all the entities of the group if it's possible.
 	
 	public void moveLeft() {
-		Collections.sort(listOfEntities,new xPositionComparator());
-		for (Entity e : listOfEntities)
+		Collections.sort(listOfEntities,new yPositionComparator());
+		Collections.reverse(listOfEntities);
+		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
+			Entity e = listOfEntities.get(i);
 			this.map.moveLeft(e);
 		}
 	}
@@ -136,17 +116,19 @@ public class LevelGroupOfEntities {
 	
 	public void moveUp() {
 		Collections.sort(listOfEntities,new xPositionComparator());
-		for (Entity e : listOfEntities)
+		Collections.reverse(listOfEntities);
+		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
+			Entity e = listOfEntities.get(i);
 			this.map.moveUp(e);
 		}
 	}
 	
 	public void moveDown() {
 		Collections.sort(listOfEntities,new xPositionComparator());
-		Collections.reverse(listOfEntities);
-		for (Entity e : listOfEntities)
+		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
+			Entity e = listOfEntities.get(i);
 			this.map.moveDown(e);
 		}
 	}

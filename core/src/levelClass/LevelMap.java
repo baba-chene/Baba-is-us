@@ -205,12 +205,7 @@ public class LevelMap {
 		}
 		else
 		{
-			int i = 0;
-			while (this.mapEntities.get(i).getTypeOfEntities() != entityType)
-			{
-				i++;
-			}
-			this.mapEntities.get(i).addEntity(entity);
+			findGroup(entityType).addEntity(entity);
 		}
 	}
 	
@@ -220,11 +215,7 @@ public class LevelMap {
 		int y = entity.getyPosition();
 		this.mapMatrix[x][y].removeEntity(entity);  					  //First we remove the entity from the mapCase.
 		int i = 0;	
-		while (this.mapEntities.get(i).getTypeOfEntities() != entityType) //We look for the group of entities that contains the entity.
-		{
-			i++;
-		}
-		this.mapEntities.get(i).removeEntity(entity);					  //We remove it from the group.
+		findGroup(entityType).removeEntity(entity);					  //We remove it from the group.
 	}
 	
 	public void addEntity(int x, int y, String typeOfEntity)			  //Easy to use method to add an entity to the map.
@@ -300,5 +291,32 @@ public class LevelMap {
 			mapEntities.get(i).moveDown();
 		}
 			
+	}
+
+	public LevelGroupOfEntities findGroup(String s) {
+		int i =0;
+		while(this.mapEntities.get(i).getTypeOfEntities()!= s)
+			i++;
+		return this.mapEntities.get(i);
+	}
+	
+	public void setIsWin(String typeOfEntities, boolean value)
+	{
+		findGroup(typeOfEntities).setIsWin(value);
+	}
+	
+	public void setIsBlock(String typeOfEntities, boolean value)
+	{
+		findGroup(typeOfEntities).setIsBlock(value);
+	}
+	
+	public void setIsSink(String typeOfEntities, boolean value)
+	{
+		findGroup(typeOfEntities).setIsSink(value);
+	}
+	
+	public void setIsPush(String typeOfEntities, boolean value)
+	{
+		findGroup(typeOfEntities).setIsPush(value);
 	}
 }

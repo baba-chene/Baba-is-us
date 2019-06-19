@@ -11,7 +11,6 @@ public class LevelMapCase {
 	private int yPosition;
 	private LevelMap map;
 	private boolean isSink;			 //True if it contains an entity with isSink
-	private Entity sinkEntity; 		 //There can only be one entity with isSink, we keep track of it to destroy it if another entity comes by.
 	private EntityEmpty entityEmpty; //This entity will be alone in the stack as long as there is no other entities. It comes back in the stack
 									 //after all the other entities of the case moved.
 	private boolean isFree;			 //Means that there is no pushable or block entities on the case
@@ -49,8 +48,6 @@ public class LevelMapCase {
 			this.entityEmpty = (EntityEmpty) entity;
 		if (entity.isPushable())
 			pushableEntityList.add(entity);
-		if (entity.isSink())
-			sinkEntity = entity;
 		if (entityStack.size()>1)					 // We remove the EntityEmpty when something else is on the case
 		{
 			removeEntityEmpty();
@@ -84,15 +81,21 @@ public class LevelMapCase {
 	}
 	
 	public void updateIsSink() { //We look after all the entities to check if one is Sink, so we initially set it to false.
+		if (isSink && entityStack.size()>1 ) //If 2 or more entities are on the same case and one of them is sink then they both blow up.
+		{
+			this.clearEntities();
+		}
+		if (isSink && entityEmpty.isSink() && !(entityStack.get(0).getTypeOfEntity() == "empty"))
+		{
+			this.clearEntities();
+		}
 		this.isSink = false;
 		for (Entity e:entityStack) {
 			if (e.isSink())
 				this.isSink=true;
 		}
-		if (isSink && entityStack.size()>1) //If 2 or more entities are on the same case and one of them is sink then they both blow up.
-		{
-			this.clearEntities();
-		}
+
+		
 	}
 	
 	public void updateIsFree() {
