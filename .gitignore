@@ -1,5 +1,7 @@
 ## Jérémy specific ignoring
 /assets-building/
+# Colin's logs.
+logs.txt
 
 ## Java
 
