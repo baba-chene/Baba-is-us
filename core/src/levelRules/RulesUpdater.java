@@ -1,4 +1,4 @@
-package levelClass;
+package levelRules;
 
 public class RulesUpdater {
 
