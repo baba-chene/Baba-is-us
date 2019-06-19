@@ -16,7 +16,6 @@ public class LevelMapCase {
 									 //after all the other entities of the case moved.
 	private boolean isFree;			 //Means that there is no pushable or block entities on the case
 	private boolean containsPushableEntity;
-	private boolean isEmpty;		 //There is only entityEmpty in the stack. 
 	private LinkedList<Entity> pushableEntityList;
 	private LinkedList<Entity> entityStack;
 
@@ -26,7 +25,6 @@ public class LevelMapCase {
 		this.yPosition = y;
 		this.map = map;
 		this.isFree = true;
-		this.isEmpty = true;
 		this.isSink = false;
 		this.containsPushableEntity = false;
 		this.entityStack = new LinkedList<Entity>();
@@ -56,18 +54,18 @@ public class LevelMapCase {
 		if (entityStack.size()>1)					 // We remove the EntityEmpty when something else is on the case
 		{
 			removeEntityEmpty();
-		}											 //We look if the new entity has special effects on the case
+		}											 // We look if the new entity has special effects on the case
 		updateIsFree();
 		updateContainsPushable();
 		updateIsSink();	
 	}
 	
-	public void removeEntity(Entity entity) {
-		entityStack.remove(entity);
+	public void removeEntity(Entity entity) {						// /!\ Only removes the entity from the map case and not from the group of entity,
+		entityStack.remove(entity);									// use map.removeEntity to remove the entity from the case and the group
 		pushableEntityList.remove(entity);
 		if (entityStack.isEmpty())
 			this.map.addEntity(xPosition, yPosition, entityEmpty);
-		 															//We look if the removal of the entity has special effects on the case
+		 															// We look if the removal of the entity has special effects on the case
 		updateIsFree();
 		updateContainsPushable();
 		
@@ -91,7 +89,10 @@ public class LevelMapCase {
 			if (e.isSink())
 				this.isSink=true;
 		}
-		
+		if (isSink && entityStack.size()>1) //If 2 or more entities are on the same case and one of them is sink then they both blow up.
+		{
+			this.clearEntities();
+		}
 	}
 	
 	public void updateIsFree() {
@@ -118,6 +119,12 @@ public class LevelMapCase {
 		this.map.removeEntity(entityEmpty);
 	}
 	public void clearEntities() {
-		this.entityStack = new LinkedList<Entity>();
+		int size = entityStack.size();
+		for (int i =size -1; i>-1;i--) //On retire des éléments d'une liste qu'on parcourt, on les retire donc en partant de la fin.
+			this.map.removeEntity(entityStack.get(i)); 
+		this.containsPushableEntity = false;
+		this.isFree= true;
+		this.isSink = false;
+
 	}
 }

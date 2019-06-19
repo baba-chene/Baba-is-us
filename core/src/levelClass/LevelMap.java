@@ -187,6 +187,11 @@ public class LevelMap {
 		return false;
 	}
 	
+	public void addEntity(Entity entity)
+	{
+		addEntity(entity.getxPosition(),entity.getyPosition(),entity);
+	}
+	
 	public void addEntity(int x, int y, Entity entity) {
 		this.mapMatrix[x][y].addEntity(entity);										//First we add the entity to the corresponding map case
 		String entityType = entity.getTypeOfEntity();
@@ -250,11 +255,6 @@ public class LevelMap {
 		default:
 			addEntity(x,y,new EntityText(x,y,this,typeOfEntity));
 		}
-	}
-	
-	public void clearEntities(int x, int y)										//Removes all the entities from a Map case.
-	{
-		this.mapMatrix[x][y].clearEntities();
 	}
 	
 	public LevelMapCase getMapCase(int x, int y) {

@@ -127,9 +127,9 @@ public class LevelGroupOfEntities {
 	
 	public void moveRigth() {
 		Collections.sort(listOfEntities,new yPositionComparator());
-		Collections.reverse(listOfEntities);
-		for (Entity e : listOfEntities)
+		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
+			Entity e = listOfEntities.get(i);
 			this.map.moveRigth(e);
 		}
 	}
