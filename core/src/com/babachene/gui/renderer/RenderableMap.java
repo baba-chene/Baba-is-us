@@ -25,7 +25,7 @@ public interface RenderableMap extends Iterable<RenderableEntity> {
 	int getHeight();
 	
 	/**
-	 * May be optional or remove in the futur. The <code>iterator</code>
+	 * May be optional or removed in the futur. The <code>iterator()</code>
 	 * method is more important.
 	 * @param x - x coordinate of the tile
 	 * @param y - y coordinate of the tile

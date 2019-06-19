@@ -1,11 +1,13 @@
 package com.babachene.test;
 
+import com.babachene.gui.BabaIsUs;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -52,7 +54,7 @@ public class TestGame extends ApplicationAdapter {
 		sb = new SpriteBatch();
 		
 		// Les arguments semblent peu importer car le viewport les change après.
-		cam = new OrthographicCamera(W,H);//30, 30f * H / W); 
+		cam = new OrthographicCamera(W, H);//30, 30f * H / W); 
 		cam.update();
 		
 		// Le FitViewport considère un écran virtuel avec une dimension fixée, et met des barres noires sur les côtés pour l'écran réel.
@@ -99,6 +101,12 @@ public class TestGame extends ApplicationAdapter {
 		sr.setColor(Color.CHARTREUSE);
 		sr.circle(0, 0, 100);
 		sr.end();
+		
+		
+//		sb.setProjectionMatrix(cam.combined);
+//		sb.begin();
+//		sb.draw(new Texture(BabaIsUs.textures.PEPE), 0,0,100,100);
+//		sb.end();
 		
 		/*
 		 * Un InputHandler basique qui fait bouger la caméra.

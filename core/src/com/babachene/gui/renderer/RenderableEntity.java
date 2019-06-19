@@ -13,21 +13,28 @@ public interface RenderableEntity {
 	
 	/**
 	 * The identifiant, or type, of the entity. So that
-	 * the renderers will match the correct texture.
+	 * the renderers will match the correct texture.<br>
+	 * This method will not be frequently called, the
+	 * renderer will store the texture in order to save the
+	 * macth research cost.
 	 * @return Entity's id
 	 */
 	short getId();
 	
 	/**
 	 * The X tile number of this entity, tile (0,0) is at bottom left of
-	 * the map.
+	 * the map.<br>
+	 * This method will be frequently called, so please make it fast and
+	 * light.
 	 * @return The x position
 	 */
 	int getX();
 	
 	/**
 	 * The Y tile number of this entity, tile (0,0) is at bottom left of
-	 * the map.
+	 * the map.<br>
+	 * This method will be frequently called, so please make it fast and
+	 * light.
 	 * @return The y position
 	 */
 	int getY();
@@ -58,7 +65,7 @@ public interface RenderableEntity {
 	
 	/**
 	 * 
-	 * @return The appearance varation of this 
+	 * @return The appearance varation id of this entity
 	 */
 	Object getVaration(); // TODO change the type.
 	

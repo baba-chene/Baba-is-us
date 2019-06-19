@@ -1,5 +1,7 @@
 package com.babachene.gui.renderer;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 /**
  * Objects designed to render graphics.
  * @author jeremy
@@ -12,9 +14,9 @@ public abstract class Renderer {
 	}
 	
 	/**
-	 * core method.
+	 * core method. FIXME where to put the begin() and end() ?
 	 */
-	abstract void render();
+	public abstract void render(SpriteBatch batch);
 	
 	/*
 	 * Considered method. In case the renderers stores their data (i.e. x y) and

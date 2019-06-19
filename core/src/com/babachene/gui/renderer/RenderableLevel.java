@@ -19,7 +19,7 @@ public interface RenderableLevel {
 	RenderableMap getMap();
 	
 	/**
-	 * Return the theme of the map, which provides information
+	 * Return the theme of the level, which provides information
 	 * for the background.
 	 * @return an id.
 	 */
@@ -31,5 +31,11 @@ public interface RenderableLevel {
 	 */
 	byte getMusicId();
 	
+	/**
+	 * A level data storing object sould know the level's title as
+	 * it is stored in the level file.
+	 * @return The title or name of this level.
+	 */
+	String getTitle();
 	
 }
