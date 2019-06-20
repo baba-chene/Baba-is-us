@@ -11,12 +11,12 @@ public class DesktopLauncher {
 		//  En revanche, passer en plein écran après, avec Gdx.graphics.setFullscreen, fonctionne.
 		config.height = 800;//TestGame.H;
 		config.width  = 800;//TestGame.W;
-		config.title="Just a test game.";
 		/*
 		 * TODO Manage the background FPS, as this is a multiplayer game.
 		 * And the game updates are made through the render thread. (but not the server thread...)
 		 */
 		//config.backgroundFPS = -1;
+		config.title="Baba is Everyone";
 		
 		new LwjglApplication(new MainGame(), config);
 	}

@@ -1,7 +1,10 @@
 package com.babachene.gui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 /**
  * A wrapper class for storing the most global data
  * of the game such as the language or the width & height
@@ -42,6 +45,13 @@ public final class BabaIsUs {
 					THEME_DEFAULT = DIR + "dark_gray.png";
 	}
 	
+	//Colors
+	public static Color buttonColor=Color.FOREST;
+	
+	
+	//Skin
+	static TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("assets/gui/default_skin/uiskin.atlas"));
+	public static Skin skin = new Skin(Gdx.files.internal("assets/gui/default_skin/uiskin.json"), atlas);
 	
 	
 }
