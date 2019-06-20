@@ -1,6 +1,5 @@
 package com.babachene.gui;
 
-import com.babachene.gui.renderer.MapUpdateQueue;
 import com.babachene.gui.renderer.LevelRenderer;
 import com.babachene.gui.renderer.RenderableLevel;
 import com.badlogic.gdx.Gdx;

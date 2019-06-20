@@ -7,7 +7,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.babachene.gui.BabaIsUs;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -27,7 +26,7 @@ class MapRenderer extends Renderer { // Not a public class.
 	 * <br> It maps an entity id to the EntityGroupRenderer index in the list. */
 	private TreeMap<Short, Integer> idtable;
 	private List<EntityGroupRenderer> renderers;
-	private RenderableMap map;
+//	private RenderableMap map;
 	private MapRenderingData mapRenderingData;
 	
 	private MapUpdateQueue updateQueue;

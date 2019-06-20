@@ -3,7 +3,10 @@ package com.babachene.gui.renderer;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
- * Main class for rendering a level on the screen.
+ * Main class for rendering a level on the screen. It must contains
+ * all the necessary data for rendering a level:
+ * <br> - meta data on the level (e.g. background music)
+ * <br> - the {@link RenderableMap} of this level
  * @author jeremy
  *
  */
