@@ -169,7 +169,14 @@ public class RulesUpdater {
 		resetProperties();
 		for(Rule rule:ruleList)
 			rule.applyRules();
+		updateIsWin();
 		//add here the method that executes the rules of ruleList
+	}
+	
+	public void updateIsWin() {
+		LinkedList<LevelGroupOfEntities> youEntities = this.map.findYou();
+		for (LevelGroupOfEntities entities:youEntities)
+			entities.updateWin();
 	}
 	
 	public void resetProperties() {

@@ -152,11 +152,16 @@ public class LevelGroupOfEntities {
 			Entity e = listOfEntities.get(i);
 			this.map.moveDown(e);
 		}
+		
 	}
 	
 	
 	
-	
+	public void updateWin() {
+		for(Entity entity:listOfEntities)
+			if (this.map.getMapCase(entity.getxPosition(), entity.getyPosition()).isWin())
+				System.out.println("Congratulations ! You won");
+	}
 	
 	
 	

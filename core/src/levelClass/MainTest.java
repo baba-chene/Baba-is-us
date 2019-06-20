@@ -10,10 +10,10 @@ public class MainTest {
 		map.addEntity(0, 0, "textbaba");
 		map.addEntity(0, 1, "textis");
 		map.addEntity(0, 2, "textyou");
+		map.addEntity(1, 3, "textand");
+		map.addEntity(0, 4, "textwin");
 		map.addEntity(2,2,"baba");
 		map.getRulesUpdater().updateRules();
-		map.moveLeft();
-		map.moveDown();
 		map.moveRight();
 		map.moveUp();
 	}

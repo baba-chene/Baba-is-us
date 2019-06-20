@@ -119,6 +119,9 @@ public class LevelMapCase {
 		}
 	}
 	
+	public boolean isWin() {
+		return isWin;
+	}
 	public void updateIsWin() {
 		this.isWin = false;
 		for (Entity e:entityStack) {
