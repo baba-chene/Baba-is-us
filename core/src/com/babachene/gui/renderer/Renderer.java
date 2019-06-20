@@ -19,8 +19,9 @@ public abstract class Renderer {
 	public abstract void render(SpriteBatch batch);
 	
 	/*
-	 * Considered method. In case the renderers stores their data (i.e. x y) and
+	 * In case the renderers stores their data (i.e. x y) and
 	 * require a call to update() to upadte any data.
+	 * <br> For now, this is used to fetch the RendererUpdateQueue.
 	 */
-	//update()
+	public abstract void update();
 }

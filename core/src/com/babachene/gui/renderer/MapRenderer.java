@@ -7,14 +7,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.babachene.gui.BabaIsUs;
-import com.babachene.gui.test.RenderingTest;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
+/**
+ * Renders a map on the screen and delegates the rendering of
+ * the entities.<p>
+ * This class has become a mess.
+ * @author jeremy
+ *
+ */
 class MapRenderer extends Renderer { // Not a public class.
+	
+	/** logger ref */
+	final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	/** This table should not be used in the render() method. For performance reason.
 	 * <br> It maps an entity id to the EntityGroupRenderer index in the list. */
@@ -23,28 +30,34 @@ class MapRenderer extends Renderer { // Not a public class.
 	private RenderableMap map;
 	private MapRenderingData mapRenderingData;
 	
+	private MapUpdateQueue updateQueue;
+	
 	// Graphic-related data
-	Color backgroundColor;
-	Texture backgroundTexture;
+//	private Color backgroundColor;
+	private Texture backgroundTexture;
+	
+	//////////////////////////////////////////////
 	
 	public MapRenderer(RenderableMap map, byte theme) {
 		if (map == null)
 			throw new IllegalArgumentException("The RenderableMap object cannot bu null");
 		
-		/*
-		 *  Logger ref
-		 */
-		final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+		if (map.getMapUpdateQueue() == null) {
+			logger.log(Level.WARNING, "The MapUpdateQueue is null: MaRenderer will not change its entities structure?");
+			updateQueue = new MapUpdateQueue();
+		} else
+			updateQueue = map.getMapUpdateQueue();
 		
 		/*
 		 *  resolves the theme
 		 */
 		switch (theme) {
-		case BabaIsUs.DEFAULT_THEME : backgroundColor = new Color(0.1f, 0.1f, 0.1f, 1);
+		case BabaIsUs.DEFAULT_THEME : //backgroundColor = new Color(0.1f, 0.1f, 0.1f, 1);
 			backgroundTexture = BabaIsUs.assetManager.get(BabaIsUs.textures.THEME_DEFAULT, Texture.class);
 			break;
 		default:
-			backgroundColor  = Color.BLACK;
+//			backgroundColor  = Color.BLACK;
+			break;
 		}
 		
 		/*
@@ -60,45 +73,32 @@ class MapRenderer extends Renderer { // Not a public class.
 		
 		for (RenderableEntity e : map) {
 			
-			if (e == null) {
-				logger.log(Level.WARNING, "A RenderableMap contains a null RenderableEntity object. It shouldn't.");
-				continue;
-			}
-			/*
-			 * Current policy is one entity renderer per entity id.
-			 */
-			
-			short id = e.getId();
-			/*
-			 *  Still in test phase.
-			 */
-			if ( ! idtable.containsKey(id)) {
-				switch (id) {
-				case 0: renderers.add(new EntityGroupRenderer(mapRenderingData,
-						BabaIsUs.assetManager.get(BabaIsUs.textures.PEPE, Texture.class)));
-					break;
-				case 1: renderers.add(new EntityGroupRenderer(mapRenderingData,
-						BabaIsUs.assetManager.get(BabaIsUs.textures.KERMIT, Texture.class)));
-					break;
-				case 2:
-					break;
-				default:
-					logger.log(Level.WARNING, "RenderableMap: Unreconsized entity id");
-				}
-				idtable.put(id, renderers.size() - 1);
-				logger.log(Level.FINE, "RenderableMap: created a new EntityGroupRenderer, entity id="+id );
-			} else {
-				renderers.get(idtable.get(id)).addRenderableEntity(e);
-				logger.log(Level.FINE, "Added new RenderableEntity. id=" + id);
-			}
-			
-			
+			addEntity(e);
 			
 		}
 		
 	}
 	
-	ShapeRenderer sr = new ShapeRenderer();
+	//////////////////// METHODS /////////////////////
+	
+	public void update() {
+		
+		if (updateQueue.requiresUpdate()) {
+			while (updateQueue.hasRemovedGroup())
+				removeAllEntitiesById(updateQueue.popRemovedGroup());
+			
+			while (updateQueue.hasRemovedEntity())
+				removeEntity(updateQueue.popRemovedEntity());
+			
+			while (updateQueue.hasCreatedEntity()) {
+				addEntity(updateQueue.popCreatedEntity());
+			}
+		}
+		
+	}
+	
+	// temp
+//	ShapeRenderer sr = new ShapeRenderer();
 	@Override
 	public void render(SpriteBatch batch) {
 		
@@ -124,18 +124,90 @@ class MapRenderer extends Renderer { // Not a public class.
 		 * texture, shaded off color, ...) we will have to make many MapRenderer sub-classes.
 		 */
 		
-		// Entity rendering
-		for (EntityGroupRenderer r : renderers) {
-			r.render(batch);
+		// Entity rendering  // As this is an ArrayList, we reach here good performance.
+		int size = renderers.size();
+		for (int i = 0; i < size; i++) {
+			renderers.get(i).render(batch);
 		}
 		
 	}
 	
 	
 	
-	private void fetchData(RenderableMap map) {
-		this.map = map;
-		this.mapRenderingData = new MapRenderingData(map, BabaIsUs.WIDTH, BabaIsUs.HEIGHT);
+//	private void fetchData(RenderableMap map) {
+//		this.map = map;
+//		this.mapRenderingData = new MapRenderingData(map, BabaIsUs.WIDTH, BabaIsUs.HEIGHT);
+//	}
+	
+	public final void addEntity(RenderableEntity e) {
+		
+		if (e == null) {
+			logger.log(Level.WARNING, "A RenderableMap contains a null RenderableEntity object. It shouldn't.");
+			return;
+		}
+		
+		/*
+		 * Current policy is one entity renderer per entity id.
+		 */
+		
+		short id = e.getId();
+		/*
+		 *  Still in test phase.
+		 */
+		if ( ! idtable.containsKey(id)) {
+			
+			try {
+				renderers.add(new EntityGroupRenderer(mapRenderingData, id));
+			} catch (IllegalArgumentException ex) {
+				logger.log(Level.INFO, "Failed to create a new EntityGroupRenderer.", ex);
+			}
+			
+			// Here we update the id table.
+			idtable.put(id, renderers.size() - 1);
+			logger.log(Level.FINE, "Created a new EntityGroupRenderer, entity id="+id );
+		}
+		
+		
+		renderers.get(idtable.get(id)).addRenderableEntity(e);
+		
+	}
+	
+	public final void removeEntity(RenderableEntity e) {
+		/* Cases:
+		 * - entity does not exist.
+		 * - entity exists and its group contains other ones.
+		 * - entity exists and it the only entity of the group (which shall be removed).
+		 */
+		
+		if (e == null)
+			return;
+		
+		short id = e.getId();
+		
+		if ( ! idtable.containsKey(id)) {
+			logger.log(Level.INFO, "Attempted to remove a RenderableEntity which was not found.");
+			return;
+		}
+		
+		EntityGroupRenderer egr = renderers.get(idtable.get(id));
+		egr.removeRenderableEntity(e);
+		
+		// No remove of the entity group renderer if it's empty.
+		
+	}
+	
+	public final void removeAllEntitiesById(short id) {
+		
+		if ( ! idtable.containsKey(id)) {
+			logger.log(Level.INFO, "Failed attempt to remove all RenderableEntity of id " + id);
+			return;
+		}
+		
+		// We don't remove the group renderer.
+		EntityGroupRenderer egr = renderers.get(idtable.get(id));
+		egr.clear();
+		
+		logger.log(Level.FINE, "Removed all RenderableEntity of id " + id);
 	}
 	
 }

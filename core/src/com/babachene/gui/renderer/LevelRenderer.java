@@ -1,11 +1,9 @@
 package com.babachene.gui.renderer;
 
-import com.babachene.gui.BabaIsUs;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
- * 
+ * Main class for rendering a level on the screen.
  * @author jeremy
  *
  */
@@ -30,6 +28,9 @@ public class LevelRenderer extends Renderer {
 		map = new MapRenderer(level.getMap(), level.getThemeId());
 	}
 	
+	public void update() {
+		map.update();
+	}
 	
 	@Override
 	public void render(SpriteBatch batch) {

@@ -6,8 +6,7 @@ import com.badlogic.gdx.assets.AssetManager;
  * A wrapper class for storing the most global data
  * of the game such as the language or the width & height
  * of the virtual screen.<br>
- * For now, it also stores graphical ressources' links and names.
- * <br>Inspired from the <b><code>Gdx</code></b> class from libgdx.
+ * <br>Inspired by the <b><code>Gdx</code></b> class from libgdx.
  * @author jeremy
  *
  */

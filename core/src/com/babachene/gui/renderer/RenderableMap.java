@@ -25,6 +25,14 @@ public interface RenderableMap extends Iterable<RenderableEntity> {
 	int getHeight();
 	
 	/**
+	 * Each map should have a queue to store events of entity creation/destruction.
+	 * This method allow the map renderer to get a reference to this queue so it
+	 * can take the creations and destructions of entities into account.
+	 * @return The queue storing update for the map renderer.
+	 */
+	MapUpdateQueue getMapUpdateQueue();
+	
+	/**
 	 * May be optional or removed in the futur. The <code>iterator()</code>
 	 * method is more important.
 	 * @param x - x coordinate of the tile

@@ -10,7 +10,9 @@ import com.babachene.gui.renderer.LevelRenderer;
 import com.babachene.gui.renderer.RenderableEntity;
 import com.babachene.gui.renderer.RenderableLevel;
 import com.babachene.gui.renderer.RenderableMap;
+import com.babachene.gui.renderer.MapUpdateQueue;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -23,6 +25,8 @@ public class RenderingTest extends GameState {
 	private LevelRenderer lr;
 	private Map map;
 	
+	public MapUpdateQueue q;
+	
 	private SpriteBatch batch;
 	private ShapeRenderer shape;
 	
@@ -32,6 +36,8 @@ public class RenderingTest extends GameState {
 		batch = new SpriteBatch();
 		shape = new ShapeRenderer();
 		viewport = getViewport();
+		
+		this.q = new MapUpdateQueue();
 		
 		map = new Map();
 		
@@ -75,11 +81,13 @@ public class RenderingTest extends GameState {
 		// ACTUAL TEST
 		
 		Level level = new Level("TEST TITLE", (byte)0, (byte)-1, map);
+		this.level = level;
 		
-		lr = new LevelRenderer(level);
+		//lr = new LevelRenderer(level);
 		
 		
 	}
+	public RenderableLevel level;
 	/** for test. ShapeRenderer needs the matrix.   */
 	public static Viewport viewport;
 	
@@ -99,6 +107,54 @@ public class RenderingTest extends GameState {
 		batch.begin();
 		lr.render(batch);
 		batch.end();
+	}
+	
+	private Entity toRemove;
+	public void startTestOnLevelState() {
+		Gdx.input.setInputProcessor(new InputAdapter() {
+			@Override
+			public boolean keyTyped(char character) {
+				
+				/*
+				 * Testing the update queue.
+				 */
+				
+				if (character == 'a') {
+					Entity e = new Entity();
+					e.x = 0;
+					e.y = 4;
+					q.pushCreatedEntity(e);
+					
+					e = new Entity();
+					e.x = 0;
+					e.y = 5;
+					q.pushCreatedEntity(e);
+
+					e = new Entity();
+					e.id = 1;
+					e.x = 0;
+					e.y = 5;
+					q.pushCreatedEntity(e);
+					
+					toRemove = e;
+					
+					return true;
+				}
+				
+				else if (character == 'z') {
+					q.pushRemovedEntity(toRemove);
+					return true;
+				}
+				
+				else if (character == 'e') {
+					q.pushRemovedGroup((short)0);
+					return true;
+				}
+				
+				return false;
+			}
+		});
+		System.out.println("In this test mode, press a, z or e to alter the map.");
 	}
 	
 	
@@ -194,12 +250,17 @@ public class RenderingTest extends GameState {
 
 		@Override
 		public int getHeight() {
-			return 20;
+			return 12;
 		}
 
 		@Override
 		public List<RenderableEntity> getEntity(int x, int y) {
 			throw new UnsupportedOperationException();
+		}
+		
+		@Override
+		public MapUpdateQueue getMapUpdateQueue() {
+			return RenderingTest.this.q;
 		}
 		
 	}
