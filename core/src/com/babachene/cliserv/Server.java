@@ -6,11 +6,14 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.InterruptedIOException;
+import java.util.Observer;
 import java.util.logging.Logger;
 
 public class Server implements Runnable {
 
     private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    
+    private Observer disconnectionObserver;
 
     private volatile int port;
 
@@ -56,7 +59,8 @@ public class Server implements Runnable {
     private volatile State state = State.Closed;
     private volatile State nextState = State.Closed;
 
-    public Server(int eventBufferLength, int updateBufferLength) {
+    public Server(Observer disconnectionObserver, int eventBufferLength, int updateBufferLength) {
+    	this.disconnectionObserver = disconnectionObserver;
         eventBuffer = new Event[eventBufferLength];
         updateBuffer = new Update[updateBufferLength];
         thread = new Thread(this);
@@ -246,6 +250,7 @@ public class Server implements Runnable {
 			e.printStackTrace();
 		}
         LOGGER.info("[Server] Connection with client closed.");
+        disconnectionObserver.update(null, this);
         nextState = State.Opened;
     }
 
