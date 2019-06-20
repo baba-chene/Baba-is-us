@@ -13,7 +13,7 @@ public class DesktopLauncher {
 		//  En revanche, passer en plein écran après, avec Gdx.graphics.setFullscreen, fonctionne.
 		config.height = 800;//TestGame.H;
 		config.width  = 800;//TestGame.W;
-		config.title="Just a test game.";
+		config.title="Baba is Everyone";
 		
 		new LwjglApplication(new MainGame(), config);
 	}

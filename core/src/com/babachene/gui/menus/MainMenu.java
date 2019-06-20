@@ -37,6 +37,7 @@ public class MainMenu extends GameState implements Screen {
 	private ImageButton quitButton;
 	private Sprite backgroundSprite;
 	private SpriteBatch batch;
+	private SpriteDrawable title;
 	
 	public MainMenu(MainGame game) {
 		
@@ -46,21 +47,19 @@ public class MainMenu extends GameState implements Screen {
 		Texture backgroundTexture = new Texture("badlogic.jpg");
         backgroundSprite =new Sprite(backgroundTexture);
 		
-		// Trying to make the stage work.
+		
 		stage = new Stage(getViewport());
 		
+		//TODO Background
 		
 		// Title
-		Label title = new Label("Baba Is Us",BabaIsUs.skin);
-		title.setX(850);
-		title.setY(1000);
-		title.setFontScale(3,3);
-		stage.addActor(title);
+		title = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/babaisus.png"))));
+		
 		
 		//Play Button
-		SpriteDrawable playImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/play.jpg"))));
+		SpriteDrawable playImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/play.png"))));
 		playButton = new ImageButton(playImage);
-		playButton.setBounds(BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 +80, 800, 120);
+		playButton.setBounds(BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 +30, 800, 120);
 		playButton.setColor(BabaIsUs.buttonColor);
 
 		playButton.addListener(new ClickListener() {
@@ -76,9 +75,9 @@ public class MainMenu extends GameState implements Screen {
 		playButton.setDisabled(false);
 		
 		//SettingsButton
-		SpriteDrawable settingsImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/settings.jpg"))));
+		SpriteDrawable settingsImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/settings.png"))));
 		settingsButton = new ImageButton(settingsImage);
-		settingsButton.setBounds(BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 - 60, 800, 120);
+		settingsButton.setBounds(BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 - 110, 800, 120);
 		settingsButton.setColor(BabaIsUs.buttonColor);
 
 		settingsButton.addListener(new ClickListener() {
@@ -95,9 +94,9 @@ public class MainMenu extends GameState implements Screen {
 		
 		
 		//QuitButton
-		SpriteDrawable quitImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/quit.jpg"))));
+		SpriteDrawable quitImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/quit.png"))));
 		quitButton = new ImageButton(quitImage);
-		quitButton.setBounds(BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 - 200, 800, 120);
+		quitButton.setBounds(BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 - 250, 800, 120);
 		quitButton.setColor(BabaIsUs.buttonColor);
 
 		quitButton.addListener(new ClickListener() {
@@ -113,7 +112,7 @@ public class MainMenu extends GameState implements Screen {
 		quitButton.setDisabled(false);
 		
 		
-		stage.addActor(title);
+		//stage.addActor(title);
 		stage.addActor(playButton);
 		stage.addActor(settingsButton);
 		stage.addActor(quitButton);
@@ -144,6 +143,12 @@ public class MainMenu extends GameState implements Screen {
 		//Pour afficher une couleur unis en fond
 		Gdx.gl.glClearColor(.1f, .0f, .01f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		batch.setProjectionMatrix(getViewport().getCamera().combined);
+		batch.begin();
+		title.draw(batch, 450, 800, 1000, 250);
+		batch.end();
+		
 		
 		stage.act();
 		stage.draw();

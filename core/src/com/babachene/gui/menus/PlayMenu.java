@@ -6,47 +6,49 @@ import com.babachene.gui.MainGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
 public class PlayMenu extends GameState implements Screen {
 
 	private MainGame parent;
 	
 	private Stage stage;
-	private TextField title;
-	private TextButton backButton;
-	private TextButton singleButton;
-	private TextButton multiplayerButton;
+	private SpriteBatch batch;
+	private SpriteDrawable title;
+	private ImageButton backButton;
+	private ImageButton singleButton;
+	private ImageButton multiplayerButton;
 	
 	public PlayMenu(MainGame game) {
 		parent=game;
 		
 		stage = new Stage(getViewport());
-		
+		batch= new SpriteBatch();
 		
 		// Title
-		title = new TextField("Play screen", BabaIsUs.skin);
-		title.setY(900);
-		title.setX(900);
-		stage.addActor(title);
+		title = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/babaisus.png"))));
 		
 		
 		//BackButton
-		backButton = new TextButton("back", BabaIsUs.skin);
-		backButton.setBounds(100, 80, 120, 80);
-		backButton.setColor(BabaIsUs.buttonColor);
-
+		SpriteDrawable backImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/back.png"))));
+		backButton = new ImageButton(backImage);
+		backButton.setBounds(100, 80, 200, 120);
+		
 		backButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				System.out.println("back Button pressed");
-				
+							
 				parent.back();
 				
 				return; // The event has been handled.
@@ -56,17 +58,20 @@ public class PlayMenu extends GameState implements Screen {
 		stage.addActor(backButton);
 		
 		
+		
+		
 		//singleButton
-		singleButton = new TextButton("1 Player", BabaIsUs.skin);
+		SpriteDrawable oneplayerImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/1player.png"))));
+		singleButton = new ImageButton(oneplayerImage);
 		singleButton.setBounds(BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 +80, 800, 120);
 		singleButton.setColor(BabaIsUs.buttonColor);
 
 		singleButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				System.out.println("single Button pressed");
+				System.out.println("Play Button pressed");
 				
-				//parent.changeScreen(parent.MAINMENU,true);
+				// TODO lancer la selection des niveaux
 				
 				return; // The event has been handled.
 			}
@@ -75,15 +80,17 @@ public class PlayMenu extends GameState implements Screen {
 		stage.addActor(singleButton);
 		
 		
+		
 		//multiplayerButton
-		multiplayerButton = new TextButton("2 Player", BabaIsUs.skin);
+		SpriteDrawable twoplayerImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/2player.png"))));
+		multiplayerButton = new ImageButton(twoplayerImage);
 		multiplayerButton.setBounds(BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 -80, 800, 120);
 		multiplayerButton.setColor(BabaIsUs.buttonColor);
 
 		multiplayerButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				System.out.println("multiplayer Button pressed");
+				System.out.println("Play Button pressed");
 				
 				parent.changeScreen(parent.MULTIPLAYERMENU);
 				
@@ -92,7 +99,6 @@ public class PlayMenu extends GameState implements Screen {
 		});
 		multiplayerButton.setDisabled(false);
 		stage.addActor(multiplayerButton);
-		
 		
 		
 		
@@ -111,6 +117,10 @@ public class PlayMenu extends GameState implements Screen {
 		Gdx.gl.glClearColor(.1f, .05f, .01f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		batch.setProjectionMatrix(getViewport().getCamera().combined);
+		batch.begin();
+		title.draw(batch, 450, 800, 1000, 250);
+		batch.end();
 		stage.act();
 		stage.draw();
 		
