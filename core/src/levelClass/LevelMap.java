@@ -2,11 +2,14 @@ package levelClass;
 
 import java.util.LinkedList;
 
+import levelRules.RulesUpdater;
+
 public class LevelMap {
 
 	/* The map in the game controls everything in the level. As it has an overall view of the available tiles of the map, it gives
 	 * the possibility to add/remove an entity in the level, but also to move the entities. 
 	 */
+	private RulesUpdater rulesUpdater;
 	private int xLength;
 	private int yLength;	
 	private int numberOfGroupEntities;
@@ -29,6 +32,11 @@ public class LevelMap {
 			}
 	}
 
+		this.rulesUpdater = new RulesUpdater(this);
+	}
+
+	public RulesUpdater getRulesUpdater() {
+		return rulesUpdater;
 	}
 
 	public LinkedList<LevelGroupOfEntities> getMapEntities() {
@@ -209,6 +217,11 @@ public class LevelMap {
 		}
 	}
 	
+	public void addEntityText(int x, int y, String text) {
+		EntityText entity = new EntityText(x, y, this, text);
+		this.addEntity(entity);
+	}
+	
 	public void removeEntity(Entity entity) {
 		String entityType = entity.getTypeOfEntity();
 		int x = entity.getxPosition();
@@ -296,7 +309,11 @@ public class LevelMap {
 	public static LevelGroupOfEntities findGroup(String s) {
 		int i =0;
 		while(mapEntities.get(i).getTypeOfEntities()!= s)
+		{
 			i++;
+			if (i == mapEntities.size())
+				break;
+		}
 		if (i!= mapEntities.size())
 			return mapEntities.get(i);
 		else 
@@ -322,4 +339,6 @@ public class LevelMap {
 	{
 		findGroup(typeOfEntities).setIsPush(value);
 	}
+	
+	
 }

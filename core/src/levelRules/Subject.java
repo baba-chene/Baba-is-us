@@ -6,6 +6,7 @@ public class Subject {
 
 	private LinkedList<Text> subjectList;
 	
+
 	public Subject() {
 		this.subjectList = new LinkedList<Text>();
 	}
@@ -21,4 +22,8 @@ public class Subject {
 	public boolean isEmpty() {
 		return subjectList.isEmpty();
 	}
+	public LinkedList<Text> getSubjectList() {
+		return subjectList;
+	}
+
 }

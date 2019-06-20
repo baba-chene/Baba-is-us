@@ -11,11 +11,11 @@ public class RulesUpdater {
 	private LinkedList<Rule> ruleList;
 	private LinkedList<Subject> subjectList;
 	private LinkedList<Attribute> attributeList;
-	private LinkedList<LogicWord> logicList;
 	private LinkedList<Verb> verbList;
 	private LevelMap map;
 	private int xLength;
 	private int yLength;
+	private Text emptyText;
 	private Text[][] textTab;
 
 
@@ -24,12 +24,29 @@ public class RulesUpdater {
 		this.map = map;
 		this.xLength = map.getxLength();
 		this.yLength = map.getyLength();
-		this.textTab = new Text[xLength][yLength];
 		this.verbList = new LinkedList<Verb>();
-		this.logicList = new LinkedList<LogicWord>();
 		this.attributeList = new LinkedList<Attribute>();
 		this.subjectList = new LinkedList<Subject>();
+		this.emptyText = new Text(0,0,"",this);
+		this.textTab = new Text[xLength][yLength];
+		for (int i = 0; i< xLength;i++) {
+			for (int j =0; j< yLength; j++)
+				textTab[i][j] = new Text(i,j,"",this);
+		}
+		this.updateTab();
+		
+	}
+	
+	public boolean updateTab()
+	{
+		this.verbList = new LinkedList<Verb>();
 		LevelGroupOfEntities textEntities = LevelMap.findGroup("text");
+		for (int i =0; i <this.xLength;i++) {
+			for(int j =0; j<this.yLength;j++)
+				this.textTab[i][j] = this.emptyText;
+		}
+		if (textEntities == null)
+			return false;
 		for (int i =0; i<textEntities.getNumberOfEntities();i++) {
 			EntityText entity = (EntityText) textEntities.getListOfEntities().get(i);
 			String text = entity.getText();
@@ -54,7 +71,6 @@ public class RulesUpdater {
 			case "and":
 			case "not":
 				LogicWord logic = new LogicWord(x, y, text,this);
-				this.logicList.add(logic);
 				this.textTab[x][y] = logic;
 				break;
 			case "sink":
@@ -67,7 +83,7 @@ public class RulesUpdater {
 				break;
 			}
 		}
-		
+		return true;
 	}
 	
 	public int getxLength() {
@@ -85,7 +101,7 @@ public class RulesUpdater {
 		while(previous.isNoun)
 		{
 			subject.addSubject(previous);
-			if (previous.findHPrevious().getText() != "and")
+			if (!previous.findHPrevious().getText().equalsIgnoreCase("and"))
 				break;
 			previous = previous.findHPrevious().findHPrevious(); //On saute la case qui contient le and
 		}
@@ -97,17 +113,42 @@ public class RulesUpdater {
 					attribute.addProperty(next);
 				if (next.isNoun)
 					attribute.addNoun(next);
-				if(next.findHNext().getText() != "and")
+				if(!next.findHNext().getText().equalsIgnoreCase("and"))
 					break;
 				next = next.findHNext().findHNext();
 			}
 		if (!subject.isEmpty() && !attribute.isEmpty())
 		{
-			ruleList.add(new Rule(subject, attribute, verb));
+			ruleList.add(new Rule(subject, attribute, verb, this));
 		}
 	}
 	public void findVRule(Verb verb) {
-		
+		Subject subject = new Subject();
+		Text previous = verb.findVPrevious();
+		// We find all the subjects that concern the verb (ex : Baba And Rock is ... => subjectList = ["Baba","Rock"])
+		while(previous.isNoun)
+		{
+			subject.addSubject(previous);
+			if (!previous.findVPrevious().getText().equalsIgnoreCase("and"))
+				break;
+			previous = previous.findVPrevious().findVPrevious(); //On saute la case qui contient le and
+		}
+		// We do the same for the attributes (ex ... is Sink and Rock => nounList = ["Rock"], propertyList = ["sink"])
+		Attribute attribute = new Attribute();
+		Text next = verb.findVNext();
+			while(next.isProperty||next.isNoun) {
+				if (next.isProperty)
+					attribute.addProperty(next);
+				if (next.isNoun)
+					attribute.addNoun(next);
+				if(!next.findVNext().getText().equalsIgnoreCase("and"))
+					break;
+				next = next.findVNext().findVNext();
+			}
+		if (!subject.isEmpty() && !attribute.isEmpty())
+		{
+			ruleList.add(new Rule(subject, attribute, verb, this));
+		}
 	}
 	public void updateHRules(){
 		for (Verb verb : verbList) {
@@ -120,6 +161,7 @@ public class RulesUpdater {
 	}
 }
 	public void updateRules() {
+		this.updateTab();
 		this.ruleList = new LinkedList<Rule>();
 		updateHRules();
 		updateVRules();

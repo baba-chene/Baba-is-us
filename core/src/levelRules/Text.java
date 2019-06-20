@@ -1,6 +1,6 @@
 package levelRules;
 
-public abstract class Text {
+public class Text {
 
 	private RulesUpdater rulesUpdater;
 	private int xPosition;

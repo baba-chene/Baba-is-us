@@ -31,4 +31,13 @@ public class Attribute {
 	public boolean isEmpty() {
 		return (nounList.isEmpty()&&propertyList.isEmpty());
 	}
+
+	public LinkedList<Text> getNounList() {
+		return nounList;
+	}
+
+	public LinkedList<Text> getPropertyList() {
+		return propertyList;
+	}
+	
 }
