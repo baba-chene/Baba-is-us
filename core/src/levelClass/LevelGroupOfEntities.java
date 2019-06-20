@@ -96,6 +96,13 @@ public class LevelGroupOfEntities {
 		}
 	}
 	
+	public void setAllFalse() {
+		this.setIsBlock(false);
+		this.setIsPush(false);
+		this.setIsSink(false);
+		this.setIsWin(false);
+	}
+	
 
 	
 	//The following methods move all the entities of the group if it's possible.

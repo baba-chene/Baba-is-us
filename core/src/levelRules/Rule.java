@@ -30,6 +30,7 @@ public class Rule {
 		}
 		
 	}
+	
 
 	private void applyPropertyRule(Text text, Text property) {
 		rulesUpdater.getMap();

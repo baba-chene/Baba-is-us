@@ -165,9 +165,20 @@ public class RulesUpdater {
 		this.ruleList = new LinkedList<Rule>();
 		updateHRules();
 		updateVRules();
+		resetProperties();
 		for(Rule rule:ruleList)
 			rule.applyRules();
 		//add here the method that executes the rules of ruleList
+	}
+	
+	public void resetProperties() {
+		for (LevelGroupOfEntities entities:map.getMapEntities())
+		{
+			if (!entities.getTypeOfEntities().equalsIgnoreCase("text")) //On ne touche pas aux propriétés des textes
+			{
+				entities.setAllFalse();
+			}
+		}
 	}
 	public Text getText(int x, int y) {
 		return this.textTab[x][y];

@@ -13,6 +13,8 @@ public class RuleTest {
 		map.addEntity(4, 4, "rock");
 		map.addEntity(3, 4, "baba");
 		map.getRulesUpdater().updateRules();
+		map.moveUp("baba");
+		map.getRulesUpdater().updateRules();
 		map.moveDown("baba");
 		map.moveDown("baba");
 		map.getRulesUpdater().updateRules();
