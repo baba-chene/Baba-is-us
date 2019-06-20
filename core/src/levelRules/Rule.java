@@ -1,5 +1,7 @@
 package levelRules;
 
+import java.util.LinkedList;
+
 import levelClass.Entity;
 import levelClass.LevelGroupOfEntities;
 import levelClass.LevelMap;
@@ -22,8 +24,7 @@ public class Rule {
 	public void applyRules() {
 		for (Text text:subject.getSubjectList())
 		{
-			for (Text noun:attribute.getNounList())
-				applyNounRule(text,noun);
+			applyNounRule(text,attribute.getNounList());
 			for (Text property:attribute.getPropertyList())
 				applyPropertyRule(text,property);
 		}
@@ -34,6 +35,7 @@ public class Rule {
 		rulesUpdater.getMap();
 		LevelGroupOfEntities entities = LevelMap.findGroup(text.getText());
 		if (entities != null) {
+		if (this.verb.getText().equalsIgnoreCase("is")){
 		switch(property.getText())
 		{
 		case("sink"):
@@ -52,19 +54,22 @@ public class Rule {
 			break;
 		}
 		}
-		
+		}
 	}
 
-	private void applyNounRule(Text text, Text noun) {
-		LevelGroupOfEntities entities = rulesUpdater.getMap().findGroup(text.getText());
+	private void applyNounRule(Text text, LinkedList<Text> nounList) {
+		rulesUpdater.getMap();
+		if (!nounList.isEmpty()) {
+		LevelGroupOfEntities entities = LevelMap.findGroup(text.getText());
 		if (entities != null) {
 			for (Entity entity : entities.getListOfEntities()) {
 				int x = entity.getxPosition();
 				int y = entity.getyPosition();
-				this.rulesUpdater.getMap().addEntity(x, y, noun.getText());
+				for (Text noun : nounList)
+					this.rulesUpdater.getMap().addEntity(x, y, noun.getText());
 				this.rulesUpdater.getMap().removeEntity(entity);
 			}
 		}
-	}
+	}}
 	
 }

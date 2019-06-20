@@ -75,6 +75,7 @@ public class LevelGroupOfEntities {
 			Entity e = listOfEntities.get(i);
 			e.setPushable(value);
 			this.map.getMapCase(e.getxPosition(),e.getyPosition()).updateContainsPushable();
+			this.map.getMapCase(e.getxPosition(),e.getyPosition()).updateIsFree();
 		}
 	}
 	

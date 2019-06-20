@@ -150,12 +150,12 @@ public class RulesUpdater {
 			ruleList.add(new Rule(subject, attribute, verb, this));
 		}
 	}
-	public void updateHRules(){
+	private void updateHRules(){
 		for (Verb verb : verbList) {
 			findHRule(verb);
 		}
 	}
-	public void updateVRules() {
+	private void updateVRules() {
 		for (Verb verb : verbList) {
 			findVRule(verb);
 	}
