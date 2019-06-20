@@ -14,11 +14,13 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
 /**
  * 
@@ -30,9 +32,9 @@ public class MainMenu extends GameState implements Screen {
 	private MainGame parent;
 	
 	private Stage stage;
-	private TextButton playButton;
-	private TextButton settingsButton;
-	private TextButton quitButton;
+	private ImageButton playButton;
+	private ImageButton settingsButton;
+	private ImageButton quitButton;
 	private Sprite backgroundSprite;
 	private SpriteBatch batch;
 	
@@ -56,7 +58,8 @@ public class MainMenu extends GameState implements Screen {
 		stage.addActor(title);
 		
 		//Play Button
-		playButton = new TextButton("Play", BabaIsUs.skin);
+		SpriteDrawable playImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/play.jpg"))));
+		playButton = new ImageButton(playImage);
 		playButton.setBounds(BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 +80, 800, 120);
 		playButton.setColor(BabaIsUs.buttonColor);
 
@@ -73,7 +76,8 @@ public class MainMenu extends GameState implements Screen {
 		playButton.setDisabled(false);
 		
 		//SettingsButton
-		settingsButton = new TextButton("Settings", BabaIsUs.skin);
+		SpriteDrawable settingsImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/settings.jpg"))));
+		settingsButton = new ImageButton(settingsImage);
 		settingsButton.setBounds(BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 - 60, 800, 120);
 		settingsButton.setColor(BabaIsUs.buttonColor);
 
@@ -91,7 +95,8 @@ public class MainMenu extends GameState implements Screen {
 		
 		
 		//QuitButton
-		quitButton = new TextButton("Quit", BabaIsUs.skin);
+		SpriteDrawable quitImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/quit.jpg"))));
+		quitButton = new ImageButton(quitImage);
 		quitButton.setBounds(BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 - 200, 800, 120);
 		quitButton.setColor(BabaIsUs.buttonColor);
 
