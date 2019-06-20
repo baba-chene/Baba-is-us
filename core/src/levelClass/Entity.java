@@ -38,7 +38,6 @@ public abstract class Entity {
 	}
 
 
-
 	public boolean isPushable() {
 		return isPushable;
 	}

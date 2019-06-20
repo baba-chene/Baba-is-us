@@ -14,6 +14,7 @@ public class LevelGroupOfEntities {
 	private int numberOfEntities;
 	private LinkedList<Entity> listOfEntities;
 	private LevelPlayer player;
+	private boolean isYou;
 
 	public LevelGroupOfEntities(String typeOfEntities, LevelMap map) {
 		super();
@@ -70,6 +71,13 @@ public class LevelGroupOfEntities {
 		}
 	}
 	
+	public void setIsYou (boolean value) {
+		this.isYou=value;
+	}
+	
+	public boolean IsYou () {
+		return this.isYou;
+	}
 	public void setIsPush(boolean value) {
 		for (int i = listOfEntities.size()-1; i>-1;i--) {
 			Entity e = listOfEntities.get(i);
@@ -101,6 +109,7 @@ public class LevelGroupOfEntities {
 		this.setIsPush(false);
 		this.setIsSink(false);
 		this.setIsWin(false);
+		this.setIsYou(false);
 	}
 	
 

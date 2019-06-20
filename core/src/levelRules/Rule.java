@@ -52,6 +52,7 @@ public class Rule {
 			entities.setIsPush(true);
 			break;
 		case("you"):
+			entities.setIsYou(true);
 			break;
 		}
 		}

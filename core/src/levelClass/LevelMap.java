@@ -238,6 +238,9 @@ public class LevelMap {
 		case "baba":
 			addEntity(x,y,new EntityBaba(x,y,this));
 			break;
+		case "flag":
+			addEntity(x,y,new EntityFlag(x,y,this));
+			break;
 		case "empty":
 			addEntity(x,y,new EntityEmpty(x,y,this));
 			break;
@@ -340,5 +343,48 @@ public class LevelMap {
 		findGroup(typeOfEntities).setIsPush(value);
 	}
 	
+	public LinkedList<LevelGroupOfEntities> findYou() {
+		LinkedList<LevelGroupOfEntities> result = new LinkedList<LevelGroupOfEntities>();
+		for (LevelGroupOfEntities entities : mapEntities)
+		{
+			if (entities.IsYou())
+				result.add(entities);
+		}
+		return result;
+	}
+	
+	public void moveLeft() {
+		LinkedList<LevelGroupOfEntities> youEntities = this.findYou();
+		for (int i = youEntities.size()-1; i> -1 ; i--)
+		{
+			youEntities.get(i).moveLeft();
+		}
+		this.rulesUpdater.updateRules();
+		
+	}
+	public void moveRight() {
+		LinkedList<LevelGroupOfEntities> youEntities = this.findYou();
+		for (int i = youEntities.size()-1; i> -1 ; i--)
+		{
+			youEntities.get(i).moveRight();
+		}
+		this.rulesUpdater.updateRules();
+	}
+	public void moveUp() {
+		LinkedList<LevelGroupOfEntities> youEntities = this.findYou();
+		for (int i = youEntities.size()-1; i> -1 ; i--)
+		{
+			youEntities.get(i).moveUp();
+		}
+		this.rulesUpdater.updateRules();
+	}
+	public void moveDown() {
+		LinkedList<LevelGroupOfEntities> youEntities = this.findYou();
+		for (int i = youEntities.size()-1; i> -1 ; i--)
+		{
+			youEntities.get(i).moveDown();
+		}
+		this.rulesUpdater.updateRules();
+	}
 	
 }

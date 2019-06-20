@@ -55,7 +55,7 @@ private void convertsData() {
 	for (int i = 0; i < hauteur;i++) {
 		for (int j =0; j< largeur; j++) {
 			String typeOfEntity = tab[i][j];
-			if (tab[i][j] != "empty")
+			if (!tab[i][j].equalsIgnoreCase("empty"))
 				this.map.addEntity(i, j, typeOfEntity);
 		}
 	}

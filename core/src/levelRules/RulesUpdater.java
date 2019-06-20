@@ -65,6 +65,7 @@ public class RulesUpdater {
 			case "skull":
 			case "lava":
 			case "water":
+			case "flag":
 				Noun noun = new Noun(x,y,text,this);
 				this.textTab[x][y] = noun;
 				break;
