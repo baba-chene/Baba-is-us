@@ -226,7 +226,7 @@ public class LevelMap {
 		String entityType = entity.getTypeOfEntity();
 		int x = entity.getxPosition();
 		int y = entity.getyPosition();
-		this.mapMatrix[x][y].removeEntity(entity);  					  //First we remove the entity from the mapCase.
+		this.mapMatrix[x][y].removeEntity(entity);  				  //First we remove the entity from the mapCase.
 		int i = 0;	
 		findGroup(entityType).removeEntity(entity);					  //We remove it from the group.
 	}
@@ -308,7 +308,7 @@ public class LevelMap {
 
 	public static LevelGroupOfEntities findGroup(String s) {
 		int i =0;
-		while(mapEntities.get(i).getTypeOfEntities()!= s)
+		while(!mapEntities.get(i).getTypeOfEntities().equalsIgnoreCase(s))
 		{
 			i++;
 			if (i == mapEntities.size())
