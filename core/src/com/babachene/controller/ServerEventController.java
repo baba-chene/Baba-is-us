@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import com.babachene.cliserv.Event;
 import com.babachene.cliserv.Server;
 import com.babachene.cliserv.Update;
+import com.babachene.game.GameController;
 import com.babachene.logic.Logic;
 import com.babachene.userinput.EventGiver;
 
@@ -13,6 +14,7 @@ public class ServerEventController {
 
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
+	private GameController gameController;
 	private Server server;
 	private EventGiver eventGiver;
 	private Logic logic;
@@ -21,8 +23,7 @@ public class ServerEventController {
 	private int eventBufferLength;
 	private Update update;
 
-    public ServerEventController(Server server, EventGiver eventGiver, Logic logic, int eventBufferLength) {
-    	
+    public ServerEventController(GameController gameController, Server server, EventGiver eventGiver, Logic logic, int eventBufferLength) {
 		this.eventBufferLength = eventBufferLength;
 		this.server = server;
 		this.eventGiver = eventGiver;
@@ -62,6 +63,8 @@ public class ServerEventController {
     private void sendUpdate() {
 		LOGGER.fine("[Server Event Controller] Update sent to server");
     	server.addUpdate(update);
+		LOGGER.fine("[Server Event Controller] Notified the game controller of the update");
+		gameController.notifyUpdate(update);
     }
 
 	public void update() {

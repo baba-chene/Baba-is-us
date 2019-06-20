@@ -1,17 +1,20 @@
 package com.babachene.cliserv;
 
 import java.io.IOException;
+import java.io.InterruptedIOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.io.InterruptedIOException;
+import java.util.Observer;
 import java.util.logging.Logger;
 
 public class Client implements Runnable {
 
     private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    
+    private Observer disconnectionObserver;
 
     private volatile String IPAdress;
     private volatile int port;
@@ -55,7 +58,8 @@ public class Client implements Runnable {
     private volatile State state = State.Disconnected;
     private volatile State nextState = State.Disconnected;
 
-    public Client(int eventBufferLength, int updateBufferLength) {
+    public Client(Observer disconnectionObserver, int eventBufferLength, int updateBufferLength) {
+    	this.disconnectionObserver = disconnectionObserver;
         eventBuffer = new Event[eventBufferLength];
         updateBuffer = new Update[updateBufferLength];
         thread = new Thread(this);
@@ -239,6 +243,7 @@ public class Client implements Runnable {
 			e.printStackTrace();
 		}
         LOGGER.info("[Client] Connection closed.");
+        disconnectionObserver.update(null, this);
         nextState = State.Disconnected;
     }
 

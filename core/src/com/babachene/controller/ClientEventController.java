@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import com.babachene.cliserv.Client;
 import com.babachene.cliserv.Event;
 import com.babachene.cliserv.Update;
+import com.babachene.game.GameController;
 import com.babachene.logic.Logic;
 import com.babachene.userinput.EventGiver;
 
@@ -12,6 +13,7 @@ public class ClientEventController {
 
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
+	private GameController gameController;
 	private Client client;
 	private EventGiver eventGiver;
 	private Logic logic;
@@ -19,8 +21,8 @@ public class ClientEventController {
 	private Event event;
 	private Update update;
 
-    public ClientEventController(Client client, EventGiver eventGiver, Logic logic) {
-    	
+    public ClientEventController(GameController gameController, Client client, EventGiver eventGiver, Logic logic) {
+    	this.gameController = gameController;
 		this.client = client;
 		this.eventGiver = eventGiver;
 		this.logic = logic;
@@ -50,6 +52,8 @@ public class ClientEventController {
 		if(fetchUpdate()) {
         	LOGGER.fine("[Client Event Controller] Update sent to logic");
 			logic.processUpdate(update);
+        	LOGGER.fine("[Client Event Controller] Notified the game controller of the update");
+			gameController.notifyUpdate(update);
 		}
 		if(fetchEvent()) {
         	LOGGER.fine("[Client Event Controller] Event sent to client");
