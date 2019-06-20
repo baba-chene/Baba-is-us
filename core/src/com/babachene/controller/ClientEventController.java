@@ -20,7 +20,6 @@ public class ClientEventController {
 	private Update update;
 
     public ClientEventController(Client client, EventGiver eventGiver, Logic logic) {
-    	
 		this.client = client;
 		this.eventGiver = eventGiver;
 		this.logic = logic;

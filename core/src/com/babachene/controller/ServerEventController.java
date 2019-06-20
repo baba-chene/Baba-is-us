@@ -22,7 +22,6 @@ public class ServerEventController {
 	private Update update;
 
     public ServerEventController(Server server, EventGiver eventGiver, Logic logic, int eventBufferLength) {
-    	
 		this.eventBufferLength = eventBufferLength;
 		this.server = server;
 		this.eventGiver = eventGiver;
@@ -42,11 +41,15 @@ public class ServerEventController {
     private void fetchEvents() {
         if(!server.isEventBufferEmpty()) {
     		LOGGER.fine("[Server Event Controller] Event received from server");
-            addEvent(server.getEvent());
+            Event event = server.getEvent();
+    		event.setSource(1);
+            addEvent(event);
         }
         if(eventGiver.size() > 0) {
     		LOGGER.fine("[Server Event Controller] Event received from input processor");
-            addEvent(eventGiver.pollEvent());
+    		Event event = eventGiver.pollEvent();
+    		event.setSource(0);
+            addEvent(event);
         }
     }
 
