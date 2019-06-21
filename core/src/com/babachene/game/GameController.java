@@ -33,8 +33,10 @@ public class GameController  implements Observer {
 	    Joining,;
 	}
 
-	public GameController(Logic logic) {
+	public GameController(Logic logic, EventGiver eventGiver) {
 		this.logic = logic;
+		this.eventGiver = eventGiver;
+		state = GameState.Idle;
 	}
 	
 	public void notifyUpdate(Update update) {
