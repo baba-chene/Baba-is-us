@@ -61,7 +61,7 @@ public class LevelState extends GameState {
 		// updates the renderers.
 		levelRenderer.update();
 		
-	}
+	}			
 	
 	@Override
 	public void render() {

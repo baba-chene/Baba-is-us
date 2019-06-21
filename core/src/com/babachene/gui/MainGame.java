@@ -5,14 +5,8 @@ import com.babachene.gui.menus.MainMenu;
 import com.babachene.gui.menus.MultiplayerMenu;
 import com.babachene.gui.menus.PlayMenu;
 import com.babachene.gui.menus.SettingsMenu;
-import com.babachene.logic.GameLogic;
-import com.babachene.logic.data.LevelMap;
-import com.babachene.userinput.EventGiver;
-import com.babachene.userinput.KeyboardMap;
-import com.babachene.userinput.LevelInputProcessor;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 
 public class MainGame extends StateBasedGame {
 	
@@ -42,13 +36,13 @@ public class MainGame extends StateBasedGame {
 		/*
 		 * TEST ZONE
 		 */
-		/*
+		
 		
 		BabaIsUs.assetManager.load(BabaIsUs.textures.PEPE, Texture.class);
 		BabaIsUs.assetManager.load(BabaIsUs.textures.KERMIT, Texture.class);
 		BabaIsUs.assetManager.load(BabaIsUs.textures.THEME_DEFAULT, Texture.class);
 		BabaIsUs.assetManager.finishLoading();
-		
+		/*
 		RenderingTest t = new RenderingTest();
 		this.push(new LevelState(t.level));
 		t.startTestOnLevelState();

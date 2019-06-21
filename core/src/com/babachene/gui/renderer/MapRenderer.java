@@ -52,7 +52,7 @@ class MapRenderer extends Renderer { // Not a public class.
 		 */
 		switch (theme) {
 		case BabaIsUs.DEFAULT_THEME : //backgroundColor = new Color(0.1f, 0.1f, 0.1f, 1);
-			//backgroundTexture = BabaIsUs.assetManager.get(BabaIsUs.textures.THEME_DEFAULT, Texture.class);
+			backgroundTexture = BabaIsUs.assetManager.get(BabaIsUs.textures.THEME_DEFAULT, Texture.class);
 			break;
 		default:
 //			backgroundColor  = Color.BLACK;
