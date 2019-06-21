@@ -11,15 +11,17 @@ import com.babachene.controller.ClientEventController;
 import com.babachene.controller.ServerEventController;
 import com.babachene.gui.LevelState;
 import com.babachene.gui.MainGame;
+import com.babachene.logic.GameLogic;
 import com.babachene.logic.IdentityRequest;
 import com.babachene.logic.LevelRequest;
 import com.babachene.logic.Logic;
+import com.babachene.logic.data.LevelMap;
 import com.babachene.userinput.EventGiver;
 import com.babachene.userinput.KeyboardMap;
 import com.babachene.userinput.LevelInputProcessor;
 import com.badlogic.gdx.Input.Keys;
 
-public class GameController  implements Observer {
+public class GameController implements Observer {
 	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
@@ -40,9 +42,9 @@ public class GameController  implements Observer {
 	    Joining,;
 	}
 
-	public GameController(MainGame game, Logic logic) {
+	public GameController(MainGame game) {
 		this.game = game;
-		this.logic = logic;
+		logic = new GameLogic(new LevelMap(20, 20));
 		EventGiver giver = new EventGiver();
 		levelInputProcessor = new LevelInputProcessor(new KeyboardMap(Keys.Z, Keys.S, Keys.Q, Keys.D, 5, 6, 7, 8, 9, 10, 11, 12), giver);
 		state = GameState.Idle;

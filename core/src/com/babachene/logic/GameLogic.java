@@ -42,6 +42,7 @@ public class GameLogic implements Logic {
 		}
 	}
 	
+	@Override
 	public LevelMap getLevelMap() {
 		return levelMap;
 	}

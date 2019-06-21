@@ -132,9 +132,12 @@ public class MultiplayerMenu extends GameState implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 							
-				String port = portHost.getText();
-				
-				gameController.hostServer(Integer.parseInt(port));
+				try {
+					String port = portHost.getText();
+					gameController.hostServer(Integer.parseInt(port));
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
 				
 				return; // The event has been handled.
 			}
