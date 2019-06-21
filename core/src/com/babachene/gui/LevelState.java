@@ -19,8 +19,12 @@ public class LevelState extends GameState {
 	private LevelRenderer levelRenderer;
 	private SpriteBatch batch;
 	
-	
+	/**
+	 * A new LevelState that will render a level on the screen.
+	 * @param levelToRender The renderable level to provide data for rendring
+	 */
 	public LevelState(RenderableLevel levelToRender, LevelInputProcessor inputProcessor) {
+
 		
 		if (levelToRender == null)
 			throw new IllegalArgumentException("The RenderableLevel cannot be null");
