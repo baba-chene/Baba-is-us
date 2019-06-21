@@ -1,5 +1,6 @@
 package com.babachene.logic.data;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -237,7 +238,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		findGroup(entityType).removeEntity(entity);					  //We remove it from the group.
 	}
 	
-	public void addEntity(int x, int y, String typeOfEntity)			  //Easy to use method to add an entity to the map.
+	public void addEntity(int x, int y, String typeOfEntity)		  //Easy to use method to add an entity to the map.
 	{
 		switch(typeOfEntity)
 		{
@@ -359,11 +360,93 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		return result;
 	}
 	
-	public void moveLeft() {
-		LinkedList<LevelGroupOfEntities> youEntities = this.findYou();
-		for (int i = youEntities.size()-1; i> -1 ; i--)
+	public LinkedList<LevelGroupOfEntities> findP1() {
+		LinkedList<LevelGroupOfEntities> result = new LinkedList<LevelGroupOfEntities>();
+		for (LevelGroupOfEntities entities : mapEntities)
 		{
-			youEntities.get(i).moveLeft();
+			if (entities.isPlayer1())
+				result.add(entities);
+		}
+		return result;
+	}
+	public LinkedList<LevelGroupOfEntities> findP2() {
+		LinkedList<LevelGroupOfEntities> result = new LinkedList<LevelGroupOfEntities>();
+		for (LevelGroupOfEntities entities : mapEntities)
+		{
+			if (entities.isPlayer2())
+				result.add(entities);
+		}
+		return result;
+	}
+	
+	public void moveLeft(int player) {
+		LinkedList<LevelGroupOfEntities> playerEntities = new LinkedList<LevelGroupOfEntities>();
+		switch(player) {
+		case(1):
+			playerEntities = this.findP1();
+			break;
+		case(2):
+			playerEntities = this.findP1();}
+		
+		for (int i = playerEntities.size()-1; i> -1 ; i--)
+		{
+			playerEntities.get(i).moveLeft();
+		}
+		this.rulesUpdater.updateRules();
+		
+	}
+	public void moveRight(int player) {
+		LinkedList<LevelGroupOfEntities> playerEntities = new LinkedList<LevelGroupOfEntities>();
+		switch(player) {
+		case(1):
+			playerEntities = this.findP1();
+			break;
+		case(2):
+			playerEntities = this.findP1();}
+		
+		for (int i = playerEntities.size()-1; i> -1 ; i--)
+		{
+			playerEntities.get(i).moveRight();
+		}
+		this.rulesUpdater.updateRules();
+	}
+	public void moveUp(int player) {
+		LinkedList<LevelGroupOfEntities> playerEntities = new LinkedList<LevelGroupOfEntities>();
+		switch(player) {
+		case(1):
+			playerEntities = this.findP1();
+			break;
+		case(2):
+			playerEntities = this.findP1();}
+		
+		for (int i = playerEntities.size()-1; i> -1 ; i--)
+		{
+			playerEntities.get(i).moveUp();
+		}
+		this.rulesUpdater.updateRules();
+	}
+	public void moveDown(int player) {
+		LinkedList<LevelGroupOfEntities> playerEntities = new LinkedList<LevelGroupOfEntities>();
+		switch(player) {
+		case(1):
+			playerEntities = this.findP1();
+			break;
+		case(2):
+			playerEntities = this.findP1();}
+		
+		for (int i = playerEntities.size()-1; i> -1 ; i--)
+		{
+			playerEntities.get(i).moveDown();
+		}
+		this.rulesUpdater.updateRules();
+	}
+	
+	
+	public void moveLeft() {
+		LinkedList<LevelGroupOfEntities> playerEntities = this.findYou();
+		for (int i =playerEntities.size()-1; i> -1 ; i--)
+		{
+			playerEntities.get(i).moveLeft();
 		}
 		this.rulesUpdater.updateRules();
 		
@@ -396,7 +479,14 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	@Override
 	public Iterator<RenderableEntity> iterator() {
 		// TODO Auto-generated method stub
-		return null;
+		ArrayList<RenderableEntity> toRenderEntities = new ArrayList<RenderableEntity>();
+		for(int i =0; i< this.numberOfGroupEntities;i++) {
+			LevelGroupOfEntities groupOfEntities = this.getMapEntities().get(i);
+					for(Entity entity: groupOfEntities.getListOfEntities()) {
+						toRenderEntities.add((RenderableEntity) entity);
+					}
+		}
+		return toRenderEntities.iterator();
 	}
 
 	@Override
@@ -426,13 +516,13 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	@Override
 	public int getWidth() {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.getyLength();
 	}
 
 	@Override
 	public int getHeight() {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.getxLength();
 	}
 
 	@Override
@@ -447,4 +537,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		return null;
 	}
 	
-}
+
+		
+	}
+	
