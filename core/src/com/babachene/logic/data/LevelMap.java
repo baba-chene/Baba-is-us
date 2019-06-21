@@ -449,6 +449,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		{
 			playerEntities.get(i).moveLeft();
 		}
+
 		
 	}
 	public void moveRight() {
@@ -458,6 +459,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		{
 			youEntities.get(i).moveRight();
 		}
+
 	}
 	public void moveUp() {
 		this.rulesUpdater.updateRules();
@@ -475,6 +477,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		{
 			youEntities.get(i).moveDown();
 		}
+
 	}
 
 	@Override

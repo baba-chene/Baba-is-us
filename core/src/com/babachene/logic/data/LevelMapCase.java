@@ -109,6 +109,7 @@ public class LevelMapCase {
 
 	public void updateContainsPushable() {
 		this.containsPushableEntity = false;
+		this.pushableEntityList = new LinkedList<Entity>();
 		for (Entity e:entityStack) {
 			if (e.isPushable())
 			{
@@ -137,6 +138,7 @@ public class LevelMapCase {
 		int size = entityStack.size();
 		for (int i =size -1; i>-1;i--) //On retire des éléments d'une liste qu'on parcourt, on les retire donc en partant de la fin.
 			this.map.removeEntity(entityStack.get(i)); 
+		this.pushableEntityList = new LinkedList<Entity>();
 		this.containsPushableEntity = false;
 		this.isFree= true;
 		this.isSink = false;
