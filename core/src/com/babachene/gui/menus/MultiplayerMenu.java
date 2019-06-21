@@ -1,5 +1,6 @@
 package com.babachene.gui.menus;
 
+import com.babachene.game.GameController;
 import com.babachene.gui.BabaIsUs;
 import com.babachene.gui.GameState;
 import com.babachene.gui.MainGame;
@@ -33,9 +34,10 @@ public class MultiplayerMenu extends GameState implements Screen {
 	private TextField portHost;
 	private ImageButton hostButton;
 	
+	private GameController gameController;
 	
 	
-	public MultiplayerMenu(MainGame game) {
+	public MultiplayerMenu(MainGame game, final GameController gameController) {
 		parent=game;
 		
 		stage = new Stage(getViewport());
@@ -99,7 +101,7 @@ public class MultiplayerMenu extends GameState implements Screen {
 				String port = portJoin.getText();
 				String IP = ip.getText();
 				
-				// TODO Sombre code a placer ici (demander a Colin)
+				gameController.joinServer(IP, Integer.parseInt(port));
 				
 				return; // The event has been handled.
 			}
@@ -131,8 +133,8 @@ public class MultiplayerMenu extends GameState implements Screen {
 			public void clicked(InputEvent event, float x, float y) {
 							
 				String port = portHost.getText();
-								
-				// TODO Sombre code a placer ici (demander a Colin)
+				
+				gameController.hostServer(Integer.parseInt(port));
 				
 				return; // The event has been handled.
 			}

@@ -1,9 +1,17 @@
 package com.babachene.gui;
 
+import com.babachene.game.GameController;
 import com.babachene.gui.menus.MainMenu;
 import com.babachene.gui.menus.MultiplayerMenu;
 import com.babachene.gui.menus.PlayMenu;
 import com.babachene.gui.menus.SettingsMenu;
+import com.babachene.logic.GameLogic;
+import com.babachene.logic.data.LevelMap;
+import com.babachene.userinput.EventGiver;
+import com.babachene.userinput.KeyboardMap;
+import com.babachene.userinput.LevelInputProcessor;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
 
 public class MainGame extends StateBasedGame {
@@ -17,6 +25,8 @@ public class MainGame extends StateBasedGame {
 	public final static int SETTINGSMENU = 2;
 	public final static int MULTIPLAYERMENU = 3;
 	
+	private GameController gameController;
+	private LevelMap levelMap;
 	
 	public MainGame() {
 		//BabaIsUs.skin.getFont("default-font").getData().setScale(3f,3f);
@@ -28,7 +38,10 @@ public class MainGame extends StateBasedGame {
 	public void create() {
 		
 		BabaIsUs.assetManager = new AssetManager();
-		
+
+		levelMap = new LevelMap(20, 20);
+		GameLogic logic = new GameLogic(levelMap);
+		gameController = new GameController(this, logic);
 		/*
 		 * TEST ZONE
 		 */
@@ -51,6 +64,11 @@ public class MainGame extends StateBasedGame {
 	}
 	
 
+	@Override
+	public void render() {
+		gameController.update();
+		super.render();
+	}
 
 	public void changeScreen(int screen){
 		// Si returnTo=True alors on détruit la fenètre actuelle, sinon on créé une nouvelle fenètre
@@ -67,7 +85,7 @@ public class MainGame extends StateBasedGame {
 				this.push(settingsMenu);
 				break;
 			case MULTIPLAYERMENU:
-				if(multiplayerMenu == null) {multiplayerMenu = new MultiplayerMenu(this);};
+				if(multiplayerMenu == null) {multiplayerMenu = new MultiplayerMenu(this, gameController);};
 				this.push(multiplayerMenu);
 				break;
 			

@@ -17,6 +17,7 @@ public class InputEvent extends Event {
 	public final byte eventType;
 	
 	public InputEvent(byte type, byte data) {
+		super(20);
 		additionalData = data;
 		eventType = type;
 	}
