@@ -386,7 +386,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			playerEntities = this.findP1();
 			break;
 		case(2):
-			playerEntities = this.findP1();}
+			playerEntities = this.findP2();}
 		
 		for (int i = playerEntities.size()-1; i> -1 ; i--)
 		{
@@ -402,7 +402,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			playerEntities = this.findP1();
 			break;
 		case(2):
-			playerEntities = this.findP1();}
+			playerEntities = this.findP2();}
 		
 		for (int i = playerEntities.size()-1; i> -1 ; i--)
 		{
@@ -417,7 +417,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			playerEntities = this.findP1();
 			break;
 		case(2):
-			playerEntities = this.findP1();}
+			playerEntities = this.findP2();}
 		
 		for (int i = playerEntities.size()-1; i> -1 ; i--)
 		{
@@ -432,7 +432,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			playerEntities = this.findP1();
 			break;
 		case(2):
-			playerEntities = this.findP1();}
+			playerEntities = this.findP2();}
 		
 		for (int i = playerEntities.size()-1; i> -1 ; i--)
 		{
