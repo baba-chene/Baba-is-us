@@ -6,7 +6,8 @@ public class MainTest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		LevelMap map = new LevelMap(5,5);
+		long startTime = System.nanoTime();
+		LevelMap map = new LevelMap(20,20);
 		map.addEntity(0, 0, "textbaba");
 		map.addEntity(0, 1, "textis");
 		map.addEntity(0, 2, "textp1");
@@ -18,6 +19,9 @@ public class MainTest {
 		map.getRulesUpdater().updateRules();
 		map.moveRight(1);
 		map.moveLeft(2);
+		long endTime = System.nanoTime();
+		long time = endTime - startTime;
+		System.out.println(time/1000000);
 	}
 
 }

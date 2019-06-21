@@ -6,13 +6,9 @@ public class RandomTest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		LevelMap map = new LevelMap(5,5);
-		EntityBaba baba = new EntityBaba(2,1,map);
-		EntityRock rock = new EntityRock(2,2,map);
-		map.addEntity(rock);
-		map.addEntity(baba);
-		map.setIsPush("rock",true);
-		map.moveRight(baba);
+		LevelMap map = new LevelMap(4,4);
+		EntityText entity = new EntityText(0, 0, map,"textrock");
+		System.out.println(entity.getId());
 	}
 
 }
