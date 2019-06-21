@@ -42,7 +42,7 @@ public class MultiplayerMenu extends GameState implements Screen {
 		batch= new SpriteBatch();
 		
 		// Title
-		title = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/babaisus.png"))));
+		title = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/2playermode.png"))));
 		
 		
 		//BackButton
