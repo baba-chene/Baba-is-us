@@ -1,5 +1,6 @@
 package com.babachene.logic.data;
 
+import com.babachene.Baba;
 import com.babachene.gui.renderer.RenderableEntity;
 
 public abstract class Entity implements RenderableEntity {
@@ -108,6 +109,60 @@ public abstract class Entity implements RenderableEntity {
 	@Override
 	public short getId() {
 		// TODO Auto-generated method stub
+		String switchString = new String();
+		switchString = this.typeOfEntity + this.text;
+		System.out.println(switchString);
+		switch(switchString) {
+		case("baba"):
+			return Baba.BABA;
+		case("rock"):
+			return Baba.ROCK;
+		case("skull"):
+			return Baba.SKULL;
+		case("flag"):
+			return Baba.FLAG;
+		case("lava"):
+			return Baba.LAVA;
+		case("wall"):
+			return Baba.WALL;
+		case("water"):
+			return Baba.WATER;
+		case("textbaba"):
+			return Baba.TXT_BABA;
+		case("textrock"):
+			return Baba.TXT_ROCK;
+		case("textskull"):
+			return Baba.TXT_SKULL;
+		case("textflag"):
+			return Baba.TXT_FLAG;
+		case("textlava"):
+			return Baba.TXT_LAVA;
+		case("textwall"):
+			return Baba.TXT_WALL;
+		case("textwater"):
+			return Baba.TXT_WATER;
+		case("textis"):
+			return Baba.TXT_IS;
+		case("texthas"):
+			return Baba.TXT_HAS;
+		case("textand"):
+			return Baba.TXT_AND;
+		case("textpush"):
+			return Baba.TXT_PUSH;
+		case("textsink"):
+			return Baba.TXT_SINK;
+		case("textblock"):
+			return Baba.TXT_BLOCK;
+		case("textyou"):
+			return Baba.TXT_YOU;
+		case("textp1"):
+			return Baba.TXT_P1;
+		case("textp2"):
+			return Baba.TXT_P2;
+		case("textwin"):
+			return Baba.TXT_WIN;
+		
+		}
 		return 0;
 	}
 	
