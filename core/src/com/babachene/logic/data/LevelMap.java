@@ -443,37 +443,38 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	
 	
 	public void moveLeft() {
+		this.rulesUpdater.updateRules();
 		LinkedList<LevelGroupOfEntities> playerEntities = this.findYou();
 		for (int i =playerEntities.size()-1; i> -1 ; i--)
 		{
 			playerEntities.get(i).moveLeft();
 		}
-		this.rulesUpdater.updateRules();
 		
 	}
 	public void moveRight() {
+		this.rulesUpdater.updateRules();
 		LinkedList<LevelGroupOfEntities> youEntities = this.findYou();
 		for (int i = youEntities.size()-1; i> -1 ; i--)
 		{
 			youEntities.get(i).moveRight();
 		}
-		this.rulesUpdater.updateRules();
 	}
 	public void moveUp() {
+		this.rulesUpdater.updateRules();
 		LinkedList<LevelGroupOfEntities> youEntities = this.findYou();
 		for (int i = youEntities.size()-1; i> -1 ; i--)
 		{
 			youEntities.get(i).moveUp();
 		}
-		this.rulesUpdater.updateRules();
+
 	}
 	public void moveDown() {
+		this.rulesUpdater.updateRules();
 		LinkedList<LevelGroupOfEntities> youEntities = this.findYou();
 		for (int i = youEntities.size()-1; i> -1 ; i--)
 		{
 			youEntities.get(i).moveDown();
 		}
-		this.rulesUpdater.updateRules();
 	}
 
 	@Override
