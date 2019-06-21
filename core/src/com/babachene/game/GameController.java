@@ -9,18 +9,25 @@ import com.babachene.cliserv.Server;
 import com.babachene.cliserv.Update;
 import com.babachene.controller.ClientEventController;
 import com.babachene.controller.ServerEventController;
+import com.babachene.gui.LevelState;
+import com.babachene.gui.MainGame;
 import com.babachene.logic.IdentityRequest;
 import com.babachene.logic.LevelRequest;
 import com.babachene.logic.Logic;
 import com.babachene.userinput.EventGiver;
+import com.babachene.userinput.KeyboardMap;
+import com.babachene.userinput.LevelInputProcessor;
+import com.badlogic.gdx.Input.Keys;
 
 public class GameController  implements Observer {
 	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
+	private MainGame game;
 	private ClientEventController clientController;
 	private ServerEventController serverController;
 	private Logic logic;
+	private LevelInputProcessor levelInputProcessor;
 	private EventGiver eventGiver;
 	private Client client;
 	private Server server;
@@ -33,9 +40,11 @@ public class GameController  implements Observer {
 	    Joining,;
 	}
 
-	public GameController(Logic logic, EventGiver eventGiver) {
+	public GameController(MainGame game, Logic logic) {
+		this.game = game;
 		this.logic = logic;
-		this.eventGiver = eventGiver;
+		EventGiver giver = new EventGiver();
+		levelInputProcessor = new LevelInputProcessor(new KeyboardMap(Keys.Z, Keys.S, Keys.Q, Keys.D, 5, 6, 7, 8, 9, 10, 11, 12), giver);
 		state = GameState.Idle;
 	}
 	
@@ -47,6 +56,7 @@ public class GameController  implements Observer {
 	public void update(Observable arg0, Object arg1) {
 		LOGGER.info("[Game Controller] Connection failed, or disconnected from server");
 		state = GameState.Idle;
+		game.pop();
 	}
 
 	public void joinServer(String IPAdress, int port) {
@@ -57,6 +67,7 @@ public class GameController  implements Observer {
 	    client.addEvent(new IdentityRequest());
 	    state = GameState.Joining;
 		LOGGER.info("[Game Controller] Joining a game");
+		game.push(new LevelState(logic.getLevelMap(), levelInputProcessor));
 	}
 	
 	public void disconnect() {
@@ -75,6 +86,7 @@ public class GameController  implements Observer {
 		serverController = new ServerEventController(this, server, eventGiver, logic, 10);
 	    state = GameState.Hosting;
 		LOGGER.info("[Game Controller] Hosting a game");
+		game.push(new LevelState(logic.getLevelMap(), levelInputProcessor));
 	}
 
 	public void update() {

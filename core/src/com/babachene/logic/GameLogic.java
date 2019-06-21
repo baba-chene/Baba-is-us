@@ -42,6 +42,10 @@ public class GameLogic implements Logic {
 		}
 	}
 	
+	public LevelMap getLevelMap() {
+		return levelMap;
+	}
+	
 	public Update processInput(InputEvent inputEvent) {
 		switch(inputEvent.eventType) {
 		case InputEvent.MOVE_DOWN:

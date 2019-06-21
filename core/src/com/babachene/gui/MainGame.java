@@ -26,6 +26,7 @@ public class MainGame extends StateBasedGame {
 	public final static int MULTIPLAYERMENU = 3;
 	
 	private GameController gameController;
+	private LevelMap levelMap;
 	
 	public MainGame() {
 		//BabaIsUs.skin.getFont("default-font").getData().setScale(3f,3f);
@@ -38,10 +39,9 @@ public class MainGame extends StateBasedGame {
 		
 		BabaIsUs.assetManager = new AssetManager();
 
-		EventGiver giver = new EventGiver();
-		Gdx.input.setInputProcessor(new LevelInputProcessor(new KeyboardMap(Keys.Z, Keys.S, Keys.Q, Keys.D, 5, 6, 7, 8, 9, 10, 11, 12), giver));
-		GameLogic logic = new GameLogic(new LevelMap(20, 20));
-		gameController = new GameController(logic, giver);
+		levelMap = new LevelMap(20, 20);
+		GameLogic logic = new GameLogic(levelMap);
+		gameController = new GameController(this, logic);
 		/*
 		 * TEST ZONE
 		 */
