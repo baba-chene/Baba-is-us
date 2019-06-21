@@ -79,6 +79,8 @@ public class RulesUpdater {
 			case "block":
 			case "you":
 			case "win":
+			case "p1":
+			case "p2":
 				Property property = new Property(x,y,text,this);
 				this.textTab[x][y] = property;
 				break;

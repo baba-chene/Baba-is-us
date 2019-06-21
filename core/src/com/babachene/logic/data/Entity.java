@@ -1,13 +1,14 @@
 package com.babachene.logic.data;
 
-public abstract class Entity {
+import com.babachene.gui.renderer.RenderableEntity;
+
+public abstract class Entity implements RenderableEntity {
 
 	/* An entity in the game represents an object that has some properties. The entity can be several things,
 	 * like a rock, Baba, a wall, empty or even some text. The properties are the ability to be pushed, to make
 	 * a map case blocking the players moves. 
 	 */
 	protected String typeOfEntity; //Rock, Baba, Wall..
-
 	protected LevelMap map;
 	protected int xPosition;
 	protected int yPosition;
@@ -20,9 +21,7 @@ public abstract class Entity {
 
 
 
-	public String getText() {
-		return text;
-	}
+
 
 
 
@@ -36,6 +35,11 @@ public abstract class Entity {
 
 		
 	}
+
+	public String getText() {
+		return text;
+	}
+	
 
 
 	public boolean isPushable() {
@@ -93,6 +97,44 @@ public abstract class Entity {
 	
 	public String getTypeOfEntity() {
 		return typeOfEntity;
+	}
+	
+	@Override
+	public Object getDirection() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public short getId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	@Override
+	public Object getVaration() {
+		// TODO Auto-generated method stub
+		return null;
+		
+	}@Override
+	public int getX() {
+		// TODO Auto-generated method stub
+		return getyPosition();
+		
+	}@Override
+	public int getY() {
+		// TODO Auto-generated method stub
+		return (map.getxLength()- 1 - this.getxPosition());
+		
+	}@Override
+	public boolean hasDirection() {
+		// TODO Auto-generated method stub
+		return false;
+		
+	}@Override
+	public boolean hasVaration() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }
