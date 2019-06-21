@@ -46,7 +46,7 @@ public class LavaTextureChooser {
 			
 		}
 		
-		return ("lava/lava"+voisins+".png");
+		return ("textures/lava/lava"+voisins+".png");
 	}
 		
 	

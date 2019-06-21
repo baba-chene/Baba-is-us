@@ -33,11 +33,11 @@ public class PlayMenu extends GameState implements Screen {
 		batch= new SpriteBatch();
 		
 		// Title
-		title = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/selectmode.png"))));
+		title = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/menus/selectmode.png"))));
 		
 		
 		//BackButton
-		SpriteDrawable backImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/back.png"))));
+		SpriteDrawable backImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/menus/back.png"))));
 		backButton = new ImageButton(backImage);
 		backButton.setBounds(100, 80, 200, 120);
 		
@@ -57,7 +57,7 @@ public class PlayMenu extends GameState implements Screen {
 		
 		
 		//singleButton
-		SpriteDrawable oneplayerImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/1player.png"))));
+		SpriteDrawable oneplayerImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/menus/1player.png"))));
 		singleButton = new ImageButton(oneplayerImage);
 		singleButton.setBounds(BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 +80, 800, 120);
 		singleButton.setColor(BabaIsUs.buttonColor);
@@ -78,7 +78,7 @@ public class PlayMenu extends GameState implements Screen {
 		
 		
 		//multiplayerButton
-		SpriteDrawable twoplayerImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/2player.png"))));
+		SpriteDrawable twoplayerImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/menus/2player.png"))));
 		multiplayerButton = new ImageButton(twoplayerImage);
 		multiplayerButton.setBounds(BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 -80, 800, 120);
 		multiplayerButton.setColor(BabaIsUs.buttonColor);

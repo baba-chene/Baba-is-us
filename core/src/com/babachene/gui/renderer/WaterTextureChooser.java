@@ -308,7 +308,7 @@ public class WaterTextureChooser {
 			
 		}
 		
-		return ("water/water"+hashtable[voisins]+".png");
+		return ("textures/water/water"+hashtable[voisins]+".png");
 	}
 	
 }
