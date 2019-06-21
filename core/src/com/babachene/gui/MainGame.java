@@ -1,18 +1,16 @@
 package com.babachene.gui;
 
+import com.babachene.game.Controller;
 import com.babachene.game.GameController;
+import com.babachene.game.SoloController;
 import com.babachene.gui.menus.MainMenu;
 import com.babachene.gui.menus.MultiplayerMenu;
 import com.babachene.gui.menus.PlayMenu;
 import com.babachene.gui.menus.SettingsMenu;
-import com.babachene.logic.GameLogic;
+import com.babachene.gui.test.RenderingTest;
 import com.babachene.logic.data.LevelMap;
-import com.babachene.userinput.EventGiver;
-import com.babachene.userinput.KeyboardMap;
-import com.babachene.userinput.LevelInputProcessor;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 
 public class MainGame extends StateBasedGame {
 	
@@ -26,6 +24,8 @@ public class MainGame extends StateBasedGame {
 	public final static int MULTIPLAYERMENU = 3;
 	
 	private GameController gameController;
+	private Controller controller;   // TODO find a good structure.
+	
 	private LevelMap levelMap;
 	
 	public MainGame() {
@@ -38,35 +38,48 @@ public class MainGame extends StateBasedGame {
 	public void create() {
 		
 		BabaIsUs.assetManager = new AssetManager();
-
+		
+		// Colin's test
+		/*
 		levelMap = new LevelMap(20, 20);
 		GameLogic logic = new GameLogic(levelMap);
 		gameController = new GameController(this, logic);
+		*/
+		
 		/*
 		 * TEST ZONE
 		 */
-		/*
+		
 		
 		BabaIsUs.assetManager.load(BabaIsUs.textures.PEPE, Texture.class);
 		BabaIsUs.assetManager.load(BabaIsUs.textures.KERMIT, Texture.class);
 		BabaIsUs.assetManager.load(BabaIsUs.textures.THEME_DEFAULT, Texture.class);
 		BabaIsUs.assetManager.finishLoading();
-		
+		/*
 		RenderingTest t = new RenderingTest();
 		this.push(new LevelState(t.level));
 		t.startTestOnLevelState();
 		*/
+		
 		/*
 		 * END OF TEST ZONE
 		 */
 		
+		this.controller = new SoloController(this);
+		
 		this.push(new MainMenu(this));
 	}
 	
-
+	//////////////////////
+	
+	public Controller getController() {
+		return controller;
+	}
+	
 	@Override
 	public void render() {
-		gameController.update();
+//		gameController.update();
+		controller.update();
 		super.render();
 	}
 
@@ -92,7 +105,7 @@ public class MainGame extends StateBasedGame {
 		}
 	}
 
-	public void back() {
+	public final void back() {
 		pop();
 	}
 	

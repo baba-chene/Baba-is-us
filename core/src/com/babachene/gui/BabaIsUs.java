@@ -38,8 +38,8 @@ public final class BabaIsUs {
 		
 		private static final String DIR = "./assets/";
 		public final String
-					PEPE     = DIR + "spiral_tree.png",
-					KERMIT   = DIR + "kermit.jpg",
+					PEPE     = DIR + "pepe.png",
+					KERMIT   = DIR + "kermit.png",
 					
 					
 					THEME_DEFAULT = DIR + "dark_gray.png";

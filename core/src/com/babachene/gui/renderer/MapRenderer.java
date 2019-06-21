@@ -42,7 +42,7 @@ class MapRenderer extends Renderer { // Not a public class.
 			throw new IllegalArgumentException("The RenderableMap object cannot bu null");
 		
 		if (map.getMapUpdateQueue() == null) {
-			logger.log(Level.WARNING, "The MapUpdateQueue is null: MaRenderer will not change its entities structure?");
+			logger.log(Level.WARNING, "The MapUpdateQueue is null: MaRenderer will not change its entities structure.");
 			updateQueue = new MapUpdateQueue();
 		} else
 			updateQueue = map.getMapUpdateQueue();
@@ -150,6 +150,12 @@ class MapRenderer extends Renderer { // Not a public class.
 		 */
 		
 		short id = e.getId();
+		
+		if (id == 0) { //TODO
+			logger.fine("An entity with ID 0 has dropped and will not be renderer.");
+			return;
+		}
+		
 		/*
 		 *  Still in test phase.
 		 */

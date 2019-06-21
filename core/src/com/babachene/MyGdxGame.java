@@ -25,8 +25,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		} catch(IOException ioe) {
 			
 		}
-		client = new Client(10, 10);
-		server = new Server(10, 10);
+//		client = new Client(10, 10);
+//		server = new Server(10, 10);
 		server.open(4444);
 		client.connect("127.0.0.1", 4444);
 		client.disconnect();

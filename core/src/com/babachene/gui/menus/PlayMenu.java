@@ -1,5 +1,6 @@
 package com.babachene.gui.menus;
 
+import com.babachene.game.Controller;
 import com.babachene.gui.BabaIsUs;
 import com.babachene.gui.GameState;
 import com.babachene.gui.MainGame;
@@ -18,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 public class PlayMenu extends GameState implements Screen {
 
 	private MainGame parent;
+	private Controller controller;
 	
 	private Stage stage;
 	private SpriteBatch batch;
@@ -28,6 +30,7 @@ public class PlayMenu extends GameState implements Screen {
 	
 	public PlayMenu(MainGame game) {
 		parent=game;
+		controller = game.getController();
 		
 		stage = new Stage(getViewport());
 		batch= new SpriteBatch();
@@ -68,6 +71,10 @@ public class PlayMenu extends GameState implements Screen {
 				System.out.println("Play Button pressed");
 				
 				// TODO lancer la selection des niveaux
+				
+				controller.launchLevel(null);
+				
+				
 				
 				return; // The event has been handled.
 			}
@@ -124,20 +131,14 @@ public class PlayMenu extends GameState implements Screen {
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -151,8 +152,6 @@ public class PlayMenu extends GameState implements Screen {
 
 	@Override
 	public void render(float delta) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

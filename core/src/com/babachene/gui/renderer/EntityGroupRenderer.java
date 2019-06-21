@@ -34,12 +34,15 @@ class EntityGroupRenderer extends Renderer { // Not a public class.
 		mapData = mapRenderingData;
 		
 		
-		switch (entityId) {
+		switch (entityId) { // TODO todo
 		case 0: tex = BabaIsUs.assetManager.get(BabaIsUs.textures.PEPE, Texture.class);
 			break;
 		case 1: tex = BabaIsUs.assetManager.get(BabaIsUs.textures.KERMIT, Texture.class);
 			break;
 		case 2:
+			break;
+		case 3:
+			break;
 		default:
 			throw new InvalidParameterException("Unreconsized entity id: " + entityId);
 		}
