@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.babachene.gui.BabaIsUs;
+import com.babachene.gui.Rsrc;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -165,6 +166,7 @@ class MapRenderer extends Renderer { // Not a public class.
 				renderers.add(new EntityGroupRenderer(mapRenderingData, id));
 			} catch (IllegalArgumentException ex) {
 				logger.log(Level.INFO, "Failed to create a new EntityGroupRenderer.", ex);
+				return;
 			}
 			
 			// Here we update the id table.

@@ -9,6 +9,7 @@ import com.babachene.gui.menus.PlayMenu;
 import com.babachene.gui.menus.SettingsMenu;
 import com.babachene.gui.test.RenderingTest;
 import com.babachene.logic.data.LevelMap;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 
@@ -37,7 +38,10 @@ public class MainGame extends StateBasedGame {
 	@Override
 	public void create() {
 		
+		
 		BabaIsUs.assetManager = new AssetManager();
+		
+		Rsrc.loadEverything();
 		
 		// Colin's test
 		/*

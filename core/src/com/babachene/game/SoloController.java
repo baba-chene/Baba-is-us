@@ -45,9 +45,14 @@ public class SoloController extends Controller {
 		map.addEntity(5, 5, "textis");
 		map.addEntity(5, 8, "textbaba");
 		map.addEntity(4, 2, "rock");
-		map.addEntity(0, 0, "textbaba");
-		map.addEntity(1, 0, "textis");
-		map.addEntity(2, 0, "textyou");
+		map.addEntity(5, 2, "textrock");
+		map.addEntity(5, 4, "textpush");
+		map.addEntity(5, 7, "textsink");
+		map.addEntity(1, 1, "textbaba");
+		map.addEntity(2, 1, "textis");
+		map.addEntity(3, 1, "textyou");
+		map.addEntity(6, 5, "textyou");
+		map.addEntity(6, 6, "textrock");
 		
 		logic = new GameLogic(map);
 		

@@ -4,9 +4,12 @@ import java.security.InvalidParameterException;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.babachene.Baba;
 import com.babachene.gui.BabaIsUs;
+import com.babachene.gui.Rsrc;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  * It does noy function as the orther renderers. But rather
@@ -20,7 +23,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 class EntityGroupRenderer extends Renderer { // Not a public class.
 	
 	/** One texture to rule them all. */
-	private Texture tex;
+	private TextureRegion tex;
 	
 	private List<RenderableEntity> entities;
 	
@@ -35,14 +38,37 @@ class EntityGroupRenderer extends Renderer { // Not a public class.
 		
 		
 		switch (entityId) { // TODO todo
-		case 0: tex = BabaIsUs.assetManager.get(BabaIsUs.textures.PEPE, Texture.class);
+		
+		/*
+		 * Text blocks
+		 */
+		case Baba.TXT_PUSH: tex = Rsrc.TXT_PUSH_TEXTURE;
 			break;
-		case 1: tex = BabaIsUs.assetManager.get(BabaIsUs.textures.KERMIT, Texture.class);
+		case Baba.TXT_ROCK: tex = Rsrc.TXT_ROCK_TEXTURE;
+			break;
+		case Baba.TXT_BABA: tex = Rsrc.TXT_BABA_TEXTURE;
+			break;
+		case Baba.TXT_IS: tex = Rsrc.TXT_IS_TEXTURE;
+			break;
+		case Baba.TXT_WIN: tex = Rsrc.TXT_WIN_TEXTURE;
+			break;
+		case Baba.TXT_YOU: tex = Rsrc.TXT_YOU_TEXTURE;
+			break;
+		case Baba.TXT_SINK: tex = Rsrc.TXT_SINK_TEXTURE;
+			break;
+		
+		/*
+		 * Non text blocks.
+		 */
+		case 1: tex = new TextureRegion(BabaIsUs.assetManager.get(BabaIsUs.textures.KERMIT, Texture.class));
+			break;
+		case Baba.ROCK: tex = Rsrc.ROCK_TEXTURE;
 			break;
 		default:
 			throw new InvalidParameterException("Unreconsized entity id: " + entityId);
 		}
-		
+		if (tex == null)
+			throw new RuntimeException("Texture of entity " + entityId + " is missing from Rsrc.");
 	}
 	
 	@Override
