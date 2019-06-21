@@ -38,6 +38,6 @@ public final class Baba {
 					TXT_FLAG	= 1007,
 					TXT_SKULL	= 1008;
 
-	
+
 	
 }

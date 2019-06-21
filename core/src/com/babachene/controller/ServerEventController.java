@@ -24,7 +24,7 @@ public class ServerEventController {
 	private Update update;
 
     public ServerEventController(GameController gameController, Server server, EventGiver eventGiver, Logic logic, int eventBufferLength) {
-
+    	this.gameController = gameController;
 		this.eventBufferLength = eventBufferLength;
 		this.server = server;
 		this.eventGiver = eventGiver;

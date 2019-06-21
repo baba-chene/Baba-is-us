@@ -1,7 +1,5 @@
 package com.babachene.logic.data;
 
-import com.babachene.Baba;
-
 public class EntityBaba extends Entity {
 
 	public EntityBaba(int x, int y, LevelMap map) {
@@ -9,9 +7,5 @@ public class EntityBaba extends Entity {
 		// TODO Auto-generated constructor stub
 	}
 	
-	@Override
-	public short getId() {
-		return Baba.BABA;
-	}
 
 }

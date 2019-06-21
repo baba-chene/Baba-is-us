@@ -37,16 +37,14 @@ public class GameController  implements Observer {
 	private enum GameState {
 		Idle,
 	    Hosting,
-	    Joining,
-		Solo;
+	    Joining,;
 	}
 
 	public GameController(MainGame game, Logic logic) {
 		this.game = game;
 		this.logic = logic;
 		EventGiver giver = new EventGiver();
-		levelInputProcessor = new LevelInputProcessor(new KeyboardMap(Keys.Z, Keys.S, Keys.Q, Keys.D, 5, 6, 7, 8,
-													Keys.UP, Keys.DOWN, Keys.LEFT, Keys.RIGHT), giver);
+		levelInputProcessor = new LevelInputProcessor(new KeyboardMap(Keys.Z, Keys.S, Keys.Q, Keys.D, 5, 6, 7, 8, 9, 10, 11, 12), giver);
 		state = GameState.Idle;
 	}
 	
