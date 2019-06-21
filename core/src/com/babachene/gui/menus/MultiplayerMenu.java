@@ -44,7 +44,7 @@ public class MultiplayerMenu extends GameState implements Screen {
 		batch= new SpriteBatch();
 		
 		// Title
-		title = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/babaisus.png"))));
+		title = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/2playermode.png"))));
 		
 		
 		//BackButton
@@ -132,9 +132,12 @@ public class MultiplayerMenu extends GameState implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 							
-				String port = portHost.getText();
-				
-				gameController.hostServer(Integer.parseInt(port));
+				try {
+					String port = portHost.getText();
+					gameController.hostServer(Integer.parseInt(port));
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
 				
 				return; // The event has been handled.
 			}

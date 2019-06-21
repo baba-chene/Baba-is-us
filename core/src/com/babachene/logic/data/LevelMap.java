@@ -492,8 +492,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 
 	@Override
 	public RenderableMap getMap() {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 
 	@Override

@@ -39,10 +39,10 @@ class MapRenderer extends Renderer { // Not a public class.
 	
 	public MapRenderer(RenderableMap map, byte theme) {
 		if (map == null)
-			throw new IllegalArgumentException("The RenderableMap object cannot bu null");
+			throw new IllegalArgumentException("The RenderableMap object cannot be null");
 		
 		if (map.getMapUpdateQueue() == null) {
-			logger.log(Level.WARNING, "The MapUpdateQueue is null: MaRenderer will not change its entities structure?");
+			logger.log(Level.WARNING, "The MapUpdateQueue is null: MapRenderer will not change its entities structure?");
 			updateQueue = new MapUpdateQueue();
 		} else
 			updateQueue = map.getMapUpdateQueue();
