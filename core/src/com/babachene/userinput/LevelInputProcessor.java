@@ -4,9 +4,14 @@ import com.babachene.cliserv.InputEvent;
 import com.badlogic.gdx.InputAdapter;
 
 /**
- * Process the input 
+ * Process the input. Use Gdx.input.setInputProcessor(this class)
+ * to make libgdx take an instance of this class into account.
  * @author jeremy
  *
+ */
+/*
+ * TODO If a key is kept pressed, the player sould keep moving at each update.
+ * However, this is for later, once we managed the movement speed.
  */
 public class LevelInputProcessor extends InputAdapter {
 	

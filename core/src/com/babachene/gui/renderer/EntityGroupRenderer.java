@@ -39,10 +39,6 @@ class EntityGroupRenderer extends Renderer { // Not a public class.
 			break;
 		case 1: tex = BabaIsUs.assetManager.get(BabaIsUs.textures.KERMIT, Texture.class);
 			break;
-		case 2:
-			break;
-		case 3:
-			break;
 		default:
 			throw new InvalidParameterException("Unreconsized entity id: " + entityId);
 		}

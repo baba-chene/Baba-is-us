@@ -48,14 +48,10 @@ public class GameLogic implements Logic {
 	
 	public Update processInput(InputEvent inputEvent) {
 		
-		System.out.println("·");
-		
 		int player = (inputEvent.additionalData == 2) ? 2 : 1;
 		
 		switch(inputEvent.eventType) {
 		case InputEvent.MOVE_DOWN:
-			levelMap.moveDown(player);
-			System.out.println("move down");
 			levelMap.moveDown();
 			break;
 		case InputEvent.MOVE_UP:

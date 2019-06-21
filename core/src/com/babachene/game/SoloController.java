@@ -27,7 +27,7 @@ public class SoloController extends Controller {
 			throw new IllegalArgumentException("MainGame cannot be null.");
 		this.mainGame = mainGame;
 		giver = new EventGiver();
-		inputProcessor = new LevelInputProcessor(new KeyboardMap(Keys.Z, Keys.S, Keys.Q, Keys.D, 5, 6, 7, 8,
+		inputProcessor = new LevelInputProcessor(new KeyboardMap(Keys.Z, Keys.S, Keys.Q, Keys.D, Keys.A, Keys.A, Keys.A, Keys.A,
 													Keys.UP, Keys.DOWN, Keys.LEFT, Keys.RIGHT), giver);
 		
 		// No creation of logic, map. It's in launchLevel
