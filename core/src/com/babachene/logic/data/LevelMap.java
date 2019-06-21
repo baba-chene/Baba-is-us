@@ -1,10 +1,16 @@
 package com.babachene.logic.data;
 
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
+import com.babachene.gui.renderer.MapUpdateQueue;
+import com.babachene.gui.renderer.RenderableEntity;
+import com.babachene.gui.renderer.RenderableLevel;
+import com.babachene.gui.renderer.RenderableMap;
 import com.babachene.logic.rules.RulesUpdater;
 
-public class LevelMap {
+public class LevelMap implements RenderableMap,RenderableLevel {
 
 	/* The map in the game controls everything in the level. As it has an overall view of the available tiles of the map, it gives
 	 * the possibility to add/remove an entity in the level, but also to move the entities. 
@@ -385,6 +391,60 @@ public class LevelMap {
 			youEntities.get(i).moveDown();
 		}
 		this.rulesUpdater.updateRules();
+	}
+
+	@Override
+	public Iterator<RenderableEntity> iterator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public RenderableMap getMap() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public byte getThemeId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public byte getMusicId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String getTitle() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getWidth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getHeight() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public MapUpdateQueue getMapUpdateQueue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<RenderableEntity> getEntity(int x, int y) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
