@@ -20,7 +20,7 @@ public class GameLogic implements Logic {
 		int id = event.getId();
 		switch(id) {
 		case 10:
-			return null;
+			return new KeepAliveUpdate();
 		case 20:
 			return processInput((InputEvent) event);
 		default:

@@ -43,8 +43,17 @@ public class GameController implements Observer {
 	}
 
 	public GameController(MainGame game) {
+		LevelMap map = new LevelMap(10, 10);
+			map.addEntity(2, 4, "baba");
+			map.addEntity(5, 5, "textis");
+			map.addEntity(5, 8, "textbaba");
+			map.addEntity(4, 2, "rock");
+			map.addEntity(1, 1, "textbaba");
+			map.addEntity(2, 1, "textis");
+			map.addEntity(3, 1, "textyou");
+			
 		this.game = game;
-		logic = new GameLogic(new LevelMap(20, 20));
+		logic = new GameLogic(map);
 		eventGiver = new EventGiver();
 		levelInputProcessor = new LevelInputProcessor(new KeyboardMap(Keys.Z, Keys.S, Keys.Q, Keys.D, 5, 6, 7, 8, 9, 10, 11, 12), eventGiver);
 		state = GameState.Idle;

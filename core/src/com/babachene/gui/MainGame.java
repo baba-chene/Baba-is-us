@@ -1,10 +1,13 @@
 package com.babachene.gui;
 
+import java.io.IOException;
+
 import com.babachene.game.GameController;
 import com.babachene.gui.menus.MainMenu;
 import com.babachene.gui.menus.MultiplayerMenu;
 import com.babachene.gui.menus.PlayMenu;
 import com.babachene.gui.menus.SettingsMenu;
+import com.babachene.logger.GlobalLogger;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 
@@ -31,6 +34,12 @@ public class MainGame extends StateBasedGame {
 	public void create() {
 		
 		BabaIsUs.assetManager = new AssetManager();
+
+		try {
+			GlobalLogger.setup(true);
+		} catch(IOException ioe) {
+			
+		}
 		
 		gameController = new GameController(this);
 		/*

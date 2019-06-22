@@ -1,11 +1,13 @@
 package com.babachene.cliserv;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.io.InterruptedIOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.io.InterruptedIOException;
 import java.util.Observer;
 import java.util.logging.Logger;
 
@@ -22,11 +24,11 @@ public class Server implements Runnable {
     private ObjectInputStream in;
     private ObjectOutputStream out;
 
-    private Event[] eventBuffer;
-    private int eventBufferSize = 0;
-    private int eventBufferStartIndex = 0;
-    private Update[] updateBuffer;
-    private int updateBufferSize = 0;
+    private volatile Event[] eventBuffer;
+    private volatile int eventBufferSize = 0;
+    private volatile int eventBufferStartIndex = 0;
+    private volatile Update[] updateBuffer;
+    private volatile int updateBufferSize = 0;
 
     private long eventTime;
     private long lastUpdateTime;
@@ -193,13 +195,16 @@ public class Server implements Runnable {
     private void listen() {
         try {
             clientSocket = serverSocket.accept();
-            out = new ObjectOutputStream(clientSocket.getOutputStream());
-            in = new ObjectInputStream(clientSocket.getInputStream());
+            clientSocket.setSoTimeout(10);
+            out = new ObjectOutputStream(new BufferedOutputStream(clientSocket.getOutputStream()));
+            out.flush();
+            in = new ObjectInputStream(new BufferedInputStream(clientSocket.getInputStream()));
             nextState = State.Connected;
             LOGGER.info("[Server] Client connected.");
+            eventTime = System.currentTimeMillis();
         } catch(InterruptedIOException iioe) {
             try {
-                Thread.sleep(10);
+                Thread.sleep(1);
             } catch(InterruptedException ie) {
                 ie.printStackTrace();
             }
@@ -211,7 +216,7 @@ public class Server implements Runnable {
     private void openHost() {
     	try {
     		serverSocket = new ServerSocket(port);
-    		serverSocket.setSoTimeout(1000);
+    		serverSocket.setSoTimeout(10);
             LOGGER.info("[Server] Server listening on port " + port);
     		nextState = State.Opened;
     	} catch (IOException e) {
@@ -279,7 +284,7 @@ public class Server implements Runnable {
             }
             clearUpdateBuffer();
     	}
-    	
+
         long currentTime = System.currentTimeMillis();
         if(currentTime - lastUpdateTime > 1000) {
             try {
@@ -312,13 +317,12 @@ public class Server implements Runnable {
     private void receiveEvents() {
         try {
             Event event = (Event) in.readObject();
-        	LOGGER.info("[Server] Event received");
             eventTime = System.currentTimeMillis();
             event.updateConnection(this);
 
             synchronized(this) {
                 if(eventBufferSize < eventBuffer.length) {
-                    eventBuffer[eventBufferStartIndex + eventBufferSize] = event;
+                    eventBuffer[(eventBufferStartIndex + eventBufferSize) % eventBuffer.length] = event;
                     eventBufferSize++;
                 } else
                     LOGGER.warning("[Server] Buffer full, event dropped");
