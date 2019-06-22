@@ -1,5 +1,7 @@
 package com.babachene.gui.renderer;
 
+import com.babachene.Baba;
+
 /**
  * Stores graphical data ( x,y and width,  height) of the graphical
  * representation of the map. <br> For entities:
@@ -53,6 +55,12 @@ final class MapRenderingData { // Not a public class.
 			mapY = (H - mapHeight) / 2f;
 		}
 		
+		// Ma fierté est sans limite.
+		speedX = Baba.BASE_ENTITY_MOVING_SPEED * tileWidth;
+		speedY = Baba.BASE_ENTITY_MOVING_SPEED * tileHeight;
+		
+		fastSpeedX = Baba.BASE_ENTITY_MOVING_SPEED * mapWidth / 10f;
+		fastSpeedY = Baba.BASE_ENTITY_MOVING_SPEED * mapHeight / 10f;
 		
 	}
 	
@@ -65,13 +73,16 @@ final class MapRenderingData { // Not a public class.
 	/** The dimensions of a graphical tile. */
 	public final float tileWidth, tileHeight;
 	
-	public float xPosition(int xIndex) {
+	public float xPosition(float xIndex) {
 		return mapX + xIndex * tileWidth;
 	}
 	
-	public float yPosition(int yIndex) {
+	public float yPosition(float yIndex) {
 		return mapY + yIndex * tileHeight;
 	}
+	
+	/** These floats are to be added to a position-tracking float at each render(). */
+	public final float speedX, fastSpeedX, speedY, fastSpeedY;
 	
 }
 

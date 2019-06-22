@@ -4,6 +4,11 @@ public final class Baba {
 	
 	private Baba() {}
 	
+	/**
+	 * TODO to comment
+	 */
+	public static final float BASE_ENTITY_MOVING_SPEED = .2f;
+	
 	/** Entities identifiant. */
 	public static final short
 					BABA		= 1,

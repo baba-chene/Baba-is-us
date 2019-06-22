@@ -1,12 +1,6 @@
 package com.babachene.gui.renderer;
 
-import java.security.InvalidParameterException;
-import java.util.MissingResourceException;
-
 import com.babachene.Baba;
-import com.babachene.gui.BabaIsUs;
-import com.babachene.gui.Rsrc;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -23,6 +17,16 @@ class EntityRenderer extends Renderer { // Not a public class
 	
 	private MapRenderingData mapData;
 	
+	/** Tells whether this entity is moving or not. */
+	private boolean moving;
+	/** The tile index coord, on the discrete data map. */
+	private int intX, intY;
+	/** The position in the graphical map. */
+	private float floatX, floatY;
+	private float speedX, speedY;
+	
+	/////////////////////////////////////////
+	
 	public EntityRenderer(RenderableEntity e, MapRenderingData mapData) {
 		if (e == null)
 			throw new IllegalArgumentException("RenderableEntity arg cannot be null");
@@ -33,85 +37,109 @@ class EntityRenderer extends Renderer { // Not a public class
 		entity = e;
 		
 		short entityId = e.getId();
-		switch (entityId) { // TODO todo
 		
-		/*
-		 * Text blocks
-		 */
-		case Baba.TXT_PUSH: tex = Rsrc.TXT_PUSH_TEXTURE;
-			break;
-		case Baba.TXT_ROCK: tex = Rsrc.TXT_ROCK_TEXTURE;
-			break;
-		case Baba.TXT_BABA: tex = Rsrc.TXT_BABA_TEXTURE;
-			break;
-		case Baba.TXT_WIN: tex = Rsrc.TXT_WIN_TEXTURE;
-			break;
-		case Baba.TXT_YOU: tex = Rsrc.TXT_YOU_TEXTURE;
-			break;
-		case Baba.TXT_SINK: tex = Rsrc.TXT_SINK_TEXTURE;
-			break;
-		case Baba.TXT_BLOCK: tex = Rsrc.TXT_STOP_TEXTURE;
-			break;
-		case Baba.TXT_WATER: tex = Rsrc.TXT_WATER_TEXTURE;
-			break;
-		case Baba.TXT_LAVA: tex = Rsrc.TXT_LAVA_TEXTURE;
-			break;
-		case Baba.TXT_WALL: tex = Rsrc.TXT_WALL_TEXTURE;
-			
+		// The big id:texture table is here.
+		tex = Mapper.textureById(entityId);
 		
+		moving = false;
+		intX = entity.getX();
+		intY = entity.getY();
 		
-		case Baba.TXT_IS: tex = Rsrc.TXT_IS_TEXTURE;
-			break;	
-		case Baba.TXT_HAS: tex = Rsrc.TXT_HAS_TEXTURE;
-			break;
-		case Baba.TXT_AND: tex = Rsrc.TXT_AND_TEXTURE;
-			break;
-		case Baba.TXT_ON: tex = Rsrc.TXT_ON_TEXTURE;
-			break;
-		case Baba.TXT_BUT: tex = Rsrc.TXT_BUT_TEXTURE;
-			break;
-//		case Baba.TXT_SINK: tex = Rsrc.TXT_SINK_TEXTURE;
-//			break;
-//		case Baba.TXT_SINK: tex = Rsrc.TXT_SINK_TEXTURE;
-//			break;
+		floatX = mapData.xPosition(intX);
+		floatY = mapData.yPosition(intY);
 		
-		/*
-		 * Non-text blocks.
-		 */
-		case 1: tex = new TextureRegion(BabaIsUs.assetManager.get(BabaIsUs.textures.KERMIT, Texture.class));
-			break;
-		case Baba.ROCK: tex = Rsrc.ROCK_TEXTURE;
-			break;
-		case Baba.WATER: tex = Rsrc.WATER_TEXTURE;
-			break;
-		case Baba.LAVA: tex = Rsrc.LAVA_TEXTURE;
-			break;
-		case Baba.WALL: tex = Rsrc.WALL_TEXTURE;
-			break;
-		case Baba.TREE: tex = Rsrc.TREE_TEXTURE;
-			break;
-		case Baba.FLAG: tex = Rsrc.FLAG_TEXTURE;
-			break;
-		
-			
-		default:
-			tex = Rsrc.MISSING_TEXTURE; // TODO It's better if an exception is thrown.
-			//throw new InvalidParameterException("Unreconsized entity id: " + entityId);
-		}
-		if (tex == null)
-			throw new MissingResourceException("Texture is not initialized. Entity id: "+entityId, "Rsrc", "Entity id :"+entityId);
-		
+		speedX = speedY = 0f;
 	}
 	
 	
 	@Override
 	public void render(SpriteBatch batch) {
-		batch.draw(tex, mapData.xPosition(entity.getX()),
-		                mapData.yPosition(entity.getY()),
+		
+		// Verify if the entity has not moved.
+		if (entity.getX() != intX || entity .getY() != intY) {
+			
+			int ex = entity.getX(), ey = entity.getY();
+			
+			if (ex != intX) {
+				
+				int dx = ex - intX; // de la position graphique à la position réelle.
+				
+				if (dx != 1 && dx != -1) {
+					fastMove(dx, ey - intY);
+				} else {
+					if (ey != intY) {
+						fastMove(dx, ey - intY);
+					} else {
+						/*
+						 * case: normal move on X axis.
+						 */
+						
+						speedX = mapData.speedX * dx;
+						moving = true;
+						
+					}
+				}
+			} else {
+				
+				int dy = ey - intY; // de la position graphique à la position réelle.
+				
+				if (dy != 1 && dy == -1) {
+					fastMove(0, dy);
+				} else {
+					/*
+					 * case: normal move on Y axis.
+					 */
+					
+					intY = ey;
+					speedY = mapData.speedY * dy;
+					moving = true;
+				}
+			}
+			
+			intX = ex; // update those, thus the renderer won't perform any more movement
+			intY = ey; // initialisation until the entity moves again.
+		}
+		
+		// When in a moving phase, update the float position and possibly end the move.
+		if (moving) {
+			
+			if (Math.abs(floatX - mapData.xPosition(intX)) < 2 * mapData.speedX) {
+				
+				floatX = mapData.xPosition(intX);
+				
+				if (Math.abs(floatY - mapData.yPosition(intY)) < 2 * mapData.speedY) {
+					
+					floatY = mapData.yPosition(intY);
+					
+					moving = false; // The movement is done.
+					
+				} else {
+					floatY += speedY;
+				}
+				
+			} else {
+				if (Math.abs(floatY - mapData.yPosition(intY)) < 2 * mapData.speedY) {
+					
+					floatY = mapData.yPosition(intY);
+					
+				} else {
+					floatY += speedY;
+				}
+				
+				floatX += speedX;
+				
+			}
+			
+		}
+		
+		// Draw the texture.
+		batch.draw(tex, floatX,
+		                floatY,
 		                mapData.tileWidth,
 		                mapData.tileHeight);
 		
 	}
+	
 	@Override
 	public void update() {
 		
@@ -121,6 +149,24 @@ class EntityRenderer extends Renderer { // Not a public class
 	
 	public RenderableEntity getRenderableEntity() {
 		return entity;
+	}
+	
+	public MapRenderingData getMapRenderingData() {
+		return mapData;
+	}
+	
+	/////////////////////
+	
+	/**
+	 * Used to manage a fast movement. For all cases when
+	 * the enity does not move simply on a direct neightboor
+	 * tile.
+	 */
+	private final void fastMove(int dx, int dy) {
+		
+		speedX = mapData.fastSpeedX * Math.signum((float) dx);
+		speedY = mapData.fastSpeedY * Math.signum((float) dy);
+		moving = true;
 	}
 	
 }
