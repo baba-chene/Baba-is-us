@@ -7,9 +7,9 @@ import com.babachene.logic.data.LevelMapCase;
 
 /* Utilisation:
  * 
- * Appeller WaterTextureChooser.texture(levelmap,x,y)
- * ou (x,y) correspond aux coordonnées du bloc de water pour lequel on cherche une texture
- * ce qui renvoie la string correspondant à la bonne texture de water
+ * Appeler WaterTextureChooser.texture(levelmap,x,y)
+ * où (x,y) correspond aux coordonnées du bloc de water pour lequel on cherche une texture
+ * ce qui renvoie la string correspondant à la bonne texture de water.
  * 
  */
 
