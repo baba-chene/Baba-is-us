@@ -28,6 +28,8 @@ public final class Baba {
 					TXT_AND		= 902,
 					TXT_HAS		= 903,
 					TXT_MAKE	= 904,
+					TXT_ON		= 905,
+					TXT_BUT		= 906,
 					
 					TXT_BABA	= 1001,
 					TXT_ROCK	= 1002,
