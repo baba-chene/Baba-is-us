@@ -552,7 +552,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	@Override
 	public MapUpdateQueue getMapUpdateQueue() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.mapUpdateQueue;
 	}
 
 	@Override
