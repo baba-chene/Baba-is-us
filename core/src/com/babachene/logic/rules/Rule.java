@@ -70,7 +70,10 @@ public class Rule {
 		if (!nounList.isEmpty()) {
 		LevelGroupOfEntities entities = LevelMap.findGroup(text.getText());
 		if (entities != null) {
-			for (Entity entity : entities.getListOfEntities()) {
+			LinkedList<Entity> list = entities.getListOfEntities();
+			int n = list.size();
+			for (int i = n-1; i> -1; i--) {
+				Entity entity = list.get(i);
 				int x = entity.getxPosition();
 				int y = entity.getyPosition();
 				for (Text noun : nounList)
