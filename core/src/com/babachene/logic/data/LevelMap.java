@@ -245,6 +245,9 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		case "baba":
 			addEntity(x,y,new EntityBaba(x,y,this));
 			break;
+		case "keke":
+			addEntity(x,y,new EntityKeke(x,y,this));
+			break;
 		case "flag":
 			addEntity(x,y,new EntityFlag(x,y,this));
 			break;

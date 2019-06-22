@@ -15,6 +15,7 @@ public final class Baba {
 					FLAG 		= 7,
 					SKULL		= 8,
 					GRASS 		= 9,
+					KEKE 		= 10,
 	// Text
 					TXT_YOU		= 800,
 					TXT_P1		= 801,
@@ -25,6 +26,7 @@ public final class Baba {
 					TXT_WIN		= 806,
 					TXT_BLOCK	= 807,
 					TXT_GRASS	= 808,
+					TXT_KEKE 	= 809,
 	// Text for entities
 					TXT_IS		= 901,
 					TXT_AND		= 902,

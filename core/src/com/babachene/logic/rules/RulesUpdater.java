@@ -62,6 +62,7 @@ public class RulesUpdater {
 			case "rock":
 			case "wall":
 			case "baba":
+			case "keke":
 			case "skull":
 			case "lava":
 			case "water":
