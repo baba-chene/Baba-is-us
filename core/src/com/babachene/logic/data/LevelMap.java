@@ -449,6 +449,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		{
 			playerEntities.get(i).moveLeft();
 		}
+		this.rulesUpdater.updateIsWin();
 
 		
 	}
@@ -459,6 +460,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		{
 			youEntities.get(i).moveRight();
 		}
+		this.rulesUpdater.updateIsWin();
 
 	}
 	public void moveUp() {
@@ -468,6 +470,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		{
 			youEntities.get(i).moveUp();
 		}
+		this.rulesUpdater.updateIsWin();
 
 	}
 	public void moveDown() {
@@ -477,6 +480,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		{
 			youEntities.get(i).moveDown();
 		}
+		this.rulesUpdater.updateIsWin();
 
 	}
 

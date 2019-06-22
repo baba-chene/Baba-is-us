@@ -171,7 +171,6 @@ public class RulesUpdater {
 		resetProperties();
 		for(Rule rule:ruleList)
 			rule.applyRules();
-		updateIsWin();
 		//add here the method that executes the rules of ruleList
 	}
 	
