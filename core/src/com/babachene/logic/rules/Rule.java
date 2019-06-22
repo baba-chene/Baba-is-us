@@ -54,6 +54,12 @@ public class Rule {
 		case("you"):
 			entities.setIsYou(true);
 			break;
+		case("p1"):
+			entities.setIsPlayer1(true);
+			break;
+		case("p2"):
+			entities.setIsPlayer2(true);
+			break;
 		}
 		}
 		}

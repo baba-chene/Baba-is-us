@@ -2,8 +2,8 @@ package com.babachene.gui;
 
 import com.babachene.gui.renderer.LevelRenderer;
 import com.babachene.gui.renderer.RenderableLevel;
+import com.babachene.userinput.LevelInputProcessor;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -19,18 +19,15 @@ public class LevelState extends GameState {
 	private LevelRenderer levelRenderer;
 	private SpriteBatch batch;
 	
-	/**
-	 * A new LevelState that will render a level on the screen.
-	 * @param levelToRender The renderable level to provide data for rendring
-	 */
-	public LevelState(RenderableLevel levelToRender) {
+	
+	public LevelState(RenderableLevel levelToRender, LevelInputProcessor inputProcessor) {
 		
 		if (levelToRender == null)
 			throw new IllegalArgumentException("The RenderableLevel cannot be null");
 		
 		levelRenderer = new LevelRenderer(levelToRender);
 		
-		inputProcessor = new InputAdapter();
+		this.inputProcessor = inputProcessor;
 		
 		batch = new SpriteBatch();
 		

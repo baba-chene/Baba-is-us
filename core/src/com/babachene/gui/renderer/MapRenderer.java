@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.babachene.gui.BabaIsUs;
+import com.babachene.gui.Rsrc;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -42,7 +43,7 @@ class MapRenderer extends Renderer { // Not a public class.
 			throw new IllegalArgumentException("The RenderableMap object cannot bu null");
 		
 		if (map.getMapUpdateQueue() == null) {
-			logger.log(Level.WARNING, "The MapUpdateQueue is null: MaRenderer will not change its entities structure?");
+			logger.log(Level.WARNING, "The MapUpdateQueue is null: MapRenderer will not change its entities structure.");
 			updateQueue = new MapUpdateQueue();
 		} else
 			updateQueue = map.getMapUpdateQueue();
@@ -150,6 +151,12 @@ class MapRenderer extends Renderer { // Not a public class.
 		 */
 		
 		short id = e.getId();
+		
+		if (id == 0) { //TODO
+			logger.fine("An entity with ID 0 has dropped and will not be renderer.");
+			return;
+		}
+		
 		/*
 		 *  Still in test phase.
 		 */
@@ -159,6 +166,7 @@ class MapRenderer extends Renderer { // Not a public class.
 				renderers.add(new EntityGroupRenderer(mapRenderingData, id));
 			} catch (IllegalArgumentException ex) {
 				logger.log(Level.INFO, "Failed to create a new EntityGroupRenderer.", ex);
+				return;
 			}
 			
 			// Here we update the id table.

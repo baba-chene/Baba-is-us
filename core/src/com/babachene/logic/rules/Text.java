@@ -71,8 +71,9 @@ public class Text {
 	
 	public Text findVNext()
 	{
-		if (this.yPosition < this.rulesUpdater.getxLength()-1 )
+		if (this.xPosition < this.rulesUpdater.getxLength()-1 )
 		{
+
 			return this.rulesUpdater.getText(xPosition+1, yPosition);
 		}
 		return this;
