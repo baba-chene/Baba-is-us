@@ -66,7 +66,7 @@ public class SoloController extends Controller {
 		
 		MapEditorConverter mapEditorConverter = new MapEditorConverter(30, 20);
 		try {
-			mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\bugTest.txt\\");
+			mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\bug2.txt\\");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

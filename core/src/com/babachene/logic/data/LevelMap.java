@@ -1,6 +1,7 @@
 package com.babachene.logic.data;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -68,7 +69,8 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	
 	private void moveRightMultipleEntities(LinkedList<Entity> list) { //Moves to the right all the entities that are able to do so.
 		int n = list.size();
-		for(int i = 0; i<n;i++){
+		Collections.sort(list,new yPositionComparator());
+		for(int i = n-1; i>-1;i--){
 			Entity entity = list.get(i);
 			int x = entity.getxPosition();
 			int y = entity.getyPosition();
@@ -102,7 +104,9 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	
 	private void moveUpMultipleEntities(LinkedList<Entity> list) {
 		int n = list.size();
-		for(int i = 0; i<n;i++){
+		Collections.sort(list,new xPositionComparator());
+		Collections.reverse(list);
+		for(int i = n-1; i>-1;i--){
 			Entity entity = list.get(i);
 			int x = entity.getxPosition();
 			int y = entity.getyPosition();
@@ -136,7 +140,8 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	
 	private void moveDownMultipleEntities(LinkedList<Entity> list) {
 		int n = list.size();
-		for(int i = 0; i<n;i++){
+		Collections.sort(list,new xPositionComparator());
+		for(int i = n-1; i>-1;i--){
 			Entity entity = list.get(i);
 			int x = entity.getxPosition();
 			int y = entity.getyPosition();
@@ -170,7 +175,9 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	
 	private void moveLeftMultipleEntities(LinkedList<Entity> list) {
 		int n = list.size();
-		for(int i = 0; i<n;i++){
+		Collections.sort(list,new yPositionComparator());
+		Collections.reverse(list);
+		for(int i = n-1; i>-1;i--){
 			Entity entity = list.get(i);
 			int x = entity.getxPosition();
 			int y = entity.getyPosition();
