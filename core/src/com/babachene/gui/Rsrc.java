@@ -38,7 +38,7 @@ public final class Rsrc {
 		
 		TXT_YOU_TEXTURE = textureAtlas.findRegion("txt_you");
 		TXT_SINK_TEXTURE = textureAtlas.findRegion("txt_sink");
-		TXT_PUSH_TEXTURE = textureAtlas.findRegion("txt_sink");
+		TXT_PUSH_TEXTURE = textureAtlas.findRegion("txt_push");
 		TXT_WIN_TEXTURE = textureAtlas.findRegion("txt_win");
 		
 		TXT_IS_TEXTURE = textureAtlas.findRegion("txt_is");
@@ -65,7 +65,11 @@ public final class Rsrc {
 //							TXT_P2_TEXTURE	= DIR + "txt_p2",
 //							TXT_P3_TEXTURE	= DIR + "txt_p3",
 //							TXT_SINK_TEXTURE	= DIR + "txt_sink";
-	
+	/*
+	 * To verify all these fields are initialized in loadEverything,
+	 * set them to static and remplace loadEverything by static so
+	 * eclipse groans.
+	 */
 	public static TextureRegion
 //								BABA_TEXTURE,
 								ROCK_TEXTURE,

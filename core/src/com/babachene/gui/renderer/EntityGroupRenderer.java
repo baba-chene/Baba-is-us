@@ -11,6 +11,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+/*
+ * I can't believe this class was doing non-sense (one instance for
+ * each entity!) for all this time, and yet worked.
+ */
+@Deprecated
 /**
  * It does noy function as the orther renderers. But rather
  * adds an abstract layer.
@@ -18,7 +23,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  * This class renders groups of entities which are similar enough to
  * only need to send basic data (such as x,y) to be drawn.
  * @author jeremy
- *
  */
 class EntityGroupRenderer extends Renderer { // Not a public class.
 	
