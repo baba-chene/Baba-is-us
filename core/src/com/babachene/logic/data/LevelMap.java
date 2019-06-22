@@ -1,6 +1,7 @@
 package com.babachene.logic.data;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +17,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	/* The map in the game controls everything in the level. As it has an overall view of the available tiles of the map, it gives
 	 * the possibility to add/remove an entity in the level, but also to move the entities. 
 	 */
+	private MapUpdateQueue mapUpdateQueue;
 	private RulesUpdater rulesUpdater;
 	private int xLength;
 	private int yLength;	
@@ -26,6 +28,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 
 	public LevelMap(int xLength, int yLength) { //Creates a map of dimension xLength*yLength with cases filled with "empty".
 		super();
+		this.mapUpdateQueue = new MapUpdateQueue();
 		this.xLength = xLength;
 		this.yLength = yLength;
 		this.mapEntities = new LinkedList<LevelGroupOfEntities>();
@@ -68,7 +71,8 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	
 	private void moveRightMultipleEntities(LinkedList<Entity> list) { //Moves to the right all the entities that are able to do so.
 		int n = list.size();
-		for(int i = 0; i<n;i++){
+		Collections.sort(list,new yPositionComparator());
+		for(int i = n-1; i>-1;i--){
 			Entity entity = list.get(i);
 			int x = entity.getxPosition();
 			int y = entity.getyPosition();
@@ -102,7 +106,9 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	
 	private void moveUpMultipleEntities(LinkedList<Entity> list) {
 		int n = list.size();
-		for(int i = 0; i<n;i++){
+		Collections.sort(list,new xPositionComparator());
+		Collections.reverse(list);
+		for(int i = n-1; i>-1;i--){
 			Entity entity = list.get(i);
 			int x = entity.getxPosition();
 			int y = entity.getyPosition();
@@ -136,7 +142,8 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	
 	private void moveDownMultipleEntities(LinkedList<Entity> list) {
 		int n = list.size();
-		for(int i = 0; i<n;i++){
+		Collections.sort(list,new xPositionComparator());
+		for(int i = n-1; i>-1;i--){
 			Entity entity = list.get(i);
 			int x = entity.getxPosition();
 			int y = entity.getyPosition();
@@ -170,7 +177,9 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	
 	private void moveLeftMultipleEntities(LinkedList<Entity> list) {
 		int n = list.size();
-		for(int i = 0; i<n;i++){
+		Collections.sort(list,new yPositionComparator());
+		Collections.reverse(list);
+		for(int i = n-1; i>-1;i--){
 			Entity entity = list.get(i);
 			int x = entity.getxPosition();
 			int y = entity.getyPosition();
@@ -208,7 +217,8 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	}
 	
 	public void addEntity(int x, int y, Entity entity) {
-		this.mapMatrix[x][y].addEntity(entity);										//First we add the entity to the corresponding map case
+		this.mapMatrix[x][y].addEntity(entity);
+		this.mapUpdateQueue.pushCreatedEntity(entity);//First we add the entity to the corresponding map case
 		String entityType = entity.getTypeOfEntity();
 		if (!existingGroups.contains(entityType))									//Then we add the entity to the corresponding group of entities. If the group doesn't exist we create one.
 		{																			
@@ -233,9 +243,10 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		String entityType = entity.getTypeOfEntity();
 		int x = entity.getxPosition();
 		int y = entity.getyPosition();
-		this.mapMatrix[x][y].removeEntity(entity);  				  //First we remove the entity from the mapCase.
-		int i = 0;	
-		findGroup(entityType).removeEntity(entity);					  //We remove it from the group.
+		mapUpdateQueue.pushRemovedEntity(entity);
+		this.mapMatrix[x][y].removeEntity(entity);  				  //First we remove the entity from the mapCase.	
+		findGroup(entityType).removeEntity(entity);	
+//We remove it from the group.
 	}
 	
 	public void addEntity(int x, int y, String typeOfEntity)		  //Easy to use method to add an entity to the map.
@@ -244,6 +255,9 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		{
 		case "baba":
 			addEntity(x,y,new EntityBaba(x,y,this));
+			break;
+		case "keke":
+			addEntity(x,y,new EntityKeke(x,y,this));
 			break;
 		case "flag":
 			addEntity(x,y,new EntityFlag(x,y,this));
@@ -265,6 +279,9 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			break;
 		case "skull":
 			addEntity(x,y,new EntitySkull(x,y,this));
+			break;
+		case "grass":
+			addEntity(x,y,new EntityGrass(x, y, this));
 			break;
 		default:
 			addEntity(x,y,new EntityText(x,y,this,typeOfEntity));
@@ -443,37 +460,45 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	
 	
 	public void moveLeft() {
+		this.rulesUpdater.updateRules();
 		LinkedList<LevelGroupOfEntities> playerEntities = this.findYou();
 		for (int i =playerEntities.size()-1; i> -1 ; i--)
 		{
 			playerEntities.get(i).moveLeft();
 		}
-		this.rulesUpdater.updateRules();
+		this.rulesUpdater.updateIsWin();
+
 		
 	}
 	public void moveRight() {
+		this.rulesUpdater.updateRules();
 		LinkedList<LevelGroupOfEntities> youEntities = this.findYou();
 		for (int i = youEntities.size()-1; i> -1 ; i--)
 		{
 			youEntities.get(i).moveRight();
 		}
-		this.rulesUpdater.updateRules();
+		this.rulesUpdater.updateIsWin();
+
 	}
 	public void moveUp() {
+		this.rulesUpdater.updateRules();
 		LinkedList<LevelGroupOfEntities> youEntities = this.findYou();
 		for (int i = youEntities.size()-1; i> -1 ; i--)
 		{
 			youEntities.get(i).moveUp();
 		}
-		this.rulesUpdater.updateRules();
+		this.rulesUpdater.updateIsWin();
+
 	}
 	public void moveDown() {
+		this.rulesUpdater.updateRules();
 		LinkedList<LevelGroupOfEntities> youEntities = this.findYou();
 		for (int i = youEntities.size()-1; i> -1 ; i--)
 		{
 			youEntities.get(i).moveDown();
 		}
-		this.rulesUpdater.updateRules();
+		this.rulesUpdater.updateIsWin();
+
 	}
 
 	@Override
@@ -527,7 +552,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	@Override
 	public MapUpdateQueue getMapUpdateQueue() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.mapUpdateQueue;
 	}
 
 	@Override

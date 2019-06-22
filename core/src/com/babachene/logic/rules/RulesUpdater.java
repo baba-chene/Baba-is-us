@@ -62,10 +62,12 @@ public class RulesUpdater {
 			case "rock":
 			case "wall":
 			case "baba":
+			case "keke":
 			case "skull":
 			case "lava":
 			case "water":
 			case "flag":
+			case "grass":
 				Noun noun = new Noun(x,y,text,this);
 				this.textTab[x][y] = noun;
 				break;
@@ -171,7 +173,6 @@ public class RulesUpdater {
 		resetProperties();
 		for(Rule rule:ruleList)
 			rule.applyRules();
-		updateIsWin();
 		//add here the method that executes the rules of ruleList
 	}
 	

@@ -48,6 +48,9 @@ public class GameLogic implements Logic {
 	}
 	
 	public Update processInput(InputEvent inputEvent) {
+		
+		int player = (inputEvent.additionalData == 2) ? 2 : 1;
+		
 		switch(inputEvent.eventType) {
 		case InputEvent.MOVE_DOWN:
 			levelMap.moveDown();

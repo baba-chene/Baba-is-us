@@ -30,11 +30,11 @@ public class SettingsMenu extends GameState implements Screen {
 		batch= new SpriteBatch();
 		
 		// Title
-		title = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/settingsmenu.png"))));
+		title = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/menus/settingsmenu.png"))));
 		
 		
 		//BackButton
-		SpriteDrawable backImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/back.png"))));
+		SpriteDrawable backImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/menus/back.png"))));
 		backButton = new ImageButton(backImage);
 		backButton.setBounds(100, 80, 200, 120);
 		

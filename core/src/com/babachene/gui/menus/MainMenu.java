@@ -53,11 +53,11 @@ public class MainMenu extends GameState implements Screen {
 		//TODO Background
 		
 		// Title
-		title = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/babaisus.png"))));
+		title = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/menus/babaisus.png"))));
 		
 		
 		//Play Button
-		SpriteDrawable playImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/play.png"))));
+		SpriteDrawable playImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/menus/play.png"))));
 		playButton = new ImageButton(playImage);
 		playButton.setBounds(BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 +30, 800, 120);
 		playButton.setColor(BabaIsUs.buttonColor);
@@ -75,7 +75,7 @@ public class MainMenu extends GameState implements Screen {
 		playButton.setDisabled(false);
 		
 		//SettingsButton
-		SpriteDrawable settingsImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/settings.png"))));
+		SpriteDrawable settingsImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/menus/settings.png"))));
 		settingsButton = new ImageButton(settingsImage);
 		settingsButton.setBounds(BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 - 110, 800, 120);
 		settingsButton.setColor(BabaIsUs.buttonColor);
@@ -94,7 +94,7 @@ public class MainMenu extends GameState implements Screen {
 		
 		
 		//QuitButton
-		SpriteDrawable quitImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/quit.png"))));
+		SpriteDrawable quitImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/menus/quit.png"))));
 		quitButton = new ImageButton(quitImage);
 		quitButton.setBounds(BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 - 250, 800, 120);
 		quitButton.setColor(BabaIsUs.buttonColor);

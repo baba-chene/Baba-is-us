@@ -2,7 +2,7 @@ package com.babachene.gui.renderer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeMap;
+import java.util.MissingResourceException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,10 +22,11 @@ class MapRenderer extends Renderer { // Not a public class.
 	/** logger ref */
 	final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
-	/** This table should not be used in the render() method. For performance reason.
-	 * <br> It maps an entity id to the EntityGroupRenderer index in the list. */
-	private TreeMap<Short, Integer> idtable;
-	private List<EntityGroupRenderer> renderers;
+//	/** This table should not be used in the render() method. For performance reason.
+//	 * <br> It maps an entity id to the EntityGroupRenderer index in the list. */
+//	private TreeMap<Short, Integer> idtable;     // I give up on this id:index mapping.
+	
+	private List<EntityRenderer> renderers;
 //	private RenderableMap map;
 	private MapRenderingData mapRenderingData;
 	
@@ -39,10 +40,10 @@ class MapRenderer extends Renderer { // Not a public class.
 	
 	public MapRenderer(RenderableMap map, byte theme) {
 		if (map == null)
-			throw new IllegalArgumentException("The RenderableMap object cannot be null");
+			throw new IllegalArgumentException("The RenderableMap object cannot bu null");
 		
 		if (map.getMapUpdateQueue() == null) {
-			logger.log(Level.WARNING, "The MapUpdateQueue is null: MapRenderer will not change its entities structure?");
+			logger.log(Level.WARNING, "The MapUpdateQueue is null: MapRenderer will not change its entities structure.");
 			updateQueue = new MapUpdateQueue();
 		} else
 			updateQueue = map.getMapUpdateQueue();
@@ -67,8 +68,7 @@ class MapRenderer extends Renderer { // Not a public class.
 		/*
 		 *  Entity                                          Give a reasonable size.
 		 */
-		renderers = new ArrayList<EntityGroupRenderer>(map.getWidth() * map.getHeight() * 2);
-		idtable = new TreeMap<Short, Integer>();
+		renderers = new ArrayList<EntityRenderer>(map.getWidth() * map.getHeight() * 2);
 		
 		for (RenderableEntity e : map) {
 			
@@ -150,63 +150,65 @@ class MapRenderer extends Renderer { // Not a public class.
 		 */
 		
 		short id = e.getId();
-		/*
-		 *  Still in test phase.
-		 */
-		if ( ! idtable.containsKey(id)) {
-			
-			try {
-				renderers.add(new EntityGroupRenderer(mapRenderingData, id));
-			} catch (IllegalArgumentException ex) {
-				logger.log(Level.INFO, "Failed to create a new EntityGroupRenderer.", ex);
-			}
-			
-			// Here we update the id table.
-			idtable.put(id, renderers.size() - 1);
-			logger.log(Level.FINE, "Created a new EntityGroupRenderer, entity id="+id );
+		
+		if (id == 0) { //TODO
+			logger.fine("An entity with ID 0 has dropped and will not be renderer.");
+			return;
 		}
 		
+		/*
+		 * This will require changes if an EntityGroup class comes up.
+		 */
+		try {
+			renderers.add(new EntityRenderer(e, mapRenderingData));
+		} catch (MissingResourceException ex) {
+			ex.printStackTrace();
+		}
+		logger.log(Level.FINE, "Created a new EntityRenderer, entity id="+id );
 		
-		renderers.get(idtable.get(id)).addRenderableEntity(e);
+		
+		
+//		renderers.get(idtable.get(id)).addRenderableEntity(e);
 		
 	}
 	
 	public final void removeEntity(RenderableEntity e) {
 		/* Cases:
 		 * - entity does not exist.
-		 * - entity exists and its group contains other ones.
-		 * - entity exists and it the only entity of the group (which shall be removed).
+		 * - entity exists.
+		 * That's simpler with no grouped entities.
 		 */
 		
 		if (e == null)
 			return;
 		
-		short id = e.getId();
-		
-		if ( ! idtable.containsKey(id)) {
-			logger.log(Level.INFO, "Attempted to remove a RenderableEntity which was not found.");
-			return;
+		boolean found = false;
+		for (int i = 0; i < renderers.size(); i++) {
+			if (renderers.get(i).getRenderableEntity() == e) {
+				renderers.remove(i);
+				found = true;
+				break;
+			}
 		}
-		
-		EntityGroupRenderer egr = renderers.get(idtable.get(id));
-		egr.removeRenderableEntity(e);
-		
-		// No remove of the entity group renderer if it's empty.
+		if ( ! found)
+			logger.log(Level.INFO, "Attempted to remove a RenderableEntity which was not found.");
 		
 	}
 	
 	public final void removeAllEntitiesById(short id) {
 		
-		if ( ! idtable.containsKey(id)) {
-			logger.log(Level.INFO, "Failed attempt to remove all RenderableEntity of id " + id);
-			return;
+		boolean found = false;
+		for (int i = 0; i < renderers.size(); i++) {
+			if (renderers.get(i).getRenderableEntity().getId() == id) {
+				renderers.remove(i--);
+				found = true;
+			}
 		}
 		
-		// We don't remove the group renderer.
-		EntityGroupRenderer egr = renderers.get(idtable.get(id));
-		egr.clear();
-		
-		logger.log(Level.FINE, "Removed all RenderableEntity of id " + id);
+		if ( ! found)
+			logger.log(Level.INFO, "Attempted to remove some RenderableEntities by id but no was found.");
+		else
+			logger.log(Level.FINE, "Removed all RenderableEntity of id " + id);
 	}
 	
 }

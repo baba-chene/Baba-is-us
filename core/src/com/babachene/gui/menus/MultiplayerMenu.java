@@ -44,11 +44,11 @@ public class MultiplayerMenu extends GameState implements Screen {
 		batch= new SpriteBatch();
 		
 		// Title
-		title = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/2playermode.png"))));
+		title = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/menus/2playermode.png"))));
 		
 		
 		//BackButton
-		SpriteDrawable backImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/back.png"))));
+		SpriteDrawable backImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/menus/back.png"))));
 		backButton = new ImageButton(backImage);
 		backButton.setBounds(100, 80, 200, 120);
 		
@@ -90,7 +90,7 @@ public class MultiplayerMenu extends GameState implements Screen {
 		
 		
 		//BackButton
-		SpriteDrawable joinImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/join.png"))));
+		SpriteDrawable joinImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/menus/join.png"))));
 		joinButton = new ImageButton(joinImage);
 		joinButton.setBounds(1000, 630, 120, 110);
 		
@@ -124,7 +124,7 @@ public class MultiplayerMenu extends GameState implements Screen {
 		stage.addActor(portHost);
 		
 		
-		SpriteDrawable hostImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/host.png"))));
+		SpriteDrawable hostImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/menus/host.png"))));
 		hostButton = new ImageButton(hostImage);
 		hostButton.setBounds(1000, 300, 120, 110);
 		
@@ -132,12 +132,9 @@ public class MultiplayerMenu extends GameState implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 							
-				try {
-					String port = portHost.getText();
-					gameController.hostServer(Integer.parseInt(port));
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
+				String port = portHost.getText();
+				
+				gameController.hostServer(Integer.parseInt(port));
 				
 				return; // The event has been handled.
 			}

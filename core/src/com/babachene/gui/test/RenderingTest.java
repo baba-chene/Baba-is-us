@@ -147,7 +147,7 @@ public class RenderingTest extends GameState {
 				}
 				
 				else if (character == 'e') {
-					q.pushRemovedGroup((short)0);
+					q.pushRemovedGroup((short)1);
 					return true;
 				}
 				

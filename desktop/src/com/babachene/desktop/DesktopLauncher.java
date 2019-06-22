@@ -18,6 +18,8 @@ public class DesktopLauncher {
 		//config.backgroundFPS = -1;
 		config.title="Baba is Everyone";
 		
+//		TexturePacker.process("/home/jeremy/Bureau/PAF/assets-building/ready-to-use",
+//				"/home/jeremy/Bureau/PAF/desktop/assets", "packedTextures");;
 		new LwjglApplication(new MainGame(), config);
 	}
 }

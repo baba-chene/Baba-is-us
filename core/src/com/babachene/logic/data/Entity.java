@@ -111,7 +111,7 @@ public abstract class Entity implements RenderableEntity {
 		// TODO Auto-generated method stub
 		String switchString = new String();
 		switchString = this.typeOfEntity + this.text;
-		System.out.println(switchString);
+		
 		switch(switchString) {
 		case("baba"):
 			return Baba.BABA;
@@ -161,6 +161,14 @@ public abstract class Entity implements RenderableEntity {
 			return Baba.TXT_P2;
 		case("textwin"):
 			return Baba.TXT_WIN;
+		case("grass"):
+			return Baba.GRASS;
+		case("textgrass"):
+			return Baba.TXT_GRASS;
+		case("keke"):
+			return Baba.KEKE;
+		case("textkeke"):
+			return Baba.TXT_KEKE;
 		
 		}
 		return 0;

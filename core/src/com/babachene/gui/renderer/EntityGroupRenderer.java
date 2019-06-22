@@ -4,10 +4,18 @@ import java.security.InvalidParameterException;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.babachene.Baba;
 import com.babachene.gui.BabaIsUs;
+import com.babachene.gui.Rsrc;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+/*
+ * I can't believe this class was doing non-sense (one instance for
+ * each entity!) for all this time, and yet worked.
+ */
+@Deprecated
 /**
  * It does noy function as the orther renderers. But rather
  * adds an abstract layer.
@@ -15,12 +23,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * This class renders groups of entities which are similar enough to
  * only need to send basic data (such as x,y) to be drawn.
  * @author jeremy
- *
  */
 class EntityGroupRenderer extends Renderer { // Not a public class.
 	
 	/** One texture to rule them all. */
-	private Texture tex;
+	private TextureRegion tex;
 	
 	private List<RenderableEntity> entities;
 	
@@ -34,16 +41,38 @@ class EntityGroupRenderer extends Renderer { // Not a public class.
 		mapData = mapRenderingData;
 		
 		
-		switch (entityId) {
-		case 0: tex = BabaIsUs.assetManager.get(BabaIsUs.textures.PEPE, Texture.class);
+		switch (entityId) { // TODO todo
+		
+		/*
+		 * Text blocks
+		 */
+		case Baba.TXT_PUSH: tex = Rsrc.TXT_PUSH_TEXTURE;
 			break;
-		case 1: tex = BabaIsUs.assetManager.get(BabaIsUs.textures.KERMIT, Texture.class);
+		case Baba.TXT_ROCK: tex = Rsrc.TXT_ROCK_TEXTURE;
 			break;
-		case 2:
+		case Baba.TXT_BABA: tex = Rsrc.TXT_BABA_TEXTURE;
+			break;
+		case Baba.TXT_IS: tex = Rsrc.TXT_IS_TEXTURE;
+			break;
+		case Baba.TXT_WIN: tex = Rsrc.TXT_WIN_TEXTURE;
+			break;
+		case Baba.TXT_YOU: tex = Rsrc.TXT_YOU_TEXTURE;
+			break;
+		case Baba.TXT_SINK: tex = Rsrc.TXT_SINK_TEXTURE;
+			break;
+		
+		/*
+		 * Non text blocks.
+		 */
+		case 1: tex = new TextureRegion(BabaIsUs.assetManager.get(BabaIsUs.textures.KERMIT, Texture.class));
+			break;
+		case Baba.ROCK: tex = Rsrc.ROCK_TEXTURE;
+			break;
 		default:
 			throw new InvalidParameterException("Unreconsized entity id: " + entityId);
 		}
-		
+		if (tex == null)
+			throw new RuntimeException("Texture of entity " + entityId + " is missing from Rsrc.");
 	}
 	
 	@Override
