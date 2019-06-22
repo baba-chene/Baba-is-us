@@ -1,69 +1,209 @@
 
 packedTextures.png
-size: 512,512
+size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-rock
+flag
   rotate: false
-  xy: 2, 2
+  xy: 262, 376
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
+lava
+  rotate: false
+  xy: 392, 506
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+missing_texture
+  rotate: false
+  xy: 522, 636
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+rock
+  rotate: false
+  xy: 652, 766
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+txt_and
+  rotate: false
+  xy: 2, 832
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
 txt_baba
   rotate: false
-  xy: 2, 328
+  xy: 2, 702
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+txt_but
+  rotate: false
+  xy: 132, 832
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_flag
   rotate: false
-  xy: 2, 198
+  xy: 2, 572
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+txt_has
+  rotate: false
+  xy: 132, 702
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_is
   rotate: false
-  xy: 132, 328
+  xy: 262, 832
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+txt_kill
+  rotate: false
+  xy: 2, 442
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+txt_lava
+  rotate: false
+  xy: 132, 572
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+txt_not
+  rotate: false
+  xy: 262, 702
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+txt_on
+  rotate: false
+  xy: 392, 832
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+txt_p1
+  rotate: false
+  xy: 2, 312
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+txt_p2
+  rotate: false
+  xy: 132, 442
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+txt_p3
+  rotate: false
+  xy: 262, 572
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+txt_push
+  rotate: false
+  xy: 392, 702
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_rock
   rotate: false
-  xy: 2, 68
+  xy: 522, 832
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_sink
   rotate: false
-  xy: 132, 198
+  xy: 2, 182
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+txt_stop
+  rotate: false
+  xy: 132, 312
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+txt_tree
+  rotate: false
+  xy: 262, 442
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+txt_us
+  rotate: false
+  xy: 392, 572
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+txt_wall
+  rotate: false
+  xy: 522, 702
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_water
   rotate: false
-  xy: 262, 328
+  xy: 652, 832
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_win
   rotate: false
-  xy: 132, 68
+  xy: 2, 52
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_you
   rotate: false
-  xy: 262, 198
+  xy: 132, 182
   size: 128, 128
   orig: 128, 128
+  offset: 0, 0
+  index: -1
+wall
+  rotate: false
+  xy: 2, 2
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+water
+  rotate: false
+  xy: 782, 896
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1

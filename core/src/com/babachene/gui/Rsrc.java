@@ -1,5 +1,7 @@
 package com.babachene.gui;
 
+import java.util.logging.Logger;
+
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -33,6 +35,9 @@ public final class Rsrc {
 		if (textureAtlas == null)
 			textureAtlas = new TextureAtlas("assets/packedTextures.atlas");
 		
+		Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).info("Rsrc started to load the assets");
+		
+		MISSING_TEXTURE = textureAtlas.findRegion("missing_texture");
 		
 		ROCK_TEXTURE = textureAtlas.findRegion("rock");
 		WATER_TEXTURE = textureAtlas.findRegion("water");
@@ -54,7 +59,7 @@ public final class Rsrc {
 		
 		TXT_IS_TEXTURE = textureAtlas.findRegion("txt_is");
 		TXT_AND_TEXTURE = textureAtlas.findRegion("txt_and");
-		TXT_HAS_TXTURE = textureAtlas.findRegion("txt_has");
+		TXT_HAS_TEXTURE = textureAtlas.findRegion("txt_has");
 		// MAKE
 		TXT_ON_TEXTURE = textureAtlas.findRegion("txt_on");
 		TXT_BUT_TEXTURE = textureAtlas.findRegion("txt_but");
@@ -91,6 +96,8 @@ public final class Rsrc {
 	 * eclipse groans.
 	 */
 	public static TextureRegion
+								MISSING_TEXTURE,
+	
 //								BABA_TEXTURE,
 								ROCK_TEXTURE,
 								WATER_TEXTURE,
@@ -111,7 +118,7 @@ public final class Rsrc {
 								
 								TXT_IS_TEXTURE,
 								TXT_AND_TEXTURE,
-								TXT_HAS_TXTURE,
+								TXT_HAS_TEXTURE,
 								TXT_MAKE_TEXTURE,
 								TXT_ON_TEXTURE,
 								TXT_BUT_TEXTURE,

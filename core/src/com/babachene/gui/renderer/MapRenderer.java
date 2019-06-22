@@ -2,6 +2,7 @@ package com.babachene.gui.renderer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.MissingResourceException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -158,7 +159,11 @@ class MapRenderer extends Renderer { // Not a public class.
 		/*
 		 * This will require changes if an EntityGroup class comes up.
 		 */
-		renderers.add(new EntityRenderer(e, mapRenderingData));
+		try {
+			renderers.add(new EntityRenderer(e, mapRenderingData));
+		} catch (MissingResourceException ex) {
+			ex.printStackTrace();
+		}
 		logger.log(Level.FINE, "Created a new EntityRenderer, entity id="+id );
 		
 		
