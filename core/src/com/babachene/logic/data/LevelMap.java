@@ -17,6 +17,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	/* The map in the game controls everything in the level. As it has an overall view of the available tiles of the map, it gives
 	 * the possibility to add/remove an entity in the level, but also to move the entities. 
 	 */
+	private MapUpdateQueue mapUpdateQueue;
 	private RulesUpdater rulesUpdater;
 	private int xLength;
 	private int yLength;	
@@ -27,6 +28,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 
 	public LevelMap(int xLength, int yLength) { //Creates a map of dimension xLength*yLength with cases filled with "empty".
 		super();
+		this.mapUpdateQueue = new MapUpdateQueue();
 		this.xLength = xLength;
 		this.yLength = yLength;
 		this.mapEntities = new LinkedList<LevelGroupOfEntities>();
@@ -215,7 +217,8 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	}
 	
 	public void addEntity(int x, int y, Entity entity) {
-		this.mapMatrix[x][y].addEntity(entity);										//First we add the entity to the corresponding map case
+		this.mapMatrix[x][y].addEntity(entity);
+		this.mapUpdateQueue.pushCreatedEntity(entity);//First we add the entity to the corresponding map case
 		String entityType = entity.getTypeOfEntity();
 		if (!existingGroups.contains(entityType))									//Then we add the entity to the corresponding group of entities. If the group doesn't exist we create one.
 		{																			
@@ -240,9 +243,10 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		String entityType = entity.getTypeOfEntity();
 		int x = entity.getxPosition();
 		int y = entity.getyPosition();
-		this.mapMatrix[x][y].removeEntity(entity);  				  //First we remove the entity from the mapCase.
-		int i = 0;	
-		findGroup(entityType).removeEntity(entity);					  //We remove it from the group.
+		mapUpdateQueue.pushRemovedEntity(entity);
+		this.mapMatrix[x][y].removeEntity(entity);  				  //First we remove the entity from the mapCase.	
+		findGroup(entityType).removeEntity(entity);	
+//We remove it from the group.
 	}
 	
 	public void addEntity(int x, int y, String typeOfEntity)		  //Easy to use method to add an entity to the map.
