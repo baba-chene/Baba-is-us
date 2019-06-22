@@ -35,17 +35,37 @@ public final class Rsrc {
 		
 		
 		ROCK_TEXTURE = textureAtlas.findRegion("rock");
+		WATER_TEXTURE = textureAtlas.findRegion("water");
+		LAVA_TEXTURE = textureAtlas.findRegion("lava");
+		WALL_TEXTURE = textureAtlas.findRegion("wall");
+		//TREE_TEXTURE = textureAtlas.findRegion("tree");
+		FLAG_TEXTURE = textureAtlas.findRegion("flag");
+		//SKULL_TEXTURE = textureAtlas.findRegion("rock");
+		
 		
 		TXT_YOU_TEXTURE = textureAtlas.findRegion("txt_you");
+		TXT_P1_TEXTURE = textureAtlas.findRegion("txt_p1");
+		TXT_P2_TEXTURE = textureAtlas.findRegion("txt_p2");
+		TXT_P3_TEXTURE = textureAtlas.findRegion("txt_p3");
 		TXT_SINK_TEXTURE = textureAtlas.findRegion("txt_sink");
 		TXT_PUSH_TEXTURE = textureAtlas.findRegion("txt_sink");
 		TXT_WIN_TEXTURE = textureAtlas.findRegion("txt_win");
+		TXT_STOP_TEXTURE = textureAtlas.findRegion("txt_stop");
 		
 		TXT_IS_TEXTURE = textureAtlas.findRegion("txt_is");
+		TXT_AND_TEXTURE = textureAtlas.findRegion("txt_and");
+		TXT_HAS_TXTURE = textureAtlas.findRegion("txt_has");
+		// MAKE
+		TXT_ON_TEXTURE = textureAtlas.findRegion("txt_on");
+		TXT_BUT_TEXTURE = textureAtlas.findRegion("txt_but");
 		
 		TXT_BABA_TEXTURE = textureAtlas.findRegion("txt_baba");
 		TXT_ROCK_TEXTURE = textureAtlas.findRegion("txt_rock");
-		
+		TXT_WATER_TEXTURE = textureAtlas.findRegion("txt_water");
+		TXT_LAVA_TEXTURE = textureAtlas.findRegion("txt_lava");
+		TXT_WALL_TEXTURE = textureAtlas.findRegion("txt_wall");
+		//TXT_TREE
+		TXT_FLAG_TEXTURE = textureAtlas.findRegion("txt_flag");
 		
 		
 	}
@@ -69,7 +89,12 @@ public final class Rsrc {
 	public static TextureRegion
 //								BABA_TEXTURE,
 								ROCK_TEXTURE,
-//								WATER_TEXTURE;
+								WATER_TEXTURE,
+								LAVA_TEXTURE,
+								WALL_TEXTURE,
+								TREE_TEXTURE,
+								FLAG_TEXTURE,
+								SKULL_TEXTURE,
 								
 								TXT_YOU_TEXTURE,
 								TXT_P1_TEXTURE,
@@ -78,14 +103,23 @@ public final class Rsrc {
 								TXT_SINK_TEXTURE,
 								TXT_PUSH_TEXTURE,
 								TXT_WIN_TEXTURE,
+								TXT_STOP_TEXTURE,
 								
 								TXT_IS_TEXTURE,
+								TXT_AND_TEXTURE,
+								TXT_HAS_TXTURE,
+								TXT_MAKE_TEXTURE,
+								TXT_ON_TEXTURE,
+								TXT_BUT_TEXTURE,
 								
 								TXT_BABA_TEXTURE,
 								TXT_ROCK_TEXTURE,
 								TXT_WATER_TEXTURE,
-								
-								TXT_FLAG_TEXTURE;
+								TXT_LAVA_TEXTURE,
+								TXT_WALL_TEXTURE,
+								TXT_TREE_TEXTURE,
+								TXT_FLAG_TEXTURE,
+								TXT_SKULL_TEXTURE;
 								
 								
 	
