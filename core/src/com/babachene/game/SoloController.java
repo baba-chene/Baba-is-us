@@ -42,7 +42,7 @@ public class SoloController extends Controller {
 		 * TEST ZONE : Create a custom map for testing.
 		 */
 		
-		LevelMap map = new LevelMap(10, 10);
+	/*	LevelMap map = new LevelMap(10, 10);
 		
 		map.addEntity(2, 4, "baba");
 		map.addEntity(5, 5, "textis");
@@ -62,16 +62,16 @@ public class SoloController extends Controller {
 		map.addEntity(4, 7, "water");
 		map.addEntity(3, 7, "textwater");
 		map.addEntity(7, 2, "wall");
-		map.addEntity(6, 3, "textand");
-		/*
+		map.addEntity(6, 3, "textand");*/
+		
 		MapEditorConverter mapEditorConverter = new MapEditorConverter(30, 20);
 		try {
-			mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\level2.txt\\");
+			mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\level1.txt\\");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		LevelMap map = mapEditorConverter.getMap();*/
+		LevelMap map = mapEditorConverter.getMap();
 		logic = new GameLogic(map);
 		
 		mainGame.push(new LevelState(map, inputProcessor));

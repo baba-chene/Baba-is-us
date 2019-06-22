@@ -161,6 +161,10 @@ public abstract class Entity implements RenderableEntity {
 			return Baba.TXT_P2;
 		case("textwin"):
 			return Baba.TXT_WIN;
+		case("grass"):
+			return Baba.GRASS;
+		case("textgrass"):
+			return Baba.TXT_GRASS;
 		
 		}
 		return 0;

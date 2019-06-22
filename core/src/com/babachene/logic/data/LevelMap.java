@@ -266,6 +266,9 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		case "skull":
 			addEntity(x,y,new EntitySkull(x,y,this));
 			break;
+		case "grass":
+			addEntity(x,y,new EntityGrass(x, y, this));
+			break;
 		default:
 			addEntity(x,y,new EntityText(x,y,this,typeOfEntity));
 		}
