@@ -62,6 +62,8 @@ public final class Mapper {
 			break;
 		case Baba.TXT_P3: tex = Rsrc.TXT_P3_TEXTURE;
 			break;
+		case Baba.TXT_US: tex = Rsrc.TXT_US_TEXTURE;
+			break;
 		/*
 		 * Verb text blocks
 		 */

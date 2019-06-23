@@ -12,10 +12,11 @@ public abstract class Update implements Serializable {
 	}
 	
 	public void updateConnection(Client client) {
-
+		
     }
 	
 	public int getId() {
 		return id;
 	}
+	
 }

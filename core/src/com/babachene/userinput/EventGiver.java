@@ -30,12 +30,21 @@ public class EventGiver {
 	}
 	
 	/**
-	 * Return the number of InputEvents that are yet to
+	 * Returns the number of InputEvents that are yet to
 	 * be polled.
 	 * @return The size of this buffer.
 	 */
 	public int size() {
 		return queue.size();
+	}
+	
+	/**
+	 * Returns whether this eventGiver is empty or contains
+	 * events.
+	 * @return
+	 */
+	public boolean isEmpty() {
+		return queue.isEmpty();
 	}
 	
 	/**
@@ -62,12 +71,11 @@ public class EventGiver {
 	}
 	
 	/**
-	 * Empty the buffer of this EventGiver, making it
-	 * empty. This method reallocate a new queue so don't
-	 * use it too often.
+	 * Clear the buffer of this EventGiver, making it
+	 * empty. 
 	 */
-	public void emptyBuffer() {
-		queue = new ArrayBlockingQueue<InputEvent>(CAPACITY);
+	public void clear() {
+		queue.clear(); // = new ArrayBlockingQueue<InputEvent>(CAPACITY);
 	}
 
 }

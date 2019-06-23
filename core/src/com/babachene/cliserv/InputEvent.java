@@ -11,15 +11,12 @@ public class InputEvent extends Event {
 	
 	private static final long serialVersionUID = -7459899296974359597L;
 	
-	/** A byte to store some data. The name is yet to adapt. */
-	public final byte additionalData;
-	
 	public final byte eventType;
 	
-	public InputEvent(byte type, byte data) {
+	public InputEvent(byte type, int player) {
 		super(20);
-		additionalData = data;
 		eventType = type;
+		setPlayer(player);
 	}
 	
 	public static final byte
@@ -32,7 +29,8 @@ public class InputEvent extends Event {
 		Z_REQUEST_STOP=5,
 		
 		RESET_REQUEST=6,
-		RESET_REQUEST_STOP=7;
-	
+		RESET_REQUEST_STOP=7,
+		
+		WAIT=8;
 	
 }

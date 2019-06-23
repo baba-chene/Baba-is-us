@@ -70,11 +70,11 @@ class MapRenderer extends Renderer { // Not a public class.
 		 */
 		renderers = new ArrayList<EntityRenderer>(map.getWidth() * map.getHeight() * 2);
 		
-		for (RenderableEntity e : map) {
-			
-			addEntity(e);
-			
-		}
+//		for (RenderableEntity e : map) {
+//			
+//			addEntity(e); FIXME Well, I don't know how it should best work. But in current testing, the map sends all info through the queue.
+//			
+//		}
 		
 	}
 	
@@ -190,8 +190,8 @@ class MapRenderer extends Renderer { // Not a public class.
 				break;
 			}
 		}
-		if ( ! found)
-			logger.log(Level.INFO, "Attempted to remove a RenderableEntity which was not found.");
+//		if ( ! found) TODO uncomment
+//			logger.log(Level.INFO, "Attempted to remove a RenderableEntity which was not found. id=" + e.getId());
 		
 	}
 	

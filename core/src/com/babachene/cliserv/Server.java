@@ -2,6 +2,7 @@ package com.babachene.cliserv;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.io.ObjectInputStream;
@@ -66,6 +67,7 @@ public class Server implements Runnable {
         eventBuffer = new Event[eventBufferLength];
         updateBuffer = new Update[updateBufferLength];
         thread = new Thread(this);
+        thread.setDaemon(true); // No server if the app is terminated.
         thread.start();
         LOGGER.info("[Server] Thread started");
     }
@@ -333,6 +335,9 @@ public class Server implements Runnable {
         } catch (ClassNotFoundException e) {
         	checkTime();
 			e.printStackTrace();
+        } catch (EOFException e) {
+        	checkTime();
+        	
 		} catch (IOException e) {
 			checkTime();
 			e.printStackTrace();

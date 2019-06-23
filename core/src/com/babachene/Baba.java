@@ -30,6 +30,7 @@ public final class Baba {
 					TXT_PUSH	= 805,
 					TXT_WIN		= 806,
 					TXT_BLOCK	= 807,
+					TXT_US		= 808,
 	// Text for verbs
 					TXT_IS		= 901,
 					TXT_AND		= 902,

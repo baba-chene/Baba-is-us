@@ -21,7 +21,7 @@ import com.babachene.userinput.KeyboardMap;
 import com.babachene.userinput.LevelInputProcessor;
 import com.badlogic.gdx.Input.Keys;
 
-public class GameController  implements Observer {
+public class GameController implements Observer {
 	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
@@ -73,7 +73,7 @@ public class GameController  implements Observer {
 	public void joinServer(String IPAdress, int port) {
 		client = new Client(this, 10, 10);
 		client.connect(IPAdress, port);
-	    clientController = new ClientEventController(this, client, eventGiver, logic);
+//	    clientController = new ClientEventController(this, client, eventGiver, logic);
 	    client.addEvent(new LevelRequest());
 	    client.addEvent(new IdentityRequest());
 	    state = GameState.Joining;
@@ -83,18 +83,18 @@ public class GameController  implements Observer {
 	
 	public void disconnect() {
 		client.disconnect();
-		LOGGER.info("[Game Controller] Reconnecting to game");
+		LOGGER.info("[Game Controller] Disconnecting to game");
 	}
 	
 	public void reconnect() {
 		client.connect();
-		LOGGER.info("[Game Controller] Disconnecting from game");
+		LOGGER.info("[Game Controller] Reconnecting from game");
 	}
 	
 	public void hostServer(int port) {
 		server = new Server(this, 10, 10);
 		server.open(port);
-		serverController = new ServerEventController(this, server, eventGiver, logic, 10);
+//		serverController = new ServerEventController(this, server, eventGiver, logic, 10);
 	    state = GameState.Hosting;
 		LOGGER.info("[Game Controller] Hosting a game");
 		game.push(new LevelState(logic.getLevelMap(), levelInputProcessor));

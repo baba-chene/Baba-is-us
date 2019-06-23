@@ -18,7 +18,7 @@ import com.badlogic.gdx.Input.Keys;
  * @author jeremy
  *
  */
-public class SoloController extends Controller {
+public class SoloController extends com.babachene.controller.Controller {
 	
 	private MainGame mainGame;
 	private GameLogic logic;
@@ -62,21 +62,23 @@ public class SoloController extends Controller {
 		map.addEntity(4, 7, "water");
 		map.addEntity(3, 7, "textwater");
 		map.addEntity(7, 2, "wall");
-		map.addEntity(6, 3, "textand");
-		*/
+		map.addEntity(6, 3, "textand");*/
+		/*
 		MapEditorConverter mapEditorConverter = new MapEditorConverter(30, 20);
 		try {
-			mapEditorConverter.open("maps\\Bac � sable.txt\\");
+			mapEditorConverter.open("level.txt");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		LevelMap map = mapEditorConverter.getMap();
-		logic = new GameLogic(map);
+		LevelMap map = mapEditorConverter.getMap();/=*/
 		
+		LevelMap map = CtrlTest.gimmeLevel();
+		logic = new GameLogic(map);
 		mainGame.push(new LevelState(map, inputProcessor));
 	}
 	
+	@Override
 	public void update() {
 		
 		fetchEvent();

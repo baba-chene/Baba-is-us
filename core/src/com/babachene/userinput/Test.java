@@ -30,20 +30,20 @@ class Test {
 		lip = new LevelInputProcessor(new KeyboardMap(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12), giver);
 		lip.keyDown(1);
 		
-		giver.emptyBuffer();
+		giver.clear();
 		e = giver.pollEvent();
 		assert e == null;
 		
 		lip.keyDown(lip.getKeyboardMap().GO_DOWN);
 		e = giver.pollEvent();
 		assert e.eventType == InputEvent.MOVE_DOWN;
-		assert e.additionalData == 0;
+		assert e.getPlayer() == 0;
 		
 		for (int i = 0; i < 266; i++) {
 			giver.addEvent(new InputEvent(InputEvent.MOVE_LEFT, (byte) i));
 		}
 		for (int i = 0; i < giver.capacity(); i++) {
-			assert giver.pollEvent().additionalData == (byte) i;
+			assert giver.pollEvent().getPlayer() == (byte) i;
 		}
 		assert giver.size()==0;
 		
@@ -60,12 +60,12 @@ class Test {
 		assert e.eventType == InputEvent.MOVE_RIGHT;
 		lip.keyDown(lip.getKeyboardMap().GO_DOWN_2);
 		e = giver.pollEvent();
-		assert e.additionalData == 1;
+		assert e.getPlayer() == 1;
 		assert e.eventType == InputEvent.MOVE_DOWN;
 		lip.keyDown(lip.getKeyboardMap().GO_LEFT_2);
 		e = giver.pollEvent();
 		assert e.eventType == InputEvent.MOVE_LEFT;
-		assert e.additionalData == 1;
+		assert e.getPlayer() == 1;
 		
 		lip.keyUp(lip.getKeyboardMap().Z_REQUEST);
 		assert giver.size() == 0;

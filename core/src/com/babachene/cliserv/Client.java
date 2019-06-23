@@ -65,6 +65,7 @@ public class Client implements Runnable {
         eventBuffer = new Event[eventBufferLength];
         updateBuffer = new Update[updateBufferLength];
         thread = new Thread(this);
+        thread.setDaemon(true); // No Client if the app is terminated.
         thread.start();
         LOGGER.info("[Client] Thread started");
     }
