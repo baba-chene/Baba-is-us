@@ -1,5 +1,8 @@
 package com.babachene.gui.renderer;
 
+import java.util.MissingResourceException;
+
+import com.babachene.gui.Rsrc;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -35,10 +38,10 @@ class EntityRenderer extends Renderer { // Not a public class
 		this.mapData = mapData;
 		entity = e;
 		
-		short entityId = e.getId();
-		
 		// The big id:texture table is here.
-		tex = Mapper.textureById(entityId);
+		tex = Rsrc.getTextureFromID(e.getId());
+		if (tex == null)
+			throw new MissingResourceException("Texture is not initialized. Entity id: "+e.getId(), "Rsrc", e.getId());
 		
 		moving = false;
 		intX = entity.getX();

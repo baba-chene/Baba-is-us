@@ -21,7 +21,7 @@ public final class MapUpdateQueue {
 	
 	private Queue<RenderableEntity> createdEntities;
 	private Queue<RenderableEntity> removedEntities;
-	private Queue<Short> removedGroups;
+	private Queue<String> removedGroups;
 	
 	/**
 	 * Instanciate a new empty queue.
@@ -29,7 +29,7 @@ public final class MapUpdateQueue {
 	public MapUpdateQueue() {
 		createdEntities = new LinkedList<RenderableEntity>();
 		removedEntities = new LinkedList<RenderableEntity>();
-		removedGroups = new LinkedList<Short>();
+		removedGroups = new LinkedList<String>();
 		
 		updateRequired = true;
 	}
@@ -79,7 +79,7 @@ public final class MapUpdateQueue {
 	 * @param removedEntityId - the id of all entities that are to
 	 * be removed from the renderers.
 	 */
-	public void pushRemovedGroup(short removedEntityId) {
+	public void pushRemovedGroup(String removedEntityId) {
 		removedGroups.add(removedEntityId);
 		updateRequired = true;
 	}
@@ -106,9 +106,9 @@ public final class MapUpdateQueue {
 		return ! removedGroups.isEmpty();
 	}
 	
-	public short popRemovedGroup() {
-		Short s = removedGroups.poll();
-		return (s != null) ? s.shortValue() : -1 ;
+	public String popRemovedGroup() {
+		String s = removedGroups.poll();
+		return s;
 	}
 	
 	

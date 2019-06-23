@@ -146,13 +146,13 @@ class MapRenderer extends Renderer { // Not a public class.
 		}
 		
 		/*
-		 * Current policy is one entity renderer per entity id.
+		 * Current policy is one entity renderer per entity.
 		 */
 		
-		short id = e.getId();
+		String id = e.getId();
 		
-		if (id == 0) { //TODO
-			logger.fine("An entity with ID 0 has dropped and will not be renderer.");
+		if (id.isEmpty()) { //TODO
+			logger.fine("An entity with ID \"\" has dropped and will not be renderer.");
 			return;
 		}
 		
@@ -195,12 +195,16 @@ class MapRenderer extends Renderer { // Not a public class.
 		
 	}
 	
-	public final void removeAllEntitiesById(short id) {
+	public final void removeAllEntitiesById(String id) {
+		
+		if (id == null)
+			return;
+		
 		// temporary solution
 		ArrayList<EntityRenderer> l=  new ArrayList<>();
 		boolean found = false;
 		for (int i = 0; i < renderers.size(); i++) {
-			if (renderers.get(i).getRenderableEntity().getId() == id) {
+			if (renderers.get(i).getRenderableEntity().getId().equals(id)) {
 				l.add(renderers.get(i));//renderers.remove(i--);
 				found = true;
 			}

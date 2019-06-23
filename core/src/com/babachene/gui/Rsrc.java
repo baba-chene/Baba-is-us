@@ -1,5 +1,7 @@
 package com.babachene.gui;
 
+import java.util.MissingResourceException;
+import java.util.Random;
 import java.util.logging.Logger;
 
 import com.badlogic.gdx.assets.AssetManager;
@@ -16,6 +18,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public final class Rsrc {
 	
 	private Rsrc() {}
+	
+	private static final Random random = new Random();
 	
 	/**
 	 * The asset manager of the game.
@@ -94,21 +98,14 @@ public final class Rsrc {
 		
 	}
 	
-//	private static final String DIR = "";
-//	public static final String
-//							BABA_TEXTURE	= DIR + "baba",
-//							ROCK_TEXTURE	= DIR + "rock",
-//							WATER_TEXTURE	= DIR + "water",
-//							LAVA_TEXTURE	= DIR + "lava",
-//							WALL_TEXTURE	= DIR + "wall",
-//							TREE_TEXTURE	= DIR + "tree",
-//							FLAG_TEXTURE	= DIR + "flag",
-//							
-//							TXT_YOU_TEXTURE	= DIR + "txt_you",
-//							TXT_P1_TEXTURE	= DIR + "txt_p1",
-//							TXT_P2_TEXTURE	= DIR + "txt_p2",
-//							TXT_P3_TEXTURE	= DIR + "txt_p3",
-//							TXT_SINK_TEXTURE	= DIR + "txt_sink";
+	//====================================================================================//
+	//====================================================================================//
+	//==============                           ===========================================//
+	//==============     TextureRegion         ===========================================//
+	//==============                           ===========================================//
+	//====================================================================================//
+	//====================================================================================//
+	
 	/*
 	 * To verify all these fields are initialized in loadEverything,
 	 * set them to static and remplace loadEverything by static so
@@ -160,5 +157,87 @@ public final class Rsrc {
 								TXT_GRASS_TEXTURE,
 								
 								TXT_PAF_TEXTURE;
+	
+	
+	//====================================================================================//
+	//====================================================================================//
+	//==============                           ===========================================//
+	//==============          Mapping          ===========================================//
+	//==============                           ===========================================//
+	//====================================================================================//
+	//====================================================================================//
+	
+	/**
+	 * Map an entity ID to a TextureRegion object that can
+	 * be rendered to draw the entity.
+	 * @param id - The ID of the entity.
+	 * @return
+	 * <li>- The TextureRegion corresponding to the entity.
+	 * <li>- A "missing texture" texture if the ID is missing
+	 * in the switch/case, check it!
+	 * <li>- <code>null</code> when the texture object happens
+	 * not to be loaded (or a problem occured), see the texture
+	 * region fields of <code>Rsrc</code> and the <code>
+	 * loadEverything</code> method to correct the bug.
+	 */
+	public static TextureRegion getTextureFromID(String id) {
+		
+		// C'est parti pour le switch/case. -__-
+		
+		switch (id) {
+		// actual entities
+		case "baba":			return BABA_TEXTURE;
+		case "rock":			return ROCK_TEXTURE;
+		case "water":			return WATER_TEXTURE;
+		case "lava":			return LAVA_TEXTURE;
+		case "wall":			return WALL_TEXTURE;
+		case "tree":			return TREE_TEXTURE;
+		case "flag":			return FLAG_TEXTURE;
+		case "skull":			return SKULL_TEXTURE;
+		case "grass":			return GRASS_TEXTURE[random.nextInt(GRASS_TEXTURE.length)];
+		case "keke":			return KEKE_TEXTURE;
+		case "lego":			return LEGO_TEXTURE;
+		case "love":			return LOVE_TEXTURE;
+		case "bush":			return BUSH_TEXTURE;
+		
+		// text for attributes
+		case "textyou":			return TXT_YOU_TEXTURE;
+		case "textp1":			return TXT_P1_TEXTURE;
+		case "textp2":			return TXT_P2_TEXTURE;
+		case "textp3":			return TXT_P3_TEXTURE;
+		case "textsink":		return TXT_SINK_TEXTURE;
+		case "textpush":		return TXT_PUSH_TEXTURE;
+		case "textwin":			return TXT_WIN_TEXTURE;
+		case "textblock":
+		case "textstop":		return TXT_STOP_TEXTURE;
+		case "textus":			return TXT_US_TEXTURE;
+		
+		// verbs
+		case "textis":			return TXT_IS_TEXTURE;
+		case "textand":			return TXT_AND_TEXTURE;
+		case "textmake":		return TXT_MAKE_TEXTURE;
+		case "texthas":			return TXT_HAS_TEXTURE;
+		case "texton":			return TXT_ON_TEXTURE;
+		case "textbut":			return TXT_BUT_TEXTURE;
+		
+		// text for verbs
+		case "textbaba":		return TXT_BABA_TEXTURE;
+		case "textrock":		return TXT_ROCK_TEXTURE;
+		case "textwater":		return TXT_WATER_TEXTURE;
+		case "textlava":		return TXT_LAVA_TEXTURE;
+		case "textwall":		return TXT_WALL_TEXTURE;
+		case "texttree":		return TXT_TREE_TEXTURE;
+		case "textflag":		return TXT_FLAG_TEXTURE;
+		case "textskull":		return TXT_SKULL_TEXTURE;
+		case "textgrass":		return TXT_GRASS_TEXTURE;
+		case "textkeke":		return MISSING_TEXTURE;
+		
+		// non-entity text as subject
+		case "textpaf":			return TXT_PAF_TEXTURE;
+		
+		default: 			return MISSING_TEXTURE;
+		}
+		
+	}
 	
 }

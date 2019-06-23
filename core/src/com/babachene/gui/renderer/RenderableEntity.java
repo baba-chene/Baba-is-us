@@ -19,7 +19,7 @@ public interface RenderableEntity {
 	 * macth research cost.
 	 * @return Entity's id
 	 */
-	short getId();
+	String getId();
 	
 	/**
 	 * The X tile number of this entity, tile (0,0) is at bottom left of

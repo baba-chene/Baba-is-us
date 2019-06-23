@@ -147,7 +147,7 @@ public class RenderingTest extends GameState {
 				}
 				
 				else if (character == 'e') {
-					q.pushRemovedGroup((short)1);
+					q.pushRemovedGroup("This test is outdated !");
 					return true;
 				}
 				
@@ -202,8 +202,8 @@ public class RenderingTest extends GameState {
 		short id = 0;
 		
 		@Override
-		public short getId() {
-			return id;
+		public String getId() {
+			return "test is outdated !";
 		}
 		@Override
 		public int getX() {

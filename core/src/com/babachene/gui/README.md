@@ -11,9 +11,9 @@ A "game" is either an `ApplicationListener` (libgdx's way) or a `GameState` (Jé
 
 #### How to add a new entity type:
 
-* Baba class holds the id of all entity types: add a new id here.
-* Rsrc class holds references to textures (TextureRegion), add a texture field here and
-program its initialization in the loadEverything() method.
-* gui.renderer.Mapper class contains a function that maps ID from Baba to textures from
-Rsrc, add the mapping in the switch/case.
-
+* Baba class holds the list of all enity id, and a new name here.
+* Rsrc class holds references to textures (TextureRegion) and manages them all,
+add a texture field here.
+* Still in Rsrc, program its initialization in the loadEverything() method.
+* Rsrc also contains a function that maps ID from Baba to textures, add the
+mapping in the switch/case.
