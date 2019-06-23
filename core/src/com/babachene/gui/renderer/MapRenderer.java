@@ -70,11 +70,11 @@ class MapRenderer extends Renderer { // Not a public class.
 		 */
 		renderers = new ArrayList<EntityRenderer>(map.getWidth() * map.getHeight() * 2);
 		
-		for (RenderableEntity e : map) {
+	/*	for (RenderableEntity e : map) {
 			
 			addEntity(e);
 			
-		}
+		}*/
 		
 	}
 	
