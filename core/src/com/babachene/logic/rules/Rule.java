@@ -78,6 +78,7 @@ public class Rule {
 				int y = entity.getyPosition();
 				for (Text noun : nounList)
 					this.rulesUpdater.getMap().addEntity(x, y, noun.getText());
+				this.rulesUpdater.getMap().getMapUpdateQueue().pushRemovedEntity(entity); 
 				this.rulesUpdater.getMap().removeEntity(entity);
 			}
 		}
