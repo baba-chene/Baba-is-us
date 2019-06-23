@@ -243,7 +243,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		String entityType = entity.getTypeOfEntity();
 		int x = entity.getxPosition();
 		int y = entity.getyPosition();
-		mapUpdateQueue.pushRemovedEntity(entity);
+		mapUpdateQueue.pushRemovedEntity(entity); //TODO Either don't call it when empty entities are detroyed, and change the MapRenderer.
 		this.mapMatrix[x][y].removeEntity(entity);  				  //First we remove the entity from the mapCase.	
 		findGroup(entityType).removeEntity(entity);	
 //We remove it from the group.

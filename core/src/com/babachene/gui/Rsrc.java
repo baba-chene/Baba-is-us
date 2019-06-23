@@ -35,7 +35,7 @@ public final class Rsrc {
 		if (textureAtlas == null)
 			textureAtlas = new TextureAtlas("assets/packedTextures.atlas");
 		
-		Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).info("Rsrc started to load the assets");
+		Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).info("Rsrc starts to retrieve the assets.");
 		
 		MISSING_TEXTURE = textureAtlas.findRegion("missing_texture");
 		
@@ -46,7 +46,14 @@ public final class Rsrc {
 		//TREE_TEXTURE = textureAtlas.findRegion("tree");
 		FLAG_TEXTURE = textureAtlas.findRegion("flag");
 		//SKULL_TEXTURE = textureAtlas.findRegion("rock");
-		
+		GRASS_TEXTURE = new TextureRegion[7];
+			GRASS_TEXTURE[0] = textureAtlas.findRegion("grass0");
+			GRASS_TEXTURE[1] = textureAtlas.findRegion("grass1");
+			GRASS_TEXTURE[2] = textureAtlas.findRegion("grass2");
+			GRASS_TEXTURE[3] = textureAtlas.findRegion("grass3");
+			GRASS_TEXTURE[4] = textureAtlas.findRegion("grass4");
+			GRASS_TEXTURE[5] = textureAtlas.findRegion("grass5");
+			GRASS_TEXTURE[6] = textureAtlas.findRegion("grass6");	
 		
 		TXT_YOU_TEXTURE = textureAtlas.findRegion("txt_you");
 		TXT_P1_TEXTURE = textureAtlas.findRegion("txt_p1");
@@ -71,7 +78,10 @@ public final class Rsrc {
 		TXT_WALL_TEXTURE = textureAtlas.findRegion("txt_wall");
 		//TXT_TREE
 		TXT_FLAG_TEXTURE = textureAtlas.findRegion("txt_flag");
+		// TXT_SKULL
+		TXT_GRASS_TEXTURE = textureAtlas.findRegion("txt_grass");
 		
+		TXT_PAF_TEXTURE = textureAtlas.findRegion("txt_paf");
 		
 	}
 	
@@ -106,6 +116,7 @@ public final class Rsrc {
 								TREE_TEXTURE,
 								FLAG_TEXTURE,
 								SKULL_TEXTURE,
+								GRASS_TEXTURE[], // array
 								
 								TXT_YOU_TEXTURE,
 								TXT_P1_TEXTURE,
@@ -130,8 +141,9 @@ public final class Rsrc {
 								TXT_WALL_TEXTURE,
 								TXT_TREE_TEXTURE,
 								TXT_FLAG_TEXTURE,
-								TXT_SKULL_TEXTURE;
+								TXT_SKULL_TEXTURE,
+								TXT_GRASS_TEXTURE,
 								
-								
+								TXT_PAF_TEXTURE;
 	
 }

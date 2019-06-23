@@ -84,7 +84,7 @@ public class LevelInputProcessor extends InputAdapter {
 			flag = true;
 		}
 		if (keycode == keymap.GO_RIGHT_2) {
-			eventGiver.addEvent(new InputEvent(InputEvent.MOVE_UP, (byte)1));
+			eventGiver.addEvent(new InputEvent(InputEvent.MOVE_RIGHT, (byte)1));
 			flag = true;
 		}
 		

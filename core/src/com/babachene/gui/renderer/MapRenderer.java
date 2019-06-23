@@ -196,14 +196,17 @@ class MapRenderer extends Renderer { // Not a public class.
 	}
 	
 	public final void removeAllEntitiesById(short id) {
-		
+		// temporary solution
+		ArrayList<EntityRenderer> l=  new ArrayList<>();
 		boolean found = false;
 		for (int i = 0; i < renderers.size(); i++) {
 			if (renderers.get(i).getRenderableEntity().getId() == id) {
-				renderers.remove(i--);
+				l.add(renderers.get(i));//renderers.remove(i--);
 				found = true;
 			}
 		}
+		
+		renderers.removeAll(l);
 		
 		if ( ! found)
 			logger.log(Level.INFO, "Attempted to remove some RenderableEntities by id but no was found.");
