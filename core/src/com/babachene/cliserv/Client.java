@@ -1,5 +1,7 @@
 package com.babachene.cliserv;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.io.ObjectInputStream;
@@ -24,11 +26,11 @@ public class Client implements Runnable {
     private ObjectInputStream in;
     private ObjectOutputStream out;
 
-    private Event[] eventBuffer;
-    private int eventBufferSize = 0;
-    private Update[] updateBuffer;
-    private int updateBufferSize = 0;
-    private int updateBufferStartIndex = 0;
+    private volatile Event[] eventBuffer;
+    private volatile int eventBufferSize = 0;
+    private volatile Update[] updateBuffer;
+    private volatile int updateBufferSize = 0;
+    private volatile int updateBufferStartIndex = 0;
 
     private long updateTime;
     private long lastEventTime;
@@ -180,7 +182,7 @@ public class Client implements Runnable {
                 	break;
             }
             try {
-                Thread.sleep(1);
+                Thread.sleep(10);
             } catch (InterruptedException ie) {
                 ie.printStackTrace();
             }
@@ -198,8 +200,9 @@ public class Client implements Runnable {
         	socket = new Socket();
         	socket.connect(new InetSocketAddress(IPAdress, port), 3000);
             socket.setSoTimeout(10);
-            in = new ObjectInputStream(socket.getInputStream());
-            out = new ObjectOutputStream(socket.getOutputStream());
+            out = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            out.flush();
+            in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
             LOGGER.info("[Client] Connection established with host");
             nextState = State.Connected;
             updateTime = System.currentTimeMillis();
@@ -300,7 +303,7 @@ public class Client implements Runnable {
 
             synchronized(this) {
                 if(updateBufferSize < updateBuffer.length) {
-                    updateBuffer[updateBufferStartIndex + updateBufferSize] = update;
+                    updateBuffer[(updateBufferStartIndex + updateBufferSize) % updateBuffer.length] = update;
                     updateBufferSize++;
                 } else
                     LOGGER.warning("[Client] Buffer full, update dropped");

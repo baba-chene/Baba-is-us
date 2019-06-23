@@ -49,17 +49,17 @@ public class ClientEventController {
     }
 
 	public void update() {
+		if(fetchEvent()) {
+        	LOGGER.fine("[Client Event Controller] Event sent to client");
+			client.addEvent(event);
+        	/*LOGGER.fine("[Client Event Controller] Event sent to logic");
+			logic.processEvent(event);*/
+		}
 		if(fetchUpdate()) {
         	LOGGER.fine("[Client Event Controller] Update sent to logic");
 			logic.processUpdate(update);
         	LOGGER.fine("[Client Event Controller] Notified the game controller of the update");
 			gameController.notifyUpdate(update);
-		}
-		if(fetchEvent()) {
-        	LOGGER.fine("[Client Event Controller] Event sent to client");
-			client.addEvent(event);
-        	LOGGER.fine("[Client Event Controller] Event sent to logic");
-			logic.processEvent(event);
 		}
     }
 }

@@ -1,5 +1,6 @@
 package com.babachene.gui;
 
+import java.io.IOException;
 import com.babachene.game.Controller;
 import com.babachene.game.GameController;
 import com.babachene.game.SoloController;
@@ -7,6 +8,7 @@ import com.babachene.gui.menus.MainMenu;
 import com.babachene.gui.menus.MultiplayerMenu;
 import com.babachene.gui.menus.PlayMenu;
 import com.babachene.gui.menus.SettingsMenu;
+import com.babachene.logger.GlobalLogger;
 import com.babachene.gui.test.RenderingTest;
 import com.babachene.logic.data.LevelMap;
 import com.badlogic.gdx.Gdx;
@@ -40,6 +42,12 @@ public class MainGame extends StateBasedGame {
 		
 		
 		BabaIsUs.assetManager = new AssetManager();
+
+		try {
+			GlobalLogger.setup(true);
+		} catch(IOException ioe) {
+			
+		}
 		
 		Rsrc.loadEverything();
 		
