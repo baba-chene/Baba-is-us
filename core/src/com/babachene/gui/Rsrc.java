@@ -71,6 +71,7 @@ public final class Rsrc {
 		TXT_PUSH_TEXTURE = textureAtlas.findRegion("txt_push");
 		TXT_WIN_TEXTURE = textureAtlas.findRegion("txt_win");
 		TXT_STOP_TEXTURE = textureAtlas.findRegion("txt_stop");
+		TXT_US_TEXTURE = textureAtlas.findRegion("txt_us");
 		
 		TXT_IS_TEXTURE = textureAtlas.findRegion("txt_is");
 		TXT_AND_TEXTURE = textureAtlas.findRegion("txt_and");
@@ -139,6 +140,7 @@ public final class Rsrc {
 								TXT_PUSH_TEXTURE,
 								TXT_WIN_TEXTURE,
 								TXT_STOP_TEXTURE,
+								TXT_US_TEXTURE,
 								
 								TXT_IS_TEXTURE,
 								TXT_AND_TEXTURE,

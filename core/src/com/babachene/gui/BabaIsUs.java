@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
  * @author jeremy
  *
  */
-public final class BabaIsUs {
+public final class BabaIsUs { //TODO destroy this class, "Baba" is better.
 	
 	private BabaIsUs() {}
 	

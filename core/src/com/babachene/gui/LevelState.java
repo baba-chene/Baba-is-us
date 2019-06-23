@@ -52,7 +52,8 @@ public class LevelState extends GameState {
 	public void update() {
 		
 		
-		// Put the controller-related calls here.
+		// Don't put the controller-related calls here.
+		// The belonged to the MetaController.
 		
 		// updates the renderers.
 		levelRenderer.update();

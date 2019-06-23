@@ -78,7 +78,7 @@ public class MainMenu extends GameState implements Screen {
 			public void clicked(InputEvent event, float x, float y) {
 				System.out.println("Play Button pressed");
 				
-				parent.changeScreen(parent.PLAYMENU);
+				parent.changeScreen(MainGame.PLAYMENU);
 				
 				return; // The event has been handled.
 			}
@@ -96,7 +96,7 @@ public class MainMenu extends GameState implements Screen {
 			public void clicked(InputEvent event, float x, float y) {
 				System.out.println("Settings Button pressed");
 				
-				parent.changeScreen(parent.SETTINGSMENU);
+				parent.changeScreen(MainGame.SETTINGSMENU);
 				
 				return; // The event has been handled.
 			}

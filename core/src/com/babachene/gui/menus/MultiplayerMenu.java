@@ -1,6 +1,5 @@
 package com.babachene.gui.menus;
 
-import com.babachene.game.GameController;
 import com.babachene.gui.BabaIsUs;
 import com.babachene.gui.GameState;
 import com.babachene.gui.MainGame;
@@ -34,10 +33,8 @@ public class MultiplayerMenu extends GameState implements Screen {
 	private TextField portHost;
 	private ImageButton hostButton;
 	
-	private GameController gameController;
 	
-	
-	public MultiplayerMenu(MainGame game, final GameController gameController) {
+	public MultiplayerMenu(MainGame game) {
 		parent=game;
 		
 		stage = new Stage(getViewport());
@@ -76,13 +73,13 @@ public class MultiplayerMenu extends GameState implements Screen {
 		lblIP.setY(630);
 		stage.addActor(lblIP);
 		
-		portJoin= new TextField("",BabaIsUs.skin);
+		portJoin= new TextField("4444",BabaIsUs.skin);
 		portJoin.setX(600);
 		portJoin.setY(700);
 		portJoin.setWidth(250);
 		stage.addActor(portJoin);
 		
-		ip = new TextField("",BabaIsUs.skin);
+		ip = new TextField("127.0.0.1",BabaIsUs.skin);
 		ip.setX(600);
 		ip.setY(630);
 		ip.setWidth(250);
@@ -101,7 +98,14 @@ public class MultiplayerMenu extends GameState implements Screen {
 				String port = portJoin.getText();
 				String IP = ip.getText();
 				
-				gameController.joinServer(IP, Integer.parseInt(port));
+				int intPort = -1;
+				try {
+					intPort = Integer.parseInt(port);
+				} catch(NumberFormatException e) {
+					
+				}
+				if (intPort != -1)
+					parent.getMetaController().joinServer(IP, intPort);
 				
 				return; // The event has been handled.
 			}
@@ -117,12 +121,13 @@ public class MultiplayerMenu extends GameState implements Screen {
 		lbl.setY(350);
 		stage.addActor(lbl);
 		
-		portHost= new TextField("",BabaIsUs.skin);
+		portHost= new TextField("4444",BabaIsUs.skin);
 		portHost.setX(600);
 		portHost.setY(350);
 		portHost.setWidth(250);
 		stage.addActor(portHost);
 		
+//		this.gameController = new GameController(parent);
 		
 		SpriteDrawable hostImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/menus/host.png"))));
 		hostButton = new ImageButton(hostImage);
@@ -133,8 +138,14 @@ public class MultiplayerMenu extends GameState implements Screen {
 			public void clicked(InputEvent event, float x, float y) {
 							
 				String port = portHost.getText();
-				
-				gameController.hostServer(Integer.parseInt(port));
+				int intPort = -1;
+				try {
+					intPort = Integer.parseInt(port);
+				} catch(NumberFormatException e) {
+					
+				}
+				if (intPort != -1)
+					parent.getMetaController().hostServer(intPort);
 				
 				return; // The event has been handled.
 			}

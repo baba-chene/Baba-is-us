@@ -114,7 +114,8 @@ public abstract class StateBasedGame implements ApplicationListener {
 	
 	private final void setState(GameState newState) {
 		// notify the game states of the change.
-		if (currentState != null) currentState.hide();
+		if (currentState != null)
+			currentState.hide();
 		if (newState != null) {
 			newState.show();
 			newState.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

@@ -1,22 +1,22 @@
 package com.babachene.gui;
 
 import java.io.IOException;
-import com.babachene.game.Controller;
-import com.babachene.game.GameController;
-import com.babachene.game.SoloController;
+
+import com.babachene.controller.Controller;
+import com.babachene.controller.CtrlTest;
+import com.babachene.controller.GameController;
+import com.babachene.controller.MetaController;
 import com.babachene.gui.menus.MainMenu;
 import com.babachene.gui.menus.MultiplayerMenu;
 import com.babachene.gui.menus.PlayMenu;
 import com.babachene.gui.menus.SettingsMenu;
 import com.babachene.logger.GlobalLogger;
-import com.babachene.gui.test.RenderingTest;
-import com.babachene.logic.data.LevelMap;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 
 public class MainGame extends StateBasedGame {
 	
+	@SuppressWarnings("unused")
 	private MainMenu mainMenu;
 	private PlayMenu playMenu;
 	private SettingsMenu settingsMenu;
@@ -26,10 +26,9 @@ public class MainGame extends StateBasedGame {
 	public final static int SETTINGSMENU = 2;
 	public final static int MULTIPLAYERMENU = 3;
 	
-	private GameController gameController;
-	private Controller controller;   // TODO find a good structure.
-	
-	private LevelMap levelMap;
+//	private GameController gameController;
+//	private Controller controller;
+	private MetaController metaController;
 	
 	public MainGame() {
 		//BabaIsUs.skin.getFont("default-font").getData().setScale(3f,3f);
@@ -49,6 +48,9 @@ public class MainGame extends StateBasedGame {
 			
 		}
 		
+		/*
+		 * Load the textures
+		 */
 		Rsrc.loadEverything();
 		
 		// Colin's test
@@ -62,7 +64,6 @@ public class MainGame extends StateBasedGame {
 		 * TEST ZONE
 		 */
 		
-		
 		BabaIsUs.assetManager.load(BabaIsUs.textures.PEPE, Texture.class);
 		BabaIsUs.assetManager.load(BabaIsUs.textures.KERMIT, Texture.class);
 		BabaIsUs.assetManager.load(BabaIsUs.textures.THEME_DEFAULT, Texture.class);
@@ -72,26 +73,33 @@ public class MainGame extends StateBasedGame {
 //		this.push(new LevelState(t.level, null));
 //		t.startTestOnLevelState();
 		
+		// Testing the controller handler
+		metaController = new MetaController(this);
 		
 		/*
 		 * END OF TEST ZONE
 		 */
 		
-		this.controller = new SoloController(this);
+//		this.controller = new SoloController(this);
+//		gameController = new GameController(this);
+		
 		
 		this.push(new MainMenu(this));
 	}
 	
 	//////////////////////
 	
-	public Controller getController() {
-		return controller;
+	public MetaController getMetaController() {
+		return metaController;
 	}
 	
 	@Override
 	public void render() {
 //		gameController.update();
-		controller.update();
+//		controller.update();
+		metaController.update();
+		
+		
 		super.render();
 	}
 
@@ -110,7 +118,7 @@ public class MainGame extends StateBasedGame {
 				this.push(settingsMenu);
 				break;
 			case MULTIPLAYERMENU:
-				if(multiplayerMenu == null) {multiplayerMenu = new MultiplayerMenu(this, gameController);};
+				if(multiplayerMenu == null) {multiplayerMenu = new MultiplayerMenu(this);};
 				this.push(multiplayerMenu);
 				break;
 			

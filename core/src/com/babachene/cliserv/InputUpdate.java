@@ -3,16 +3,19 @@ package com.babachene.cliserv;
 public class InputUpdate extends Update {
 	
 	private static final long serialVersionUID = -8465728544238652482L;
-
-	/** A byte to store some data. The name is yet to adapt. */
-	public final byte additionalData;
+	
+	private final int player;
 	
 	public final byte eventType;
 	
-	public InputUpdate(byte type, byte data) {
+	public InputUpdate(byte type, int player) {
 		super(20);
-		additionalData = data;
+		this.player = player;
 		eventType = type;
+	}
+	
+	public int getPlayer() {
+		return player;
 	}
 	
 	public static final byte
@@ -25,5 +28,7 @@ public class InputUpdate extends Update {
 		Z_REQUEST_STOP=5,
 		
 		RESET_REQUEST=6,
-		RESET_REQUEST_STOP=7;
+		RESET_REQUEST_STOP=7,
+		
+		WAIT=8;
 }

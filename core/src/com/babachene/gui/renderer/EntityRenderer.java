@@ -1,6 +1,5 @@
 package com.babachene.gui.renderer;
 
-import com.babachene.Baba;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -58,7 +57,8 @@ class EntityRenderer extends Renderer { // Not a public class
 		/*
 		 * Here is the system that handle the movement of the texture.
 		 * It is not perfect and frenetically typing the keys may
-		 * lead to a wrong texture position.
+		 * lead to a wrong texture position. eg
+		 * FIXME Pressing right and down quickly leads to graphical bug.
 		 */
 		// Verify if the entity has not moved.
 		if (entity.getX() != intX || entity .getY() != intY) {

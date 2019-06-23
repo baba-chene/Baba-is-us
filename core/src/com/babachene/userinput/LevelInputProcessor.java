@@ -27,6 +27,8 @@ public class LevelInputProcessor extends InputAdapter {
 		if (km == null)
 			throw new IllegalArgumentException("KeyboardMap is null for LevelInputProcessor.");
 		keymap = km;
+		if (eventGiver == null)
+			throw new IllegalArgumentException("EventGiver is null for LevelInputProcessor.");
 		this.eventGiver = eventGiver;
 	}
 	
@@ -56,35 +58,35 @@ public class LevelInputProcessor extends InputAdapter {
 		 * I do know this is ugly...
 		 */
 		if (keycode == keymap.GO_UP) {
-			eventGiver.addEvent(new InputEvent(InputEvent.MOVE_UP, (byte)0));
-			flag = true;
-		}
-		if (keycode == keymap.GO_DOWN) {
-			eventGiver.addEvent(new InputEvent(InputEvent.MOVE_DOWN, (byte)0));
-			flag = true;
-		}
-		if (keycode == keymap.GO_LEFT) {
-			eventGiver.addEvent(new InputEvent(InputEvent.MOVE_LEFT, (byte)0));
-			flag = true;
-		}
-		if (keycode == keymap.GO_RIGHT) {
-			eventGiver.addEvent(new InputEvent(InputEvent.MOVE_RIGHT, (byte)0));
-			flag = true;
-		}
-		if (keycode == keymap.GO_UP_2) {
 			eventGiver.addEvent(new InputEvent(InputEvent.MOVE_UP, (byte)1));
 			flag = true;
 		}
-		if (keycode == keymap.GO_DOWN_2) {
+		if (keycode == keymap.GO_DOWN) {
 			eventGiver.addEvent(new InputEvent(InputEvent.MOVE_DOWN, (byte)1));
 			flag = true;
 		}
-		if (keycode == keymap.GO_LEFT_2) {
+		if (keycode == keymap.GO_LEFT) {
 			eventGiver.addEvent(new InputEvent(InputEvent.MOVE_LEFT, (byte)1));
 			flag = true;
 		}
-		if (keycode == keymap.GO_RIGHT_2) {
+		if (keycode == keymap.GO_RIGHT) {
 			eventGiver.addEvent(new InputEvent(InputEvent.MOVE_RIGHT, (byte)1));
+			flag = true;
+		}
+		if (keycode == keymap.GO_UP_2) {
+			eventGiver.addEvent(new InputEvent(InputEvent.MOVE_UP, (byte)2));
+			flag = true;
+		}
+		if (keycode == keymap.GO_DOWN_2) {
+			eventGiver.addEvent(new InputEvent(InputEvent.MOVE_DOWN, (byte)2));
+			flag = true;
+		}
+		if (keycode == keymap.GO_LEFT_2) {
+			eventGiver.addEvent(new InputEvent(InputEvent.MOVE_LEFT, (byte)2));
+			flag = true;
+		}
+		if (keycode == keymap.GO_RIGHT_2) {
+			eventGiver.addEvent(new InputEvent(InputEvent.MOVE_RIGHT, (byte)2));
 			flag = true;
 		}
 		

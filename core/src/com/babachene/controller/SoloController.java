@@ -1,4 +1,4 @@
-package com.babachene.game;
+package com.babachene.controller;
 
 import java.io.IOException;
 
@@ -64,24 +64,25 @@ public class SoloController extends Controller {
 		map.addEntity(7, 2, "wall");
 		map.addEntity(6, 3, "textand");
 		*/
-
 		MapEditorConverter mapEditorConverter = new MapEditorConverter(30, 20);
 		try {
 
-			//mapEditorConverter.open("maps\\Kéké is lost.txt\\");
-
-			mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\babaLevel4.txt\\");
-
+			//mapEditorConverter.open("maps\\Kï¿½kï¿½ is lost.txt\\");
+			//mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\babaLevel4.txt\\");
+			mapEditorConverter.open("level.txt");
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		LevelMap map = mapEditorConverter.getMap();
+//		LevelMap map = CtrlTest.gimmeLevel(); // comment this line if you want to load a level file.
 		logic = new GameLogic(map);
 		
 		mainGame.push(new LevelState(map, inputProcessor));
 	}
 	
+	@Override
 	public void update() {
 		
 		fetchEvent();
