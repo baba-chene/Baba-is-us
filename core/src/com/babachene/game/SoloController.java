@@ -68,9 +68,9 @@ public class SoloController extends Controller {
 		MapEditorConverter mapEditorConverter = new MapEditorConverter(30, 20);
 		try {
 
-			mapEditorConverter.open("maps\\Kéké is lost.txt\\");
+			//mapEditorConverter.open("maps\\Kéké is lost.txt\\");
 
-			//mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\bug1.txt\\");
+			mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\babaLevel4.txt\\");
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

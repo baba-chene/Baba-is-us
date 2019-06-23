@@ -186,6 +186,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			entity.setyPosition(y-1);
 			mapMatrix[x][y].removeEntity(entity);
 			mapMatrix[x][y-1].addEntity(entity);
+			
 		}
 	}
 	public void moveLeft(Entity entity) {
@@ -410,6 +411,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		{
 			playerEntities.get(i).moveLeft();
 		}
+		updateSink();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
 		
@@ -428,6 +430,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		{
 			playerEntities.get(i).moveRight();
 		}
+		updateSink();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
 	}
@@ -445,6 +448,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		{
 			playerEntities.get(i).moveUp();
 		}
+		updateSink();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
 	}
@@ -462,6 +466,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		{
 			playerEntities.get(i).moveDown();
 		}
+		updateSink();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
 	}
@@ -474,9 +479,9 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		{
 			playerEntities.get(i).moveLeft();
 		}
+		updateSink();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
-
 		
 	}
 	public void moveRight() {
@@ -486,6 +491,8 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		{
 			youEntities.get(i).moveRight();
 		}
+		updateSink();
+
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
 
@@ -497,6 +504,8 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		{
 			youEntities.get(i).moveUp();
 		}
+		updateSink();
+
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
 
@@ -508,11 +517,19 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		{
 			youEntities.get(i).moveDown();
 		}
+		updateSink();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
 
 	}
 
+	public void updateSink() {
+		for (int i = 0; i<xLength; i++) {
+			for(int j =0; j < yLength; j++) {
+				mapMatrix.clone()[i][j].updateIsSink();
+			}
+		}
+	}
 	@Override
 	public Iterator<RenderableEntity> iterator() {
 		// TODO Auto-generated method stub

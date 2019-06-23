@@ -55,7 +55,6 @@ public class LevelMapCase {
 		}											 // We look if the new entity has special effects on the case
 		updateIsFree();
 		updateContainsPushable();
-		updateIsSink();	
 	}
 	
 	public void removeEntity(Entity entity) {						// /!\ Only removes the entity from the map case and not from the group of entity,
