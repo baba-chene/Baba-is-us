@@ -17,7 +17,7 @@ public class LavaTextureChooser {
 	static int containsLava(LevelMap map,int x,int y,int hauteur,int largeur) {
 		
 		if (x<0 || x>=hauteur || y<0 || y>=largeur) {
-			return 0;
+			return 1;
 		}
 		for (Entity entity:map.getMapMatrix()[x][y].getEntityStack() ) {
 			if (entity instanceof EntityLava) {

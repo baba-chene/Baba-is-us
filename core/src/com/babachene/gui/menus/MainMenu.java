@@ -5,6 +5,7 @@ import com.babachene.gui.GameState;
 import com.babachene.gui.MainGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -38,10 +39,20 @@ public class MainMenu extends GameState implements Screen {
 	private Sprite backgroundSprite;
 	private SpriteBatch batch;
 	private SpriteDrawable title;
+	public static Music menuMusic;
+	
 	
 	public MainMenu(MainGame game) {
 		
 		parent=game;
+		
+		menuMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/SoundIsPlay.wav")) ;
+		menuMusic.setLooping(true);
+		menuMusic.play();
+		menuMusic.setVolume(0.5f);
+		
+		
+		
 		
 		batch=new SpriteBatch();
 		Texture backgroundTexture = new Texture("badlogic.jpg");

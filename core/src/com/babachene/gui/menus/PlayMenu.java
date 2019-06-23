@@ -71,11 +71,11 @@ public class PlayMenu extends GameState implements Screen {
 				System.out.println("Play Button pressed");
 				
 				// TODO lancer la selection des niveaux
-				
+				//MainMenu.menuMusic.dispose();
 				controller.launchLevel(null);
 				
-				
-				
+				MainMenu.menuMusic.setVolume(0.5f);
+					
 				return; // The event has been handled.
 			}
 		});
