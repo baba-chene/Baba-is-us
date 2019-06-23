@@ -218,6 +218,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	
 	public void addEntity(int x, int y, Entity entity) {
 		this.mapMatrix[x][y].addEntity(entity);
+		if (!entity.getTypeOfEntity().equalsIgnoreCase("empty"))
 		this.mapUpdateQueue.pushCreatedEntity(entity);//First we add the entity to the corresponding map case
 		String entityType = entity.getTypeOfEntity();
 		if (!existingGroups.contains(entityType))									//Then we add the entity to the corresponding group of entities. If the group doesn't exist we create one.
