@@ -64,9 +64,14 @@ public class SoloController extends Controller {
 		map.addEntity(7, 2, "wall");
 		map.addEntity(6, 3, "textand");
 		*/
+
 		MapEditorConverter mapEditorConverter = new MapEditorConverter(30, 20);
 		try {
+
 			mapEditorConverter.open("maps\\Kéké is lost.txt\\");
+
+			//mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\bug1.txt\\");
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

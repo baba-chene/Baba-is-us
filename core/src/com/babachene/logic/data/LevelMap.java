@@ -218,6 +218,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	
 	public void addEntity(int x, int y, Entity entity) {
 		this.mapMatrix[x][y].addEntity(entity);
+		if (!entity.getTypeOfEntity().equalsIgnoreCase("empty"))
 		this.mapUpdateQueue.pushCreatedEntity(entity);//First we add the entity to the corresponding map case
 		String entityType = entity.getTypeOfEntity();
 		if (!existingGroups.contains(entityType))									//Then we add the entity to the corresponding group of entities. If the group doesn't exist we create one.
@@ -243,7 +244,6 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		String entityType = entity.getTypeOfEntity();
 		int x = entity.getxPosition();
 		int y = entity.getyPosition();
-		mapUpdateQueue.pushRemovedEntity(entity); //TODO Either don't call it when empty entities are detroyed, and change the MapRenderer.
 		this.mapMatrix[x][y].removeEntity(entity);  				  //First we remove the entity from the mapCase.	
 		findGroup(entityType).removeEntity(entity);	
 //We remove it from the group.
@@ -397,6 +397,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	}
 	
 	public void moveLeft(int player) {
+		this.rulesUpdater.updateRules();
 		LinkedList<LevelGroupOfEntities> playerEntities = new LinkedList<LevelGroupOfEntities>();
 		switch(player) {
 		case(1):
@@ -410,9 +411,11 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			playerEntities.get(i).moveLeft();
 		}
 		this.rulesUpdater.updateRules();
+		this.rulesUpdater.updateIsWin();
 		
 	}
 	public void moveRight(int player) {
+		this.rulesUpdater.updateRules();
 		LinkedList<LevelGroupOfEntities> playerEntities = new LinkedList<LevelGroupOfEntities>();
 		switch(player) {
 		case(1):
@@ -426,8 +429,10 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			playerEntities.get(i).moveRight();
 		}
 		this.rulesUpdater.updateRules();
+		this.rulesUpdater.updateIsWin();
 	}
 	public void moveUp(int player) {
+		this.rulesUpdater.updateRules();
 		LinkedList<LevelGroupOfEntities> playerEntities = new LinkedList<LevelGroupOfEntities>();
 		switch(player) {
 		case(1):
@@ -441,8 +446,10 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			playerEntities.get(i).moveUp();
 		}
 		this.rulesUpdater.updateRules();
+		this.rulesUpdater.updateIsWin();
 	}
 	public void moveDown(int player) {
+		this.rulesUpdater.updateRules();
 		LinkedList<LevelGroupOfEntities> playerEntities = new LinkedList<LevelGroupOfEntities>();
 		switch(player) {
 		case(1):
@@ -456,6 +463,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			playerEntities.get(i).moveDown();
 		}
 		this.rulesUpdater.updateRules();
+		this.rulesUpdater.updateIsWin();
 	}
 	
 	
@@ -466,6 +474,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		{
 			playerEntities.get(i).moveLeft();
 		}
+		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
 
 		
@@ -477,6 +486,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		{
 			youEntities.get(i).moveRight();
 		}
+		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
 
 	}
@@ -487,6 +497,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		{
 			youEntities.get(i).moveUp();
 		}
+		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
 
 	}
@@ -497,6 +508,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		{
 			youEntities.get(i).moveDown();
 		}
+		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
 
 	}

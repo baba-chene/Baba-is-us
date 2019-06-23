@@ -137,7 +137,11 @@ public class LevelMapCase {
 	public void clearEntities() {
 		int size = entityStack.size();
 		for (int i =size -1; i>-1;i--) //On retire des éléments d'une liste qu'on parcourt, on les retire donc en partant de la fin.
+			{Entity entity = entityStack.get(i);
+			if (!entity.getTypeOfEntity().equalsIgnoreCase("empty"))
+				this.map.getMapUpdateQueue().pushRemovedEntity(entity); 
 			this.map.removeEntity(entityStack.get(i)); 
+			}
 		this.pushableEntityList = new LinkedList<Entity>();
 		this.containsPushableEntity = false;
 		this.isFree= true;
