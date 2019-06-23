@@ -29,12 +29,12 @@ public final class MetaController implements Observer {
 			controller.update();
 	}
 	
-	public void launchLevel(LevelMap level) { // TODO change the argument
+	public void launchLevel(String levelName) { // TODO change the argument
 		// TODO Maybe do here some checking in case another level is running.
 		if (controller != null)
-			controller.launchLevel(null);
+			controller.launchLevel(levelName);
 		else
-			(controller = new SoloController(game)).launchLevel(null);
+			(controller = new SoloController(game)).launchLevel(levelName);
 	}
 
 	public void joinServer(String ip, int parseInt) {

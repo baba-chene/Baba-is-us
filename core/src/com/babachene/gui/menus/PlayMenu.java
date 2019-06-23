@@ -70,9 +70,8 @@ public class PlayMenu extends GameState implements Screen {
 				// TODO lancer la selection des niveaux
 				//MainMenu.menuMusic.dispose();
 				
-				parent.getMetaController().launchLevel(null);
+				parent.changeScreen(MainGame.LEVELSELECTION);
 				
-				MainMenu.menuMusic.setVolume(0.5f);
 					
 				return; // The event has been handled.
 			}

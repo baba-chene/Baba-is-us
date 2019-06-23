@@ -36,6 +36,8 @@ public final class Mapper {
 			break;
 		case Baba.TXT_BABA: tex = Rsrc.TXT_BABA_TEXTURE;
 			break;
+		case Baba.TXT_KEKE: tex = Rsrc.TXT_KEKE_TEXTURE;
+		break;
 		case Baba.TXT_WIN: tex = Rsrc.TXT_WIN_TEXTURE;
 			break;
 		case Baba.TXT_YOU: tex = Rsrc.TXT_YOU_TEXTURE;
@@ -86,6 +88,8 @@ public final class Mapper {
 		 * Non-text blocks.
 		 */
 		case Baba.BABA: tex = Rsrc.BABA_TEXTURE;
+			break;
+		case Baba.KEKE: tex = Rsrc.KEKE_TEXTURE;
 			break;
 		case Baba.ROCK: tex = Rsrc.ROCK_TEXTURE;
 			break;
