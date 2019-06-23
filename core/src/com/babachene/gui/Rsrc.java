@@ -3,6 +3,7 @@ package com.babachene.gui;
 import java.util.logging.Logger;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -39,13 +40,16 @@ public final class Rsrc {
 		
 		MISSING_TEXTURE = textureAtlas.findRegion("missing_texture");
 		
+		BABA_TEXTURE = new TextureRegion(new Texture("textures/baba/baba_right0.png"));
+		KEKE_TEXTURE = new TextureRegion(new Texture("textures/keke/keke_down0.png"));
 		ROCK_TEXTURE = textureAtlas.findRegion("rock");
-		WATER_TEXTURE = textureAtlas.findRegion("water");
-		LAVA_TEXTURE = textureAtlas.findRegion("lava");
-		WALL_TEXTURE = textureAtlas.findRegion("wall");
-		//TREE_TEXTURE = textureAtlas.findRegion("tree");
-		FLAG_TEXTURE = textureAtlas.findRegion("flag");
-		//SKULL_TEXTURE = textureAtlas.findRegion("rock");
+		WATER_TEXTURE = new TextureRegion(new Texture("textures/water/water1.png"));
+		LAVA_TEXTURE = new TextureRegion(new Texture("textures/lava/lava0.png"));
+		WALL_TEXTURE = new TextureRegion(new Texture("textures/wall/wall15.png"));
+		TREE_TEXTURE = new TextureRegion(new Texture("textures/tree.png"));
+		PALM_TEXTURE = new TextureRegion(new Texture("textures/palm.png"));
+		FLAG_TEXTURE = new TextureRegion(new Texture("textures/flag.png"));
+		SKULL_TEXTURE = new TextureRegion(new Texture("textures/skull.png"));
 		GRASS_TEXTURE = new TextureRegion[7];
 			GRASS_TEXTURE[0] = textureAtlas.findRegion("grass0");
 			GRASS_TEXTURE[1] = textureAtlas.findRegion("grass1");
@@ -54,7 +58,11 @@ public final class Rsrc {
 			GRASS_TEXTURE[4] = textureAtlas.findRegion("grass4");
 			GRASS_TEXTURE[5] = textureAtlas.findRegion("grass5");
 			GRASS_TEXTURE[6] = textureAtlas.findRegion("grass6");	
-		
+		LEGO_TEXTURE =new TextureRegion(new Texture("textures/lego.png"));
+		LOVE_TEXTURE =new TextureRegion(new Texture("textures/love.png"));
+		BUSH_TEXTURE =new TextureRegion(new Texture("textures/bush.png"));
+			
+			
 		TXT_YOU_TEXTURE = textureAtlas.findRegion("txt_you");
 		TXT_P1_TEXTURE = textureAtlas.findRegion("txt_p1");
 		TXT_P2_TEXTURE = textureAtlas.findRegion("txt_p2");
@@ -108,15 +116,20 @@ public final class Rsrc {
 	public static TextureRegion
 								MISSING_TEXTURE,
 	
-//								BABA_TEXTURE,
+								BABA_TEXTURE,
+								KEKE_TEXTURE,
 								ROCK_TEXTURE,
 								WATER_TEXTURE,
 								LAVA_TEXTURE,
 								WALL_TEXTURE,
 								TREE_TEXTURE,
+								PALM_TEXTURE,
 								FLAG_TEXTURE,
 								SKULL_TEXTURE,
 								GRASS_TEXTURE[], // array
+								LEGO_TEXTURE,
+								LOVE_TEXTURE,
+								BUSH_TEXTURE,
 								
 								TXT_YOU_TEXTURE,
 								TXT_P1_TEXTURE,

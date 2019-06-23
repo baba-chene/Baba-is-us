@@ -83,7 +83,7 @@ public final class Mapper {
 		/*
 		 * Non-text blocks.
 		 */
-		case 1: tex = new TextureRegion(BabaIsUs.assetManager.get(BabaIsUs.textures.KERMIT, Texture.class));
+		case Baba.BABA: tex = Rsrc.BABA_TEXTURE;
 			break;
 		case Baba.ROCK: tex = Rsrc.ROCK_TEXTURE;
 			break;
