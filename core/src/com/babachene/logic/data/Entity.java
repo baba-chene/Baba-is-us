@@ -127,6 +127,8 @@ public abstract class Entity implements RenderableEntity {
 			return Baba.WALL;
 		case("water"):
 			return Baba.WATER;
+		case("grass"):
+			return Baba.GRASS;
 		case("textbaba"):
 			return Baba.TXT_BABA;
 		case("textrock"):
@@ -159,8 +161,12 @@ public abstract class Entity implements RenderableEntity {
 			return Baba.TXT_P1;
 		case("textp2"):
 			return Baba.TXT_P2;
+		case("textp3"):
+			return Baba.TXT_P3;
 		case("textwin"):
 			return Baba.TXT_WIN;
+		case("textgrass"):
+			return Baba.TXT_GRASS;
 		
 		}
 		return 0;

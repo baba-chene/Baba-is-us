@@ -55,6 +55,11 @@ class EntityRenderer extends Renderer { // Not a public class
 	@Override
 	public void render(SpriteBatch batch) {
 		
+		/*
+		 * Here is the system that handle the movement of the texture.
+		 * It is not perfect and frenetically typing the keys may
+		 * lead to a wrong texture position.
+		 */
 		// Verify if the entity has not moved.
 		if (entity.getX() != intX || entity .getY() != intY) {
 			
@@ -132,7 +137,9 @@ class EntityRenderer extends Renderer { // Not a public class
 			
 		}
 		
-		// Draw the texture.
+		/*
+		 *  Draw the texture.
+		 */
 		batch.draw(tex, floatX,
 		                floatY,
 		                mapData.tileWidth,

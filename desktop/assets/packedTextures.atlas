@@ -6,203 +6,266 @@ filter: Nearest,Nearest
 repeat: none
 flag
   rotate: false
-  xy: 262, 376
+  xy: 2, 2
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
+grass0
+  rotate: false
+  xy: 2, 848
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+grass1
+  rotate: false
+  xy: 2, 718
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+grass2
+  rotate: false
+  xy: 132, 848
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+grass3
+  rotate: false
+  xy: 2, 588
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+grass4
+  rotate: false
+  xy: 132, 718
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+grass5
+  rotate: false
+  xy: 262, 848
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+grass6
+  rotate: false
+  xy: 2, 458
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
 lava
   rotate: false
-  xy: 392, 506
+  xy: 652, 652
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 missing_texture
   rotate: false
-  xy: 522, 636
+  xy: 782, 782
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 rock
   rotate: false
-  xy: 652, 766
+  xy: 912, 912
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 txt_and
   rotate: false
-  xy: 2, 832
+  xy: 132, 588
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_baba
   rotate: false
-  xy: 2, 702
+  xy: 262, 718
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_but
   rotate: false
-  xy: 132, 832
+  xy: 392, 848
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_flag
   rotate: false
-  xy: 2, 572
+  xy: 2, 328
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+txt_grass
+  rotate: false
+  xy: 132, 458
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_has
   rotate: false
-  xy: 132, 702
+  xy: 262, 588
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_is
   rotate: false
-  xy: 262, 832
+  xy: 392, 718
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_kill
   rotate: false
-  xy: 2, 442
+  xy: 522, 848
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_lava
   rotate: false
-  xy: 132, 572
+  xy: 2, 198
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_not
   rotate: false
-  xy: 262, 702
+  xy: 132, 328
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_on
   rotate: false
-  xy: 392, 832
+  xy: 262, 458
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_p1
   rotate: false
-  xy: 2, 312
+  xy: 392, 588
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_p2
   rotate: false
-  xy: 132, 442
+  xy: 522, 718
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_p3
   rotate: false
-  xy: 262, 572
+  xy: 652, 848
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+txt_paf
+  rotate: false
+  xy: 2, 68
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_push
   rotate: false
-  xy: 392, 702
+  xy: 132, 198
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_rock
   rotate: false
-  xy: 522, 832
+  xy: 262, 328
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_sink
   rotate: false
-  xy: 2, 182
+  xy: 392, 458
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_stop
   rotate: false
-  xy: 132, 312
+  xy: 522, 588
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_tree
   rotate: false
-  xy: 262, 442
+  xy: 652, 718
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_us
   rotate: false
-  xy: 392, 572
+  xy: 782, 848
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_wall
   rotate: false
-  xy: 522, 702
+  xy: 132, 68
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_water
   rotate: false
-  xy: 652, 832
+  xy: 262, 198
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_win
   rotate: false
-  xy: 2, 52
+  xy: 392, 328
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 txt_you
   rotate: false
-  xy: 132, 182
+  xy: 522, 458
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 wall
   rotate: false
-  xy: 2, 2
+  xy: 392, 278
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 water
   rotate: false
-  xy: 782, 896
+  xy: 262, 132
   size: 64, 64
   orig: 64, 64
   offset: 0, 0

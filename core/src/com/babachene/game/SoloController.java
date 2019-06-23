@@ -64,15 +64,18 @@ public class SoloController extends Controller {
 		map.addEntity(7, 2, "wall");
 		map.addEntity(6, 3, "textand");
 		map.addEntity(7, 4, "textwall");
+		map.addEntity(0,0, "textp1");
+		map.addEntity(5,1, "textp2");
 		/*
 		MapEditorConverter mapEditorConverter = new MapEditorConverter(30, 20);
 		try {
-			mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\level2.txt\\");
+			mapEditorConverter.open("babaLevel4.txt");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		LevelMap map = mapEditorConverter.getMap();*/
+		
 		logic = new GameLogic(map);
 		
 		mainGame.push(new LevelState(map, inputProcessor));
