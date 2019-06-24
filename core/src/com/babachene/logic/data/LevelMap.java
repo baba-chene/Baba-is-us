@@ -267,6 +267,8 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		int y = entity.getyPosition();
 		if(!isUndoing)
 		this.mapStateList.get(0).addDestroy(entity);
+		if(!entity.getTypeOfEntity().equalsIgnoreCase("empty"))
+		this.mapUpdateQueue.pushRemovedEntity(entity);
 		this.mapMatrix[x][y].removeEntity(entity);  				  //First we remove the entity from the mapCase.	
 		findGroup(entityType).removeEntity(entity);	
 //We remove it from the group.
@@ -509,7 +511,8 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		updateSink();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
-		
+		if (this.mapStateList.get(0).isEmpty())
+			this.mapStateList.pop();
 	}
 	public void moveRight() {
 		this.rulesUpdater.updateRules();
@@ -523,6 +526,8 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
+		if (this.mapStateList.get(0).isEmpty())
+			this.mapStateList.pop();
 
 	}
 	public void moveUp() {
@@ -537,6 +542,8 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
+		if (this.mapStateList.get(0).isEmpty())
+			this.mapStateList.pop();
 
 	}
 	public void moveDown() {
@@ -550,7 +557,8 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		updateSink();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
-
+		if (this.mapStateList.get(0).isEmpty())
+			this.mapStateList.pop();
 	}
 
 	public void updateSink() {
