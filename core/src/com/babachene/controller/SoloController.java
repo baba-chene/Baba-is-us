@@ -95,5 +95,9 @@ public class SoloController extends Controller {
 			logic.processInput( (InputEvent) giver.pollEvent());
 		}
 	}
+
+	@Override
+	public void close() {
+	}
 	
 }

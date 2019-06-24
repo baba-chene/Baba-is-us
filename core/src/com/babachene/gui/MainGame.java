@@ -1,10 +1,6 @@
 package com.babachene.gui;
 
 import java.io.IOException;
-
-import com.babachene.controller.Controller;
-import com.babachene.controller.CtrlTest;
-import com.babachene.controller.GameController;
 import com.babachene.controller.MetaController;
 import com.babachene.gui.menus.LevelSelection;
 import com.babachene.gui.menus.MainMenu;
