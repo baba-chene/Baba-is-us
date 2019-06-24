@@ -6,23 +6,22 @@ Baba is us is a video game made for a school project. It is heavily inspired fro
 ### Setup
 
 - [x]  Install libgdx on all our devices
-- [ ]  Assign tasks
+- [x]  Assign tasks
 
 ### Features
 
 ##### Levels
 
-- [ ] Logic
-- [ ] Event controller
+- [x] [Logic](https://github.com/baba-chene/Baba-is-us/tree/dev/core/src/com/babachene/logic)
+- [x] [Event controller](https://github.com/baba-chene/Baba-is-us/tree/dev/core/src/com/babachene/controller)
 - [ ] Level state storing
 - [ ] Rendering
-- [ ] Editor
+- [x] [Editor](https://github.com/baba-chene/SuperLevelEditor8000)
 
 ##### [Server/Client](https://github.com/baba-chene/Baba-is-us/tree/server-client/core/src/com/babachene/cliserv)
 
 - [x] Client sockets
 - [x] Server sockets
-- [ ] APIs
 
 ##### Navigation
 
