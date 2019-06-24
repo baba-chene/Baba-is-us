@@ -9,7 +9,13 @@ public final class Baba {
 	 */
 	public static final float BASE_ENTITY_MOVING_SPEED = .2f;
 	
-	/** Entities identifiant. */
+	/** Entities identifiant.
+	 * <p>
+	 * There are two advantages in having such a String list:
+	 * <li> We keep a reference to all recognized entities, at the cost
+	 * of maintaining the list correct and updated.
+	 * <li> We have a quick list of all available entities.
+	 */
 	public static final String[] ENTITIES = new String[] {
 	// Actual entities
 					"baba",
