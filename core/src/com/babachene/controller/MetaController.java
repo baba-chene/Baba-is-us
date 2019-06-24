@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 
 import com.babachene.cliserv.Update;
 import com.babachene.gui.MainGame;
-import com.babachene.logic.data.LevelMap;
 
 public final class MetaController implements Observer {
 	
@@ -15,6 +14,14 @@ public final class MetaController implements Observer {
 	/** MetaController handles a controller. */
 	private Controller controller;
 	private MainGame game;
+	
+	private enum ControllerState {
+		Running,
+		Disconnecting,
+		Disconnected,
+	}
+	
+	private ControllerState state = ControllerState.Disconnected;
 	
 	////////////////////////////////////
 	
@@ -25,8 +32,24 @@ public final class MetaController implements Observer {
 	////////////////////////////////////
 	
 	public void update() {
-		if (controller != null)
+		try {
+		ControllerState currentState;
+		synchronized(this) {
+			currentState = state;
+		}
+		switch(currentState) {
+		case Running:
 			controller.update();
+			break;
+		case Disconnecting:
+			controller.close();
+			game.pop();
+			state = ControllerState.Disconnected;
+			break;
+		case Disconnected:
+			break;
+		}
+		}catch(Exception e) {e.printStackTrace();}
 	}
 	
 	public void launchLevel(String levelName) { // TODO change the argument
@@ -35,27 +58,29 @@ public final class MetaController implements Observer {
 			controller.launchLevel(levelName);
 		else
 			(controller = new SoloController(game)).launchLevel(levelName);
+		state = ControllerState.Running;
 	}
 
 	public void joinServer(String ip, int parseInt) {
-		controller.close();
 		controller = new ClientEventController(game, ip, parseInt);
+		state = ControllerState.Running;
 	}
 
 	public void hostServer(int parseInt) {
-		controller.close();
 		controller = new ServerEventController(game, parseInt, 10);
+		state = ControllerState.Running;
 	}
 	
 	@Override
 	public void update(Observable o, Object arg) {
 		LOGGER.info("[Game Controller] Connection failed, or disconnected from server");
-		
-		// TODO complete
+
+		synchronized(this) {
+			state = ControllerState.Disconnecting;
+		}
 	}
 
 	public void notifyUpdate(Update update) {
-		
 	}
 	
 }

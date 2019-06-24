@@ -119,6 +119,12 @@ public class Server implements Runnable {
     
     public void shutdown() {
 		LOGGER.info("[Server] Shutting down for good...");
+		try {
+			serverSocket.close();
+			clientSocket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		running = false;
     	synchronized(this) {
     		this.notify();
