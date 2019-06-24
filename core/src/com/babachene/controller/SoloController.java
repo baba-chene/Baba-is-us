@@ -80,7 +80,7 @@ public class SoloController extends Controller {
 //		LevelMap map = CtrlTest.gimmeLevel(); // comment this line if you want to load a level file.
 		logic = new GameLogic(map);
 		
-		mainGame.push(new LevelState(map, inputProcessor));
+		mainGame.push(new LevelState(mainGame, map, inputProcessor));
 	}
 	
 	@Override

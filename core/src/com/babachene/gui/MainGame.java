@@ -8,6 +8,10 @@ import com.babachene.gui.menus.MultiplayerMenu;
 import com.babachene.gui.menus.PlayMenu;
 import com.babachene.gui.menus.SettingsMenu;
 import com.babachene.logger.GlobalLogger;
+import com.babachene.userinput.AppInputProcessor;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 
@@ -25,12 +29,21 @@ public class MainGame extends StateBasedGame {
 	public final static int MULTIPLAYERMENU = 3;
 	public final static int LEVELSELECTION = 4;
 	
+	private final AppInputProcessor inputProcessor;
+	private final InputMultiplexer multiplexer;
+	
 //	private GameController gameController;
 //	private Controller controller;
 	private MetaController metaController;
 	
 	public MainGame() {
 		//BabaIsUs.skin.getFont("default-font").getData().setScale(3f,3f);
+		inputProcessor = new AppInputProcessor();
+		multiplexer = new InputMultiplexer(inputProcessor);
+		// assert
+		if (multiplexer.size() != 1) {
+			throw new Error ("Shit happened.");
+		}
 	}
 	
 	//////////////////////////////////////
@@ -38,6 +51,7 @@ public class MainGame extends StateBasedGame {
 	@Override
 	public void create() {
 		
+		Gdx.input.setInputProcessor(multiplexer);
 		
 		BabaIsUs.assetManager = new AssetManager();
 
@@ -84,6 +98,8 @@ public class MainGame extends StateBasedGame {
 		
 		
 		this.push(new MainMenu(this));
+		
+		
 	}
 	
 	//////////////////////
@@ -130,6 +146,13 @@ public class MainGame extends StateBasedGame {
 
 	public final void back() {
 		pop();
+	}
+	
+	public void setInputProcessor(InputProcessor inputProcessor) {
+		while (multiplexer.size() >= 2) {
+			multiplexer.removeProcessor(multiplexer.size() - 1);
+		}
+		multiplexer.addProcessor(inputProcessor);
 	}
 	
 }
