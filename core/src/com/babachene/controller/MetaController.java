@@ -38,12 +38,14 @@ public final class MetaController implements Observer {
 	}
 
 	public void joinServer(String ip, int parseInt) {
-		controller.close();
+		if (controller != null)
+			controller.close();
 		controller = new ClientEventController(game, ip, parseInt);
 	}
 
 	public void hostServer(int parseInt) {
-		controller.close();
+		if(controller != null)
+			controller.close();
 		controller = new ServerEventController(game, parseInt, 10);
 	}
 	
