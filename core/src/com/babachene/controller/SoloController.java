@@ -31,7 +31,7 @@ public class SoloController extends Controller {
 		this.mainGame = mainGame;
 		giver = new EventGiver();
 		inputProcessor = new LevelInputProcessor(new KeyboardMap(Keys.Z, Keys.S, Keys.Q, Keys.D, Keys.A, Keys.E, Keys.A, Keys.A,
-													Keys.UP, Keys.DOWN, Keys.LEFT, Keys.RIGHT), giver);
+													Keys.UP, Keys.DOWN, Keys.LEFT, Keys.RIGHT), giver, true);
 		
 		// No creation of logic, map. It's in launchLevel
 	}
