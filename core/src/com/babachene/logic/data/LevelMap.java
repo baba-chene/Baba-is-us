@@ -26,6 +26,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	private LinkedList<String> existingGroups; //Allows to fast-check if a group of entities already exists, to ensure we never have 2 groups of rocks for example.
 	private LevelMapCase[][] mapMatrix;
 	private LinkedList<MapState> mapStateList;
+	private boolean isUndoing;
 
 	public LevelMap(int xLength, int yLength) { //Creates a map of dimension xLength*yLength with cases filled with "empty".
 		super();
@@ -35,6 +36,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		this.mapEntities = new LinkedList<LevelGroupOfEntities>();
 		this.existingGroups = new LinkedList<String>(); 
 		this.numberOfGroupEntities = 0;
+		this.isUndoing = false;
 		mapMatrix = new LevelMapCase[xLength][yLength];
 		mapStateList = new LinkedList<MapState>();
 		mapStateList.add(new MapState(this));
@@ -77,6 +79,8 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		Collections.sort(list,new yPositionComparator());
 		for(int i = n-1; i>-1;i--){
 			Entity entity = list.get(i);
+			if(!isUndoing)
+			this.mapStateList.get(0).addRight(entity);
 			int x = entity.getxPosition();
 			int y = entity.getyPosition();
 			entity.setyPosition(y+1);
@@ -113,6 +117,8 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		Collections.reverse(list);
 		for(int i = n-1; i>-1;i--){
 			Entity entity = list.get(i);
+			if(!isUndoing)
+			this.mapStateList.get(0).addUp(entity);
 			int x = entity.getxPosition();
 			int y = entity.getyPosition();
 			entity.setxPosition(x-1);
@@ -148,6 +154,8 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		Collections.sort(list,new xPositionComparator());
 		for(int i = n-1; i>-1;i--){
 			Entity entity = list.get(i);
+			if(!isUndoing)
+			this.mapStateList.get(0).addDown(entity);
 			int x = entity.getxPosition();
 			int y = entity.getyPosition();
 			entity.setxPosition(x+1);
@@ -184,6 +192,8 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		Collections.reverse(list);
 		for(int i = n-1; i>-1;i--){
 			Entity entity = list.get(i);
+			if(!isUndoing)
+			this.mapStateList.get(0).addLeft(entity);
 			int x = entity.getxPosition();
 			int y = entity.getyPosition();
 			entity.setyPosition(y-1);
@@ -220,8 +230,14 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		addEntity(entity.getxPosition(),entity.getyPosition(),entity);
 	}
 	
+	public void addEntityUndo(Entity entity)
+	{
+		addEntity(entity.getxPosition(),entity.getyPosition(),entity);
+	}
+	
 	public void addEntity(int x, int y, Entity entity) {
 		this.mapMatrix[x][y].addEntity(entity);
+		if(!isUndoing)
 		this.mapStateList.get(0).addCreated(entity);
 		if (!entity.getTypeOfEntity().equalsIgnoreCase("empty"))
 		this.mapUpdateQueue.pushCreatedEntity(entity);//First we add the entity to the corresponding map case
@@ -249,6 +265,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		String entityType = entity.getTypeOfEntity();
 		int x = entity.getxPosition();
 		int y = entity.getyPosition();
+		if(!isUndoing)
 		this.mapStateList.get(0).addDestroy(entity);
 		this.mapMatrix[x][y].removeEntity(entity);  				  //First we remove the entity from the mapCase.	
 		findGroup(entityType).removeEntity(entity);	
@@ -404,7 +421,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	
 	public void moveLeft(int player) {
 		this.rulesUpdater.updateRules();
-		mapStateList.push(new MapState(this));
+	//	mapStateList.push(new MapState(this));
 		LinkedList<LevelGroupOfEntities> playerEntities = new LinkedList<LevelGroupOfEntities>();
 		switch(player) {
 		case(1):
@@ -424,7 +441,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	}
 	public void moveRight(int player) {
 		this.rulesUpdater.updateRules();
-		mapStateList.push(new MapState(this));
+		//mapStateList.push(new MapState(this));
 		LinkedList<LevelGroupOfEntities> playerEntities = new LinkedList<LevelGroupOfEntities>();
 		switch(player) {
 		case(1):
@@ -443,7 +460,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	}
 	public void moveUp(int player) {
 		this.rulesUpdater.updateRules();
-		mapStateList.push(new MapState(this));
+	//	mapStateList.push(new MapState(this));
 		LinkedList<LevelGroupOfEntities> playerEntities = new LinkedList<LevelGroupOfEntities>();
 		switch(player) {
 		case(1):
@@ -462,7 +479,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	}
 	public void moveDown(int player) {
 		this.rulesUpdater.updateRules();
-		mapStateList.push(new MapState(this));
+	//	mapStateList.push(new MapState(this));
 		LinkedList<LevelGroupOfEntities> playerEntities = new LinkedList<LevelGroupOfEntities>();
 		switch(player) {
 		case(1):
@@ -557,8 +574,10 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	}
 
 	public void undo() {
+		if (mapStateList.size()> 1) {
 		MapState mapState = mapStateList.pop();
 		mapState.undo();
+		}
 	}
 	@Override
 	public RenderableMap getMap() {
@@ -609,6 +628,14 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 
 	public LinkedList<MapState> getMapStateList() {
 		return mapStateList;
+	}
+
+	public boolean isUndoing() {
+		return isUndoing;
+	}
+
+	public void setUndoing(boolean isUndoing) {
+		this.isUndoing = isUndoing;
 	}
 	
 
