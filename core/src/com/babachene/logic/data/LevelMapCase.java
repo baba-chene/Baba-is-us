@@ -10,6 +10,7 @@ public class LevelMapCase {
 	private int xPosition;
 	private int yPosition;
 	private LevelMap map;
+	private boolean isKill;
 	private boolean isSink;			 //True if it contains an entity with isSink
 	private boolean isWin;			 //after all the other entities of the case moved.
 	private boolean isFree;			 //Means that there is no pushable or block entities on the case
@@ -98,6 +99,17 @@ public class LevelMapCase {
 		
 	}
 	
+	public void updateIsKill() {
+		if(isKill && entityStack.size()>1) {
+			this.clearEntitiesKill();
+		}
+		this.isKill = false;
+		for (Entity e:entityStack) {
+			if (e.isKill())
+				this.isKill=true;
+		}
+	}
+	
 	public void updateIsFree() {
 		this.isFree = true;
 		for (Entity e:entityStack) {
@@ -146,5 +158,22 @@ public class LevelMapCase {
 		this.isFree= true;
 		this.isSink = false;
 
+	}
+	
+	public void clearEntitiesKill() {
+		int size = entityStack.size();
+		for (int i =size -1; i>-1;i--) //On retire des éléments d'une liste qu'on parcourt, on les retire donc en partant de la fin.
+			{Entity entity = entityStack.get(i);
+			if(!entity.isKill()) {
+			if (!entity.getTypeOfEntity().equalsIgnoreCase("empty"))
+				this.map.getMapUpdateQueue().pushRemovedEntity(entity); 
+			this.map.removeEntity(entity); 
+			}
+			}
+		this.updateContainsPushable();
+		this.updateIsFree();
+		this.updateIsSink();
+		this.updateIsWin();
+		this.updateIsKill();
 	}
 }

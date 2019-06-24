@@ -60,6 +60,9 @@ public class Rule {
 		case("p2"):
 			entities.setIsPlayer2(true);
 			break;
+		case("kill"):
+			entities.setIsKill(true);
+			break;
 		}
 		}
 		}

@@ -59,6 +59,7 @@ public class RulesUpdater {
 				this.verbList.add(verb);
 				this.textTab[x][y] = verb;
 				break;
+			case "empty":
 			case "rock":
 			case "wall":
 			case "baba":
@@ -76,6 +77,7 @@ public class RulesUpdater {
 				LogicWord logic = new LogicWord(x, y, text,this);
 				this.textTab[x][y] = logic;
 				break;
+			case "kill":
 			case "sink":
 			case "push":
 			case "block":

@@ -16,6 +16,7 @@ public abstract class Entity implements RenderableEntity {
 	protected boolean isSink;
 	protected boolean isBlock;
 	protected boolean isWin;
+	protected boolean isKill;
 	protected String text;
 	protected Direction direction;
 
@@ -139,6 +140,16 @@ public abstract class Entity implements RenderableEntity {
 	public void setDirection(Direction direction) {
 		this.direction = direction;
 	}
+
+	public boolean isKill() {
+		return isKill;
+	}
+
+	public void setKill(boolean isKill) {
+		this.isKill = isKill;
+	}
+	
+	
 	
 	
 	

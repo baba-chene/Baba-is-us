@@ -124,7 +124,14 @@ public class LevelGroupOfEntities {
 
 		}
 	}
-	
+	public void setIsKill(boolean value) {
+		for (int i = listOfEntities.size()-1; i>-1;i--) {
+			Entity e = listOfEntities.get(i);
+			e.setKill(value);
+			this.map.getMapCase(e.getxPosition(),e.getyPosition()).updateIsKill();
+
+		}
+	}
 	public void setAllFalse() {
 		this.setIsBlock(false);
 		this.setIsPush(false);
@@ -133,6 +140,7 @@ public class LevelGroupOfEntities {
 		this.setIsYou(false);
 		this.setIsPlayer1(false);
 		this.setIsPlayer2(false);
+		this.setIsKill(false);
 	}
 	
 
