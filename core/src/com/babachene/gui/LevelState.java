@@ -4,7 +4,6 @@ import com.babachene.gui.renderer.LevelRenderer;
 import com.babachene.gui.renderer.RenderableLevel;
 import com.babachene.userinput.LevelInputProcessor;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -16,7 +15,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class LevelState extends GameState {
 	
 	private MainGame parent;
-	private InputProcessor inputProcessor;
+	private LevelInputProcessor inputProcessor;
 	private LevelRenderer levelRenderer;
 	private SpriteBatch batch;
 	
@@ -51,11 +50,16 @@ public class LevelState extends GameState {
 //	}
 	
 	
-	
+	@Override
+	public void processInput() {
+		/*
+		 * LevelState is a bit different and has to update its LevelInput Processor.
+		 */
+		inputProcessor.update();
+	}
 	
 	@Override
 	public void update() {
-		
 		
 		// Don't put the controller-related calls here.
 		// The belonged to the MetaController.

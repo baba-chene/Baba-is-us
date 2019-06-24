@@ -56,8 +56,8 @@ final class MapRenderingData { // Not a public class.
 		}
 		
 		// Ma fierté est sans limite.
-		speedX = Baba.BASE_ENTITY_MOVING_SPEED * tileWidth;
-		speedY = Baba.BASE_ENTITY_MOVING_SPEED * tileHeight;
+		speedX = Baba.BASE_ENTITY_MOVING_SPEED * tileWidth * .66f;
+		speedY = Baba.BASE_ENTITY_MOVING_SPEED * tileHeight * .66f;
 		
 		fastSpeedX = Baba.BASE_ENTITY_MOVING_SPEED * mapWidth / 5f;
 		fastSpeedY = Baba.BASE_ENTITY_MOVING_SPEED * mapHeight / 5f;

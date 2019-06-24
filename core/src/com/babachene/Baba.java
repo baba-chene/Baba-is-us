@@ -5,7 +5,8 @@ public final class Baba {
 	private Baba() {}
 	
 	/**
-	 * TODO to comment
+	 * Proportional to the speed at which the texture will move if
+	 * their entity has been deplaced.
 	 */
 	public static final float BASE_ENTITY_MOVING_SPEED = .2f;
 	
