@@ -9,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.Observer;
 import java.util.logging.Logger;
 
@@ -300,6 +301,8 @@ public class Server implements Runnable {
 				sent = true;
 	            lastUpdateTime = currentTime;
 	            LOGGER.fine("[Server] Empty update sent to keep connection alive");
+            } catch (SocketException ex) {
+                nextState = State.Disconnecting;
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -338,12 +341,13 @@ public class Server implements Runnable {
 
         } catch (InterruptedIOException iioe) {
         	checkTime();
+        } catch (SocketException ex) {
+            nextState = State.Disconnecting;
         } catch (ClassNotFoundException e) {
         	checkTime();
 			e.printStackTrace();
         } catch (EOFException e) {
         	checkTime();
-        	
 		} catch (IOException e) {
 			checkTime();
 			e.printStackTrace();

@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Observer;
 import java.util.logging.Logger;
@@ -248,6 +249,7 @@ public class Client implements Runnable {
         	if(out != null)
 			    out.writeObject(new DisconnectEvent());
 	        socket.close();
+        } catch (SocketException ex) {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -287,6 +289,8 @@ public class Client implements Runnable {
         if(sent) {
             try {
     			out.flush();
+            } catch (SocketException ex) {
+                nextState = State.Disconnecting;
     		} catch (IOException e) {
     			e.printStackTrace();
     		}     	
@@ -317,6 +321,8 @@ public class Client implements Runnable {
 
         } catch (InterruptedIOException iioe) {
         	checkTime();
+        } catch (SocketException ex) {
+            nextState = State.Disconnecting;
         } catch (ClassNotFoundException e) {
         	checkTime();
 			e.printStackTrace();

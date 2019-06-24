@@ -115,6 +115,9 @@ public class GameLogic implements Logic {
 			levelMap.moveRight();
 			levelMap.moveRight(player);
 			break;
+		case InputEvent.Z_REQUEST:
+			levelMap.undo();
+			break;
 		default: break;
 		}	
 	}

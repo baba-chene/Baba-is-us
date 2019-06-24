@@ -102,7 +102,7 @@ public class ClientEventController extends Controller {
 		logic = new GameLogic(lvl);
 		eventGiver.clear();
 		
-		game.push(new LevelState(lvl, inputProcessor));
+		game.push(new LevelState(game, lvl, inputProcessor));
 	}
 	
 	@Override

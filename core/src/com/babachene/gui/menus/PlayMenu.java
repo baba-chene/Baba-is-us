@@ -101,8 +101,8 @@ public class PlayMenu extends GameState implements Screen {
 		stage.addActor(multiplayerButton);
 		
 		
-		
-		Gdx.input.setInputProcessor(stage);
+		// The inputProcessor (here: the stage) must added to the MainGame, and not Gdx.input.
+		parent.setInputProcessor(stage);
 		
 	}
 	
@@ -140,7 +140,8 @@ public class PlayMenu extends GameState implements Screen {
 
 	@Override
 	public void show() {
-		Gdx.input.setInputProcessor(stage);
+		// The inputProcessor (here: the stage) must added to the MainGame, and not Gdx.input.
+		parent.setInputProcessor(stage);
 		
 	}
 
