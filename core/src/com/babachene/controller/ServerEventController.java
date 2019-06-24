@@ -46,7 +46,7 @@ public class ServerEventController extends Controller {
         eventBuffer = new ArrayBlockingQueue<Event>(eventBufferLength);
         
         eventGiver = new EventGiver();
-		inputProcessor = new LevelInputProcessor(new KeyboardMap(Keys.Z, Keys.S, Keys.Q, Keys.D, Keys.A, Keys.A, Keys.A, Keys.A,
+		inputProcessor = new LevelInputProcessor(new KeyboardMap(Keys.Z, Keys.S, Keys.Q, Keys.D, Keys.A, Keys.E, Keys.A, Keys.A,
 													Keys.UP, Keys.DOWN, Keys.LEFT, Keys.RIGHT), eventGiver);
 		
         

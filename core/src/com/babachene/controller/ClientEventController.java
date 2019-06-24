@@ -39,7 +39,7 @@ public class ClientEventController extends Controller {
 		client.connect(ipAddress, port);
 		
 		this.eventGiver = new EventGiver();
-		inputProcessor = new LevelInputProcessor(new KeyboardMap(Keys.Z, Keys.S, Keys.Q, Keys.D, Keys.A, Keys.A, Keys.A, Keys.A,
+		inputProcessor = new LevelInputProcessor(new KeyboardMap(Keys.Z, Keys.S, Keys.Q, Keys.D, Keys.A, Keys.E, Keys.A, Keys.A,
 				Keys.UP, Keys.DOWN, Keys.LEFT, Keys.RIGHT), eventGiver);
 		logic = null;
         
