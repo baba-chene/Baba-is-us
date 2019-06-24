@@ -121,7 +121,8 @@ public class MainMenu extends GameState implements Screen {
 		stage.addActor(settingsButton);
 		stage.addActor(quitButton);
 		
-		Gdx.input.setInputProcessor(stage);
+		// The inputProcessor (here: the stage) must added to the MainGame, and not Gdx.input.
+		parent.setInputProcessor(stage);
 	}
 	
 	
@@ -178,7 +179,8 @@ public class MainMenu extends GameState implements Screen {
 
 	@Override
 	public void show() {
-		Gdx.input.setInputProcessor(stage);
+		// The inputProcessor (here: the stage) must added to the MainGame, and not Gdx.input.
+		parent.setInputProcessor(stage);
 	}
 
 	@Override
