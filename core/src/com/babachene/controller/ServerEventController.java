@@ -4,7 +4,6 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.logging.Logger;
 
 import com.babachene.cliserv.Event;
-import com.babachene.cliserv.InputUpdate;
 import com.babachene.cliserv.Server;
 import com.babachene.cliserv.Update;
 import com.babachene.game.CtrlTest;
@@ -134,5 +133,8 @@ public class ServerEventController extends Controller {
 		
 	}
 	
-	
-}
+	@Override
+	public void close() {
+		server.shutdown();
+	}
+ }

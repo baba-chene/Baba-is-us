@@ -1,7 +1,5 @@
 package com.babachene.logic.data;
 
-import java.util.LinkedList;
-
 public class MainTest {
 
 	public static void main(String[] args) {

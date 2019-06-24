@@ -39,12 +39,12 @@ public final class MetaController implements Observer {
 	}
 
 	public void joinServer(String ip, int parseInt) {
-		// TODO tell the previous controller that it has to close or clear or whatever.
+		controller.close();
 		controller = new ClientEventController(game, ip, parseInt);
 	}
 
 	public void hostServer(int parseInt) {
-		// TODO tell the previous controller that it has to close or clear or whatever.
+		controller.close();
 		controller = new ServerEventController(game, parseInt, 10);
 	}
 	
@@ -56,7 +56,6 @@ public final class MetaController implements Observer {
 	}
 
 	public void notifyUpdate(Update update) {
-		// TODO Auto-generated method stub
 		
 	}
 	

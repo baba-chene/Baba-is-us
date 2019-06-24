@@ -1,13 +1,10 @@
 package com.babachene.game;
 
-import java.io.IOException;
-
 import com.babachene.cliserv.InputEvent;
 import com.babachene.gui.LevelState;
 import com.babachene.gui.MainGame;
 import com.babachene.logic.GameLogic;
 import com.babachene.logic.data.LevelMap;
-import com.babachene.logic.data.MapEditorConverter;
 import com.babachene.userinput.EventGiver;
 import com.babachene.userinput.KeyboardMap;
 import com.babachene.userinput.LevelInputProcessor;
@@ -89,6 +86,10 @@ public class SoloController extends com.babachene.controller.Controller {
 		while (giver.size() != 0) {
 			logic.processInput( (InputEvent) giver.pollEvent());
 		}
+	}
+
+	@Override
+	public void close() {
 	}
 	
 }

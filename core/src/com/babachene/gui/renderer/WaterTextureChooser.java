@@ -3,7 +3,6 @@ package com.babachene.gui.renderer;
 import com.babachene.logic.data.Entity;
 import com.babachene.logic.data.EntityWater;
 import com.babachene.logic.data.LevelMap;
-import com.babachene.logic.data.LevelMapCase;
 
 /* Utilisation:
  * 
