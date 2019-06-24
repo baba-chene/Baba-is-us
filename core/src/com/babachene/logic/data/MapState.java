@@ -3,6 +3,8 @@ package com.babachene.logic.data;
 import java.util.Collections;
 import java.util.LinkedList;
 
+import com.babachene.logic.data.entities.Entity;
+
 public class MapState {
 
 	private LinkedList<Entity> destroyedEntities;

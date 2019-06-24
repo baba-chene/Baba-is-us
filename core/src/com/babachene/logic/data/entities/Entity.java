@@ -1,6 +1,8 @@
-package com.babachene.logic.data;
+package com.babachene.logic.data.entities;
 
 import com.babachene.gui.renderer.RenderableEntity;
+import com.babachene.logic.data.Direction;
+import com.babachene.logic.data.LevelMap;
 
 public abstract class Entity implements RenderableEntity {
 
@@ -148,6 +150,7 @@ public abstract class Entity implements RenderableEntity {
 	public void setKill(boolean isKill) {
 		this.isKill = isKill;
 	}
+
 	
 	
 	

@@ -2,13 +2,14 @@ package com.babachene.logic.rules;
 
 import java.util.LinkedList;
 
-import com.babachene.logic.data.EntityText;
 import com.babachene.logic.data.LevelGroupOfEntities;
 import com.babachene.logic.data.LevelMap;
+import com.babachene.logic.data.entities.EntityText;
 
 public class RulesUpdater {
 
-	private LinkedList<Rule> ruleList;
+	private LinkedList<Rule> ruleListH;
+	private LinkedList<Rule> ruleListV;
 	private LinkedList<Subject> subjectList;
 	private LinkedList<Attribute> attributeList;
 	private LinkedList<Verb> verbList;
@@ -20,7 +21,8 @@ public class RulesUpdater {
 
 
 	public RulesUpdater(LevelMap map) {
-		this.ruleList = new LinkedList<Rule>();
+		this.ruleListH = new LinkedList<Rule>();
+		this.ruleListV = new LinkedList<Rule>();
 		this.map = map;
 		this.xLength = map.getxLength();
 		this.yLength = map.getyLength();
@@ -91,6 +93,7 @@ public class RulesUpdater {
 			case "win":
 			case "p1":
 			case "p2":
+			case "move":
 				Property property = new Property(x,y,text,this);
 				this.textTab[x][y] = property;
 				break;
@@ -132,7 +135,7 @@ public class RulesUpdater {
 			}
 		if (!subject.isEmpty() && !attribute.isEmpty())
 		{
-			ruleList.add(new Rule(subject, attribute, verb, this));
+			ruleListH.add(new Rule(subject, attribute, verb, this));
 		}
 	}
 	public void findVRule(Verb verb) {
@@ -160,7 +163,7 @@ public class RulesUpdater {
 			}
 		if (!subject.isEmpty() && !attribute.isEmpty())
 		{
-			ruleList.add(new Rule(subject, attribute, verb, this));
+			ruleListV.add(new Rule(subject, attribute, verb, this));
 		}
 	}
 	private void updateHRules(){
@@ -175,12 +178,16 @@ public class RulesUpdater {
 }
 	public void updateRules() {
 		this.updateTab();
-		this.ruleList = new LinkedList<Rule>();
+		this.ruleListH = new LinkedList<Rule>();
+		this.ruleListV = new LinkedList<Rule>();
 		updateHRules();
 		updateVRules();
 		resetProperties();
-		for(Rule rule:ruleList)
-			rule.applyRules();
+		for(Rule rule:ruleListH)
+			rule.applyRulesH();
+		for(Rule rule:ruleListV)
+			rule.applyRulesV();
+		
 		//add here the method that executes the rules of ruleList
 	}
 	

@@ -10,6 +10,23 @@ import com.babachene.gui.renderer.MapUpdateQueue;
 import com.babachene.gui.renderer.RenderableEntity;
 import com.babachene.gui.renderer.RenderableLevel;
 import com.babachene.gui.renderer.RenderableMap;
+import com.babachene.logic.data.entities.Entity;
+import com.babachene.logic.data.entities.EntityBaba;
+import com.babachene.logic.data.entities.EntityBox;
+import com.babachene.logic.data.entities.EntityBush;
+import com.babachene.logic.data.entities.EntityEmpty;
+import com.babachene.logic.data.entities.EntityFlag;
+import com.babachene.logic.data.entities.EntityGrass;
+import com.babachene.logic.data.entities.EntityKeke;
+import com.babachene.logic.data.entities.EntityLava;
+import com.babachene.logic.data.entities.EntityLego;
+import com.babachene.logic.data.entities.EntityLove;
+import com.babachene.logic.data.entities.EntityRock;
+import com.babachene.logic.data.entities.EntitySkull;
+import com.babachene.logic.data.entities.EntityText;
+import com.babachene.logic.data.entities.EntityTree;
+import com.babachene.logic.data.entities.EntityWall;
+import com.babachene.logic.data.entities.EntityWater;
 import com.babachene.logic.rules.RulesUpdater;
 
 public class LevelMap implements RenderableMap,RenderableLevel {
@@ -435,9 +452,11 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		return result;
 	}
 	
+	//*******************Main methods of the class ************************
+	
 	public void moveLeft(int player) {
 		this.rulesUpdater.updateRules();
-	//	mapStateList.push(new MapState(this));
+		mapStateList.push(new MapState(this));
 		LinkedList<LevelGroupOfEntities> playerEntities = new LinkedList<LevelGroupOfEntities>();
 		switch(player) {
 		case(1):
@@ -453,11 +472,15 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		updateSink();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWinDuo();
+		if (this.mapStateList.get(0).isEmpty())
+			this.mapStateList.pop();
+	//	this.updateMove();
+
 		
 	}
 	public void moveRight(int player) {
 		this.rulesUpdater.updateRules();
-		//mapStateList.push(new MapState(this));
+		mapStateList.push(new MapState(this));
 		LinkedList<LevelGroupOfEntities> playerEntities = new LinkedList<LevelGroupOfEntities>();
 		switch(player) {
 		case(1):
@@ -473,10 +496,14 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		updateSink();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWinDuo();
+		if (this.mapStateList.get(0).isEmpty())
+			this.mapStateList.pop();
+	//	this.updateMove();
+
 	}
 	public void moveUp(int player) {
 		this.rulesUpdater.updateRules();
-	//	mapStateList.push(new MapState(this));
+		mapStateList.push(new MapState(this));
 		LinkedList<LevelGroupOfEntities> playerEntities = new LinkedList<LevelGroupOfEntities>();
 		switch(player) {
 		case(1):
@@ -492,10 +519,14 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		updateSink();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWinDuo();
+		if (this.mapStateList.get(0).isEmpty())
+			this.mapStateList.pop();
+	//	this.updateMove();
+
 	}
 	public void moveDown(int player) {
 		this.rulesUpdater.updateRules();
-	//	mapStateList.push(new MapState(this));
+		mapStateList.push(new MapState(this));
 		LinkedList<LevelGroupOfEntities> playerEntities = new LinkedList<LevelGroupOfEntities>();
 		switch(player) {
 		case(1):
@@ -511,6 +542,10 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		updateSink();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWinDuo();
+		if (this.mapStateList.get(0).isEmpty())
+			this.mapStateList.pop();
+	//	this.updateMove();
+
 	}
 	
 	
@@ -523,11 +558,13 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			playerEntities.get(i).moveLeft();
 		}
 		updateSink();
-		updateKill();
+		this.updateMove();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
 		if (this.mapStateList.get(0).isEmpty())
 			this.mapStateList.pop();
+
+
 	}
 	public void moveRight() {
 		this.rulesUpdater.updateRules();
@@ -538,12 +575,11 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			youEntities.get(i).moveRight();
 		}
 		updateSink();
-
+		this.updateMove();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
 		if (this.mapStateList.get(0).isEmpty())
 			this.mapStateList.pop();
-
 
 	
 	}
@@ -555,13 +591,12 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		{
 			youEntities.get(i).moveUp();
 		}
+		this.updateMove();
 		updateSink();
-
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
 		if (this.mapStateList.get(0).isEmpty())
 			this.mapStateList.pop();
-
 	}
 	public void moveDown() {
 		this.rulesUpdater.updateRules();
@@ -571,13 +606,17 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		{
 			youEntities.get(i).moveDown();
 		}
+		this.updateMove();
 		updateSink();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
 		if (this.mapStateList.get(0).isEmpty())
 			this.mapStateList.pop();
 	}
-
+//****************************End of main methods *******************************
+	
+	
+	
 	public void updateSink() {
 		for (int i = 0; i<xLength; i++) {
 			for(int j =0; j < yLength; j++) {
@@ -585,13 +624,12 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			}
 		}
 	}
-	public void updateKill() {
-		for (int i = 0; i<xLength; i++) {
-			for(int j =0; j < yLength; j++) {
-				mapMatrix.clone()[i][j].updateIsKill();
-			}
-		}
+	public void updateMove() {
+		for(LevelGroupOfEntities entities: mapEntities)
+			entities.updateMove();
 	}
+	
+	
 	
 	@Override
 	public Iterator<RenderableEntity> iterator() {

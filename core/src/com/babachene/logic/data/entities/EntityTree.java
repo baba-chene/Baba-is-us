@@ -1,4 +1,6 @@
-package com.babachene.logic.data;
+package com.babachene.logic.data.entities;
+
+import com.babachene.logic.data.LevelMap;
 
 public class EntityTree extends Entity {
 

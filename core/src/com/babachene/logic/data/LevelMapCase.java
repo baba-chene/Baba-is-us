@@ -2,6 +2,9 @@ package com.babachene.logic.data;
 
 import java.util.LinkedList;
 
+import com.babachene.logic.data.entities.Entity;
+import com.babachene.logic.data.entities.EntityEmpty;
+
 public class LevelMapCase {
 	/* A case of the map contains a lot of information. First of all it contains the stack of entities that are located on this case
 	 * but also the properties of the entities that it contains.  
@@ -114,7 +117,7 @@ public class LevelMapCase {
 	public void updateIsFree() {
 		this.isFree = true;
 		for (Entity e:entityStack) {
-			if (e.isBlock() || e.isPushable)
+			if (e.isBlock() || e.isPushable())
 				this.isFree = false;
 		}
 	}

@@ -3,6 +3,8 @@ package com.babachene.logic.data;
 import java.util.Collections;
 import java.util.LinkedList;
 
+import com.babachene.logic.data.entities.Entity;
+
 public class LevelGroupOfEntities {
 	
 	/* Basically is an list of entities of the same type. They are mainly so that the player can control different entities
@@ -17,9 +19,15 @@ public class LevelGroupOfEntities {
 	private boolean isYou;
 	private boolean isPlayer1;
 	private boolean isPlayer2;
+	private boolean isMoveH;
+	private Direction hDirection;
+	private boolean isMoveV;
+	private Direction vDirection;
 
 	public LevelGroupOfEntities(String typeOfEntities, LevelMap map) {
 		super();
+		this.hDirection = Direction.EAST;
+		this.vDirection = Direction.SOUTH;
 		this.map= map;
 		this.typeOfEntities = typeOfEntities; //There is only one type of entity allowed in a Group of entities
 		this.numberOfEntities = 0;
@@ -143,6 +151,8 @@ public class LevelGroupOfEntities {
 		this.setIsPlayer1(false);
 		this.setIsPlayer2(false);
 		this.setIsKill(false);
+		this.setMoveH(false);
+		this.setMoveV(false);
 	}
 	
 
@@ -208,11 +218,77 @@ public class LevelGroupOfEntities {
 			entity.setDirection(direction);
 		}
 	}
+
+	public boolean isMoveH() {
+		return isMoveH;
+	}
+
+	public void setMoveH(boolean isMoveH) {
+		this.isMoveH = isMoveH;
+	}
+	public boolean isMoveV() {
+		return isMoveV;
+	}
+
+	public void setMoveV(boolean isMoveV) {
+		this.isMoveV = isMoveV;
+	}
+	
+	public void updateMove() {
+		updateMoveH();
+		updateMoveV();
+	}
 	
 	
+	private void updateMoveH() {
+		if(isMoveH)
+		{
+			Collections.sort(listOfEntities, new yPositionComparator());
+			int yMax = listOfEntities.get(numberOfEntities-1).getyPosition();
+			int yMin = listOfEntities.get(0).getyPosition();
+			if (yMax == map.getyLength()-1 && yMin == 0)
+				return;
+			if(yMax == map.getyLength() -1)
+				this.hDirection = Direction.WEST;
+			if(yMax < map.getyLength() -1 && !map.getMapCase(listOfEntities.get(numberOfEntities-1).getxPosition(), yMax +1).isFree())
+				this.hDirection = Direction.WEST;
+			if(yMin == 0)
+				this.hDirection = Direction.EAST;
+			if(yMin >0 && !map.getMapCase(listOfEntities.get(0).getxPosition(), yMin -1).isFree())
+				this.hDirection = Direction.EAST;
+			switch(hDirection) {
+			case WEST:
+				this.moveLeft();
+				break;
+			case EAST:
+				this.moveRight();
+				break;
+			}
+		}
+	}
 	
-	
-	
+	private void updateMoveV() {
+		if(isMoveV)
+		{
+			Collections.sort(listOfEntities, new xPositionComparator());
+			int xMax = listOfEntities.get(numberOfEntities-1).getxPosition();
+			int xMin = listOfEntities.get(0).getxPosition();
+			if (xMax == map.getxLength()-1 && xMin == 0)
+				return;
+			if(xMax == map.getxLength() -1)
+				this.vDirection = Direction.NORTH;
+			if(xMin == 0)
+				this.vDirection = Direction.SOUTH;
+			switch(vDirection) {
+			case NORTH:
+				this.moveUp();
+				break;
+			case SOUTH:
+				this.moveDown();
+				break;
+			}	
+		}
+	}
 
 	
 }

@@ -1,8 +1,8 @@
 package com.babachene.gui.renderer;
 
-import com.babachene.logic.data.Entity;
-import com.babachene.logic.data.EntityWall;
 import com.babachene.logic.data.LevelMap;
+import com.babachene.logic.data.entities.Entity;
+import com.babachene.logic.data.entities.EntityWall;
 
 /* Utilisation:
  * 

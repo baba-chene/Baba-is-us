@@ -2,9 +2,9 @@ package com.babachene.logic.rules;
 
 import java.util.LinkedList;
 
-import com.babachene.logic.data.Entity;
 import com.babachene.logic.data.LevelGroupOfEntities;
 import com.babachene.logic.data.LevelMap;
+import com.babachene.logic.data.entities.Entity;
 
 public class Rule {
 
@@ -21,18 +21,28 @@ public class Rule {
 		this.rulesUpdater = rulesUpdater;
 	}
 	
-	public void applyRules() {
+	public void applyRulesH() {
 		for (Text text:subject.getSubjectList())
 		{
 			applyNounRule(text,attribute.getNounList());
 			for (Text property:attribute.getPropertyList())
-				applyPropertyRule(text,property);
+				applyPropertyRuleH(text,property);
+		}
+		
+	}
+	
+	public void applyRulesV() {
+		for (Text text:subject.getSubjectList())
+		{
+			applyNounRule(text,attribute.getNounList());
+			for (Text property:attribute.getPropertyList())
+				applyPropertyRuleV(text,property);
 		}
 		
 	}
 	
 
-	private void applyPropertyRule(Text text, Text property) {
+	private void applyPropertyRuleH(Text text, Text property) {
 		rulesUpdater.getMap();
 		LevelGroupOfEntities entities = LevelMap.findGroup(text.getText());
 		if (entities != null) {
@@ -62,6 +72,47 @@ public class Rule {
 			break;
 		case("kill"):
 			entities.setIsKill(true);
+			break;
+		case("move"):
+			entities.setMoveH(true);
+			break;
+		}
+		}
+		}
+	}
+	private void applyPropertyRuleV(Text text, Text property) {
+		rulesUpdater.getMap();
+		LevelGroupOfEntities entities = LevelMap.findGroup(text.getText());
+		if (entities != null) {
+		if (this.verb.getText().equalsIgnoreCase("is")){
+		switch(property.getText())
+		{
+		case("sink"):
+			entities.setIsSink(true);
+			break;
+		case("win"):
+			entities.setIsWin(true);
+			break;
+		case("block"):
+			entities.setIsBlock(true);
+			break;
+		case("push"):
+			entities.setIsPush(true);
+			break;
+		case("you"):
+			entities.setIsYou(true);
+			break;
+		case("p1"):
+			entities.setIsPlayer1(true);
+			break;
+		case("p2"):
+			entities.setIsPlayer2(true);
+			break;
+		case("kill"):
+			entities.setIsKill(true);
+			break;
+		case("move"):
+			entities.setMoveV(true);
 			break;
 		}
 		}
