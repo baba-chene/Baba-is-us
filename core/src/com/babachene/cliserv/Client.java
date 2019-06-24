@@ -145,6 +145,11 @@ public class Client implements Runnable {
     
     public void shutdown() {
 		LOGGER.info("[Client] Shutting down for good...");
+		try {
+			socket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		running = false;
     	synchronized(this) {
     		this.notify();
