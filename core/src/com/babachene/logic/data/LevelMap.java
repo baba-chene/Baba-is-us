@@ -529,6 +529,8 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		if (this.mapStateList.get(0).isEmpty())
 			this.mapStateList.pop();
 
+
+	
 	}
 	public void moveUp() {
 		this.rulesUpdater.updateRules();

@@ -125,11 +125,13 @@ public class LevelGroupOfEntities {
 		}
 	}
 	public void setIsKill(boolean value) {
+		if (!this.typeOfEntities.equalsIgnoreCase("empty")) {
 		for (int i = listOfEntities.size()-1; i>-1;i--) {
 			Entity e = listOfEntities.get(i);
 			e.setKill(value);
 			this.map.getMapCase(e.getxPosition(),e.getyPosition()).updateIsKill();
 
+		}
 		}
 	}
 	public void setAllFalse() {

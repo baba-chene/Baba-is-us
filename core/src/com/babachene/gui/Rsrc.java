@@ -73,6 +73,7 @@ public final class Rsrc {
 		TXT_SINK_TEXTURE = textureAtlas.findRegion("txt_sink");
 		TXT_PUSH_TEXTURE = textureAtlas.findRegion("txt_push");
 		TXT_WIN_TEXTURE = textureAtlas.findRegion("txt_win");
+		TXT_KILL_TEXTURE = new TextureRegion(new Texture("textures/txt_kill.png"));
 		TXT_STOP_TEXTURE = textureAtlas.findRegion("txt_stop");
 		TXT_US_TEXTURE = textureAtlas.findRegion("txt_us");
 		
@@ -95,6 +96,7 @@ public final class Rsrc {
 		TXT_GRASS_TEXTURE = textureAtlas.findRegion("txt_grass");
 		
 		TXT_PAF_TEXTURE = textureAtlas.findRegion("txt_paf");
+		
 		
 	}
 	
@@ -138,6 +140,7 @@ public final class Rsrc {
 								TXT_WIN_TEXTURE,
 								TXT_STOP_TEXTURE,
 								TXT_US_TEXTURE,
+								TXT_KILL_TEXTURE,
 								
 								TXT_IS_TEXTURE,
 								TXT_AND_TEXTURE,
@@ -212,6 +215,7 @@ public final class Rsrc {
 		case "textblock":
 		case "textstop":		return TXT_STOP_TEXTURE;
 		case "textus":			return TXT_US_TEXTURE;
+		case "textkill":		return  TXT_KILL_TEXTURE;
 		
 		// verbs
 		case "textis":			return TXT_IS_TEXTURE;
