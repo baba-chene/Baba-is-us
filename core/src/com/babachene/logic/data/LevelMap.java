@@ -413,7 +413,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		}
 		updateSink();
 		this.rulesUpdater.updateRules();
-		this.rulesUpdater.updateIsWin();
+		this.rulesUpdater.updateIsWinDuo();
 		
 	}
 	public void moveRight(int player) {
@@ -432,7 +432,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		}
 		updateSink();
 		this.rulesUpdater.updateRules();
-		this.rulesUpdater.updateIsWin();
+		this.rulesUpdater.updateIsWinDuo();
 	}
 	public void moveUp(int player) {
 		this.rulesUpdater.updateRules();
@@ -450,7 +450,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		}
 		updateSink();
 		this.rulesUpdater.updateRules();
-		this.rulesUpdater.updateIsWin();
+		this.rulesUpdater.updateIsWinDuo();
 	}
 	public void moveDown(int player) {
 		this.rulesUpdater.updateRules();
@@ -468,7 +468,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		}
 		updateSink();
 		this.rulesUpdater.updateRules();
-		this.rulesUpdater.updateIsWin();
+		this.rulesUpdater.updateIsWinDuo();
 	}
 	
 	

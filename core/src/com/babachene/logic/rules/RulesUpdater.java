@@ -182,6 +182,15 @@ public class RulesUpdater {
 			entities.updateWin();
 	}
 	
+	public void updateIsWinDuo() {
+		LinkedList<LevelGroupOfEntities> p1Entities = this.map.findP1();
+		for (LevelGroupOfEntities entities:p1Entities)
+			entities.updateWin();
+		LinkedList<LevelGroupOfEntities> p2Entities = this.map.findP2();
+		for (LevelGroupOfEntities entities2:p2Entities)
+			entities2.updateWin();
+	}
+	
 	public void resetProperties() {
 		for (LevelGroupOfEntities entities:map.getMapEntities())
 		{
