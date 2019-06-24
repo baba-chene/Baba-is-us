@@ -10,4 +10,5 @@ public abstract class Controller {
 	
 	public abstract void launchLevel(String levelName);
 	
+	public abstract void close();	
 }

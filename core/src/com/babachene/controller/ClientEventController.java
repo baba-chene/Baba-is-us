@@ -105,4 +105,8 @@ public class ClientEventController extends Controller {
 		game.push(new LevelState(lvl, inputProcessor));
 	}
 	
+	@Override
+	public void close() {
+		client.shutdown();
+	}
 }
