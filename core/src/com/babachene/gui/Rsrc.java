@@ -84,7 +84,7 @@ public final class Rsrc {
 		TXT_BUT_TEXTURE = textureAtlas.findRegion("txt_but");
 		
 		TXT_BABA_TEXTURE = textureAtlas.findRegion("txt_baba");
-		TXT_KEKE_TEXTURE = new TextureRegion(new Texture("textures/keke_txt.png"));
+		TXT_KEKE_TEXTURE = new TextureRegion(new Texture("textures/textkeke.png"));
 		TXT_ROCK_TEXTURE = textureAtlas.findRegion("txt_rock");
 		TXT_WATER_TEXTURE = textureAtlas.findRegion("txt_water");
 		TXT_LAVA_TEXTURE = textureAtlas.findRegion("txt_lava");
@@ -231,7 +231,7 @@ public final class Rsrc {
 		case "textflag":		return TXT_FLAG_TEXTURE;
 		case "textskull":		return TXT_SKULL_TEXTURE;
 		case "textgrass":		return TXT_GRASS_TEXTURE;
-		case "textkeke":		return MISSING_TEXTURE;
+		case "textkeke":		return TXT_KEKE_TEXTURE;
 		
 		// non-entity text as subject
 		case "textpaf":			return TXT_PAF_TEXTURE;

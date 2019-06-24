@@ -70,7 +70,7 @@ public class LevelSelection extends GameState implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 			
-				parent.getMetaController().launchLevel("basic level");
+				parent.getMetaController().launchLevel("arene1");
 
 				return; // The event has been handled.
 			}
