@@ -146,6 +146,7 @@ public class LevelGroupOfEntities {
 		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
 			Entity e = listOfEntities.get(i);
+			this.map.getMapStateList().get(0).addLeft(e);
 			this.map.moveLeft(e);
 		}
 	}
@@ -156,7 +157,9 @@ public class LevelGroupOfEntities {
 		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
 			Entity e = listOfEntities.get(i);
+			this.map.getMapStateList().get(0).addRight(e);
 			this.map.moveRight(e);
+			
 		}
 	}
 	
@@ -167,6 +170,7 @@ public class LevelGroupOfEntities {
 		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
 			Entity e = listOfEntities.get(i);
+			this.map.getMapStateList().get(0).addUp(e);
 			this.map.moveUp(e);
 		}
 	}
@@ -177,6 +181,7 @@ public class LevelGroupOfEntities {
 		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
 			Entity e = listOfEntities.get(i);
+			this.map.getMapStateList().get(0).addDown(e);
 			this.map.moveDown(e);
 		}
 		
