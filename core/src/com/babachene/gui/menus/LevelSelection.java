@@ -27,6 +27,7 @@ public class LevelSelection extends GameState implements Screen {
 	private ImageButton level3;
 	private ImageButton level4;
 	private ImageButton level5;
+	private ImageButton level6;
 	
 	
 	public LevelSelection(MainGame game) {
@@ -152,6 +153,26 @@ public class LevelSelection extends GameState implements Screen {
 		});
 		level5.setDisabled(false);
 		stage.addActor(level5);
+		
+		
+		//Level 6
+				SpriteDrawable l6Image = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/menus/level5.png"))));
+				level6 = new ImageButton(l6Image);
+				level6.setBounds(1600, 500, 200, 200);
+				level6.setColor(BabaIsUs.buttonColor);
+
+				level6.addListener(new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+					
+						// TODO launch the good level
+						parent.getMetaController().launchLevel("help your friend");
+
+						return; // The event has been handled.
+					}
+				});
+				level6.setDisabled(false);
+				stage.addActor(level6);
 	
 		
 		
