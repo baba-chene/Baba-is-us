@@ -8,6 +8,6 @@ public abstract class Controller {
 	
 	public abstract void update();
 	
-	public abstract void launchLevel(Object arg);
+	public abstract void launchLevel(String levelName);
 	
 }

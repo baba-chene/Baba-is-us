@@ -92,7 +92,7 @@ public class ClientEventController extends Controller {
     }
 	
 	@Override
-	public void launchLevel(Object arg) {
+	public void launchLevel(String arg) {
 		
 		/*
 		 * That's where the client should ask the server for the level, or a key ot find the level.

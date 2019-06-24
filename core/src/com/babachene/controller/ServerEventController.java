@@ -120,7 +120,7 @@ public class ServerEventController extends Controller {
     }
 	
 	@Override
-	public void launchLevel(Object arg) {
+	public void launchLevel(String arg) {
 		
 		LevelMap lvl = CtrlTest.gimmeLevel(); // It's for testing purpose.
 		

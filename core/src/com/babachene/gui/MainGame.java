@@ -6,6 +6,7 @@ import com.babachene.controller.Controller;
 import com.babachene.controller.CtrlTest;
 import com.babachene.controller.GameController;
 import com.babachene.controller.MetaController;
+import com.babachene.gui.menus.LevelSelection;
 import com.babachene.gui.menus.MainMenu;
 import com.babachene.gui.menus.MultiplayerMenu;
 import com.babachene.gui.menus.PlayMenu;
@@ -21,10 +22,12 @@ public class MainGame extends StateBasedGame {
 	private PlayMenu playMenu;
 	private SettingsMenu settingsMenu;
 	private MultiplayerMenu multiplayerMenu;
+	private LevelSelection levelSelection;
 	public final static int MAINMENU = 0;
 	public final static int PLAYMENU = 1;
 	public final static int SETTINGSMENU = 2;
 	public final static int MULTIPLAYERMENU = 3;
+	public final static int LEVELSELECTION = 4;
 	
 //	private GameController gameController;
 //	private Controller controller;
@@ -120,6 +123,10 @@ public class MainGame extends StateBasedGame {
 			case MULTIPLAYERMENU:
 				if(multiplayerMenu == null) {multiplayerMenu = new MultiplayerMenu(this);};
 				this.push(multiplayerMenu);
+				break;
+			case LEVELSELECTION:
+				if(levelSelection == null) {levelSelection = new LevelSelection(this);};
+				this.push(levelSelection);
 				break;
 			
 		}

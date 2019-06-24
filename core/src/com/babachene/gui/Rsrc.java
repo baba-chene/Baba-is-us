@@ -1,6 +1,5 @@
 package com.babachene.gui;
 
-import java.util.MissingResourceException;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -85,6 +84,7 @@ public final class Rsrc {
 		TXT_BUT_TEXTURE = textureAtlas.findRegion("txt_but");
 		
 		TXT_BABA_TEXTURE = textureAtlas.findRegion("txt_baba");
+		TXT_KEKE_TEXTURE = new TextureRegion(new Texture("textures/keke_txt.png"));
 		TXT_ROCK_TEXTURE = textureAtlas.findRegion("txt_rock");
 		TXT_WATER_TEXTURE = textureAtlas.findRegion("txt_water");
 		TXT_LAVA_TEXTURE = textureAtlas.findRegion("txt_lava");
@@ -147,6 +147,7 @@ public final class Rsrc {
 								TXT_BUT_TEXTURE,
 								
 								TXT_BABA_TEXTURE,
+								TXT_KEKE_TEXTURE,
 								TXT_ROCK_TEXTURE,
 								TXT_WATER_TEXTURE,
 								TXT_LAVA_TEXTURE,

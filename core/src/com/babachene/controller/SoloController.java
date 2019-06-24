@@ -37,7 +37,7 @@ public class SoloController extends Controller {
 	}
 	
 	@Override
-	public void launchLevel(Object arg) {
+	public void launchLevel(String levelName) {
 		/*
 		 * TEST ZONE : Create a custom map for testing.
 		 */
@@ -69,10 +69,11 @@ public class SoloController extends Controller {
 
 			//mapEditorConverter.open("maps\\K�k� is lost.txt\\");
 			//mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\babaLevel4.txt\\");
-			mapEditorConverter.open("level.txt");
+			mapEditorConverter.open("maps/"+levelName+".txt");
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			System.out.println("Level doesn't exist");
 			e.printStackTrace();
 		}
 		LevelMap map = mapEditorConverter.getMap();
