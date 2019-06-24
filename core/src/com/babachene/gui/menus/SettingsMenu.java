@@ -53,9 +53,8 @@ public class SettingsMenu extends GameState implements Screen {
 		
 		
 		
-		
-		
-		Gdx.input.setInputProcessor(stage);
+		// The inputProcessor (here: the stage) must added to the MainGame, and not Gdx.input.
+		parent.setInputProcessor(stage);
 		
 	}
 	
@@ -99,7 +98,8 @@ public class SettingsMenu extends GameState implements Screen {
 
 	@Override
 	public void show() {
-		Gdx.input.setInputProcessor(stage);
+		// The inputProcessor (here: the stage) must added to the MainGame, and not Gdx.input.
+		parent.setInputProcessor(stage);
 		
 	}
 
