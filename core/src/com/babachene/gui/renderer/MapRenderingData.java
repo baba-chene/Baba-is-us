@@ -59,8 +59,8 @@ final class MapRenderingData { // Not a public class.
 		speedX = Baba.BASE_ENTITY_MOVING_SPEED * tileWidth;
 		speedY = Baba.BASE_ENTITY_MOVING_SPEED * tileHeight;
 		
-		fastSpeedX = Baba.BASE_ENTITY_MOVING_SPEED * mapWidth / 10f;
-		fastSpeedY = Baba.BASE_ENTITY_MOVING_SPEED * mapHeight / 10f;
+		fastSpeedX = Baba.BASE_ENTITY_MOVING_SPEED * mapWidth / 5f;
+		fastSpeedY = Baba.BASE_ENTITY_MOVING_SPEED * mapHeight / 5f;
 		
 	}
 	

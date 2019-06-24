@@ -60,8 +60,7 @@ class EntityRenderer extends Renderer { // Not a public class
 		/*
 		 * Here is the system that handle the movement of the texture.
 		 * It is not perfect and frenetically typing the keys may
-		 * lead to a wrong texture position. eg
-		 * FIXME Pressing right and down quickly leads to graphical bug.
+		 * lead to a wrong texture position.
 		 */
 		// Verify if the entity has not moved.
 		if (entity.getX() != intX || entity .getY() != intY) {
@@ -73,10 +72,10 @@ class EntityRenderer extends Renderer { // Not a public class
 				int dx = ex - intX; // de la position graphique à la position réelle.
 				
 				if (dx != 1 && dx != -1) {
-					fastMove(dx, ey - intY);
+					fastMove();//dx, ey - intY);
 				} else {
 					if (ey != intY) {
-						fastMove(dx, ey - intY);
+						fastMove();//dx, ey - intY);
 					} else {
 						/*
 						 * case: normal move on X axis.
@@ -91,14 +90,13 @@ class EntityRenderer extends Renderer { // Not a public class
 				
 				int dy = ey - intY; // de la position graphique à la position réelle.
 				
-				if (dy != 1 && dy == -1) {
-					fastMove(0, dy);
+				if (dy != 1 && dy != -1) {
+					fastMove();//0, dy);
 				} else {
 					/*
 					 * case: normal move on Y axis.
 					 */
 					
-					intY = ey;
 					speedY = mapData.speedY * dy;
 					moving = true;
 				}
@@ -107,6 +105,23 @@ class EntityRenderer extends Renderer { // Not a public class
 			intX = ex; // update those, thus the renderer won't perform any more movement
 			intY = ey; // initialisation until the entity moves again.
 		}
+		
+//		if (entity.getX() != intX || entity .getY() != intY) {
+//			
+//			int ex = entity.getX(), ey = entity.getY();
+//			int dx = ex - intX; // de la position graphique à la position réelle.
+//			int dy = ey - intY; // de la position graphique à la position réelle.
+//			
+//			// All the condition for a fullspeed movement.
+//			if (moving || dx < -1 || 1 < dx || dy < -1 || 1 < dy || dx*dy != 0) {
+//				System.out.println(entity.getId() + " is FAST");
+//				fastMove(dx, dy);
+//			} else {
+//				System.out.println(entity.getId() + " is slow");
+//			}
+//			
+//			intX = ex; intY = ey;
+//		}
 		
 		// When in a moving phase, update the float position and possibly end the move.
 		if (moving) {
@@ -167,16 +182,19 @@ class EntityRenderer extends Renderer { // Not a public class
 	
 	/////////////////////
 	
-	/**
+	/*   // Ancient doc, ask git to see the previous version.
 	 * Used to manage a fast movement. For all cases when
 	 * the enity does not move simply on a direct neightboor
 	 * tile.
 	 */
-	private final void fastMove(int dx, int dy) {
+	/**
+	 * Teleport the entity lol.
+	 */
+	private final void fastMove() {
 		
-		speedX = mapData.fastSpeedX * Math.signum((float) dx);
-		speedY = mapData.fastSpeedY * Math.signum((float) dy);
-		moving = true;
+		floatX = mapData.xPosition(entity.getX());
+		floatY = mapData.yPosition(entity.getY());
+		moving = false;
 	}
 	
 }

@@ -1,12 +1,15 @@
 package com.babachene.gui;
 
 import java.io.IOException;
+
+import com.babachene.controller.CtrlTest;
 import com.babachene.controller.MetaController;
 import com.babachene.gui.menus.LevelSelection;
 import com.babachene.gui.menus.MainMenu;
 import com.babachene.gui.menus.MultiplayerMenu;
 import com.babachene.gui.menus.PlayMenu;
 import com.babachene.gui.menus.SettingsMenu;
+import com.babachene.gui.test.RenderingTest;
 import com.babachene.logger.GlobalLogger;
 import com.babachene.userinput.AppInputProcessor;
 import com.badlogic.gdx.Gdx;
@@ -81,7 +84,7 @@ public class MainGame extends StateBasedGame {
 		BabaIsUs.assetManager.load(BabaIsUs.textures.KERMIT, Texture.class);
 		BabaIsUs.assetManager.load(BabaIsUs.textures.THEME_DEFAULT, Texture.class);
 		BabaIsUs.assetManager.finishLoading();
-		
+		RenderingTest.main(null);
 //		RenderingTest t = new RenderingTest();
 //		this.push(new LevelState(t.level, null));
 //		t.startTestOnLevelState();

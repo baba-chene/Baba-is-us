@@ -1,5 +1,6 @@
 package com.babachene.test;
 
+import com.babachene.gui.test.RenderingTest;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -37,6 +38,7 @@ public class LevelGame extends ApplicationAdapter {
 	
 	@Override
 	public void create() {
+		
 		sr = new ShapeRenderer();
 		sb = new SpriteBatch();
 		
