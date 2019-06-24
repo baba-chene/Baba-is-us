@@ -308,6 +308,20 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		case "grass":
 			addEntity(x,y,new EntityGrass(x, y, this));
 			break;
+		case "lego":
+			addEntity(x,y,new EntityLego(x,y,this));
+			break;
+		case "love":
+			addEntity(x,y,new EntityLove(x, y, this));
+			break;
+		case "bush":
+			addEntity(x,y,new EntityBush(x,y,this));
+			break;
+		case "box":
+			addEntity(x,y,new EntityBox(x, y, this));
+			break;
+		case "tree":
+			addEntity(x, y, new EntityTree(x,y,this));
 		default:
 			addEntity(x,y,new EntityText(x,y,this,typeOfEntity));
 		}
