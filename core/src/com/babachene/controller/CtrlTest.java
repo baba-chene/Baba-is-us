@@ -34,6 +34,4 @@ public class CtrlTest {
 		return map;
 	}
 	
-	
-	
 }

@@ -72,7 +72,7 @@ class MapRenderer extends Renderer { // Not a public class.
 		
 //		for (RenderableEntity e : map) {
 //			
-//			addEntity(e); FIXME Well, I don't know how it should best work. But in current testing, the map sends all info through the queue.
+//			addEntity(e); // FIXME Well, I don't know how it should best work. But in current testing, the map sends all info through the queue.
 //			
 //		}
 		
