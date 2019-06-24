@@ -509,6 +509,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			playerEntities.get(i).moveLeft();
 		}
 		updateSink();
+		updateKill();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
 		if (this.mapStateList.get(0).isEmpty())
@@ -570,6 +571,14 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			}
 		}
 	}
+	public void updateKill() {
+		for (int i = 0; i<xLength; i++) {
+			for(int j =0; j < yLength; j++) {
+				mapMatrix.clone()[i][j].updateIsKill();
+			}
+		}
+	}
+	
 	@Override
 	public Iterator<RenderableEntity> iterator() {
 		// TODO Auto-generated method stub
