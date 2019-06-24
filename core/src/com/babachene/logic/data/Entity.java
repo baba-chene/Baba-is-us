@@ -17,7 +17,7 @@ public abstract class Entity implements RenderableEntity {
 	protected boolean isBlock;
 	protected boolean isWin;
 	protected String text;
-
+	protected Direction direction;
 
 
 
@@ -32,7 +32,7 @@ public abstract class Entity implements RenderableEntity {
 		this.xPosition = x;
 		this.yPosition = y;
 		this.typeOfEntity =typeOfEntity;
-
+		this.direction = Direction.EAST;
 		
 	}
 
@@ -102,7 +102,7 @@ public abstract class Entity implements RenderableEntity {
 	@Override
 	public Object getDirection() {
 		// TODO Auto-generated method stub
-		return null;
+		return direction;
 	}
 	
 	@Override
@@ -128,12 +128,18 @@ public abstract class Entity implements RenderableEntity {
 	}@Override
 	public boolean hasDirection() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 		
 	}@Override
 	public boolean hasVaration() {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	public void setDirection(Direction direction) {
+		this.direction = direction;
+	}
+	
+	
 	
 }
