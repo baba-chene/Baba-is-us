@@ -142,6 +142,7 @@ public class LevelGroupOfEntities {
 	public void moveLeft() {
 		Collections.sort(listOfEntities,new yPositionComparator());
 		Collections.reverse(listOfEntities);
+		this.setDirection(Direction.WEST);
 		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
 			Entity e = listOfEntities.get(i);
@@ -151,16 +152,19 @@ public class LevelGroupOfEntities {
 	
 	public void moveRight() {
 		Collections.sort(listOfEntities,new yPositionComparator());
+		this.setDirection(Direction.EAST);
 		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
 			Entity e = listOfEntities.get(i);
 			this.map.moveRight(e);
+			
 		}
 	}
 	
 	public void moveUp() {
 		Collections.sort(listOfEntities,new xPositionComparator());
 		Collections.reverse(listOfEntities);
+		this.setDirection(Direction.NORTH);
 		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
 			Entity e = listOfEntities.get(i);
@@ -170,6 +174,7 @@ public class LevelGroupOfEntities {
 	
 	public void moveDown() {
 		Collections.sort(listOfEntities,new xPositionComparator());
+		this.setDirection(Direction.SOUTH);
 		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
 			Entity e = listOfEntities.get(i);
@@ -188,6 +193,11 @@ public class LevelGroupOfEntities {
 	}
 	
 	
+	public void setDirection(Direction direction) {
+		for (Entity entity : this.listOfEntities) {
+			entity.setDirection(direction);
+		}
+	}
 	
 	
 	

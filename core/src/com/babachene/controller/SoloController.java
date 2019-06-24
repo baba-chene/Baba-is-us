@@ -30,7 +30,7 @@ public class SoloController extends Controller {
 			throw new IllegalArgumentException("MainGame cannot be null.");
 		this.mainGame = mainGame;
 		giver = new EventGiver();
-		inputProcessor = new LevelInputProcessor(new KeyboardMap(Keys.Z, Keys.S, Keys.Q, Keys.D, Keys.A, Keys.A, Keys.A, Keys.A,
+		inputProcessor = new LevelInputProcessor(new KeyboardMap(Keys.Z, Keys.S, Keys.Q, Keys.D, Keys.A, Keys.E, Keys.A, Keys.A,
 													Keys.UP, Keys.DOWN, Keys.LEFT, Keys.RIGHT), giver);
 		
 		// No creation of logic, map. It's in launchLevel
@@ -62,8 +62,8 @@ public class SoloController extends Controller {
 		map.addEntity(4, 7, "water");
 		map.addEntity(3, 7, "textwater");
 		map.addEntity(7, 2, "wall");
-		map.addEntity(6, 3, "textand");
-		*/
+		map.addEntity(6, 3, "textand");*/
+		
 		MapEditorConverter mapEditorConverter = new MapEditorConverter(30, 20);
 		try {
 
@@ -80,7 +80,7 @@ public class SoloController extends Controller {
 //		LevelMap map = CtrlTest.gimmeLevel(); // comment this line if you want to load a level file.
 		logic = new GameLogic(map);
 		
-		mainGame.push(new LevelState(map, inputProcessor));
+		mainGame.push(new LevelState(mainGame, map, inputProcessor));
 	}
 	
 	@Override
@@ -94,6 +94,10 @@ public class SoloController extends Controller {
 		while (giver.size() != 0) {
 			logic.processInput( (InputEvent) giver.pollEvent());
 		}
+	}
+
+	@Override
+	public void close() {
 	}
 	
 }

@@ -15,12 +15,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 public class LevelState extends GameState {
 	
+	private MainGame parent;
 	private InputProcessor inputProcessor;
 	private LevelRenderer levelRenderer;
 	private SpriteBatch batch;
 	
 	
-	public LevelState(RenderableLevel levelToRender, LevelInputProcessor inputProcessor) {
+	public LevelState(MainGame mainGame, RenderableLevel levelToRender, LevelInputProcessor inputProcessor) {
+		if (mainGame == null)
+			throw new IllegalArgumentException("The MainGame cannot be null");
+		parent = mainGame;
 		
 		if (levelToRender == null)
 			throw new IllegalArgumentException("The RenderableLevel cannot be null");
@@ -28,6 +32,7 @@ public class LevelState extends GameState {
 		levelRenderer = new LevelRenderer(levelToRender);
 		
 		this.inputProcessor = inputProcessor;
+		parent.setInputProcessor(inputProcessor);
 		
 		batch = new SpriteBatch();
 		
@@ -92,7 +97,8 @@ public class LevelState extends GameState {
 	
 	@Override
 	public void show() {
-		Gdx.input.setInputProcessor(inputProcessor);
+		// The inputProcessor (here: the stage) must added to the MainGame, and not Gdx.input.
+		parent.setInputProcessor(inputProcessor);
 	}
 	
 	@Override

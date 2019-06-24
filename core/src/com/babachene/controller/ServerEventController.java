@@ -4,7 +4,6 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.logging.Logger;
 
 import com.babachene.cliserv.Event;
-import com.babachene.cliserv.InputUpdate;
 import com.babachene.cliserv.Server;
 import com.babachene.cliserv.Update;
 import com.babachene.gui.LevelState;
@@ -47,7 +46,7 @@ public class ServerEventController extends Controller {
         eventBuffer = new ArrayBlockingQueue<Event>(eventBufferLength);
         
         eventGiver = new EventGiver();
-		inputProcessor = new LevelInputProcessor(new KeyboardMap(Keys.Z, Keys.S, Keys.Q, Keys.D, Keys.A, Keys.A, Keys.A, Keys.A,
+		inputProcessor = new LevelInputProcessor(new KeyboardMap(Keys.Z, Keys.S, Keys.Q, Keys.D, Keys.A, Keys.E, Keys.A, Keys.A,
 													Keys.UP, Keys.DOWN, Keys.LEFT, Keys.RIGHT), eventGiver);
 		
         
@@ -129,9 +128,12 @@ public class ServerEventController extends Controller {
 		logic = new GameLogic(lvl);
 		eventGiver.clear();
 		
-		game.push(new LevelState(lvl, inputProcessor));
+		game.push(new LevelState(game, lvl, inputProcessor));
 		
 	}
 	
-	
-}
+	@Override
+	public void close() {
+		server.shutdown();
+	}
+ }

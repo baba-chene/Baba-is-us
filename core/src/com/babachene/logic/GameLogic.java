@@ -78,6 +78,9 @@ public class GameLogic implements Logic {
 			levelMap.moveRight();
 			levelMap.moveRight(player);
 			break;
+		case InputEvent.Z_REQUEST:
+			levelMap.undo();
+			break;
 		default: break;
 		}
 		return new InputUpdate(inputEvent.eventType, inputEvent.getPlayer());
@@ -111,6 +114,9 @@ public class GameLogic implements Logic {
 		case InputEvent.MOVE_RIGHT:
 			levelMap.moveRight();
 			levelMap.moveRight(player);
+			break;
+		case InputEvent.Z_REQUEST:
+			levelMap.undo();
 			break;
 		default: break;
 		}	
