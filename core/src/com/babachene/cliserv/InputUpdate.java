@@ -13,7 +13,7 @@ public class InputUpdate extends Update {
 		this.player = player;
 		eventType = type;
 	}
-	
+
 	public int getPlayer() {
 		return player;
 	}

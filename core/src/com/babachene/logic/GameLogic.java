@@ -59,7 +59,7 @@ public class GameLogic implements Logic {
 		/*
 		 * For now, there is three players : YOU, P1 and P2.
 		 * so the YOU will be seen as a US and will move should any player asks movement.
-		 * That should not be a big issue as no level sould have YOU and P1/2 text blocks.
+		 * That should not be a big issue as no level should have YOU and P1/2 text blocks.
 		 */
 		switch(inputEvent.eventType) {
 		case InputEvent.MOVE_DOWN:
