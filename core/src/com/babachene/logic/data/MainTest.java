@@ -23,6 +23,13 @@ public class MainTest {
 		map.moveDown();
 		map.moveDown();
 		long endTime = System.nanoTime();
+		map.undo();
+		map.undo();
+		map.undo();
+		map.undo();
+		map.undo();
+		map.undo();
+
 		long time = endTime - startTime;
 		System.out.println(time/1000000);
 	}
