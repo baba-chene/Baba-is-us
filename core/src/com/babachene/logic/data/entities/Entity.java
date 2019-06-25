@@ -1,5 +1,7 @@
 package com.babachene.logic.data.entities;
 
+import java.util.LinkedList;
+
 import com.babachene.gui.renderer.RenderableEntity;
 import com.babachene.logic.data.Direction;
 import com.babachene.logic.data.LevelMap;
@@ -19,6 +21,7 @@ public abstract class Entity implements RenderableEntity {
 	protected boolean isBlock;
 	protected boolean isWin;
 	protected boolean isKill;
+	protected LinkedList<String> makeEntity;
 	protected String text;
 	protected Direction direction;
 
@@ -32,6 +35,7 @@ public abstract class Entity implements RenderableEntity {
 		super();
 		this.map = map;
 		this.text ="";
+		this.makeEntity = new LinkedList<String>();
 		this.xPosition = x;
 		this.yPosition = y;
 		this.typeOfEntity =typeOfEntity;
@@ -149,6 +153,14 @@ public abstract class Entity implements RenderableEntity {
 
 	public void setKill(boolean isKill) {
 		this.isKill = isKill;
+	}
+
+	public LinkedList<String> getMakeEntity() {
+		return makeEntity;
+	}
+
+	public void addMakeEntity(String makeEntity) {
+		this.makeEntity.add(makeEntity);
 	}
 
 	

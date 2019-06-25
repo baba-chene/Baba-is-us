@@ -171,9 +171,9 @@ public class Rule {
 			}
 		LevelGroupOfEntities entities = LevelMap.findGroup(text.getText());
 		if (entities != null) {
-			if(this.verb.getText().equalsIgnoreCase("is")) {
 			LinkedList<Entity> list = entities.getListOfEntities();
 			int n = list.size();
+			if(this.verb.getText().equalsIgnoreCase("is")) {
 			for (int i = n-1; i> -1; i--) {
 				Entity entity = list.get(i);
 				int x = entity.getxPosition();
@@ -185,7 +185,10 @@ public class Rule {
 			}
 		}
 			if(this.verb.getText().equalsIgnoreCase("make")) {
-
+			for (Entity entity : list) {
+				for (Text noun : nounList)
+					if (!entity.getMakeEntity().contains(noun.getText()))
+					entity.addMakeEntity(noun.getText());}
 					
 			}
 		}

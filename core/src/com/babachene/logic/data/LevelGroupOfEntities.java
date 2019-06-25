@@ -162,6 +162,7 @@ public class LevelGroupOfEntities {
 	public void moveLeft() {
 		Collections.sort(listOfEntities,new yPositionComparator());
 		Collections.reverse(listOfEntities);
+		updateMake();
 		this.setDirection(Direction.WEST);
 		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
@@ -172,6 +173,7 @@ public class LevelGroupOfEntities {
 	
 	public void moveRight() {
 		Collections.sort(listOfEntities,new yPositionComparator());
+		updateMake();
 		this.setDirection(Direction.EAST);
 		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
@@ -184,6 +186,7 @@ public class LevelGroupOfEntities {
 	public void moveUp() {
 		Collections.sort(listOfEntities,new xPositionComparator());
 		Collections.reverse(listOfEntities);
+		updateMake();
 		this.setDirection(Direction.NORTH);
 		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
@@ -194,6 +197,7 @@ public class LevelGroupOfEntities {
 	
 	public void moveDown() {
 		Collections.sort(listOfEntities,new xPositionComparator());
+		updateMake();
 		this.setDirection(Direction.SOUTH);
 		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
@@ -287,6 +291,15 @@ public class LevelGroupOfEntities {
 				this.moveDown();
 				break;
 			}	
+		}
+	}
+	public void updateMake(){
+			if(!this.getTypeOfEntities().equalsIgnoreCase("empty")) {
+			for (Entity entity : this.getListOfEntities()) {
+				for(String s : entity.getMakeEntity()) {
+					map.addEntity(entity.getxPosition(), entity.getyPosition(), s);
+				}
+			}
 		}
 	}
 

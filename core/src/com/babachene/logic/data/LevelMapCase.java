@@ -178,6 +178,5 @@ public class LevelMapCase {
 		this.updateIsFree();
 		this.updateIsSink();
 		this.updateIsWin();
-		this.updateIsKill();
 	}
 }

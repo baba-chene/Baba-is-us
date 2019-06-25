@@ -341,6 +341,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			break;
 		case "tree":
 			addEntity(x, y, new EntityTree(x,y,this));
+			break;
 		default:
 			addEntity(x,y,new EntityText(x,y,this,typeOfEntity));
 		}
@@ -453,7 +454,10 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		}
 		return result;
 	}
-	
+	//*********************************************************************
+	//*********************************************************************
+	//*********************************************************************
+	//*********************************************************************
 	//*******************Main methods of the class ************************
 	
 	public void moveLeft(int player) {
@@ -620,6 +624,10 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			this.mapStateList.pop();
 	}
 //****************************End of main methods *******************************
+	//*********************************************************************
+	//*********************************************************************
+	//*********************************************************************
+	//*********************************************************************
 	
 	
 	
@@ -653,7 +661,6 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		
 	}
 	
-
 	
 	public HuggedEntities getHuggedEntities() {
 		return huggedEntities;
