@@ -69,7 +69,7 @@ CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
 ##############   Ajouté par Jérémy  ###################
 # Moi qui définie JAVA_HOME au dossier de java 8
 # java 11 étant inconnu de mon gradle (de déception en déception ce gradle).
-if [ "$(whoami)"="jeremy" ]; then
+if [ "$(whoami)" = "jeremy" ]; then
     JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/"
     echo "[INFO] L'utilisateur est jeremy, définition de la variable JAVA_HOME"
     echo "       sur $JAVA_HOME"
