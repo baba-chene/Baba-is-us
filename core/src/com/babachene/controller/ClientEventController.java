@@ -75,11 +75,9 @@ public class ClientEventController extends Controller {
     }
 
 	public void update() {
-		if(fetchEvent()) {
+		if(fetchEvent() && logic != null) {
         	LOGGER.fine("[Client Event Controller] Event sent to client");
 			client.addEvent(event);
-        	/*LOGGER.fine("[Client Event Controller] Event sent to logic");
-			logic.processEvent(event);*/
         	if (event instanceof InputEvent) {
         		event.setPlayer(2);
     			logic.processEvent(event);
@@ -110,16 +108,21 @@ public class ClientEventController extends Controller {
 		if(update.getPlayer() == 1) {
 			int size = eventsWaitingForACK.size();
 			for(int i = 0; i < size; i++) {
+	        	LOGGER.fine("[Client Event Controller] Undoing some events as an update arrived before theirs");
 				logic.processUpdate(new InputUpdate(InputEvent.Z_REQUEST, 2));
 			}
+        	LOGGER.fine("[Client Event Controller] Processing the update");
 			logic.processUpdate(update);
-			Object[] queue = eventsWaitingForACK.toArray();
+			Event[] queue = eventsWaitingForACK.toArray(new Event[10]);
 			for(int i = 0; i < size; i++) {
-				logic.processEvent((Event) queue[i]);
+	        	LOGGER.fine("[Client Event Controller] Processing the events again");
+				logic.processEvent(queue[i]);
 			}
 		}
-		else
-			eventsWaitingForACK.poll();
+		else {
+			if(eventsWaitingForACK.poll() == null)
+	        	LOGGER.warning("[Client Event Controller] Update received for client but no event was left in the queue");
+		}
 	}
 	
 	@Override
