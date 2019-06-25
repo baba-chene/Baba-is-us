@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
-public class MultiplayerMenu extends GameState implements Screen {
+public class JoinMenu extends GameState implements Screen {
 
 	private MainGame parent;
 	
@@ -34,7 +34,7 @@ public class MultiplayerMenu extends GameState implements Screen {
 	private ImageButton hostButton;
 	
 	
-	public MultiplayerMenu(MainGame game) {
+	public JoinMenu(final MainGame game) {
 		parent=game;
 		
 		stage = new Stage(getViewport());
@@ -136,7 +136,8 @@ public class MultiplayerMenu extends GameState implements Screen {
 		hostButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-							
+				
+				
 				String port = portHost.getText();
 				int intPort = -1;
 				try {
@@ -144,8 +145,11 @@ public class MultiplayerMenu extends GameState implements Screen {
 				} catch(NumberFormatException e) {
 					
 				}
+				/*
 				if (intPort != -1)
 					parent.getMetaController().hostServer(intPort);
+				*/
+				game.changeScreen(game.ONLINEMENU);
 				
 				return; // The event has been handled.
 			}
