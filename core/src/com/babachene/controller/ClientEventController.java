@@ -113,9 +113,9 @@ public class ClientEventController extends Controller {
 				logic.processUpdate(new InputUpdate(InputEvent.Z_REQUEST, 2));
 			}
 			logic.processUpdate(update);
-			Event[] queue = (Event[]) eventsWaitingForACK.toArray();
+			Object[] queue = eventsWaitingForACK.toArray();
 			for(int i = 0; i < size; i++) {
-				logic.processEvent(queue[i]);
+				logic.processEvent((Event) queue[i]);
 			}
 		}
 		else
