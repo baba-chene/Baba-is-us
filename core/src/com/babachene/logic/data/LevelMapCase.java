@@ -14,6 +14,7 @@ public class LevelMapCase {
 	private int yPosition;
 	private LevelMap map;
 	private boolean isKill;
+	private boolean isBlock;
 	private boolean isSink;			 //True if it contains an entity with isSink
 	private boolean isWin;			 //after all the other entities of the case moved.
 	private boolean isFree;			 //Means that there is no pushable or block entities on the case
@@ -27,6 +28,7 @@ public class LevelMapCase {
 		this.xPosition = x;
 		this.yPosition = y;
 		this.map = map;
+		this.isBlock = false;
 		this.isFree = true;
 		this.isSink = false;
 		this.isWin = false;
@@ -119,6 +121,14 @@ public class LevelMapCase {
 		for (Entity e:entityStack) {
 			if (e.isBlock() || e.isPushable())
 				this.isFree = false;
+		}
+	}
+	
+	public void updateIsBlock() {
+		this.isBlock = true;
+		for (Entity e:entityStack) {
+			if (e.isBlock() )
+				this.isBlock = true;
 		}
 	}
 

@@ -141,6 +141,28 @@ public class LevelGroupOfEntities {
 
 		}
 		}
+		
+	}
+	
+	public void setHas(boolean value) {
+		if (!this.typeOfEntities.equalsIgnoreCase("empty")) {
+		for (int i = listOfEntities.size()-1; i>-1;i--) {
+			Entity e = listOfEntities.get(i);
+			e.setHasEntity(value);
+			if (value == false)
+			e.clearHasType();
+		}
+			
+		}
+	}
+	
+	public void addHasEntityType(String s) {
+		if (!this.typeOfEntities.equalsIgnoreCase("empty")) {
+		for (int i = listOfEntities.size()-1; i>-1;i--) {
+			Entity e = listOfEntities.get(i);
+			e.getHasEntityType().add(s);
+		}
+		}
 	}
 	public void setAllFalse() {
 		this.setIsBlock(false);
@@ -153,6 +175,7 @@ public class LevelGroupOfEntities {
 		this.setIsKill(false);
 		this.setMoveH(false);
 		this.setMoveV(false);
+		this.setHas(false);
 		this.setMakeFalse();
 	}
 	private void setMakeFalse() {

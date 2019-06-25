@@ -24,6 +24,8 @@ public abstract class Entity implements RenderableEntity {
 	protected LinkedList<String> makeEntity;
 	protected String text;
 	protected Direction direction;
+	protected boolean hasEntity;
+	protected LinkedList<String> hasEntityType;
 
 
 
@@ -40,6 +42,8 @@ public abstract class Entity implements RenderableEntity {
 		this.yPosition = y;
 		this.typeOfEntity =typeOfEntity;
 		this.direction = Direction.EAST;
+		this.hasEntity = false;
+		this.hasEntityType = new LinkedList<String>();
 		
 	}
 
@@ -165,6 +169,25 @@ public abstract class Entity implements RenderableEntity {
 
 	public void setMakeEntity(LinkedList<String> makeEntity) {
 		this.makeEntity = makeEntity;
+	}
+
+	public boolean HasEntity() {
+		return hasEntity;
+	}
+
+	public void setHasEntity(boolean hasEntity) {
+		this.hasEntity = hasEntity;
+	}
+
+	public LinkedList<String> getHasEntityType() {
+		return hasEntityType;
+	}
+
+	public void addHasEntityType(String s) {
+		this.hasEntityType.add(s);
+	}
+	public void clearHasType() {
+		this.hasEntityType.clear();
 	}
 	
 
