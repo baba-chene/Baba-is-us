@@ -27,6 +27,15 @@ public void add(Integer x,Integer y)
 }
 
 
+
+public LinkedList<Integer> getxHugged() {
+	return xHugged;
+}
+
+public LinkedList<Integer> getyHugged() {
+	return yHugged;
+}
+
 public void clear()
 {
 	amount =0;

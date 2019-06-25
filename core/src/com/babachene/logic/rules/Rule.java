@@ -2,6 +2,7 @@ package com.babachene.logic.rules;
 
 import java.util.LinkedList;
 
+import com.babachene.logic.data.HuggedEntities;
 import com.babachene.logic.data.LevelGroupOfEntities;
 import com.babachene.logic.data.LevelMap;
 import com.babachene.logic.data.entities.Entity;
@@ -128,14 +129,49 @@ public class Rule {
 			if(property.getText().equalsIgnoreCase("win"))
 				rulesUpdater.getMap().getHuggedEntities().setWin(true);
 		}
+		if (this.verb.getText().equalsIgnoreCase("make"))
+		{
+			switch(property.getText()) {
+			case "empty":
+			case "rock":
+			case "wall":
+			case "baba":
+			case "keke":
+			case "skull":
+			case "lava":
+			case "water":
+			case "flag":
+			case "grass":
+			case "hug":
+			case "lego":
+			case "love":
+			case "palm":
+			case "bush":
+			case "box" :
+			case "tree":
+				makeHug(property.getText());
+			}
+		}
+	}
+	
+	public void makeHug(String s){
+		HuggedEntities hug = rulesUpdater.getMap().getHuggedEntities();
+		for (int i =0; i< hug.getSize(); i++) {
+			rulesUpdater.getMap().addEntity(hug.getxHugged().get(i), hug.getyHugged().get(i), s);
+		}
 	}
 	
 
 	private void applyNounRule(Text text, LinkedList<Text> nounList) {
 		rulesUpdater.getMap();
 		if (!nounList.isEmpty()) {
+			if(text.getText().equalsIgnoreCase("hug"));{
+				for (Text s :nounList)
+					makeHug(s.getText());
+			}
 		LevelGroupOfEntities entities = LevelMap.findGroup(text.getText());
 		if (entities != null) {
+			if(this.verb.getText().equalsIgnoreCase("is")) {
 			LinkedList<Entity> list = entities.getListOfEntities();
 			int n = list.size();
 			for (int i = n-1; i> -1; i--) {
@@ -148,6 +184,12 @@ public class Rule {
 				this.rulesUpdater.getMap().removeEntity(entity);
 			}
 		}
+			if(this.verb.getText().equalsIgnoreCase("make")) {
+
+					
+			}
+		}
+		
 	}}
 	
 }
