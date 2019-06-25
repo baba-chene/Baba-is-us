@@ -57,6 +57,7 @@ public class RulesUpdater {
 			switch(text) { //Ok I know but I don't see another way to do it ..
 			case "is":
 			case "has":
+			case "make":
 				Verb verb = new Verb(x,y,text,this);
 				this.verbList.add(verb);
 				this.textTab[x][y] = verb;

@@ -1,5 +1,7 @@
 package com.babachene.logic.data.entities;
 
+import java.util.LinkedList;
+
 import com.babachene.gui.renderer.RenderableEntity;
 import com.babachene.logic.data.Direction;
 import com.babachene.logic.data.LevelMap;
@@ -19,8 +21,11 @@ public abstract class Entity implements RenderableEntity {
 	protected boolean isBlock;
 	protected boolean isWin;
 	protected boolean isKill;
+	protected LinkedList<String> makeEntity;
 	protected String text;
 	protected Direction direction;
+	protected boolean hasEntity;
+	protected LinkedList<String> hasEntityType;
 
 
 
@@ -32,10 +37,13 @@ public abstract class Entity implements RenderableEntity {
 		super();
 		this.map = map;
 		this.text ="";
+		this.makeEntity = new LinkedList<String>();
 		this.xPosition = x;
 		this.yPosition = y;
 		this.typeOfEntity =typeOfEntity;
 		this.direction = Direction.EAST;
+		this.hasEntity = false;
+		this.hasEntityType = new LinkedList<String>();
 		
 	}
 
@@ -150,6 +158,38 @@ public abstract class Entity implements RenderableEntity {
 	public void setKill(boolean isKill) {
 		this.isKill = isKill;
 	}
+
+	public LinkedList<String> getMakeEntity() {
+		return makeEntity;
+	}
+
+	public void addMakeEntity(String makeEntity) {
+		this.makeEntity.add(makeEntity);
+	}
+
+	public void setMakeEntity(LinkedList<String> makeEntity) {
+		this.makeEntity = makeEntity;
+	}
+
+	public boolean HasEntity() {
+		return hasEntity;
+	}
+
+	public void setHasEntity(boolean hasEntity) {
+		this.hasEntity = hasEntity;
+	}
+
+	public LinkedList<String> getHasEntityType() {
+		return hasEntityType;
+	}
+
+	public void addHasEntityType(String s) {
+		this.hasEntityType.add(s);
+	}
+	public void clearHasType() {
+		this.hasEntityType.clear();
+	}
+	
 
 	
 	

@@ -77,7 +77,8 @@ public class LevelGroupOfEntities {
 		for (int i = listOfEntities.size()-1; i>-1;i--) {
 			Entity e = listOfEntities.get(i);
 			e.setBlock(value);
-			this.map.getMapCase(e.getxPosition(),e.getyPosition()).updateIsFree(); //we update the properties of the map case accordingly.
+			this.map.getMapCase(e.getxPosition(),e.getyPosition()).updateIsFree(); 
+			this.map.getMapCase(e.getxPosition(),e.getyPosition()).updateIsBlock(); //we update the properties of the map case accordingly.//we update the properties of the map case accordingly.
 		}
 	}
 	
@@ -141,6 +142,28 @@ public class LevelGroupOfEntities {
 
 		}
 		}
+		
+	}
+	
+	public void setHas(boolean value) {
+		if (!this.typeOfEntities.equalsIgnoreCase("empty")) {
+		for (int i = listOfEntities.size()-1; i>-1;i--) {
+			Entity e = listOfEntities.get(i);
+			e.setHasEntity(value);
+			if (value == false)
+			e.clearHasType();
+		}
+			
+		}
+	}
+	
+	public void addHasEntityType(String s) {
+		if (!this.typeOfEntities.equalsIgnoreCase("empty")) {
+		for (int i = listOfEntities.size()-1; i>-1;i--) {
+			Entity e = listOfEntities.get(i);
+			e.getHasEntityType().add(s);
+		}
+		}
 	}
 	public void setAllFalse() {
 		this.setIsBlock(false);
@@ -153,6 +176,12 @@ public class LevelGroupOfEntities {
 		this.setIsKill(false);
 		this.setMoveH(false);
 		this.setMoveV(false);
+		this.setHas(false);
+		this.setMakeFalse();
+	}
+	private void setMakeFalse() {
+		for (Entity entity : listOfEntities)
+			entity.setMakeEntity(new LinkedList<String>());
 	}
 	
 
@@ -162,16 +191,19 @@ public class LevelGroupOfEntities {
 	public void moveLeft() {
 		Collections.sort(listOfEntities,new yPositionComparator());
 		Collections.reverse(listOfEntities);
+		updateMake();
 		this.setDirection(Direction.WEST);
 		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
 			Entity e = listOfEntities.get(i);
 			this.map.moveLeft(e);
 		}
+		updateCanMove();
 	}
 	
 	public void moveRight() {
 		Collections.sort(listOfEntities,new yPositionComparator());
+		updateMake();
 		this.setDirection(Direction.EAST);
 		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
@@ -179,30 +211,40 @@ public class LevelGroupOfEntities {
 			this.map.moveRight(e);
 			
 		}
+		updateCanMove();
 	}
 	
 	public void moveUp() {
 		Collections.sort(listOfEntities,new xPositionComparator());
 		Collections.reverse(listOfEntities);
+		updateMake();
 		this.setDirection(Direction.NORTH);
 		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
 			Entity e = listOfEntities.get(i);
 			this.map.moveUp(e);
 		}
+		updateCanMove();
 	}
 	
 	public void moveDown() {
 		Collections.sort(listOfEntities,new xPositionComparator());
+		updateMake();
 		this.setDirection(Direction.SOUTH);
 		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
 			Entity e = listOfEntities.get(i);
 			this.map.moveDown(e);
 		}
-		
+		updateCanMove();
+
 	}
 	
+	public void updateCanMove() {
+		for (int i = 0; i< map.getxLength(); i++)
+			for(int j = 0; j< map.getyLength();j++)
+				map.getMapCase(i, j).updateCanMove();
+	}
 	
 	
 	public void updateWin() {
@@ -250,12 +292,13 @@ public class LevelGroupOfEntities {
 				return;
 			if(yMax == map.getyLength() -1)
 				this.hDirection = Direction.WEST;
-			if(yMax < map.getyLength() -1 && !map.getMapCase(listOfEntities.get(numberOfEntities-1).getxPosition(), yMax +1).isFree())
+			if(!map.getMapCase(listOfEntities.get(numberOfEntities-1).getxPosition(), yMax).isCanMoveRight())
 				this.hDirection = Direction.WEST;
 			if(yMin == 0)
 				this.hDirection = Direction.EAST;
-			if(yMin >0 && !map.getMapCase(listOfEntities.get(0).getxPosition(), yMin -1).isFree())
+			if(!map.getMapCase(listOfEntities.get(0).getxPosition(), yMin).isCanMoveLeft())
 				this.hDirection = Direction.EAST;
+			System.out.println(hDirection);
 			switch(hDirection) {
 			case WEST:
 				this.moveLeft();
@@ -277,8 +320,15 @@ public class LevelGroupOfEntities {
 				return;
 			if(xMax == map.getxLength() -1)
 				this.vDirection = Direction.NORTH;
+			if(!map.getMapCase(xMax, listOfEntities.get(numberOfEntities-1).getyPosition()).isCanMoveDown())
+				this.vDirection = Direction.NORTH;
 			if(xMin == 0)
 				this.vDirection = Direction.SOUTH;
+			if(!map.getMapCase(xMin, listOfEntities.get(numberOfEntities-1).getyPosition()).isCanMoveUp())
+				this.vDirection = Direction.SOUTH;
+			System.out.println(vDirection);
+			System.out.println(xMax);
+
 			switch(vDirection) {
 			case NORTH:
 				this.moveUp();
@@ -287,6 +337,15 @@ public class LevelGroupOfEntities {
 				this.moveDown();
 				break;
 			}	
+		}
+	}
+	public void updateMake(){
+			if(!this.getTypeOfEntities().equalsIgnoreCase("empty")) {
+			for (Entity entity : this.getListOfEntities()) {
+				for(String s : entity.getMakeEntity()) {
+					map.addEntity(entity.getxPosition(), entity.getyPosition(), s);
+				}
+			}
 		}
 	}
 
