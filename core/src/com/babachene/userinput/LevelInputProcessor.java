@@ -202,7 +202,7 @@ public class LevelInputProcessor extends InputAdapter {
 		/*
 		 * Handling quickly pressed key, the result is stored in move1Event.
 		 * 
-		 */
+		 */ // TODO allow a spam 
 		if (Gdx.input.isKeyJustPressed(keymap.GO_UP)) {
 			move1Event = new InputEvent(InputEvent.MOVE_UP, 1);
 			moveOver1Time = DURATION_OVER_EVENT;

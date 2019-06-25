@@ -151,16 +151,19 @@ class MapRenderer extends Renderer { // Not a public class.
 		
 		String id = e.getId();
 		
-		if (id.isEmpty()) { //TODO
+		if (id.isEmpty()) {
 			logger.fine("An entity with ID \"\" has dropped and will not be renderer.");
 			return;
 		}
 		
 		/*
-		 * This will require changes if an EntityGroup class comes up.
+		 * This will require changes if an EntityGroup class comes up. And Directional renderer already did.
 		 */
 		try {
-			renderers.add(new EntityRenderer(e, mapRenderingData));
+			if (e.getId().equals("baba") || e.getId().equals("keke"))
+				renderers.add(new DirectionalEntityRenderer(e, mapRenderingData));
+			else
+				renderers.add(new EntityRenderer(e, mapRenderingData));
 		} catch (MissingResourceException ex) {
 			ex.printStackTrace();
 		}

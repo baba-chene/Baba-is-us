@@ -77,7 +77,7 @@ public class SoloController extends Controller {
 
 
 			
-		
+		/*
 		MapEditorConverter mapEditorConverter = new MapEditorConverter(30, 20);
 		try {
 
@@ -90,8 +90,8 @@ public class SoloController extends Controller {
 			System.out.println("Level doesn't exist");
 			e.printStackTrace();
 		}
-		LevelMap map = mapEditorConverter.getMap();
-//		LevelMap map = CtrlTest.gimmeLevel(); // comment this line if you want to load a level file.
+		LevelMap map = mapEditorConverter.getMap();*/
+		LevelMap map = CtrlTest.gimmeLevel(); // comment this line if you want to load a level file.
 		logic = new GameLogic(map);
 		
 		mainGame.push(new LevelState(mainGame, map, inputProcessor));

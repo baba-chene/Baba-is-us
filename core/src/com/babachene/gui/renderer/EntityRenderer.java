@@ -58,12 +58,23 @@ class EntityRenderer extends Renderer { // Not a public class
 	public void render(SpriteBatch batch) {
 		
 		/*
+		 * TODO Make fast speed come back. How? By introducing the 'moving' boolean
+		 * inside the block right below.
+		 */
+		
+		/*
 		 * Here is the system that handle the movement of the texture.
 		 * It is not perfect and frenetically typing the keys may
 		 * lead to a wrong texture position.
 		 */
 		// Verify if the entity has not moved.
 		if (entity.getX() != intX || entity .getY() != intY) {
+			// For sub-class.
+			handleMovement();
+			
+			if (moving) {
+				//...
+			} // else {
 			
 			int ex = entity.getX(), ey = entity.getY();
 			
@@ -169,6 +180,12 @@ class EntityRenderer extends Renderer { // Not a public class
 	public void update() {
 		
 	}
+	/**
+	 * Called automatically when the entity has just moved.
+	 */
+	protected void handleMovement() {
+		
+	}
 	
 	/////////////////////
 	
@@ -178,6 +195,17 @@ class EntityRenderer extends Renderer { // Not a public class
 	
 	public MapRenderingData getMapRenderingData() {
 		return mapData;
+	}
+	
+	
+	
+	public TextureRegion getTexture() {
+		return tex;
+	}
+
+
+	public void setTexture(TextureRegion tex) {
+		this.tex = tex;
 	}
 	
 	/////////////////////

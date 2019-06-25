@@ -10,6 +10,7 @@ import com.babachene.gui.renderer.LevelRenderer;
 import com.babachene.gui.renderer.RenderableEntity;
 import com.babachene.gui.renderer.RenderableLevel;
 import com.babachene.gui.renderer.RenderableMap;
+import com.babachene.logic.data.Direction;
 import com.babachene.gui.renderer.MapUpdateQueue;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
@@ -242,7 +243,7 @@ public class RenderingTest extends GameState {
 		}
 
 		@Override
-		public Object getDirection() {
+		public Direction getDirection() {
 			// TODO Auto-generated method stub
 			return null;
 		}
