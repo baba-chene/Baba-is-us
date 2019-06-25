@@ -16,10 +16,6 @@ import com.badlogic.gdx.InputAdapter;
  * @author jeremy
  *
  */
-/*
- * TODO If a key is kept pressed, the player sould keep moving at each update.
- * However, this is for later, once we managed the movement speed.
- */
 public class LevelInputProcessor extends InputAdapter {
 	/*
 	 * move events and handled with Gdx.input.isKeyPressed(...), it's polling.
@@ -47,11 +43,8 @@ public class LevelInputProcessor extends InputAdapter {
 			resetRequestDown = false;
 	/** For counting time. */
 	private float
-			move1Time = -1, moveOver1Time = -1,
-			move2Time = -1, moveOver2Time = -1;
-	private InputEvent
-			move1Event = null,
-			move2Event = null;
+			move1Time = -1,
+			move2Time = -1;
 	
 	public LevelInputProcessor(KeyboardMap km, EventGiver eventGiver, boolean isSolo) {
 		if (km == null)
@@ -152,78 +145,51 @@ public class LevelInputProcessor extends InputAdapter {
 	 * case the player keeps a key down to move.
 	 */
 	public void update() {
-		/*
+		
+		/* ================
 		 * Player 1
 		 */
+		
 		if (move1Time > 0) {
 			move1Time -= Gdx.graphics.getDeltaTime();
+			
+			/*
+			 * Handling quickly pressed key, the result is immediatly sent.
+			 */
+			if (Gdx.input.isKeyJustPressed(keymap.GO_UP)) {
+				eventGiver.addEvent(new InputEvent(InputEvent.MOVE_UP, 1));
+			} else if (Gdx.input.isKeyJustPressed(keymap.GO_RIGHT)) {
+				eventGiver.addEvent(new InputEvent(InputEvent.MOVE_RIGHT, 1));
+			} else if (Gdx.input.isKeyJustPressed(keymap.GO_LEFT)) {
+				eventGiver.addEvent(new InputEvent(InputEvent.MOVE_LEFT, 1));
+			} else if (Gdx.input.isKeyJustPressed(keymap.GO_DOWN)) {
+				eventGiver.addEvent(new InputEvent(InputEvent.MOVE_DOWN, 1));
+			}
+			
 		} else { // It's okay, the player can move.
 			if (Gdx.input.isKeyPressed(keymap.GO_UP)) {
-				if (move1Event == null)
-					eventGiver.addEvent(new InputEvent(InputEvent.MOVE_UP, 1));    // There is an event exclusion.
-				else {
-					eventGiver.addEvent(move1Event);
-					move1Event = null;
-				}
+				eventGiver.addEvent(new InputEvent(InputEvent.MOVE_UP, 1));    // There is an event exclusion.
 				move1Time = DURATION;
 			} else if (Gdx.input.isKeyPressed(keymap.GO_RIGHT)) {
-				if (move1Event == null)
-					eventGiver.addEvent(new InputEvent(InputEvent.MOVE_RIGHT, 1));
-				else {
-					eventGiver.addEvent(move1Event);
-					move1Event = null;
-				}
+				eventGiver.addEvent(new InputEvent(InputEvent.MOVE_RIGHT, 1));
 				move1Time = DURATION;
 			} else if (Gdx.input.isKeyPressed(keymap.GO_LEFT)) {
-				if (move1Event == null)
-					eventGiver.addEvent(new InputEvent(InputEvent.MOVE_LEFT, 1));
-				else {
-					eventGiver.addEvent(move1Event);
-					move1Event = null;
-				}
+				eventGiver.addEvent(new InputEvent(InputEvent.MOVE_LEFT, 1));
 				move1Time = DURATION;
 			} else if (Gdx.input.isKeyPressed(keymap.GO_DOWN)) {
-				if (move1Event == null)
-					eventGiver.addEvent(new InputEvent(InputEvent.MOVE_DOWN, 1));
-				else {
-					eventGiver.addEvent(move1Event);
-					move1Event = null;
-				}
-				move1Time = DURATION;
-			}
-			//TEST
-			else if (move1Event != null) {
-				eventGiver.addEvent(move1Event);
-				move1Event = null;
+				eventGiver.addEvent(new InputEvent(InputEvent.MOVE_DOWN, 1));
 				move1Time = DURATION;
 			}
 		}
 		
-		/*
-		 * Handling quickly pressed key, the result is stored in move1Event.
-		 * 
-		 */ // TODO allow a spam 
-		if (Gdx.input.isKeyJustPressed(keymap.GO_UP)) {
-			move1Event = new InputEvent(InputEvent.MOVE_UP, 1);
-			moveOver1Time = DURATION_OVER_EVENT;
-		} else if (Gdx.input.isKeyJustPressed(keymap.GO_RIGHT)) {
-			move1Event = new InputEvent(InputEvent.MOVE_RIGHT, 1);
-			moveOver1Time = DURATION_OVER_EVENT;
-		} else if (Gdx.input.isKeyJustPressed(keymap.GO_LEFT)) {
-			move1Event = new InputEvent(InputEvent.MOVE_LEFT, 1);
-			moveOver1Time = DURATION_OVER_EVENT;
-		} else if (Gdx.input.isKeyJustPressed(keymap.GO_DOWN)) {
-			move1Event = new InputEvent(InputEvent.MOVE_DOWN, 1);
-			moveOver1Time = DURATION_OVER_EVENT;
-		}
-		/*
-		 * However, the over moveEvent cannot live forever. It is removed after some time.
-		 */
-		if (moveOver1Time > 0) {
-			moveOver1Time -= Gdx.graphics.getDeltaTime();
-		} else {
-			move1Event = null;
-		}
+//		/*
+//		 * However, the over moveEvent cannot live forever. It is removed after some time.
+//		 */
+//		if (moveOver1Time > 0) {
+//			moveOver1Time -= Gdx.graphics.getDeltaTime();
+//		} else {
+//			move1Event = null;
+//		}
 		
 		
 		
@@ -234,76 +200,38 @@ public class LevelInputProcessor extends InputAdapter {
 		 */
 		
 		
-		
 		if (move2Time > 0) {
 			move2Time -= Gdx.graphics.getDeltaTime();
+			
+			/*
+			 * Handling quickly pressed key, the result is immediatly sent.
+			 */
+			if (Gdx.input.isKeyJustPressed(keymap.GO_UP_2)) {
+				eventGiver.addEvent(new InputEvent(InputEvent.MOVE_UP, 2));
+			} else if (Gdx.input.isKeyJustPressed(keymap.GO_RIGHT_2)) {
+				eventGiver.addEvent(new InputEvent(InputEvent.MOVE_RIGHT, 2));
+			} else if (Gdx.input.isKeyJustPressed(keymap.GO_LEFT_2)) {
+				eventGiver.addEvent(new InputEvent(InputEvent.MOVE_LEFT, 2));
+			} else if (Gdx.input.isKeyJustPressed(keymap.GO_DOWN_2)) {
+				eventGiver.addEvent(new InputEvent(InputEvent.MOVE_DOWN, 2));
+			}
+			
 		} else { // It's okay, the player can move.
 			if (Gdx.input.isKeyPressed(keymap.GO_UP_2)) {
-				if (move2Event == null)
-					eventGiver.addEvent(new InputEvent(InputEvent.MOVE_UP, 2));    // There is an event exclusion.
-				else {
-					eventGiver.addEvent(move2Event);
-					move2Event = null;
-				}
+				eventGiver.addEvent(new InputEvent(InputEvent.MOVE_UP, 2));    // There is an event exclusion.
 				move2Time = DURATION;
 			} else if (Gdx.input.isKeyPressed(keymap.GO_RIGHT_2)) {
-				if (move2Event == null)
-					eventGiver.addEvent(new InputEvent(InputEvent.MOVE_RIGHT, 2));
-				else {
-					eventGiver.addEvent(move2Event);
-					move2Event = null;
-				}
+				eventGiver.addEvent(new InputEvent(InputEvent.MOVE_RIGHT, 2));
 				move2Time = DURATION;
 			} else if (Gdx.input.isKeyPressed(keymap.GO_LEFT_2)) {
-				if (move2Event == null)
-					eventGiver.addEvent(new InputEvent(InputEvent.MOVE_LEFT, 2));
-				else {
-					eventGiver.addEvent(move2Event);
-					move2Event = null;
-				}
+				eventGiver.addEvent(new InputEvent(InputEvent.MOVE_LEFT, 2));
 				move2Time = DURATION;
 			} else if (Gdx.input.isKeyPressed(keymap.GO_DOWN_2)) {
-				if (move2Event == null)
-					eventGiver.addEvent(new InputEvent(InputEvent.MOVE_DOWN, 2));
-				else {
-					eventGiver.addEvent(move2Event);
-					move2Event = null;
-				}
-				move2Time = DURATION;
-			}
-			//TEST
-			else if (move2Event != null) {
-				eventGiver.addEvent(move2Event);
-				move2Event = null;
+				eventGiver.addEvent(new InputEvent(InputEvent.MOVE_DOWN, 2));
 				move2Time = DURATION;
 			}
 		}
 		
-		/*
-		 * Handling quickly pressed key, the result is stored in move2Event.
-		 * 
-		 */
-		if (Gdx.input.isKeyJustPressed(keymap.GO_UP_2)) {
-			move2Event = new InputEvent(InputEvent.MOVE_UP, 2);
-			moveOver2Time = DURATION_OVER_EVENT;
-		} else if (Gdx.input.isKeyJustPressed(keymap.GO_RIGHT_2)) {
-			move2Event = new InputEvent(InputEvent.MOVE_RIGHT, 2);
-			moveOver2Time = DURATION_OVER_EVENT;
-		} else if (Gdx.input.isKeyJustPressed(keymap.GO_LEFT_2)) {
-			move2Event = new InputEvent(InputEvent.MOVE_LEFT, 2);
-			moveOver2Time = DURATION_OVER_EVENT;
-		} else if (Gdx.input.isKeyJustPressed(keymap.GO_DOWN_2)) {
-			move2Event = new InputEvent(InputEvent.MOVE_DOWN, 2);
-			moveOver2Time = DURATION_OVER_EVENT;
-		}
-		/*
-		 * However, the over moveEvent cannot live forever. It is removed after some time.
-		 */
-		if (moveOver2Time > 0) {
-			moveOver2Time -= Gdx.graphics.getDeltaTime();
-		} else {
-			move2Event = null;
-		}
 	}
 	
 }
