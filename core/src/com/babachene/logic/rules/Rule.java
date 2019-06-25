@@ -44,6 +44,8 @@ public class Rule {
 
 	private void applyPropertyRuleH(Text text, Text property) {
 		rulesUpdater.getMap();
+		if(text.getText().equalsIgnoreCase("hug"))
+			applyHugRules(property);
 		LevelGroupOfEntities entities = LevelMap.findGroup(text.getText());
 		if (entities != null) {
 		if (this.verb.getText().equalsIgnoreCase("is")){
@@ -82,6 +84,8 @@ public class Rule {
 	}
 	private void applyPropertyRuleV(Text text, Text property) {
 		rulesUpdater.getMap();
+		if(text.getText().equalsIgnoreCase("hug"))
+			applyHugRules(property);
 		LevelGroupOfEntities entities = LevelMap.findGroup(text.getText());
 		if (entities != null) {
 		if (this.verb.getText().equalsIgnoreCase("is")){
@@ -118,6 +122,14 @@ public class Rule {
 		}
 		}
 	}
+	
+	private void applyHugRules(Text property) {
+		if (this.verb.getText().equalsIgnoreCase("is")) {
+			if(property.getText().equalsIgnoreCase("win"))
+				rulesUpdater.getMap().getHuggedEntities().setWin(true);
+		}
+	}
+	
 
 	private void applyNounRule(Text text, LinkedList<Text> nounList) {
 		rulesUpdater.getMap();

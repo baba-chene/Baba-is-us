@@ -71,6 +71,7 @@ public class RulesUpdater {
 			case "water":
 			case "flag":
 			case "grass":
+			case "hug":
 			case "lego":
 			case "love":
 			case "palm":
@@ -195,6 +196,7 @@ public class RulesUpdater {
 		LinkedList<LevelGroupOfEntities> youEntities = this.map.findYou();
 		for (LevelGroupOfEntities entities:youEntities)
 			entities.updateWin();
+		
 	}
 	
 	public void updateIsWinDuo() {
@@ -204,6 +206,8 @@ public class RulesUpdater {
 		LinkedList<LevelGroupOfEntities> p2Entities = this.map.findP2();
 		for (LevelGroupOfEntities entities2:p2Entities)
 			entities2.updateWin();
+		if (map.getHuggedEntities().isWin() && map.getHuggedEntities().getSize()>0)
+			System.out.println("Congratulations, you won");
 	}
 	
 	public void resetProperties() {

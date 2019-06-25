@@ -44,6 +44,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	private LevelMapCase[][] mapMatrix;
 	private LinkedList<MapState> mapStateList;
 	private boolean isUndoing;
+	private HuggedEntities huggedEntities;
 
 	public LevelMap(int xLength, int yLength) { //Creates a map of dimension xLength*yLength with cases filled with "empty".
 		super();
@@ -54,6 +55,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		this.existingGroups = new LinkedList<String>(); 
 		this.numberOfGroupEntities = 0;
 		this.isUndoing = false;
+		this.huggedEntities = new HuggedEntities();
 		mapMatrix = new LevelMapCase[xLength][yLength];
 		mapStateList = new LinkedList<MapState>();
 		mapStateList.add(new MapState(this));
@@ -470,6 +472,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			playerEntities.get(i).moveLeft();
 		}
 		updateSink();
+		updateHug();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWinDuo();
 		if (this.mapStateList.get(0).isEmpty())
@@ -494,6 +497,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			playerEntities.get(i).moveRight();
 		}
 		updateSink();
+		updateHug();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWinDuo();
 		if (this.mapStateList.get(0).isEmpty())
@@ -517,6 +521,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			playerEntities.get(i).moveUp();
 		}
 		updateSink();
+		updateHug();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWinDuo();
 		if (this.mapStateList.get(0).isEmpty())
@@ -540,6 +545,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			playerEntities.get(i).moveDown();
 		}
 		updateSink();
+		updateHug();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWinDuo();
 		if (this.mapStateList.get(0).isEmpty())
@@ -629,8 +635,30 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			entities.updateMove();
 	}
 	
+	public void updateHug(){
+		huggedEntities.clear();
+		LinkedList<LevelGroupOfEntities> entities1 = findP1();
+		LinkedList<LevelGroupOfEntities> entities2 = findP2();
+		for (int i =0;i < entities1.size();i++) {
+			for (int j =0; j<entities1.get(i).getListOfEntities().size(); j++) {
+				Entity entity1 = entities1.get(i).getListOfEntities().get(j);
+				for (int k =0;k < entities2.size();k++) {
+					for (int l =0; l<entities2.get(k).getListOfEntities().size(); l++) {
+						Entity entity2 = entities2.get(k).getListOfEntities().get(l);
+						if (entity1.getxPosition() == entity2.getxPosition() && entity1.getyPosition() == entity2.getyPosition() )
+							huggedEntities.add(entity2.getxPosition(), entity2.getyPosition());
+					}}
+			}
+		}
+		
+	}
 	
+
 	
+	public HuggedEntities getHuggedEntities() {
+		return huggedEntities;
+	}
+
 	@Override
 	public Iterator<RenderableEntity> iterator() {
 		// TODO Auto-generated method stub
