@@ -13,6 +13,10 @@ public class LevelMapCase {
 	private int xPosition;
 	private int yPosition;
 	private LevelMap map;
+	private boolean canMoveRight;
+	private boolean canMoveLeft;
+	private boolean canMoveUp;
+	private boolean canMoveDown;
 	private boolean isKill;
 	private boolean isBlock;
 	private boolean isSink;			 //True if it contains an entity with isSink
@@ -32,6 +36,10 @@ public class LevelMapCase {
 		this.isFree = true;
 		this.isSink = false;
 		this.isWin = false;
+		this.canMoveDown = false;
+		this.canMoveUp = false;
+		this.canMoveLeft = false;
+		this.canMoveRight = false;
 		this.containsPushableEntity = false;
 		this.entityStack = new LinkedList<Entity>();
 		entityEmpty = new EntityEmpty(x, y, map);
@@ -62,6 +70,7 @@ public class LevelMapCase {
 		updateIsFree();
 		updateContainsPushable();
 		updateIsKill();
+		updateIsBlock();
 	}
 	
 	public void removeEntity(Entity entity) {						// /!\ Only removes the entity from the map case and not from the group of entity,
@@ -72,9 +81,13 @@ public class LevelMapCase {
 		 															// We look if the removal of the entity has special effects on the case
 		updateIsFree();
 		updateContainsPushable();
+		updateIsBlock();
 		
 	}
 	
+	public boolean isBlock() {
+		return isBlock;
+	}
 
 	public LinkedList<Entity> getPushableEntityList() {
 		return pushableEntityList;
@@ -186,7 +199,95 @@ public class LevelMapCase {
 			}
 		this.updateContainsPushable();
 		this.updateIsFree();
+		this.updateIsBlock();
 		this.updateIsSink();
 		this.updateIsWin();
+		
 	}
+	
+	public void updateCanMove() {
+		updateCanMoveDown();
+		updateCanMoveLeft();
+		updateCanMoveRight();
+		updateCanMoveUp();
+	}
+	
+	public void updateCanMoveRight() {
+		this.canMoveRight = false;
+		int x = this.xPosition;
+		int y = this.yPosition;
+		while (y < map.getyLength() -1)
+		{
+			if(map.getMapMatrix()[x][y+1].isFree()) {
+				this.canMoveRight = true;
+				return;
+				}
+			if(map.getMapMatrix()[x][y+1].containsPushableEntity()) {
+				y++;
+			}
+				
+		}
+	}
+	public void updateCanMoveLeft() {
+		this.canMoveLeft = false;
+		int x = this.xPosition;
+		int y = this.yPosition;
+		while (y > 0)
+		{
+			if(map.getMapMatrix()[x][y-1].isFree()) {
+				this.canMoveLeft = true;
+				return;
+				}
+			if(map.getMapMatrix()[x][y-1].containsPushableEntity()) {
+				y--;
+			}
+				
+		}
+	}
+	public void updateCanMoveUp() {
+		this.canMoveUp = false;
+		int x = this.xPosition;
+		int y = this.yPosition;
+		while (x >0 )
+		{
+			if(map.getMapMatrix()[x-1][y].isFree()) {
+				this.canMoveUp = true;
+				return;
+				}
+			if(map.getMapMatrix()[x-1][y].containsPushableEntity()) {
+				x--;
+			}
+				
+		}
+	}
+	public void updateCanMoveDown() {
+		this.canMoveDown = false;
+		int x = this.xPosition;
+		int y = this.yPosition;
+		while (x < map.getxLength() -1)
+		{
+			if(map.getMapMatrix()[x+1][y].isFree()) {
+				this.canMoveDown = true;
+				return;
+				}
+			if(map.getMapMatrix()[1+x][y].containsPushableEntity()) {
+				x++;
+			}
+				
+		}
+	}
+	public boolean isCanMoveRight() {
+		return canMoveRight;
+	}
+	public boolean isCanMoveLeft() {
+		return canMoveLeft;
+	}
+	public boolean isCanMoveUp() {
+		return canMoveUp;
+	}
+	public boolean isCanMoveDown() {
+		return canMoveDown;
+	}
+	
+	
 }

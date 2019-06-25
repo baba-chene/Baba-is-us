@@ -77,7 +77,8 @@ public class LevelGroupOfEntities {
 		for (int i = listOfEntities.size()-1; i>-1;i--) {
 			Entity e = listOfEntities.get(i);
 			e.setBlock(value);
-			this.map.getMapCase(e.getxPosition(),e.getyPosition()).updateIsFree(); //we update the properties of the map case accordingly.
+			this.map.getMapCase(e.getxPosition(),e.getyPosition()).updateIsFree(); 
+			this.map.getMapCase(e.getxPosition(),e.getyPosition()).updateIsBlock(); //we update the properties of the map case accordingly.//we update the properties of the map case accordingly.
 		}
 	}
 	
@@ -197,6 +198,7 @@ public class LevelGroupOfEntities {
 			Entity e = listOfEntities.get(i);
 			this.map.moveLeft(e);
 		}
+		updateCanMove();
 	}
 	
 	public void moveRight() {
@@ -209,6 +211,7 @@ public class LevelGroupOfEntities {
 			this.map.moveRight(e);
 			
 		}
+		updateCanMove();
 	}
 	
 	public void moveUp() {
@@ -221,6 +224,7 @@ public class LevelGroupOfEntities {
 			Entity e = listOfEntities.get(i);
 			this.map.moveUp(e);
 		}
+		updateCanMove();
 	}
 	
 	public void moveDown() {
@@ -232,9 +236,15 @@ public class LevelGroupOfEntities {
 			Entity e = listOfEntities.get(i);
 			this.map.moveDown(e);
 		}
-		
+		updateCanMove();
+
 	}
 	
+	public void updateCanMove() {
+		for (int i = 0; i< map.getxLength(); i++)
+			for(int j = 0; j< map.getyLength();j++)
+				map.getMapCase(i, j).updateCanMove();
+	}
 	
 	
 	public void updateWin() {
@@ -282,12 +292,13 @@ public class LevelGroupOfEntities {
 				return;
 			if(yMax == map.getyLength() -1)
 				this.hDirection = Direction.WEST;
-			if(yMax < map.getyLength() -1 && !map.getMapCase(listOfEntities.get(numberOfEntities-1).getxPosition(), yMax +1).isFree())
+			if(!map.getMapCase(listOfEntities.get(numberOfEntities-1).getxPosition(), yMax).isCanMoveRight())
 				this.hDirection = Direction.WEST;
 			if(yMin == 0)
 				this.hDirection = Direction.EAST;
-			if(yMin >0 && !map.getMapCase(listOfEntities.get(0).getxPosition(), yMin -1).isFree())
+			if(!map.getMapCase(listOfEntities.get(0).getxPosition(), yMin).isCanMoveLeft())
 				this.hDirection = Direction.EAST;
+			System.out.println(hDirection);
 			switch(hDirection) {
 			case WEST:
 				this.moveLeft();
@@ -309,8 +320,15 @@ public class LevelGroupOfEntities {
 				return;
 			if(xMax == map.getxLength() -1)
 				this.vDirection = Direction.NORTH;
+			if(!map.getMapCase(xMax, listOfEntities.get(numberOfEntities-1).getyPosition()).isCanMoveDown())
+				this.vDirection = Direction.NORTH;
 			if(xMin == 0)
 				this.vDirection = Direction.SOUTH;
+			if(!map.getMapCase(xMin, listOfEntities.get(numberOfEntities-1).getyPosition()).isCanMoveUp())
+				this.vDirection = Direction.SOUTH;
+			System.out.println(vDirection);
+			System.out.println(xMax);
+
 			switch(vDirection) {
 			case NORTH:
 				this.moveUp();
