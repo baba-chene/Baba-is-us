@@ -153,6 +153,11 @@ public class LevelGroupOfEntities {
 		this.setIsKill(false);
 		this.setMoveH(false);
 		this.setMoveV(false);
+		this.setMakeFalse();
+	}
+	private void setMakeFalse() {
+		for (Entity entity : listOfEntities)
+			entity.setMakeEntity(new LinkedList<String>());
 	}
 	
 

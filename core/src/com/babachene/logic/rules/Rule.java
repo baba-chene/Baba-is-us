@@ -186,9 +186,11 @@ public class Rule {
 		}
 			if(this.verb.getText().equalsIgnoreCase("make")) {
 			for (Entity entity : list) {
-				for (Text noun : nounList)
+				for (Text noun : nounList) {
+					System.out.println(noun.getText());
 					if (!entity.getMakeEntity().contains(noun.getText()))
 					entity.addMakeEntity(noun.getText());}
+				}
 					
 			}
 		}

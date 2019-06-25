@@ -163,6 +163,11 @@ public abstract class Entity implements RenderableEntity {
 		this.makeEntity.add(makeEntity);
 	}
 
+	public void setMakeEntity(LinkedList<String> makeEntity) {
+		this.makeEntity = makeEntity;
+	}
+	
+
 	
 	
 	
