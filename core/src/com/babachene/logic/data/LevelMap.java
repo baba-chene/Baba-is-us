@@ -288,10 +288,6 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		this.mapStateList.get(0).addDestroy(entity);
 		if(!entity.getTypeOfEntity().equalsIgnoreCase("empty"))
 		this.mapUpdateQueue.pushRemovedEntity(entity);
-		if (entity.HasEntity()) {
-			for (String s : entity.getHasEntityType())
-			this.addEntity(x, y, s);
-		}
 		this.mapMatrix[x][y].removeEntity(entity);  				  //First we remove the entity from the mapCase.	
 		findGroup(entityType).removeEntity(entity);	
 //We remove it from the group.

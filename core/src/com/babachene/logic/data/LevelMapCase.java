@@ -178,7 +178,11 @@ public class LevelMapCase {
 			{Entity entity = entityStack.get(i);
 			if (!entity.getTypeOfEntity().equalsIgnoreCase("empty"))
 				this.map.getMapUpdateQueue().pushRemovedEntity(entity); 
-			this.map.removeEntity(entityStack.get(i)); 
+			if (entity.HasEntity()) {
+				for (String s : entity.getHasEntityType())
+				map.addEntity(this.xPosition, this.yPosition, s);
+			}
+			this.map.removeEntity(entity); 
 			}
 		this.pushableEntityList = new LinkedList<Entity>();
 		this.containsPushableEntity = false;

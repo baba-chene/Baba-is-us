@@ -196,7 +196,8 @@ public class Rule {
 				for (Entity entity : list) {
 					for (Text noun : nounList) {	
 						if (!entity.getHasEntityType().contains(noun.getText()))
-							entity.addMakeEntity(noun.getText());}}
+							entity.addHasEntityType((noun.getText()));
+						entity.setHasEntity(true);}}
 					}
 		}
 		
