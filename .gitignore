@@ -2,6 +2,7 @@
 /assets-building/
 # Colin's logs.
 logs.txt
+/desktop/logs.txt*
 
 ## Java
 
