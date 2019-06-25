@@ -47,7 +47,7 @@ public final class Rsrc {
 		KEKE_TEXTURE = textureAtlas.findRegion("keke_right0");
 		ROCK_TEXTURE = textureAtlas.findRegion("rock");
 		WATER_TEXTURE = textureAtlas.findRegion("water1");
-		LAVA_TEXTURE = new TextureRegion(new Texture("textures/lava/lava0.png"));
+		LAVA_TEXTURE = textureAtlas.findRegion("lava15");
 		WALL_TEXTURE = textureAtlas.findRegion("wall15");
 		TREE_TEXTURE = textureAtlas.findRegion("tree");
 		PALM_TEXTURE = textureAtlas.findRegion("palm");
@@ -164,6 +164,25 @@ public final class Rsrc {
 				textureAtlas.findRegion("wall15"),
 		};
 		
+		LAVA_ARRAY_TEXTURE = new TextureRegion[] {
+				textureAtlas.findRegion("lava0"),
+				textureAtlas.findRegion("lava1"),
+				textureAtlas.findRegion("lava2"),
+				textureAtlas.findRegion("lava3"),
+				textureAtlas.findRegion("lava4"),
+				textureAtlas.findRegion("lava5"),
+				textureAtlas.findRegion("lava6"),
+				textureAtlas.findRegion("lava7"),
+				textureAtlas.findRegion("lava8"),
+				textureAtlas.findRegion("lava9"),
+				textureAtlas.findRegion("lava10"),
+				textureAtlas.findRegion("lava11"),
+				textureAtlas.findRegion("lava12"),
+				textureAtlas.findRegion("lava13"),
+				textureAtlas.findRegion("lava14"),
+				textureAtlas.findRegion("lava15"),
+		};
+		
 		WATER_ARRAY_TEXTURE = new TextureRegion[] {
 				textureAtlas.findRegion("water1"), // index 0
 				textureAtlas.findRegion("water1"), // starts from index 1
@@ -246,6 +265,7 @@ public final class Rsrc {
 								WATER_TEXTURE,
 								WATER_ARRAY_TEXTURE[],
 								LAVA_TEXTURE,
+								LAVA_ARRAY_TEXTURE[],
 								WALL_TEXTURE,
 								WALL_ARRAY_TEXTURE[],
 								TREE_TEXTURE,

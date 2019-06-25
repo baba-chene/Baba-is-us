@@ -8,7 +8,7 @@ import com.babachene.logic.data.LevelMap;
  * @author jeremy
  *
  */
-class WaterRenderer extends EntityRenderer { // Not a public class
+class WaterRenderer extends NeightboorRenderer { // Not a public class
 	
 	private final LevelMap levelMap;
 	
@@ -18,7 +18,7 @@ class WaterRenderer extends EntityRenderer { // Not a public class
 	}
 	
 	@Override
-	protected void handleMovement() {
+	public void update() {
 		// All we need to do is to ask the index of the right texture to WaterTextureChooser.
 		int i = WaterTextureChooser.index(levelMap, levelMap.getHeight() - getRenderableEntity().getY(), getRenderableEntity().getX());
 		setTexture(Rsrc.WATER_ARRAY_TEXTURE[i]);

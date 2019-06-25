@@ -1,6 +1,7 @@
 package com.babachene.gui.renderer;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.MissingResourceException;
 import java.util.logging.Level;
@@ -29,6 +30,10 @@ class MapRenderer extends Renderer { // Not a public class.
 	private final RenderableMap map;
 	
 	private List<EntityRenderer> renderers;
+	/*
+	 * This is a temporary solution for the neightboor-dependent renderers.
+	 */
+	private List<NeightboorRenderer> neightboor;
 //	private RenderableMap map;
 	private MapRenderingData mapRenderingData;
 	
@@ -72,7 +77,7 @@ class MapRenderer extends Renderer { // Not a public class.
 		 *  Entity                                          Give a reasonable size.
 		 */
 		renderers = new ArrayList<EntityRenderer>(map.getWidth() * map.getHeight() * 2);
-		
+		neightboor = new LinkedList<>();
 //		for (RenderableEntity e : map) {
 //			
 //			addEntity(e); // FIXME Well, I don't know how it should best work. But in current testing, the map sends all info through the queue.
@@ -167,11 +172,17 @@ class MapRenderer extends Renderer { // Not a public class.
 			if (e.getId().equals("baba") || e.getId().equals("keke"))
 				renderers.add(new DirectionalEntityRenderer(e, mapRenderingData));
 			else if (e.getId().equals("water") && map instanceof LevelMap) {
-				renderers.add(new WaterRenderer(e, mapRenderingData, (LevelMap) map));
-				renderers.get(renderers.size() - 1).handleMovement();
+				NeightboorRenderer r = new WaterRenderer(e, mapRenderingData, (LevelMap) map);
+				renderers.add(r);
+				neightboor.add(r);
 			} else if (e.getId().equals("wall") && map instanceof LevelMap) {
-				renderers.add(new WallRenderer(e, mapRenderingData, (LevelMap) map));
-				renderers.get(renderers.size() - 1).handleMovement();
+				NeightboorRenderer r = new WallRenderer(e, mapRenderingData, (LevelMap) map);
+				renderers.add(r);
+				neightboor.add(r);
+			} else if (e.getId().equals("lava") && map instanceof LevelMap) {
+				NeightboorRenderer r = new LavaRenderer(e, mapRenderingData, (LevelMap) map);
+				renderers.add(r);
+				neightboor.add(r);
 			} else
 				renderers.add(new EntityRenderer(e, mapRenderingData));
 			
@@ -180,9 +191,7 @@ class MapRenderer extends Renderer { // Not a public class.
 		}
 		logger.log(Level.FINE, "Created a new EntityRenderer, entity id="+id );
 		
-		
-		
-//		renderers.get(idtable.get(id)).addRenderableEntity(e);
+		updateNeightboorRenderers();
 		
 	}
 	
@@ -191,6 +200,7 @@ class MapRenderer extends Renderer { // Not a public class.
 		 * - entity does not exist.
 		 * - entity exists.
 		 * That's simpler with no grouped entities.
+		 * But here thay are, if the entity is a neightboor entity, we need to update them all.
 		 */
 		
 		if (e == null)
@@ -204,6 +214,15 @@ class MapRenderer extends Renderer { // Not a public class.
 				break;
 			}
 		}
+		
+		if (e instanceof NeightboorRenderer) {
+			if (found) {
+				neightboor.remove( (NeightboorRenderer) e);
+				// Don't forget to update the other renderers.
+				updateNeightboorRenderers();
+			}
+		}
+		
 		if ( ! found)
 			logger.log(Level.INFO, "Attempted to remove a RenderableEntity which was not found. id=" + e.getId());
 		
@@ -222,14 +241,22 @@ class MapRenderer extends Renderer { // Not a public class.
 				l.add(renderers.get(i));//renderers.remove(i--);
 				found = true;
 			}
+			
 		}
 		
 		renderers.removeAll(l);
+		neightboor.removeAll(l);
+		updateNeightboorRenderers();
 		
 		if ( ! found)
 			logger.log(Level.INFO, "Attempted to remove some RenderableEntities by id but no was found.");
 		else
 			logger.log(Level.FINE, "Removed all RenderableEntity of id " + id);
+	}
+	
+	private final void updateNeightboorRenderers() {
+		for (NeightboorRenderer e : neightboor)
+			e.update();
 	}
 	
 }
