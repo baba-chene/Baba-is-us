@@ -158,12 +158,16 @@ public class LevelInputProcessor extends InputAdapter {
 			 */
 			if (Gdx.input.isKeyJustPressed(keymap.GO_UP)) {
 				eventGiver.addEvent(new InputEvent(InputEvent.MOVE_UP, 1));
+				move1Time = DURATION;
 			} else if (Gdx.input.isKeyJustPressed(keymap.GO_RIGHT)) {
 				eventGiver.addEvent(new InputEvent(InputEvent.MOVE_RIGHT, 1));
+				move1Time = DURATION;
 			} else if (Gdx.input.isKeyJustPressed(keymap.GO_LEFT)) {
 				eventGiver.addEvent(new InputEvent(InputEvent.MOVE_LEFT, 1));
+				move1Time = DURATION;
 			} else if (Gdx.input.isKeyJustPressed(keymap.GO_DOWN)) {
 				eventGiver.addEvent(new InputEvent(InputEvent.MOVE_DOWN, 1));
+				move1Time = DURATION;
 			}
 			
 		} else { // It's okay, the player can move.
