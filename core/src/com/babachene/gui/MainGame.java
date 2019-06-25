@@ -5,10 +5,18 @@ import java.io.IOException;
 import com.babachene.controller.CtrlTest;
 import com.babachene.controller.MetaController;
 import com.babachene.gui.menus.LevelSelection;
+import com.babachene.gui.menus.Local2PlayerLevelSelection;
+import com.babachene.gui.menus.Local2PlayerMenu;
+import com.babachene.gui.menus.LocalArenaSelection;
+import com.babachene.gui.menus.LocalMenu;
 import com.babachene.gui.menus.MainMenu;
-import com.babachene.gui.menus.MultiplayerMenu;
+import com.babachene.gui.menus.OnlineArenaSelection;
+import com.babachene.gui.menus.OnlineLevelSelection;
+import com.babachene.gui.menus.OnlineMenu;
+import com.babachene.gui.menus.JoinMenu;
 import com.babachene.gui.menus.PlayMenu;
 import com.babachene.gui.menus.SettingsMenu;
+import com.babachene.gui.menus.SingleLevelSelection;
 import com.babachene.gui.test.RenderingTest;
 import com.babachene.logger.GlobalLogger;
 import com.babachene.userinput.AppInputProcessor;
@@ -24,13 +32,32 @@ public class MainGame extends StateBasedGame {
 	private MainMenu mainMenu;
 	private PlayMenu playMenu;
 	private SettingsMenu settingsMenu;
-	private MultiplayerMenu multiplayerMenu;
-	private LevelSelection levelSelection;
+	private LocalMenu localMenu;
+	private SingleLevelSelection singleLevelSelection;
+	private Local2PlayerMenu local2PlayerMenu;
+	private Local2PlayerLevelSelection local2PlayerLevelSelection;
+	private LocalArenaSelection localArenaSelection;
+	private JoinMenu joinMenu;
+	private OnlineMenu onlineMenu;
+	private OnlineLevelSelection onlineLevelSelection;
+	private OnlineArenaSelection onlineArenaSelection;
 	public final static int MAINMENU = 0;
 	public final static int PLAYMENU = 1;
 	public final static int SETTINGSMENU = 2;
-	public final static int MULTIPLAYERMENU = 3;
-	public final static int LEVELSELECTION = 4;
+	public final static int LOCALMENU = 3;
+	public final static int ONLINEMENU = 4;
+	public final static int LOCAL2PLAYERMENU = 5;
+	public final static int SINGLELEVELSELECTION = 6;
+	public final static int LOCAL2PLAYERLEVELSELECTION = 7;
+	public final static int LOCALARENASELECTION = 8;
+	public final static int JOINMENU =9;
+	public final static int ONLINELEVELSELECTION = 10;
+	public final static int ONLINEARENASELECTION =11;
+	
+	private LevelSelection levelSelection;
+	public final static int LEVELSELECTION =12;
+	
+	
 	
 	private final AppInputProcessor inputProcessor;
 	private final InputMultiplexer multiplexer;
@@ -100,7 +127,7 @@ public class MainGame extends StateBasedGame {
 //		gameController = new GameController(this);
 		
 		
-		this.push(new MainMenu(this));
+		this.push(new MainMenu(this,false));
 		
 		
 	}
@@ -128,21 +155,58 @@ public class MainGame extends StateBasedGame {
 				pop();
 				break;
 			case PLAYMENU:
-				if(playMenu == null) {playMenu = new PlayMenu(this);};
+				if(playMenu == null) {playMenu = new PlayMenu(this,true);};
 				this.push(playMenu);
 				break;
 			case SETTINGSMENU:
-				if(settingsMenu == null) {settingsMenu = new SettingsMenu(this);};
+				if(settingsMenu == null) {settingsMenu = new SettingsMenu(this,true);};
 				this.push(settingsMenu);
 				break;
-			case MULTIPLAYERMENU:
-				if(multiplayerMenu == null) {multiplayerMenu = new MultiplayerMenu(this);};
-				this.push(multiplayerMenu);
+			case LOCALMENU:
+				if(localMenu == null) {localMenu = new LocalMenu(this,true);};
+				this.push(localMenu);
 				break;
+			case ONLINEMENU:
+				if(onlineMenu == null) {onlineMenu = new OnlineMenu(this,true);};
+				this.push(onlineMenu);
+				break;
+			case LOCAL2PLAYERMENU:
+				if(local2PlayerMenu == null) {local2PlayerMenu = new Local2PlayerMenu(this,true);};
+				this.push(local2PlayerMenu);
+				break;
+			case JOINMENU:
+				if(joinMenu == null) {joinMenu = new JoinMenu(this);};
+				this.push(joinMenu);
+				break;
+			
 			case LEVELSELECTION:
 				if(levelSelection == null) {levelSelection = new LevelSelection(this);};
 				this.push(levelSelection);
 				break;
+				
+				/*
+			case SINGLELEVELSELECTION:
+				if(singleLevelSelection == null) {singleLevelSelection = new SingleLevelSelection(this,true);};
+				this.push(singleLevelSelection);
+				break;
+			case LOCAL2PLAYERLEVELSELECTION:
+				if(local2PlayerLevelSelection == null) {local2PlayerLevelSelection = new Local2PlayerLevelSelection(this,true);};
+				this.push(local2PlayerLevelSelection);
+				break;
+			case LOCALARENASELECTION:
+				if(localArenaSelection == null) {localArenaSelection = new LocalArenaSelection(this,true);};
+				this.push(localArenaSelection);
+				break;
+			case ONLINELEVELSELECTION:
+				if(onlineLevelSelection == null) {onlineLevelSelection = new OnlineLevelSelection(this,true);};
+				this.push(onlineLevelSelection);
+				break;
+			case ONLINEARENASELECTION:
+				if(onlineArenaSelection == null) {onlineArenaSelection = new OnlineArenaSelection(this,true);};
+				this.push(onlineArenaSelection);
+				break;
+				*/
+
 			
 		}
 	}
