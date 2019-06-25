@@ -77,21 +77,21 @@ public class SoloController extends Controller {
 
 
 			
-		/*
+		
 		MapEditorConverter mapEditorConverter = new MapEditorConverter(30, 20);
 		try {
 
 			//mapEditorConverter.open("maps\\K�k� is lost.txt\\");
-			mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\test.txt\\");
-		//	mapEditorConverter.open("maps/"+levelName+".txt");
+//			mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\test.txt\\");
+			mapEditorConverter.open("maps/"+levelName+".txt");
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Level doesn't exist");
 			e.printStackTrace();
 		}
-		LevelMap map = mapEditorConverter.getMap();*/
-		LevelMap map = CtrlTest.gimmeLevel(); // comment this line if you want to load a level file.
+		LevelMap map = mapEditorConverter.getMap();
+//		LevelMap map = CtrlTest.gimmeLevel(); // comment this line if you want to load a level file.
 		logic = new GameLogic(map);
 		
 		mainGame.push(new LevelState(mainGame, map, inputProcessor));

@@ -46,9 +46,9 @@ public final class Rsrc {
 		BABA_TEXTURE = textureAtlas.findRegion("baba_right0");
 		KEKE_TEXTURE = textureAtlas.findRegion("keke_right0");
 		ROCK_TEXTURE = textureAtlas.findRegion("rock");
-		WATER_TEXTURE = new TextureRegion(new Texture("textures/water/water1.png"));
+		WATER_TEXTURE = textureAtlas.findRegion("water1");
 		LAVA_TEXTURE = new TextureRegion(new Texture("textures/lava/lava0.png"));
-		WALL_TEXTURE = new TextureRegion(new Texture("textures/wall/wall15.png"));
+		WALL_TEXTURE = textureAtlas.findRegion("wall15");
 		TREE_TEXTURE = textureAtlas.findRegion("tree");
 		PALM_TEXTURE = textureAtlas.findRegion("palm");
 		FLAG_TEXTURE = textureAtlas.findRegion("flag");;
@@ -144,6 +144,76 @@ public final class Rsrc {
 				textureAtlas.findRegion("keke_down1"),
 				textureAtlas.findRegion("keke_down2")
 		};
+		
+		WALL_ARRAY_TEXTURE = new TextureRegion[] {
+				textureAtlas.findRegion("wall0"),
+				textureAtlas.findRegion("wall1"),
+				textureAtlas.findRegion("wall2"),
+				textureAtlas.findRegion("wall3"),
+				textureAtlas.findRegion("wall4"),
+				textureAtlas.findRegion("wall5"),
+				textureAtlas.findRegion("wall6"),
+				textureAtlas.findRegion("wall7"),
+				textureAtlas.findRegion("wall8"),
+				textureAtlas.findRegion("wall9"),
+				textureAtlas.findRegion("wall10"),
+				textureAtlas.findRegion("wall11"),
+				textureAtlas.findRegion("wall12"),
+				textureAtlas.findRegion("wall13"),
+				textureAtlas.findRegion("wall14"),
+				textureAtlas.findRegion("wall15"),
+		};
+		
+		WATER_ARRAY_TEXTURE = new TextureRegion[] {
+				textureAtlas.findRegion("water1"), // index 0
+				textureAtlas.findRegion("water1"), // starts from index 1
+				textureAtlas.findRegion("water2"), // so the index of a texture is the same as in the name.
+				textureAtlas.findRegion("water3"),
+				textureAtlas.findRegion("water4"),
+				textureAtlas.findRegion("water5"),
+				textureAtlas.findRegion("water6"),
+				textureAtlas.findRegion("water7"),
+				textureAtlas.findRegion("water8"),
+				textureAtlas.findRegion("water9"),
+				textureAtlas.findRegion("water10"),
+				textureAtlas.findRegion("water11"),
+				textureAtlas.findRegion("water12"),
+				textureAtlas.findRegion("water13"),
+				textureAtlas.findRegion("water14"),
+				textureAtlas.findRegion("water15"),
+				textureAtlas.findRegion("water16"),
+				textureAtlas.findRegion("water17"),
+				textureAtlas.findRegion("water18"),
+				textureAtlas.findRegion("water19"),
+				textureAtlas.findRegion("water20"),
+				textureAtlas.findRegion("water21"),
+				textureAtlas.findRegion("water22"),
+				textureAtlas.findRegion("water23"),
+				textureAtlas.findRegion("water24"),
+				textureAtlas.findRegion("water25"),
+				textureAtlas.findRegion("water26"),
+				textureAtlas.findRegion("water27"),
+				textureAtlas.findRegion("water28"),
+				textureAtlas.findRegion("water29"),
+				textureAtlas.findRegion("water30"),
+				textureAtlas.findRegion("water31"),
+				textureAtlas.findRegion("water32"),
+				textureAtlas.findRegion("water33"),
+				textureAtlas.findRegion("water34"),
+				textureAtlas.findRegion("water35"),
+				textureAtlas.findRegion("water36"),
+				textureAtlas.findRegion("water37"),
+				textureAtlas.findRegion("water38"),
+				textureAtlas.findRegion("water39"),
+				textureAtlas.findRegion("water40"),
+				textureAtlas.findRegion("water41"),
+				textureAtlas.findRegion("water42"),
+				textureAtlas.findRegion("water43"),
+				textureAtlas.findRegion("water44"),
+				textureAtlas.findRegion("water45"),
+				textureAtlas.findRegion("water46"),
+				textureAtlas.findRegion("water47")
+		};
 	}
 	
 	//====================================================================================//
@@ -174,8 +244,10 @@ public final class Rsrc {
 								KEKE_LEFT_TEXTURE[],
 								ROCK_TEXTURE,
 								WATER_TEXTURE,
+								WATER_ARRAY_TEXTURE[],
 								LAVA_TEXTURE,
 								WALL_TEXTURE,
+								WALL_ARRAY_TEXTURE[],
 								TREE_TEXTURE,
 								PALM_TEXTURE,
 								FLAG_TEXTURE,
@@ -323,6 +395,12 @@ public final class Rsrc {
 		
 	}
 	
+	/**
+	 * TODO doc
+	 * @param id
+	 * @param dir
+	 * @return
+	 */
 	public static TextureRegion[] getDirectionTextureArray(String id, Direction dir) {
 		switch (dir) {
 		case NORTH: switch (id) {

@@ -6,8 +6,8 @@ import com.babachene.logic.data.entities.EntityWall;
 
 /* Utilisation:
  * 
- * Appeller WallTextureChooser.texture(levelmap,x,y) 
- * ou (x,y) correspond aux coordonnées du bloc de water pour lequel on cherche une texture
+ * Appeler WallTextureChooser.texture(levelmap,x,y) 
+ * où (x,y) correspond aux coordonnées du bloc de mur pour lequel on cherche une texture
  * ce qui renvoie la string correspondant à la bonne texture de lava 
  * 
  */
@@ -19,12 +19,35 @@ public class WallTextureChooser {
 		if (x<0 || x>=hauteur || y<0 || y>=largeur) {
 			return 0;
 		}
-		for (Entity entity:map.getMapMatrix()[x][y].getEntityStack() ) {
-			if (entity instanceof EntityWall) {
+		for (Entity entity : map.getMapMatrix()[x][y].getEntityStack() ) {
+			if (entity.getTypeOfEntity().equals("wall") ) {
 				return 1;
 			}
 		}
 		return 0;
+	}
+	
+	static int index(LevelMap map,int x, int y) {
+		
+		int hauteur=map.getMapMatrix().length;
+		int largeur=map.getMapMatrix()[0].length;
+		
+		int voisins=0; // nombre entre 0 et 15 qui représente l'état des voisins
+		
+		//calcul de voisins
+		int[][] parcours = { {x-1,y},{x,y+1},{x+1,y},{x,y-1}};
+		int[] puissance = { 1, 2, 4, 8};
+		int xx,yy;
+		for(int i=0;i<4;i++) {
+			xx=parcours[i][0];
+			yy=parcours[i][1];
+			
+			int b=containsWall(map,xx,yy,hauteur,largeur);
+			voisins+= puissance[i] * (1-b);
+		}
+		
+		
+		return voisins;
 	}
 	
 	static String texture(LevelMap map,int x, int y) {
@@ -35,7 +58,7 @@ public class WallTextureChooser {
 		int voisins=0; // nombre entre 0 et 15 qui représente l'état des voisins
 		
 		//calcul de voisins
-		int[][] parcours = { {-1,0},{0,1},{1,0},{0,-1}};
+		int[][] parcours = { {x-1,y},{x,y+1},{x+1,y},{x,y-1}};
 		int xx,yy;
 		for(int i=0;i<4;i++) {
 			xx=parcours[i][0];

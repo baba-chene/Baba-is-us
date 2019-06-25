@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.babachene.gui.BabaIsUs;
+import com.babachene.logic.data.LevelMap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -25,6 +26,7 @@ class MapRenderer extends Renderer { // Not a public class.
 //	/** This table should not be used in the render() method. For performance reason.
 //	 * <br> It maps an entity id to the EntityGroupRenderer index in the list. */
 //	private TreeMap<Short, Integer> idtable;     // I give up on this id:index mapping.
+	private final RenderableMap map;
 	
 	private List<EntityRenderer> renderers;
 //	private RenderableMap map;
@@ -41,6 +43,7 @@ class MapRenderer extends Renderer { // Not a public class.
 	public MapRenderer(RenderableMap map, byte theme) {
 		if (map == null)
 			throw new IllegalArgumentException("The RenderableMap object cannot bu null");
+		this.map = map;
 		
 		if (map.getMapUpdateQueue() == null) {
 			logger.log(Level.WARNING, "The MapUpdateQueue is null: MapRenderer will not change its entities structure.");
@@ -160,10 +163,18 @@ class MapRenderer extends Renderer { // Not a public class.
 		 * This will require changes if an EntityGroup class comes up. And Directional renderer already did.
 		 */
 		try {
+			
 			if (e.getId().equals("baba") || e.getId().equals("keke"))
 				renderers.add(new DirectionalEntityRenderer(e, mapRenderingData));
-			else
+			else if (e.getId().equals("water") && map instanceof LevelMap) {
+				renderers.add(new WaterRenderer(e, mapRenderingData, (LevelMap) map));
+				renderers.get(renderers.size() - 1).handleMovement();
+			} else if (e.getId().equals("wall") && map instanceof LevelMap) {
+				renderers.add(new WallRenderer(e, mapRenderingData, (LevelMap) map));
+				renderers.get(renderers.size() - 1).handleMovement();
+			} else
 				renderers.add(new EntityRenderer(e, mapRenderingData));
+			
 		} catch (MissingResourceException ex) {
 			ex.printStackTrace();
 		}

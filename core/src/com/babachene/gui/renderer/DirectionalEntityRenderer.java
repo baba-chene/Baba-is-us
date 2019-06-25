@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  * For rendering entities such as Baba, which change sprite at each
- * movement along with a direction dependence.
+ * movement along with ax direction dependence.
  * @author jeremy
  *
  */
