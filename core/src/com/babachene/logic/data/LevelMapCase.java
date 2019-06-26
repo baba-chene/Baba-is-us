@@ -17,6 +17,7 @@ public class LevelMapCase {
 	private boolean canMoveLeft;
 	private boolean canMoveUp;
 	private boolean canMoveDown;
+	private boolean isUndoing;
 	private boolean isOpen;
 	private LinkedList<Entity> openEntities;
 	private boolean isShut;
@@ -37,6 +38,7 @@ public class LevelMapCase {
 		this.yPosition = y;
 		this.map = map;
 		this.isBlock = false;
+		this.isUndoing = false;
 		this.isFree = true;
 		this.isSink = false;
 		this.isWin = false;
@@ -74,13 +76,16 @@ public class LevelMapCase {
 		if (entityStack.size()>1)					 // We remove the EntityEmpty when something else is on the case
 		{
 			removeEntityEmpty();
-		}											 // We look if the new entity has special effects on the case
-		updateIsFree();
-		updateContainsPushable();
+		}
+		if(!isUndoing) {// We look if the new entity has special effects on the case
 		updateIsKill();
 		updateIsBlock();
 		updateIsOpen();
-		updateIsShut();
+		updateIsShut();}
+		updateContainsPushable();
+		updateIsFree();
+
+
 	}
 	
 	public void removeEntity(Entity entity) {						// /!\ Only removes the entity from the map case and not from the group of entity,
@@ -88,13 +93,13 @@ public class LevelMapCase {
 		pushableEntityList.remove(entity);
 		if (entityStack.isEmpty())
 			this.map.addEntity(xPosition, yPosition, entityEmpty);
-		 															// We look if the removal of the entity has special effects on the case
+		 if(!isUndoing) {														// We look if the removal of the entity has special effects on the case
+		updateIsOpen();
+		updateIsShut();
+		 }
 		updateIsFree();
 		updateContainsPushable();
 		updateIsBlock();
-		updateIsOpen();
-		updateIsShut();
-		
 	}
 	
 	public boolean isBlock() {
@@ -217,9 +222,9 @@ public class LevelMapCase {
 		this.updateIsFree();
 		this.updateIsBlock();
 		this.updateIsSink();
-		this.updateIsWin();
+		this.updateIsWin();}
 		
-	}
+	
 	
 	public void updateCanMove() {
 		updateCanMoveDown();
@@ -352,4 +357,9 @@ public class LevelMapCase {
 			
 		}
 	}
+	public void setUndoing(boolean isUndoing) {
+		this.isUndoing = isUndoing;
+	}
+	
+	
 }
