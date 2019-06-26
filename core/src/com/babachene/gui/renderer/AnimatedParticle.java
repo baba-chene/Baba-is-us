@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
@@ -15,7 +16,7 @@ class AnimatedParticle extends Renderer { // Not a public class
 	private final Array<AnimatedParticle> masterCollection;
 	
 	
-	private Animation<TextureRegion> animation;
+	private Animation<AtlasRegion> animation;
 	private float stateTime;
 	private float lifeTime;
 	
