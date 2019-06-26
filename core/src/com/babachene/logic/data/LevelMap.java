@@ -750,6 +750,8 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		for (int i = 0; i< xLength; i++)
 			for(int j =0;j< yLength;j++)
 				this.mapMatrix[i][j].setUndoing(isUndoing);
+		for (int i =0; i<numberOfGroupEntities;i++)
+			this.mapEntities.get(i).setUndoing(isUndoing);
 	}
 	
 
