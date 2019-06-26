@@ -241,7 +241,10 @@ public class LevelMapCase {
 			if(map.getMapMatrix()[x][y+1].containsPushableEntity()) {
 				y++;
 			}
-				
+			else {
+				this.canMoveRight = true;
+				return;
+			}
 		}
 	}
 	public void updateCanMoveLeft() {
@@ -257,6 +260,9 @@ public class LevelMapCase {
 			if(map.getMapMatrix()[x][y-1].containsPushableEntity()) {
 				y--;
 			}
+			else {
+			this.canMoveLeft = true;
+			return;}
 				
 		}
 	}
@@ -273,6 +279,9 @@ public class LevelMapCase {
 			if(map.getMapMatrix()[x-1][y].containsPushableEntity()) {
 				x--;
 			}
+			else {
+			this.canMoveUp = true;
+			return;}
 				
 		}
 	}
@@ -280,6 +289,7 @@ public class LevelMapCase {
 		this.canMoveDown = false;
 		int x = this.xPosition;
 		int y = this.yPosition;
+		int i = 0;
 		while (x < map.getxLength() -1)
 		{
 			if(map.getMapMatrix()[x+1][y].isFree()) {
@@ -288,6 +298,10 @@ public class LevelMapCase {
 				}
 			if(map.getMapMatrix()[1+x][y].containsPushableEntity()) {
 				x++;
+			}
+			else {
+				this.canMoveDown = true;
+				return;
 			}
 				
 		}
