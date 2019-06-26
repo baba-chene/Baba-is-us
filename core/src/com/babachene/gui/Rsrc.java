@@ -4,8 +4,9 @@ import java.util.Random;
 import java.util.logging.Logger;
 
 import com.babachene.logic.data.Direction;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -26,6 +27,7 @@ public final class Rsrc {
 	 */
 	public static AssetManager assetManager;
 	
+	public static Music EXPLOSION_SOUND;
 	
 	/**
 	 * The texture atlas from which you can retrieve
@@ -41,6 +43,12 @@ public final class Rsrc {
 			textureAtlas = new TextureAtlas("assets/packedTextures.atlas");
 		
 		Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).info("Rsrc starts to retrieve the assets.");
+		
+		EXPLOSION_SOUND = Gdx.audio.newMusic(Gdx.files.internal("sounds/explosion.wav"));
+		EXPLOSION_SOUND.setLooping(false);
+		EXPLOSION_SOUND.setVolume(.65f);
+		
+		// Textures.
 		
 		MISSING_TEXTURE = textureAtlas.findRegion("missing_texture");
 		

@@ -272,6 +272,7 @@ class MapRenderer extends Renderer { // Not a public class.
 	}
 	
 	private void createExplosion(RenderableEntity sourceEntity) {
+		Rsrc.EXPLOSION_SOUND.play();
 		for (int i = 0; i < 7; i++)
 			particles.add(new AnimatedParticle(sourceEntity.getX(),
 											sourceEntity.getY(),
