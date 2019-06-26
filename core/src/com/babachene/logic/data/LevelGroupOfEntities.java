@@ -165,6 +165,22 @@ public class LevelGroupOfEntities {
 		}
 		}
 	}
+	
+	public void setIsOpen(boolean value) {
+		for (int i = listOfEntities.size()-1; i>-1;i--) {
+			Entity e = listOfEntities.get(i);
+			e.setOpen(value);
+			this.map.getMapCase(e.getxPosition(),e.getyPosition()).updateIsOpen();
+
+		}	}
+	
+	public void setIsShut(boolean value) {
+		for (int i = listOfEntities.size()-1; i>-1;i--) {
+			Entity e = listOfEntities.get(i);
+			e.setShut(value);
+			this.map.getMapCase(e.getxPosition(),e.getyPosition()).updateIsShut();
+
+		}	}
 	public void setAllFalse() {
 		this.setIsBlock(false);
 		this.setIsPush(false);
@@ -178,6 +194,8 @@ public class LevelGroupOfEntities {
 		this.setMoveV(false);
 		this.setHas(false);
 		this.setMakeFalse();
+		this.setIsOpen(false);
+		this.setIsShut(false);
 	}
 	private void setMakeFalse() {
 		for (Entity entity : listOfEntities)

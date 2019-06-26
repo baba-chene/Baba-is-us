@@ -84,6 +84,9 @@ public class SoloController extends Controller {
 			//mapEditorConverter.open("maps\\K�k� is lost.txt\\");
 		//	mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\test11.txt\\");
 		//	mapEditorConverter.open("maps/"+levelName+".txt");
+		//mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\test.txt\\");
+		//	mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\test11.txt\\");
+		//	mapEditorConverter.open("maps/"+levelName+".txt");
 			mapEditorConverter.open("maps/"+levelName+".txt");
 			
 		} catch (IOException e) {
