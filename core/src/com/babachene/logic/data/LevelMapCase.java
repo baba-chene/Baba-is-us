@@ -242,7 +242,7 @@ public class LevelMapCase {
 				y++;
 			}
 			else {
-				this.canMoveRight = true;
+				this.canMoveRight = false;
 				return;
 			}
 		}
@@ -261,7 +261,7 @@ public class LevelMapCase {
 				y--;
 			}
 			else {
-			this.canMoveLeft = true;
+			this.canMoveLeft = false;
 			return;}
 				
 		}
@@ -280,7 +280,7 @@ public class LevelMapCase {
 				x--;
 			}
 			else {
-			this.canMoveUp = true;
+			this.canMoveUp = false;
 			return;}
 				
 		}
@@ -300,7 +300,7 @@ public class LevelMapCase {
 				x++;
 			}
 			else {
-				this.canMoveDown = true;
+				this.canMoveDown = false;
 				return;
 			}
 				

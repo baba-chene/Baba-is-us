@@ -28,6 +28,11 @@ public abstract class Entity implements RenderableEntity {
 	protected Direction direction;
 	protected boolean hasEntity;
 	protected LinkedList<String> hasEntityType;
+	private boolean isMoveH;
+	private Direction hDirection;
+	private boolean isMoveV;
+	private Direction vDirection;
+	
 
 
 
@@ -46,6 +51,8 @@ public abstract class Entity implements RenderableEntity {
 		this.direction = Direction.EAST;
 		this.hasEntity = false;
 		this.hasEntityType = new LinkedList<String>();
+		this.hDirection = Direction.EAST;
+		this.vDirection = Direction.SOUTH;
 		
 	}
 
@@ -208,7 +215,36 @@ public abstract class Entity implements RenderableEntity {
 		this.isShut = isShut;
 	}
 	
+	public boolean isMoveH() {
+		return isMoveH;
+	}
 
+	public void setMoveH(boolean isMoveH) {
+		this.isMoveH = isMoveH;
+	}
+	public boolean isMoveV() {
+		return isMoveV;
+	}
+
+	public void setMoveV(boolean isMoveV) {
+		this.isMoveV = isMoveV;
+	}
+
+	public void sethDirection(Direction hDirection) {
+		this.hDirection = hDirection;
+	}
+
+	public void setvDirection(Direction vDirection) {
+		this.vDirection = vDirection;
+	}
+
+	public Direction gethDirection() {
+		return hDirection;
+	}
+
+	public Direction getvDirection() {
+		return vDirection;
+	}
 	
 	
 	
