@@ -287,6 +287,30 @@ public class WaterTextureChooser {
 	}
 	
 	
+	/*
+	 * Same as texture(...) but only returns the index.
+	 */
+	static int index(LevelMap map,int x, int y) {
+		
+		boolean [][] v= new boolean [3][3]; // Voisins
+		int hauteur=map.getMapMatrix().length;
+		int largeur=map.getMapMatrix()[0].length;
+		
+		int voisins=0; // nombre entre 0 et 127 qui représente l'état des voisins
+		
+		x--; // Most magical line ever. Don't dare remove it.
+		//calcul de voisins
+		int[][] parcours = { {x-1,y},{x,y+1},{x+1,y},{x,y-1},{x-1,y-1},{x-1,y+1},{x+1,y+1},{x+1,y-1}};
+		int xx,yy;
+		for(int i=0;i<8;i++) {
+			xx=parcours[i][0];
+			yy=parcours[i][1];
+			
+			voisins+=containsWater(map,xx,yy,hauteur,largeur)* (int) Math.pow(2,(7-i));
+			
+		}
+		return hashtable[voisins];
+	}
 	
 	static String texture(LevelMap map,int x, int y) {
 		
@@ -306,7 +330,9 @@ public class WaterTextureChooser {
 			voisins+=containsWater(map,xx,yy,hauteur,largeur)* (int) Math.pow(2,(7-i));
 			
 		}
-		
+		/*
+		 * 
+		 */
 		return ("textures/water/water"+hashtable[voisins]+".png");
 	}
 	

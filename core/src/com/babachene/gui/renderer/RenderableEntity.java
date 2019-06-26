@@ -1,5 +1,7 @@
 package com.babachene.gui.renderer;
 
+import com.babachene.logic.data.Direction;
+
 /**
  * Represents an entity that is to be rendered. It must provide
  * information about the entity only.
@@ -50,7 +52,7 @@ public interface RenderableEntity {
 	/**
 	 * @return The direction the entity is looking at.
 	 */
-	Object getDirection(); // TODO change the type of Ojbect.
+	Direction getDirection();
 	
 	/**
 	 * Tells whether this entity may come in more than one appearance

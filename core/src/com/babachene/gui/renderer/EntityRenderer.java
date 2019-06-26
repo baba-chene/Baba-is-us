@@ -58,50 +58,62 @@ class EntityRenderer extends Renderer { // Not a public class
 	public void render(SpriteBatch batch) {
 		
 		/*
+		 * TODO Make fast speed come back. How? By introducing the 'moving' boolean
+		 * inside the block right below.
+		 */
+		
+		/*
 		 * Here is the system that handle the movement of the texture.
 		 * It is not perfect and frenetically typing the keys may
 		 * lead to a wrong texture position.
 		 */
 		// Verify if the entity has not moved.
 		if (entity.getX() != intX || entity .getY() != intY) {
+			// For sub-classes.
+			handleMovement();
 			
 			int ex = entity.getX(), ey = entity.getY();
 			
-			if (ex != intX) {
+			if (moving) {
+				fastMove();
+			} else {           // Below is the real treatement of a slow movement.
 				
-				int dx = ex - intX; // de la position graphique à la position réelle.
-				
-				if (dx != 1 && dx != -1) {
-					fastMove();//dx, ey - intY);
-				} else {
-					if (ey != intY) {
+				if (ex != intX) {
+					
+					int dx = ex - intX; // de la position graphique à la position réelle.
+					
+					if (dx != 1 && dx != -1) {
 						fastMove();//dx, ey - intY);
 					} else {
+						if (ey != intY) {
+							fastMove();//dx, ey - intY);
+						} else {
+							/*
+							 * case: normal move on X axis.
+							 */
+							
+							speedX = mapData.speedX * dx;
+							moving = true;
+							
+						}
+					}
+				} else {
+					
+					int dy = ey - intY; // de la position graphique à la position réelle.
+					
+					if (dy != 1 && dy != -1) {
+						fastMove();//0, dy);
+					} else {
 						/*
-						 * case: normal move on X axis.
+						 * case: normal move on Y axis.
 						 */
 						
-						speedX = mapData.speedX * dx;
+						speedY = mapData.speedY * dy;
 						moving = true;
-						
 					}
 				}
-			} else {
 				
-				int dy = ey - intY; // de la position graphique à la position réelle.
-				
-				if (dy != 1 && dy != -1) {
-					fastMove();//0, dy);
-				} else {
-					/*
-					 * case: normal move on Y axis.
-					 */
-					
-					speedY = mapData.speedY * dy;
-					moving = true;
-				}
 			}
-			
 			intX = ex; // update those, thus the renderer won't perform any more movement
 			intY = ey; // initialisation until the entity moves again.
 		}
@@ -169,6 +181,14 @@ class EntityRenderer extends Renderer { // Not a public class
 	public void update() {
 		
 	}
+	/**
+	 * Called automatically when the entity has just moved.
+	 * <p> Extend this method to introduce new behaviors on
+	 * movement for your sub-classes of EntityRenderer.
+	 */
+	protected void handleMovement() {
+		
+	}
 	
 	/////////////////////
 	
@@ -180,21 +200,34 @@ class EntityRenderer extends Renderer { // Not a public class
 		return mapData;
 	}
 	
+	
+	
+	public TextureRegion getTexture() {
+		return tex;
+	}
+
+
+	public void setTexture(TextureRegion tex) {
+		this.tex = tex;
+	}
+	
 	/////////////////////
 	
-	/*   // Ancient doc, ask git to see the previous version.
+	/**
 	 * Used to manage a fast movement. For all cases when
 	 * the enity does not move simply on a direct neightboor
 	 * tile.
 	 */
-	/**
-	 * Teleport the entity lol.
-	 */
 	private final void fastMove() {
 		
-		floatX = mapData.xPosition(entity.getX());
-		floatY = mapData.yPosition(entity.getY());
-		moving = false;
+		
+		speedX = mapData.xPosition(entity.getX()) - floatX;
+		speedY = mapData.yPosition(entity.getY()) - floatY;
+		
+		speedX /= 5f;
+		speedY /= 5f;
+		
+		moving = true;
 	}
 	
 }

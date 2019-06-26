@@ -111,7 +111,7 @@ public abstract class Entity implements RenderableEntity {
 	}
 	
 	@Override
-	public Object getDirection() {
+	public Direction getDirection() {
 		// TODO Auto-generated method stub
 		return direction;
 	}

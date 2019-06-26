@@ -32,6 +32,7 @@ public final class Baba {
 					"lego",
 					"love",
 					"bush",
+					"box",
 	// Text for attributes
 					"textyou",
 					"textp1",
@@ -43,13 +44,16 @@ public final class Baba {
 					"textblock",// duplicated
 					"textstop", //
 					"textus",
-	// Text for verbs
+	// Text for verbs (and on/off)
 					"textis",
 					"textand",
 					"texthas",
 					"textmake",
 					"texton",
+					"textoff",
 					"textbut",
+					"textmove",
+					"textweak",
 	// Text for entities
 					"textbaba",
 					"textrock",
@@ -61,8 +65,14 @@ public final class Baba {
 					"textskull",
 					"textgrass",
 					"textkeke",
+					"textlego",
+					"textlove",
+					"textbush",
+					"textbox",
 	//Text for non-entities subject
-					"textpaf"
+					"textpaf",
+					"texthug",
+					"textlight"
 	};
 	
 }
