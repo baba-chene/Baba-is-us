@@ -332,9 +332,9 @@ public class LevelMapCase {
 	public void updateOpenShut() {
 		while (shutEntities.size()>0 && openEntities.size()>0) {
 			Entity entity1 = shutEntities.pop();
-			Entity entity2 = shutEntities.pop();
-			this.removeEntity(entity1);
-			this.removeEntity(entity2);
+			Entity entity2 = openEntities.pop();
+			this.map.removeEntity(entity1);
+			this.map.removeEntity(entity2);
 			
 		}
 	}

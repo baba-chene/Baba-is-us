@@ -125,6 +125,12 @@ public class Rule {
 		case("move"):
 			entities.setMoveV(true);
 			break;
+		case("open"):
+			entities.setIsOpen(true);
+			break;
+		case("shut"):
+			entities.setIsShut(true);
+			break;
 		}
 		}
 		}
