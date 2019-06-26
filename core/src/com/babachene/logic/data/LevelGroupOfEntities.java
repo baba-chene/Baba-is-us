@@ -19,15 +19,10 @@ public class LevelGroupOfEntities {
 	private boolean isYou;
 	private boolean isPlayer1;
 	private boolean isPlayer2;
-	private boolean isMoveH;
-	private Direction hDirection;
-	private boolean isMoveV;
-	private Direction vDirection;
+
 
 	public LevelGroupOfEntities(String typeOfEntities, LevelMap map) {
 		super();
-		this.hDirection = Direction.EAST;
-		this.vDirection = Direction.SOUTH;
 		this.map= map;
 		this.typeOfEntities = typeOfEntities; //There is only one type of entity allowed in a Group of entities
 		this.numberOfEntities = 0;
@@ -181,6 +176,18 @@ public class LevelGroupOfEntities {
 			this.map.getMapCase(e.getxPosition(),e.getyPosition()).updateIsShut();
 
 		}	}
+	
+	public void setMoveH(boolean value) {
+		for (int i = listOfEntities.size()-1; i>-1;i--) {
+			Entity e = listOfEntities.get(i);
+			e.setMoveH(value);}
+	}
+	
+	public void setMoveV(boolean value) {
+		for (int i = listOfEntities.size()-1; i>-1;i--) {
+			Entity e = listOfEntities.get(i);
+			e.setMoveV(value);}
+	}
 	public void setAllFalse() {
 		this.setIsBlock(false);
 		this.setIsPush(false);
@@ -279,20 +286,7 @@ public class LevelGroupOfEntities {
 		}
 	}
 
-	public boolean isMoveH() {
-		return isMoveH;
-	}
 
-	public void setMoveH(boolean isMoveH) {
-		this.isMoveH = isMoveH;
-	}
-	public boolean isMoveV() {
-		return isMoveV;
-	}
-
-	public void setMoveV(boolean isMoveV) {
-		this.isMoveV = isMoveV;
-	}
 	
 	public void updateMove() {
 		updateMoveH();
@@ -301,60 +295,56 @@ public class LevelGroupOfEntities {
 	
 	
 	private void updateMoveH() {
-		if(isMoveH)
+		for (int i = numberOfEntities-1; i>-1; i--) {
+			Entity entity = listOfEntities.get(i);
+		if(entity.isMoveH())
 		{
-			Collections.sort(listOfEntities, new yPositionComparator());
-			int yMax = listOfEntities.get(numberOfEntities-1).getyPosition();
-			int yMin = listOfEntities.get(0).getyPosition();
-			if (yMax == map.getyLength()-1 && yMin == 0)
-				return;
-			if(yMax == map.getyLength() -1)
-				this.hDirection = Direction.WEST;
-			if(!map.getMapCase(listOfEntities.get(numberOfEntities-1).getxPosition(), yMax).isCanMoveRight())
-				this.hDirection = Direction.WEST;
-			if(yMin == 0)
-				this.hDirection = Direction.EAST;
-			if(!map.getMapCase(listOfEntities.get(0).getxPosition(), yMin).isCanMoveLeft())
-				this.hDirection = Direction.EAST;
-			System.out.println(hDirection);
-			switch(hDirection) {
+			int x = entity.getxPosition();
+			int y = entity.getyPosition();
+			if(y == map.getyLength() -1)
+				entity.sethDirection(Direction.WEST);
+			if(!map.getMapCase(x, y).isCanMoveRight())
+				entity.sethDirection(Direction.WEST);
+			if(y == 0)
+				entity.sethDirection(Direction.EAST);
+			if(!map.getMapCase(x,y).isCanMoveLeft())
+				entity.sethDirection (Direction.EAST);
+			switch(entity.gethDirection()) {
 			case WEST:
-				this.moveLeft();
+				map.moveLeft(entity);
 				break;
 			case EAST:
-				this.moveRight();
+				map.moveRight(entity);
 				break;
 			}
+		}
 		}
 	}
 	
 	private void updateMoveV() {
-		if(isMoveV)
+		for (int i = numberOfEntities-1; i>-1; i--) {
+			Entity entity = listOfEntities.get(i);
+		if(entity.isMoveV())
 		{
-			Collections.sort(listOfEntities, new xPositionComparator());
-			int xMax = listOfEntities.get(numberOfEntities-1).getxPosition();
-			int xMin = listOfEntities.get(0).getxPosition();
-			if (xMax == map.getxLength()-1 && xMin == 0)
-				return;
-			if(xMax == map.getxLength() -1)
-				this.vDirection = Direction.NORTH;
-			if(!map.getMapCase(xMax, listOfEntities.get(numberOfEntities-1).getyPosition()).isCanMoveDown())
-				this.vDirection = Direction.NORTH;
-			if(xMin == 0)
-				this.vDirection = Direction.SOUTH;
-			if(!map.getMapCase(xMin, listOfEntities.get(numberOfEntities-1).getyPosition()).isCanMoveUp())
-				this.vDirection = Direction.SOUTH;
-			System.out.println(vDirection);
-			System.out.println(xMax);
-
-			switch(vDirection) {
-			case NORTH:
-				this.moveUp();
-				break;
+			int x = entity.getxPosition();
+			int y = entity.getyPosition();
+			if(x == map.getxLength() -1)
+				entity.setvDirection(Direction.NORTH);
+			if(!map.getMapCase(x, y).isCanMoveDown())
+				entity.setvDirection(Direction.NORTH);
+			if(x == 0)
+				entity.setvDirection(Direction.SOUTH);
+			if(!map.getMapCase(x,y).isCanMoveUp())
+				entity.setvDirection (Direction.SOUTH);
+			switch(entity.getvDirection()) {
 			case SOUTH:
-				this.moveDown();
+				map.moveDown(entity);
 				break;
-			}	
+			case NORTH:
+				map.moveUp(entity);
+				break;
+			}
+		}
 		}
 	}
 	public void updateMake(){
