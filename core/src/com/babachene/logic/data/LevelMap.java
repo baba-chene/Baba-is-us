@@ -21,6 +21,7 @@ import com.babachene.logic.data.entities.EntityKeke;
 import com.babachene.logic.data.entities.EntityLava;
 import com.babachene.logic.data.entities.EntityLego;
 import com.babachene.logic.data.entities.EntityLove;
+import com.babachene.logic.data.entities.EntityPalm;
 import com.babachene.logic.data.entities.EntityRock;
 import com.babachene.logic.data.entities.EntitySkull;
 import com.babachene.logic.data.entities.EntityText;
@@ -341,6 +342,9 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			break;
 		case "tree":
 			addEntity(x, y, new EntityTree(x,y,this));
+			break;
+		case "palm":
+			addEntity(x,y, new EntityPalm(x,y,this));
 			break;
 		default:
 			addEntity(x,y,new EntityText(x,y,this,typeOfEntity));
@@ -742,6 +746,9 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 
 	public void setUndoing(boolean isUndoing) {
 		this.isUndoing = isUndoing;
+		for (int i = 0; i< xLength; i++)
+			for(int j =0;j< yLength;j++)
+				this.mapMatrix[i][j].setUndoing(isUndoing);
 	}
 	
 

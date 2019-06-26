@@ -59,6 +59,7 @@ public class MapState {
 		this.map.setUndoing(true);
 		if (!this.isEmpty()) {
 		for (Entity e : destroyedEntities)
+			
 			map.addEntity(e);
 		for (Entity e : createdEntities)
 			map.removeEntity(e);
