@@ -1,11 +1,16 @@
 package com.babachene.gui;
 
+import java.util.concurrent.TimeUnit;
+
 import com.babachene.gui.renderer.LevelRenderer;
 import com.babachene.gui.renderer.RenderableLevel;
 import com.babachene.userinput.LevelInputProcessor;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
 /**
  * The {@linkplain GameState} that holds a level inside.
@@ -37,6 +42,24 @@ public class LevelState extends GameState {
 		
 		
 		
+	}
+	
+	public void win() {
+		
+			
+		SpriteDrawable win = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/win.png"))));
+		
+		batch.begin();
+		win.draw(batch, 860, 420,200,200);
+		batch.end();
+		
+		try {
+			TimeUnit.SECONDS.sleep(2);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		parent.back();
 	}
 	
 	

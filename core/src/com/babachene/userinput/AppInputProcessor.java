@@ -1,5 +1,6 @@
 package com.babachene.userinput;
 
+import com.babachene.gui.MainGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
@@ -29,7 +30,8 @@ public class AppInputProcessor extends InputAdapter {
 		
 		
 		if (code == Keys.ESCAPE)
-			Gdx.app.exit();
+			MainGame.back();
+			//Gdx.app.exit();
 		
 		return false;
 	}

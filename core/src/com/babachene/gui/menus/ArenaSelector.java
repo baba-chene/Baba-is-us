@@ -18,7 +18,7 @@ public abstract class ArenaSelector extends Menu {
 			int ligne = i/nbMaxLigne;
 			int colonne = i-(nbMaxLigne*ligne);
 			
-			super.addLevelButton(level, (colonne+1)*ecart-450, 1080-(450+(ligne*300)), 420, 200);
+			super.addLevelButton(level, (colonne+1)*ecart-550, 1080-(450+(ligne*300)), 420, 200);
 			i++;
 		}
 		
