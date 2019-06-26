@@ -59,25 +59,28 @@ public class MapState {
 		this.map.setUndoing(true);
 		if (!this.isEmpty()) {
 		for (Entity e : destroyedEntities)
-			
 			map.addEntity(e);
 		for (Entity e : createdEntities)
 			map.removeEntity(e);
 		Collections.sort(movedDownEntities,new xPositionComparator());
-		for (Entity e : movedDownEntities)
+		for (Entity e : movedDownEntities) {
 			map.moveUp(e);
+			e.setvDirection(Direction.SOUTH);}
 		Collections.sort(movedUpEntities,new xPositionComparator());
 		Collections.reverse(movedUpEntities);
-		for (Entity e : movedUpEntities)
-			map.moveDown(e);
+		for (Entity e : movedUpEntities) {
+			e.setvDirection(Direction.NORTH);
+			map.moveDown(e);}
 		Collections.sort(movedLeftEntities,new yPositionComparator());
 		Collections.reverse(movedLeftEntities);
-		for (Entity e : movedLeftEntities)
-			map.moveRight(e);
+		for (Entity e : movedLeftEntities) {
+			e.setvDirection(Direction.WEST);
+			map.moveRight(e);}
 		Collections.sort(movedRightEntities,new yPositionComparator());
-		for (Entity e : movedRightEntities)
+		for (Entity e : movedRightEntities) {
+			e.setvDirection(Direction.EAST);
 			map.moveLeft(e);
-		}
+		}}
 		this.map.setUndoing(false);
 		}
 

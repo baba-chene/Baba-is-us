@@ -18,11 +18,13 @@ public class LevelGroupOfEntities {
 	private LevelPlayer player;
 	private boolean isYou;
 	private boolean isPlayer1;
+	private boolean isUndoing;
 	private boolean isPlayer2;
 
 
 	public LevelGroupOfEntities(String typeOfEntities, LevelMap map) {
 		super();
+		this.isUndoing = false;
 		this.map= map;
 		this.typeOfEntities = typeOfEntities; //There is only one type of entity allowed in a Group of entities
 		this.numberOfEntities = 0;
@@ -217,6 +219,7 @@ public class LevelGroupOfEntities {
 		Collections.sort(listOfEntities,new yPositionComparator());
 		Collections.reverse(listOfEntities);
 		updateMake();
+		if(!isUndoing)
 		this.setDirection(Direction.WEST);
 		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
@@ -229,6 +232,7 @@ public class LevelGroupOfEntities {
 	public void moveRight() {
 		Collections.sort(listOfEntities,new yPositionComparator());
 		updateMake();
+		if(!isUndoing)
 		this.setDirection(Direction.EAST);
 		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
@@ -243,6 +247,7 @@ public class LevelGroupOfEntities {
 		Collections.sort(listOfEntities,new xPositionComparator());
 		Collections.reverse(listOfEntities);
 		updateMake();
+		if(!isUndoing)
 		this.setDirection(Direction.NORTH);
 		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
@@ -255,6 +260,7 @@ public class LevelGroupOfEntities {
 	public void moveDown() {
 		Collections.sort(listOfEntities,new xPositionComparator());
 		updateMake();
+		if(!isUndoing)
 		this.setDirection(Direction.SOUTH);
 		for (int i =numberOfEntities -1; i>-1 ;i--) //We go backward just in case blocks are destroyed.
 		{
@@ -355,6 +361,10 @@ public class LevelGroupOfEntities {
 				}
 			}
 		}
+	}
+
+	public void setUndoing(boolean isUndoing) {
+		this.isUndoing = isUndoing;
 	}
 
 	
