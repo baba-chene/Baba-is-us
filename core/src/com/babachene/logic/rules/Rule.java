@@ -79,6 +79,12 @@ public class Rule {
 		case("move"):
 			entities.setMoveH(true);
 			break;
+		case("open"):
+			entities.setIsOpen(true);
+			break;
+		case("shut"):
+			entities.setIsShut(true);
+			break;
 		}
 		}
 		}

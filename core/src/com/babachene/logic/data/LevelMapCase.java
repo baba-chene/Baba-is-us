@@ -17,6 +17,10 @@ public class LevelMapCase {
 	private boolean canMoveLeft;
 	private boolean canMoveUp;
 	private boolean canMoveDown;
+	private boolean isOpen;
+	private LinkedList<Entity> openEntities;
+	private boolean isShut;
+	private LinkedList<Entity> shutEntities;
 	private boolean isKill;
 	private boolean isBlock;
 	private boolean isSink;			 //True if it contains an entity with isSink
@@ -44,6 +48,10 @@ public class LevelMapCase {
 		this.entityStack = new LinkedList<Entity>();
 		entityEmpty = new EntityEmpty(x, y, map);
 		this.pushableEntityList = new LinkedList<Entity>();
+		this.isOpen = false;
+		this.isShut = false;
+		this.openEntities = new LinkedList<Entity>();
+		this.shutEntities = new LinkedList<Entity>();
 		}
 	public boolean isFree() {
 		return isFree;
@@ -71,6 +79,8 @@ public class LevelMapCase {
 		updateContainsPushable();
 		updateIsKill();
 		updateIsBlock();
+		updateIsOpen();
+		updateIsShut();
 	}
 	
 	public void removeEntity(Entity entity) {						// /!\ Only removes the entity from the map case and not from the group of entity,
@@ -82,6 +92,8 @@ public class LevelMapCase {
 		updateIsFree();
 		updateContainsPushable();
 		updateIsBlock();
+		updateIsOpen();
+		updateIsShut();
 		
 	}
 	
@@ -293,5 +305,37 @@ public class LevelMapCase {
 		return canMoveDown;
 	}
 	
+	public void updateIsOpen() {
+		this.isOpen = false;
+		this.openEntities.clear();
+		for(int i = entityStack.size() -1; i>-1; i--) {
+			if(entityStack.get(i).isOpen()) {
+				this.isOpen = true;
+				this.openEntities.add(entityStack.get(i));
+			}
+		}
+		updateOpenShut();
+	}
 	
+	public void updateIsShut() {
+		this.isShut = false;
+		this.shutEntities.clear();
+		for(int i = entityStack.size() -1; i>-1; i--) {
+			if(entityStack.get(i).isShut()) {
+				this.isShut = true;
+				this.shutEntities.add(entityStack.get(i));
+			}
+		}
+		updateOpenShut();
+	}
+	
+	public void updateOpenShut() {
+		while (shutEntities.size()>0 && openEntities.size()>0) {
+			Entity entity1 = shutEntities.pop();
+			Entity entity2 = shutEntities.pop();
+			this.removeEntity(entity1);
+			this.removeEntity(entity2);
+			
+		}
+	}
 }

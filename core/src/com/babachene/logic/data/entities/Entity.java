@@ -21,6 +21,8 @@ public abstract class Entity implements RenderableEntity {
 	protected boolean isBlock;
 	protected boolean isWin;
 	protected boolean isKill;
+	protected boolean isOpen;
+	protected boolean isShut;
 	protected LinkedList<String> makeEntity;
 	protected String text;
 	protected Direction direction;
@@ -188,6 +190,22 @@ public abstract class Entity implements RenderableEntity {
 	}
 	public void clearHasType() {
 		this.hasEntityType.clear();
+	}
+
+	public boolean isOpen() {
+		return isOpen;
+	}
+
+	public void setOpen(boolean isOpen) {
+		this.isOpen = isOpen;
+	}
+
+	public boolean isShut() {
+		return isShut;
+	}
+
+	public void setShut(boolean isShut) {
+		this.isShut = isShut;
 	}
 	
 
