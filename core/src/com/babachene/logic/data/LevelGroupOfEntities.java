@@ -379,26 +379,34 @@ public class LevelGroupOfEntities {
 			Entity entity = this.listOfEntities.get(i);
 			int x = entity.getxPosition();
 			int y = entity.getyPosition();
+			map.getMapCase(x, y).updateIsKill();
+			map.getMapCase(x, y).updateIsSink();
 			if (!entity.isSlide()) {
 			if (map.getMapCase(x, y).isSlide() && !(entity.getTypeOfEntity().equalsIgnoreCase("empty"))) {
 				switch(entity.getDirection())
 				{
 				case NORTH:
 					map.moveUp(entity);
+					if (map.getMapCase(x, y).isCanMoveUp())
 					updateSlide();
 					break;
 				case SOUTH:
 					map.moveDown(entity);
+					if (map.getMapCase(x, y).isCanMoveDown())
+
 					updateSlide();
 
 					break;
 				case EAST:
 					map.moveRight(entity);
+					if (map.getMapCase(x, y).isCanMoveRight())
+
 					updateSlide();
 
 					break;
 				case WEST:
 					map.moveLeft(entity);
+					if (map.getMapCase(x, y).isCanMoveLeft())
 					updateSlide();
 
 					break;
