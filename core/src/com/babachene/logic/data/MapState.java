@@ -65,20 +65,24 @@ public class MapState {
 		Collections.sort(movedDownEntities,new xPositionComparator());
 		for (Entity e : movedDownEntities) {
 			map.moveUp(e);
-			e.setvDirection(Direction.SOUTH);}
+			e.setvDirection(Direction.SOUTH);
+			e.setDirection(Direction.SOUTH);}
 		Collections.sort(movedUpEntities,new xPositionComparator());
 		Collections.reverse(movedUpEntities);
 		for (Entity e : movedUpEntities) {
 			e.setvDirection(Direction.NORTH);
+			e.setDirection(Direction.NORTH);
 			map.moveDown(e);}
 		Collections.sort(movedLeftEntities,new yPositionComparator());
 		Collections.reverse(movedLeftEntities);
 		for (Entity e : movedLeftEntities) {
-			e.setvDirection(Direction.WEST);
+			e.sethDirection(Direction.WEST);
+			e.setDirection(Direction.WEST);
 			map.moveRight(e);}
 		Collections.sort(movedRightEntities,new yPositionComparator());
 		for (Entity e : movedRightEntities) {
-			e.setvDirection(Direction.EAST);
+			e.sethDirection(Direction.EAST);
+			e.setDirection(Direction.EAST);
 			map.moveLeft(e);
 		}}
 		this.map.setUndoing(false);
