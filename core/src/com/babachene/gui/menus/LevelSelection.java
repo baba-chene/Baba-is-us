@@ -166,7 +166,7 @@ public class LevelSelection extends GameState implements Screen {
 					public void clicked(InputEvent event, float x, float y) {
 					
 						// TODO launch the good level
-						parent.getMetaController().launchLevel("arene1");
+						parent.getMetaController().launchLevel("help your friend");
 
 						return; // The event has been handled.
 					}
