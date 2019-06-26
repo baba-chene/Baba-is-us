@@ -4,7 +4,7 @@ public class MainTest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		long startTime = System.nanoTime();
+	/*	long startTime = System.nanoTime();
 		LevelMap map = new LevelMap(10, 10);		
 		map.addEntity(6, 4, "baba");
 		map.addEntity(6, 5, "rock");
@@ -25,7 +25,7 @@ public class MainTest {
 
 		long endTime = System.nanoTime();
 		long time = endTime - startTime;
-		System.out.println(time/1000000);
+		System.out.println(time/1000000);*/
 	}
 
 }
