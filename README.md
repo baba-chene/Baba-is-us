@@ -16,23 +16,22 @@ For other IDE, check out the [libgdx documentation](https://libgdx.badlogicgames
 ### Setup
 
 - [x]  Install libgdx on all our devices
-- [ ]  Assign tasks
+- [x]  Assign tasks
 
 ### Features
 
 ##### Levels
 
-- [ ] Logic
-- [ ] Event controller
+- [x] [Logic](https://github.com/baba-chene/Baba-is-us/tree/dev/core/src/com/babachene/logic)
+- [x] [Event controller](https://github.com/baba-chene/Baba-is-us/tree/dev/core/src/com/babachene/controller)
 - [ ] Level state storing
 - [ ] Rendering
-- [ ] Editor
+- [x] [Editor](https://github.com/baba-chene/SuperLevelEditor8000)
 
-##### Server/Client
+##### [Server/Client](https://github.com/baba-chene/Baba-is-us/tree/server-client/core/src/com/babachene/cliserv)
 
-- [ ] Client sockets
-- [ ] Server sockets
-- [ ] APIs
+- [x] Client sockets
+- [x] Server sockets
 
 ##### Navigation
 
