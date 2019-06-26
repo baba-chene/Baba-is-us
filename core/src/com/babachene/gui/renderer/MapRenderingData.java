@@ -73,11 +73,11 @@ final class MapRenderingData { // Not a public class.
 	/** The dimensions of a graphical tile. */
 	public final float tileWidth, tileHeight;
 	
-	public float xPosition(float xIndex) {
+	public float xPosition(int xIndex) {
 		return mapX + xIndex * tileWidth;
 	}
 	
-	public float yPosition(float yIndex) {
+	public float yPosition(int yIndex) {
 		return mapY + yIndex * tileHeight;
 	}
 	
