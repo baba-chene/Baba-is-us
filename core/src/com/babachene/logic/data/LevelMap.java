@@ -56,7 +56,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		this.existingGroups = new LinkedList<String>(); 
 		this.numberOfGroupEntities = 0;
 		this.isUndoing = false;
-		this.huggedEntities = new HuggedEntities();
+		this.huggedEntities = new HuggedEntities(this);
 		mapMatrix = new LevelMapCase[xLength][yLength];
 		mapStateList = new LinkedList<MapState>();
 		mapStateList.add(new MapState(this));
@@ -659,8 +659,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 						Entity entity2 = entities2.get(k).getListOfEntities().get(l);
 						if (entity1.getxPosition() == entity2.getxPosition() && entity1.getyPosition() == entity2.getyPosition() )
 							{huggedEntities.add(entity2.getxPosition(), entity2.getyPosition());
-							huggedEntities.add(entity1);
-							huggedEntities.add(entity2);}
+							huggedEntities.add(entity1);}
 					}}
 			}
 		}

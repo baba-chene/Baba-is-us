@@ -6,16 +6,20 @@ import com.babachene.logic.data.entities.Entity;
 
 public class HuggedEntities {
 
+	private LevelMap map;
 	private LinkedList<Integer> xHugged;
 	private LinkedList<Integer> yHugged;
 	private LinkedList<Entity> entities;
 	private boolean isWin;
 	private int amount;
+	private int amountEntity;
 
 
-public HuggedEntities() {
+public HuggedEntities(LevelMap map) {
+	this.map = map;
 	entities = new LinkedList<Entity>();
 	amount = 0;
+	amountEntity = 0;
 	xHugged = new LinkedList<Integer>();
 	yHugged = new LinkedList<Integer>();
 	isWin = false;
@@ -25,6 +29,7 @@ public HuggedEntities() {
 public void add(Entity entity)
 {
 	entities.add(entity);
+	amountEntity ++;
 }
 
 public LinkedList<Entity> getEntities(){
@@ -52,6 +57,8 @@ public void clear()
 	amount =0;
 	this.xHugged.clear();
 	this.yHugged.clear();
+	this.entities.clear();
+	amountEntity =0;
 }
 
 public boolean isWin() {
@@ -59,8 +66,11 @@ public boolean isWin() {
 }
 
 public void setSink(boolean isSink) {
-	for (int i =0; i< this.amount; i++) {
-		
+	for (int i = amountEntity-1; i>-1;i--) {
+		Entity entity = entities.get(i);
+		entity.setSink(true);
+		this.map.getMapCase(entity.getxPosition(),entity.getyPosition()).updateIsSink();
+
 	}
 }
 
