@@ -98,6 +98,7 @@ public class RulesUpdater {
 			case "move":
 			case "open":
 			case "shut":
+			case "slide":
 				Property property = new Property(x,y,text,this);
 				this.textTab[x][y] = property;
 				break;

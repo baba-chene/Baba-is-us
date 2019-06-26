@@ -103,6 +103,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			this.mapStateList.get(0).addRight(entity);
 			int x = entity.getxPosition();
 			int y = entity.getyPosition();
+			entity.setDirection(Direction.EAST);
 			entity.setyPosition(y+1);
 			mapMatrix[x][y].removeEntity(entity);
 			mapMatrix[x][y+1].addEntity(entity);
@@ -141,6 +142,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			this.mapStateList.get(0).addUp(entity);
 			int x = entity.getxPosition();
 			int y = entity.getyPosition();
+			entity.setDirection(Direction.NORTH);
 			entity.setxPosition(x-1);
 			mapMatrix[x][y].removeEntity(entity);
 			mapMatrix[x-1][y].addEntity(entity);
@@ -178,6 +180,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			this.mapStateList.get(0).addDown(entity);
 			int x = entity.getxPosition();
 			int y = entity.getyPosition();
+			entity.setDirection(Direction.SOUTH);
 			entity.setxPosition(x+1);
 			mapMatrix[x][y].removeEntity(entity);
 			mapMatrix[x+1][y].addEntity(entity);
@@ -216,6 +219,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			this.mapStateList.get(0).addLeft(entity);
 			int x = entity.getxPosition();
 			int y = entity.getyPosition();
+			entity.setDirection(Direction.WEST);
 			entity.setyPosition(y-1);
 			mapMatrix[x][y].removeEntity(entity);
 			mapMatrix[x][y-1].addEntity(entity);
@@ -572,6 +576,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			playerEntities.get(i).moveLeft();
 		}
 		updateSink();
+		this.updateSlide();
 		this.updateMove();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
@@ -589,6 +594,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			youEntities.get(i).moveRight();
 		}
 		updateSink();
+		this.updateSlide();
 		this.updateMove();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
@@ -606,6 +612,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			youEntities.get(i).moveUp();
 		}
 		this.updateMove();
+		this.updateSlide();
 		updateSink();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
@@ -621,6 +628,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			youEntities.get(i).moveDown();
 		}
 		this.updateMove();
+		this.updateSlide();
 		updateSink();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
@@ -753,7 +761,12 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		for (int i =0; i<numberOfGroupEntities;i++)
 			this.mapEntities.get(i).setUndoing(isUndoing);
 	}
-	
+	public void updateSlide() {
+		for (LevelGroupOfEntities entities: mapEntities) {
+			if (entities.getNumberOfEntities()>0)
+				entities.updateSlide();
+		}
+	}
 
 		
 	}

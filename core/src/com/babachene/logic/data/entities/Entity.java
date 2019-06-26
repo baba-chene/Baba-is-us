@@ -23,6 +23,7 @@ public abstract class Entity implements RenderableEntity {
 	protected boolean isKill;
 	protected boolean isOpen;
 	protected boolean isShut;
+	protected boolean isSlide;
 	protected LinkedList<String> makeEntity;
 	protected String text;
 	protected Direction direction;
@@ -49,6 +50,7 @@ public abstract class Entity implements RenderableEntity {
 		this.yPosition = y;
 		this.typeOfEntity =typeOfEntity;
 		this.direction = Direction.EAST;
+		this.isSlide = false;
 		this.hasEntity = false;
 		this.hasEntityType = new LinkedList<String>();
 		this.hDirection = Direction.EAST;
@@ -244,6 +246,14 @@ public abstract class Entity implements RenderableEntity {
 
 	public Direction getvDirection() {
 		return vDirection;
+	}
+
+	public boolean isSlide() {
+		return isSlide;
+	}
+
+	public void setSlide(boolean isSlide) {
+		this.isSlide = isSlide;
 	}
 	
 	

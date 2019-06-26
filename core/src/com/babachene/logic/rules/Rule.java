@@ -85,6 +85,9 @@ public class Rule {
 		case("shut"):
 			entities.setIsShut(true);
 			break;
+		case("slide"):
+			entities.setIsSlide(true);
+		break;
 		}
 		}
 		}
@@ -131,6 +134,9 @@ public class Rule {
 		case("shut"):
 			entities.setIsShut(true);
 			break;
+		case("slide"):
+			entities.setIsSlide(true);
+		break;
 		}
 		}
 		}

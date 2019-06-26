@@ -21,6 +21,7 @@ public class LevelMapCase {
 	private boolean isOpen;
 	private LinkedList<Entity> openEntities;
 	private boolean isShut;
+	private boolean isSlide;
 	private LinkedList<Entity> shutEntities;
 	private boolean isKill;
 	private boolean isBlock;
@@ -42,6 +43,7 @@ public class LevelMapCase {
 		this.isFree = true;
 		this.isSink = false;
 		this.isWin = false;
+		this.isSlide = false;
 		this.canMoveDown = false;
 		this.canMoveUp = false;
 		this.canMoveLeft = false;
@@ -82,6 +84,7 @@ public class LevelMapCase {
 		updateIsBlock();
 		updateIsOpen();
 		updateIsShut();}
+		updateIsSlide();
 		updateContainsPushable();
 		updateIsFree();
 
@@ -98,6 +101,7 @@ public class LevelMapCase {
 		updateIsShut();
 		 }
 		updateIsFree();
+		updateIsSlide();
 		updateContainsPushable();
 		updateIsBlock();
 	}
@@ -221,6 +225,7 @@ public class LevelMapCase {
 		this.updateContainsPushable();
 		this.updateIsFree();
 		this.updateIsBlock();
+		this.updateIsSlide();
 		this.updateIsSink();
 		this.updateIsWin();}
 		
@@ -361,5 +366,18 @@ public class LevelMapCase {
 		this.isUndoing = isUndoing;
 	}
 	
+	public void updateIsSlide() {	
+		this.isSlide = false;
+	this.shutEntities.clear();
+	for(int i = entityStack.size() -1; i>-1; i--) {
+		if(entityStack.get(i).isSlide()) 
+			this.isSlide = true;
+	}
+	}
+	public boolean isSlide() {
+		return isSlide;
+	}
+	
+
 	
 }

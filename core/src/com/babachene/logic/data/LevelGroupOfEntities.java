@@ -190,6 +190,12 @@ public class LevelGroupOfEntities {
 			Entity e = listOfEntities.get(i);
 			e.setMoveV(value);}
 	}
+	
+	public void setIsSlide(boolean value) {
+		for (int i = listOfEntities.size()-1; i>-1;i--) {
+			Entity e = listOfEntities.get(i);
+			e.setSlide(value);}
+	}
 	public void setAllFalse() {
 		this.setIsBlock(false);
 		this.setIsPush(false);
@@ -205,6 +211,7 @@ public class LevelGroupOfEntities {
 		this.setMakeFalse();
 		this.setIsOpen(false);
 		this.setIsShut(false);
+		this.setIsSlide(false);
 	}
 	private void setMakeFalse() {
 		for (Entity entity : listOfEntities)
@@ -367,5 +374,39 @@ public class LevelGroupOfEntities {
 		this.isUndoing = isUndoing;
 	}
 
+	public void updateSlide() {
+		for(int i = numberOfEntities-1; i>-1; i--) {
+			Entity entity = this.listOfEntities.get(i);
+			int x = entity.getxPosition();
+			int y = entity.getyPosition();
+			if (!entity.isSlide()) {
+			if (map.getMapCase(x, y).isSlide() && !(entity.getTypeOfEntity().equalsIgnoreCase("empty"))) {
+				switch(entity.getDirection())
+				{
+				case NORTH:
+					map.moveUp(entity);
+					updateSlide();
+					break;
+				case SOUTH:
+					map.moveDown(entity);
+					updateSlide();
+
+					break;
+				case EAST:
+					map.moveRight(entity);
+					updateSlide();
+
+					break;
+				case WEST:
+					map.moveLeft(entity);
+					updateSlide();
+
+					break;
+				}
+			}
+			}
+		}
+		
+	}
 	
 }
