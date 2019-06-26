@@ -2,9 +2,8 @@ package com.babachene.gui;
 
 import java.io.IOException;
 
-import com.babachene.controller.CtrlTest;
 import com.babachene.controller.MetaController;
-import com.babachene.gui.menus.LevelSelection;
+import com.babachene.gui.menus.JoinMenu;
 import com.babachene.gui.menus.Local2PlayerLevelSelection;
 import com.babachene.gui.menus.Local2PlayerMenu;
 import com.babachene.gui.menus.LocalArenaSelection;
@@ -13,7 +12,6 @@ import com.babachene.gui.menus.MainMenu;
 import com.babachene.gui.menus.OnlineArenaSelection;
 import com.babachene.gui.menus.OnlineLevelSelection;
 import com.babachene.gui.menus.OnlineMenu;
-import com.babachene.gui.menus.JoinMenu;
 import com.babachene.gui.menus.PlayMenu;
 import com.babachene.gui.menus.SettingsMenu;
 import com.babachene.gui.menus.SingleLevelSelection;
@@ -54,9 +52,12 @@ public class MainGame extends StateBasedGame {
 	public final static int ONLINELEVELSELECTION = 10;
 	public final static int ONLINEARENASELECTION =11;
 	
-	private LevelSelection levelSelection;
+	/*private LevelSelection levelSelection;
 	public final static int LEVELSELECTION =12;
-	
+	*/
+	private final String[] singleLevelList = {"basic level","the river","find the path","help your friend","empty is baba","keke is lost"} ;
+	private final String[] multiLevelList = {"1v1","help your friend","sandbox2player"};
+	private final String[] arenaList = {"1v1","arene1"};
 	
 	
 	private final AppInputProcessor inputProcessor;
@@ -175,37 +176,33 @@ public class MainGame extends StateBasedGame {
 				this.push(local2PlayerMenu);
 				break;
 			case JOINMENU:
-				if(joinMenu == null) {joinMenu = new JoinMenu(this);};
+				if(joinMenu == null) {joinMenu = new JoinMenu(this,true);};
 				this.push(joinMenu);
 				break;
-			
-			case LEVELSELECTION:
-				if(levelSelection == null) {levelSelection = new LevelSelection(this);};
-				this.push(levelSelection);
-				break;
-				
-				/*
 			case SINGLELEVELSELECTION:
-				if(singleLevelSelection == null) {singleLevelSelection = new SingleLevelSelection(this,true);};
+				if(singleLevelSelection == null) {singleLevelSelection = new SingleLevelSelection(this,true,singleLevelList);};
 				this.push(singleLevelSelection);
 				break;
+				
 			case LOCAL2PLAYERLEVELSELECTION:
-				if(local2PlayerLevelSelection == null) {local2PlayerLevelSelection = new Local2PlayerLevelSelection(this,true);};
+				if(local2PlayerLevelSelection == null) {local2PlayerLevelSelection = new Local2PlayerLevelSelection(this,true,multiLevelList);};
 				this.push(local2PlayerLevelSelection);
 				break;
-			case LOCALARENASELECTION:
-				if(localArenaSelection == null) {localArenaSelection = new LocalArenaSelection(this,true);};
-				this.push(localArenaSelection);
-				break;
+			
 			case ONLINELEVELSELECTION:
-				if(onlineLevelSelection == null) {onlineLevelSelection = new OnlineLevelSelection(this,true);};
+				if(onlineLevelSelection == null) {onlineLevelSelection = new OnlineLevelSelection(this,true,multiLevelList);};
 				this.push(onlineLevelSelection);
 				break;
+				
+			case LOCALARENASELECTION:
+				if(localArenaSelection == null) {localArenaSelection = new LocalArenaSelection(this,true,arenaList);};
+				this.push(localArenaSelection);
+				break;
 			case ONLINEARENASELECTION:
-				if(onlineArenaSelection == null) {onlineArenaSelection = new OnlineArenaSelection(this,true);};
+				if(onlineArenaSelection == null) {onlineArenaSelection = new OnlineArenaSelection(this,true,arenaList);};
 				this.push(onlineArenaSelection);
 				break;
-				*/
+				
 
 			
 		}

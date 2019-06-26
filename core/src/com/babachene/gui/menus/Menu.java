@@ -85,7 +85,26 @@ public abstract class Menu extends GameState implements Screen{
 		parent.setInputProcessor(stage);
 	}
 	
+	public void addLevelButton(final String text, int posx,int posy, int width, int height) {
+			
+			Skin skin = new Skin(Gdx.files.internal("skin/pixthulhuui/pixthulhu-ui.json"));
+			TextButton button = new TextButton(text, skin);
+			button.setBounds(posx, posy, width , height);
+			
+			button.addListener(new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
 	
+					parent.getMetaController().launchLevel(text);
+					
+					return;
+				}
+			});
+			button.setDisabled(false);
+			stage.addActor(button);
+			
+			parent.setInputProcessor(stage);
+		}
 	
 	
 	@Override

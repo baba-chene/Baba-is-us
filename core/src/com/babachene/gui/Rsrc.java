@@ -57,7 +57,7 @@ public final class Rsrc {
 		LEGO_TEXTURE = textureAtlas.findRegion("lego");
 		LOVE_TEXTURE = textureAtlas.findRegion("love");
 		BUSH_TEXTURE = textureAtlas.findRegion("bush");
-			
+		BOX_TEXTURE = textureAtlas.findRegion("box");
 			
 		TXT_YOU_TEXTURE = textureAtlas.findRegion("txt_you");
 		TXT_P1_TEXTURE = textureAtlas.findRegion("txt_p1");
@@ -363,6 +363,7 @@ public final class Rsrc {
 		case "lego":			return LEGO_TEXTURE;
 		case "love":			return LOVE_TEXTURE;
 		case "bush":			return BUSH_TEXTURE;
+		case "box":				return BOX_TEXTURE;
 		
 		// text for attributes
 		case "textyou":			return TXT_YOU_TEXTURE;
