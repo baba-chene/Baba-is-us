@@ -1,5 +1,6 @@
 package com.babachene.gui;
 
+import java.util.Random;
 import java.util.logging.Logger;
 
 import com.babachene.logic.data.Direction;
@@ -18,7 +19,7 @@ public final class Rsrc {
 	
 	private Rsrc() {}
 	
-//	private static final Random random = new Random();
+	public static final Random random = new Random();
 	
 	/**
 	 * The asset manager of the game.
@@ -53,7 +54,7 @@ public final class Rsrc {
 		PALM_TEXTURE = textureAtlas.findRegion("palm");
 		FLAG_TEXTURE = textureAtlas.findRegion("flag");;
 		SKULL_TEXTURE = textureAtlas.findRegion("skull");
-		GRASS_TEXTURE = textureAtlas.findRegion("grass");
+		GRASS_TEXTURE = textureAtlas.findRegion("grass0");
 		LEGO_TEXTURE = textureAtlas.findRegion("lego");
 		LOVE_TEXTURE = textureAtlas.findRegion("love");
 		BUSH_TEXTURE = textureAtlas.findRegion("bush");
@@ -102,6 +103,7 @@ public final class Rsrc {
 		TXT_PAF_TEXTURE = textureAtlas.findRegion("txt_paf");
 		TXT_HUG_TEXTURE = textureAtlas.findRegion("txt_hug");
 		TXT_LIGHT_TEXTURE = textureAtlas.findRegion("txt_light");
+		TXT_EMPTY_TEXTURE = textureAtlas.findRegion("txt_empty");
 		
 		/// Multiple sprite.
 		BABA_UP_TEXTURE = new TextureRegion[] {
@@ -143,6 +145,13 @@ public final class Rsrc {
 				textureAtlas.findRegion("keke_down0"),
 				textureAtlas.findRegion("keke_down1"),
 				textureAtlas.findRegion("keke_down2")
+		};
+		
+		GRASS_ARRAY_TEXTURE = new TextureRegion[] {
+				textureAtlas.findRegion("grass0"),
+				textureAtlas.findRegion("grass1"),
+				textureAtlas.findRegion("grass2"),
+				textureAtlas.findRegion("grass3")
 		};
 		
 		WALL_ARRAY_TEXTURE = new TextureRegion[] {
@@ -273,6 +282,7 @@ public final class Rsrc {
 								FLAG_TEXTURE,
 								SKULL_TEXTURE,
 								GRASS_TEXTURE,
+								GRASS_ARRAY_TEXTURE[],
 								LEGO_TEXTURE,
 								LOVE_TEXTURE,
 								BUSH_TEXTURE,
@@ -320,7 +330,8 @@ public final class Rsrc {
 								
 								TXT_PAF_TEXTURE,
 								TXT_HUG_TEXTURE,
-								TXT_LIGHT_TEXTURE;
+								TXT_LIGHT_TEXTURE,
+								TXT_EMPTY_TEXTURE;
 	
 	
 	//====================================================================================//
@@ -358,7 +369,7 @@ public final class Rsrc {
 		case "tree":			return TREE_TEXTURE;
 		case "flag":			return FLAG_TEXTURE;
 		case "skull":			return SKULL_TEXTURE;
-		case "grass":			return GRASS_TEXTURE;
+		case "grass":			return GRASS_ARRAY_TEXTURE[random.nextInt(GRASS_ARRAY_TEXTURE.length)];
 		case "keke":			return KEKE_TEXTURE;
 		case "lego":			return LEGO_TEXTURE;
 		case "love":			return LOVE_TEXTURE;
@@ -409,6 +420,7 @@ public final class Rsrc {
 		case "textpaf":			return TXT_PAF_TEXTURE;
 		case "texthug":			return TXT_HUG_TEXTURE;
 		case "textlight":		return TXT_LIGHT_TEXTURE;
+		case "textempty":		return TXT_EMPTY_TEXTURE;
 		
 		default: 			return MISSING_TEXTURE;
 		}

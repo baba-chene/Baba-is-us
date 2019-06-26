@@ -111,7 +111,7 @@ public class MainGame extends StateBasedGame {
 		BabaIsUs.assetManager.load(BabaIsUs.textures.KERMIT, Texture.class);
 		BabaIsUs.assetManager.load(BabaIsUs.textures.THEME_DEFAULT, Texture.class);
 		BabaIsUs.assetManager.finishLoading();
-		RenderingTest.main(null);
+//		RenderingTest.main(null);
 //		RenderingTest t = new RenderingTest();
 //		this.push(new LevelState(t.level, null));
 //		t.startTestOnLevelState();

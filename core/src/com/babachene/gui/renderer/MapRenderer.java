@@ -8,9 +8,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.babachene.gui.BabaIsUs;
+import com.babachene.gui.Rsrc;
 import com.babachene.logic.data.LevelMap;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Renders a map on the screen and delegates the rendering of
@@ -34,6 +37,9 @@ class MapRenderer extends Renderer { // Not a public class.
 	 * This is a temporary solution for the neightboor-dependent renderers.
 	 */
 	private List<NeightboorRenderer> neightboor;
+	/** Indicate that we should call update() of all neightboor-related renderers. */
+	private boolean mustComputeNeightboor = false;
+	private Array<AnimatedParticle> particles = new Array<>(false, 128);
 //	private RenderableMap map;
 	private MapRenderingData mapRenderingData;
 	
@@ -102,6 +108,11 @@ class MapRenderer extends Renderer { // Not a public class.
 			}
 		}
 		
+		if (mustComputeNeightboor) {
+			mustComputeNeightboor = false;
+			for (NeightboorRenderer e : neightboor)
+				e.update();
+		}
 	}
 	
 	// temp
@@ -137,6 +148,10 @@ class MapRenderer extends Renderer { // Not a public class.
 			renderers.get(i).render(batch);
 		}
 		
+		// Particle rendering
+		for (AnimatedParticle a : particles) {
+			a.render(batch);
+		}
 	}
 	
 	
@@ -191,7 +206,7 @@ class MapRenderer extends Renderer { // Not a public class.
 		}
 		logger.log(Level.FINE, "Created a new EntityRenderer, entity id="+id );
 		
-		updateNeightboorRenderers();
+		mustComputeNeightboor = true;
 		
 	}
 	
@@ -206,26 +221,28 @@ class MapRenderer extends Renderer { // Not a public class.
 		if (e == null)
 			return;
 		
+		EntityRenderer r = null;
 		boolean found = false;
 		for (int i = 0; i < renderers.size(); i++) {
 			if (renderers.get(i).getRenderableEntity() == e) {
-				renderers.remove(i);
+				r = renderers.remove(i);
 				found = true;
 				break;
 			}
 		}
 		
-		if (e instanceof NeightboorRenderer) {
-			if (found) {
-				neightboor.remove( (NeightboorRenderer) e);
+		if (found) {
+			if (r instanceof NeightboorRenderer) {
+				neightboor.remove( (NeightboorRenderer) r);
 				// Don't forget to update the other renderers.
-				updateNeightboorRenderers();
+				mustComputeNeightboor = true;
 			}
 		}
 		
 		if ( ! found)
 			logger.log(Level.INFO, "Attempted to remove a RenderableEntity which was not found. id=" + e.getId());
 		
+		createExplosion(e);
 	}
 	
 	public final void removeAllEntitiesById(String id) {
@@ -234,7 +251,7 @@ class MapRenderer extends Renderer { // Not a public class.
 			return;
 		
 		// temporary solution
-		ArrayList<EntityRenderer> l=  new ArrayList<>();
+		ArrayList<EntityRenderer> l = new ArrayList<>();
 		boolean found = false;
 		for (int i = 0; i < renderers.size(); i++) {
 			if (renderers.get(i).getRenderableEntity().getId().equals(id)) {
@@ -246,7 +263,7 @@ class MapRenderer extends Renderer { // Not a public class.
 		
 		renderers.removeAll(l);
 		neightboor.removeAll(l);
-		updateNeightboorRenderers();
+		mustComputeNeightboor = true;
 		
 		if ( ! found)
 			logger.log(Level.INFO, "Attempted to remove some RenderableEntities by id but no was found.");
@@ -254,9 +271,13 @@ class MapRenderer extends Renderer { // Not a public class.
 			logger.log(Level.FINE, "Removed all RenderableEntity of id " + id);
 	}
 	
-	private final void updateNeightboorRenderers() {
-		for (NeightboorRenderer e : neightboor)
-			e.update();
+	private void createExplosion(RenderableEntity sourceEntity) {
+		for (int i = 0; i < 7; i++)
+			particles.add(new AnimatedParticle(sourceEntity.getX(),
+											sourceEntity.getY(),
+											Rsrc.random.nextFloat() * 2f * (float)Math.PI,
+											mapRenderingData,
+											particles));
 	}
 	
 }
