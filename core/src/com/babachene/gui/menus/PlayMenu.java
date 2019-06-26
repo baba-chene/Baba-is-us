@@ -22,9 +22,9 @@ public class PlayMenu extends Menu implements Screen {
 		
 		super.addTitle("selectMode",450, 800, 1000, 250);
 		
-		super.addButton("local", BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 +80, 800, 120, game.LOCALMENU);
+		super.addButton("Local", BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 +80, 800, 120, game.LOCALMENU);
 		
-		super.addButton("online", BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 -80, 800, 120, game.JOINMENU);
+		super.addButton("Online", BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 -80, 800, 120, game.JOINMENU);
 				
 	}
 }

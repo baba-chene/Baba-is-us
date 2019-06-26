@@ -57,7 +57,7 @@ class MapRenderer extends Renderer { // Not a public class.
 			updateQueue = map.getMapUpdateQueue();
 		
 		/*
-		 *  resolves the theme
+		 *  set background
 		 */
 		backgroundTexture = new Texture("textures/backgrounds/fond2.jpg");
 		

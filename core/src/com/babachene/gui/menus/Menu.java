@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
@@ -32,8 +34,9 @@ public abstract class Menu extends GameState implements Screen{
 		batch= new SpriteBatch();
 		
 		if (hasBack) {
-			SpriteDrawable backImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/menus/back.png"))));
-			ImageButton backButton = new ImageButton(backImage);
+			
+			Skin skin = new Skin(Gdx.files.internal("skin/pixthulhuui/pixthulhu-ui.json"));
+			TextButton backButton = new TextButton("Back",skin);
 			backButton.setBounds(100, 80, 200, 120);
 			
 			backButton.addListener(new ClickListener() {
@@ -61,13 +64,12 @@ public abstract class Menu extends GameState implements Screen{
 		title = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/menus/"+image+".png"))));
 	}
 	
-	public void addButton(String image, int posx,int posy, int width, int height, final int nextMenu) {
+	public void addButton(String text, int posx,int posy, int width, int height, final int nextMenu) {
 		
-		SpriteDrawable buttonImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/menus/"+image+".png"))));
-		ImageButton button = new ImageButton(buttonImage);
+		Skin skin = new Skin(Gdx.files.internal("skin/pixthulhuui/pixthulhu-ui.json"));
+		TextButton button = new TextButton(text, skin);
 		button.setBounds(posx, posy, width , height);
-		button.setColor(BabaIsUs.buttonColor);
-
+		
 		button.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {

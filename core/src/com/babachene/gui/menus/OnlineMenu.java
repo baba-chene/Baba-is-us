@@ -11,9 +11,9 @@ public class OnlineMenu extends Menu implements Screen {
 		
 		super.addTitle("selectMode", 450, 800, 1000, 250);
 		
-		super.addButton("coop", BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 +80, 800, 120, mg.ONLINELEVELSELECTION);
+		super.addButton("Coop", BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 +80, 800, 120, mg.ONLINELEVELSELECTION);
 		
-		super.addButton("1vs1", BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 -80, 800, 120, mg.ONLINEARENASELECTION);
+		super.addButton("Babattle Royal", BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 -80, 800, 120, mg.ONLINEARENASELECTION);
 	}
 
 }

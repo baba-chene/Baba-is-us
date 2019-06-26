@@ -13,6 +13,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
@@ -37,14 +39,14 @@ public class MainMenu extends Menu implements Screen {
 		
 		super.addTitle("babaisus", 450,800,1000,250);
 		
-		super.addButton("play", BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 +30, 800, 120, game.PLAYMENU);
+		super.addButton("Play", BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 +30, 800, 120, game.PLAYMENU);
 		
-		super.addButton("settings", BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 -110, 800, 120, game.SETTINGSMENU);
+		super.addButton("Settings", BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 -110, 800, 120, game.SETTINGSMENU);
 		
-		SpriteDrawable quitImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/menus/quit.png"))));
-		ImageButton quitButton = new ImageButton(quitImage);
+		
+		Skin skin = new Skin(Gdx.files.internal("skin/pixthulhuui/pixthulhu-ui.json"));
+		TextButton quitButton = new TextButton("Quit", skin);
 		quitButton.setBounds(BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 - 250, 800, 120);
-		quitButton.setColor(BabaIsUs.buttonColor);
 
 		quitButton.addListener(new ClickListener() {
 			@Override
@@ -58,6 +60,9 @@ public class MainMenu extends Menu implements Screen {
 		});
 		quitButton.setDisabled(false);
 		stage.addActor(quitButton);
+		
+		
+		
 	
 		
 	}

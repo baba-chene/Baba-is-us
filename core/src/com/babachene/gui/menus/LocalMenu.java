@@ -11,9 +11,9 @@ public class LocalMenu extends Menu implements Screen {
 		
 		super.addTitle("localMenu", 450, 800, 1000, 250);
 		
-		super.addButton("1player", BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 +80, 800, 120, mg.LEVELSELECTION /*mg.SINGLELEVELSELECTION*/);
+		super.addButton("1 Player", BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 +80, 800, 120, mg.LEVELSELECTION /*mg.SINGLELEVELSELECTION*/);
 		
-		super.addButton("2player", BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 -80, 800, 120, mg.LOCAL2PLAYERMENU);
+		super.addButton("2 Player", BabaIsUs.WIDTH / 2 - 400, BabaIsUs.HEIGHT / 2 -80, 800, 120, mg.LOCAL2PLAYERMENU);
 		
 	}
 
