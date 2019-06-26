@@ -658,7 +658,9 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 					for (int l =0; l<entities2.get(k).getListOfEntities().size(); l++) {
 						Entity entity2 = entities2.get(k).getListOfEntities().get(l);
 						if (entity1.getxPosition() == entity2.getxPosition() && entity1.getyPosition() == entity2.getyPosition() )
-							huggedEntities.add(entity2.getxPosition(), entity2.getyPosition());
+							{huggedEntities.add(entity2.getxPosition(), entity2.getyPosition());
+							huggedEntities.add(entity1);
+							huggedEntities.add(entity2);}
 					}}
 			}
 		}
