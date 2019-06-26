@@ -140,6 +140,8 @@ public class Rule {
 		if (this.verb.getText().equalsIgnoreCase("is")) {
 			if(property.getText().equalsIgnoreCase("win"))
 				rulesUpdater.getMap().getHuggedEntities().setWin(true);
+			if(property.getText().equalsIgnoreCase("sink")||property.getText().equalsIgnoreCase("kill"))
+				rulesUpdater.getMap().getHuggedEntities().setSink(true);
 		}
 		if (this.verb.getText().equalsIgnoreCase("make"))
 		{
