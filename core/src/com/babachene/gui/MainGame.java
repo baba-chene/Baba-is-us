@@ -12,9 +12,12 @@ import com.babachene.gui.menus.MainMenu;
 import com.babachene.gui.menus.OnlineArenaSelection;
 import com.babachene.gui.menus.OnlineLevelSelection;
 import com.babachene.gui.menus.OnlineMenu;
+import com.babachene.gui.menus.P1Win;
+import com.babachene.gui.menus.P2Win;
 import com.babachene.gui.menus.PlayMenu;
 import com.babachene.gui.menus.SettingsMenu;
 import com.babachene.gui.menus.SingleLevelSelection;
+import com.babachene.gui.menus.YouWin;
 import com.babachene.gui.test.RenderingTest;
 import com.babachene.logger.GlobalLogger;
 import com.babachene.userinput.AppInputProcessor;
@@ -39,6 +42,9 @@ public class MainGame extends StateBasedGame {
 	private OnlineMenu onlineMenu;
 	private OnlineLevelSelection onlineLevelSelection;
 	private OnlineArenaSelection onlineArenaSelection;
+	private YouWin youWin;
+	private P1Win p1Win;
+	private P2Win p2Win;
 	public final static int MAINMENU = 0;
 	public final static int PLAYMENU = 1;
 	public final static int SETTINGSMENU = 2;
@@ -51,6 +57,9 @@ public class MainGame extends StateBasedGame {
 	public final static int JOINMENU =9;
 	public final static int ONLINELEVELSELECTION = 10;
 	public final static int ONLINEARENASELECTION =11;
+	public final static int YOUWIN =12;
+	public final static int P1WIN =13;
+	public final static int P2WIN =14;
 	
 	
 	private final String[] singleLevelList = {"basic level","the river","find the path","help your friend","empty is baba","keke is lost"} ;
@@ -201,8 +210,18 @@ public class MainGame extends StateBasedGame {
 				this.push(onlineArenaSelection);
 				break;
 				
-
-			
+			case YOUWIN:
+				if(youWin == null) {youWin = new YouWin(this,false);};
+				this.push(youWin);
+				break;
+			case P1WIN:
+				if(p1Win == null) {p1Win = new P1Win(this,false);};
+				this.push(p1Win);
+				break;
+			case P2WIN:
+				if(p2Win == null) {p2Win = new P2Win(this,false);};
+				this.push(p2Win);
+				break;
 		}
 	}
 

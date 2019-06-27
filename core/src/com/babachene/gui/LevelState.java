@@ -20,7 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 public class LevelState extends GameState {
 	
 	private static MainGame parent;
-	private LevelInputProcessor inputProcessor;
+	private static LevelInputProcessor inputProcessor;
 	private LevelRenderer levelRenderer;
 	private static SpriteBatch batch;
 	
@@ -46,26 +46,22 @@ public class LevelState extends GameState {
 	
 	public static void win(int type) {
 		
+		
 		SpriteDrawable win = null;
 		switch(type) {
 		
 		case 0 : 
-			win = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/youwin.png"))));
+			parent.changeScreen(MainGame.YOUWIN);
 			break;
 		case 1 : 
-			win = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/p1win.png"))));
+			parent.changeScreen(MainGame.P1WIN);
+			System.out.println("p1 win");
 			break;
 		case 2 : 
-			win = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/p2win.png"))));
+			parent.changeScreen(MainGame.P2WIN);
+			System.out.println("p2 win");
 			break;
 		}
-		
-		
-		batch.setProjectionMatrix(getViewport().getCamera().combined);
-		batch.begin();
-		win.draw(batch, 860, 420,200,200);
-		batch.end();
-		
 		
 	}
 	
