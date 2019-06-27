@@ -2,6 +2,8 @@ package com.babachene.logic.rules;
 
 import java.util.LinkedList;
 
+import com.babachene.gui.LevelState;
+import com.babachene.gui.MainGame;
 import com.babachene.logic.data.LevelGroupOfEntities;
 import com.babachene.logic.data.LevelMap;
 import com.babachene.logic.data.entities.EntityText;
@@ -211,7 +213,7 @@ public class RulesUpdater {
 		for (LevelGroupOfEntities entities2:p2Entities)
 			entities2.updateWin();
 		if (map.getHuggedEntities().isWin() && map.getHuggedEntities().getSize()>0)
-			System.out.println("Congratulations, you won");
+			LevelState.win(0);
 	}
 	
 	public void resetProperties() {

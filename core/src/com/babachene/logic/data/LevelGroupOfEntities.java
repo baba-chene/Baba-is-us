@@ -290,7 +290,6 @@ public class LevelGroupOfEntities {
 		for(Entity entity:listOfEntities)
 			if (this.map.getMapCase(entity.getxPosition(), entity.getyPosition()).isWin()) {
 				LevelState.win(0);
-				System.out.println("0");
 				return;}		
 		LevelGroupOfEntities entitiesText = map.findGroup("text");
 		boolean isCoop = false;
@@ -310,7 +309,6 @@ public class LevelGroupOfEntities {
 		}
 		if (numberP1 ==0) {
 			LevelState.win(2);
-			System.out.println("alo?");
 		return;}
 		if(numberP2 == 0) {
 			LevelState.win(1);
@@ -412,11 +410,13 @@ public class LevelGroupOfEntities {
 				switch(entity.getDirection())
 				{
 				case NORTH:
+					if (!entity.isSlide())
 					map.moveUp(entity);
 					if (map.getMapCase(x, y).isCanMoveUp())
 					updateSlide();
 					break;
 				case SOUTH:
+					if (!entity.isSlide())
 					map.moveDown(entity);
 					if (map.getMapCase(x, y).isCanMoveDown())
 
@@ -424,6 +424,7 @@ public class LevelGroupOfEntities {
 
 					break;
 				case EAST:
+					if (!entity.isSlide())
 					map.moveRight(entity);
 					if (map.getMapCase(x, y).isCanMoveRight())
 
@@ -431,6 +432,7 @@ public class LevelGroupOfEntities {
 
 					break;
 				case WEST:
+					if (!entity.isSlide())
 					map.moveLeft(entity);
 					if (map.getMapCase(x, y).isCanMoveLeft())
 					updateSlide();
