@@ -56,11 +56,11 @@ final class MapRenderingData { // Not a public class.
 		}
 		
 		// Ma fierté est sans limite.
-		speedX = Baba.BASE_ENTITY_MOVING_SPEED * tileWidth;
-		speedY = Baba.BASE_ENTITY_MOVING_SPEED * tileHeight;
+		speedX = Baba.BASE_ENTITY_MOVING_SPEED * tileWidth * .66f;
+		speedY = Baba.BASE_ENTITY_MOVING_SPEED * tileHeight * .66f;
 		
-		fastSpeedX = Baba.BASE_ENTITY_MOVING_SPEED * mapWidth / 10f;
-		fastSpeedY = Baba.BASE_ENTITY_MOVING_SPEED * mapHeight / 10f;
+		fastSpeedX = Baba.BASE_ENTITY_MOVING_SPEED * mapWidth / 5f;
+		fastSpeedY = Baba.BASE_ENTITY_MOVING_SPEED * mapHeight / 5f;
 		
 	}
 	
@@ -73,11 +73,11 @@ final class MapRenderingData { // Not a public class.
 	/** The dimensions of a graphical tile. */
 	public final float tileWidth, tileHeight;
 	
-	public float xPosition(float xIndex) {
+	public float xPosition(int xIndex) {
 		return mapX + xIndex * tileWidth;
 	}
 	
-	public float yPosition(float yIndex) {
+	public float yPosition(int yIndex) {
 		return mapY + yIndex * tileHeight;
 	}
 	

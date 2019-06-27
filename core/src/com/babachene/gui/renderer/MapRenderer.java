@@ -1,14 +1,19 @@
 package com.babachene.gui.renderer;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.MissingResourceException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.babachene.gui.BabaIsUs;
+import com.babachene.gui.Rsrc;
+import com.babachene.logic.data.LevelMap;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Renders a map on the screen and delegates the rendering of
@@ -25,8 +30,16 @@ class MapRenderer extends Renderer { // Not a public class.
 //	/** This table should not be used in the render() method. For performance reason.
 //	 * <br> It maps an entity id to the EntityGroupRenderer index in the list. */
 //	private TreeMap<Short, Integer> idtable;     // I give up on this id:index mapping.
+	private final RenderableMap map;
 	
 	private List<EntityRenderer> renderers;
+	/*
+	 * This is a temporary solution for the neightboor-dependent renderers.
+	 */
+	private List<NeightboorRenderer> neightboor;
+	/** Indicate that we should call update() of all neightboor-related renderers. */
+	private boolean mustComputeNeightboor = false;
+	private Array<AnimatedParticle> particles = new Array<>(false, 128);
 //	private RenderableMap map;
 	private MapRenderingData mapRenderingData;
 	
@@ -41,6 +54,7 @@ class MapRenderer extends Renderer { // Not a public class.
 	public MapRenderer(RenderableMap map, byte theme) {
 		if (map == null)
 			throw new IllegalArgumentException("The RenderableMap object cannot bu null");
+		this.map = map;
 		
 		if (map.getMapUpdateQueue() == null) {
 			logger.log(Level.WARNING, "The MapUpdateQueue is null: MapRenderer will not change its entities structure.");
@@ -49,16 +63,10 @@ class MapRenderer extends Renderer { // Not a public class.
 			updateQueue = map.getMapUpdateQueue();
 		
 		/*
-		 *  resolves the theme
+		 *  set background
 		 */
-		switch (theme) {
-		case BabaIsUs.DEFAULT_THEME : //backgroundColor = new Color(0.1f, 0.1f, 0.1f, 1);
-			backgroundTexture = BabaIsUs.assetManager.get(BabaIsUs.textures.THEME_DEFAULT, Texture.class);
-			break;
-		default:
-//			backgroundColor  = Color.BLACK;
-			break;
-		}
+		backgroundTexture = new Texture("textures/backgrounds/fond2.jpg");
+		
 		
 		/*
 		 * Map data manager
@@ -69,10 +77,10 @@ class MapRenderer extends Renderer { // Not a public class.
 		 *  Entity                                          Give a reasonable size.
 		 */
 		renderers = new ArrayList<EntityRenderer>(map.getWidth() * map.getHeight() * 2);
-		
+		neightboor = new LinkedList<>();
 //		for (RenderableEntity e : map) {
 //			
-//			addEntity(e); FIXME Well, I don't know how it should best work. But in current testing, the map sends all info through the queue.
+//			addEntity(e); // FIXME Well, I don't know how it should best work. But in current testing, the map sends all info through the queue.
 //			
 //		}
 		
@@ -94,6 +102,11 @@ class MapRenderer extends Renderer { // Not a public class.
 			}
 		}
 		
+		if (mustComputeNeightboor) {
+			mustComputeNeightboor = false;
+			for (NeightboorRenderer e : neightboor)
+				e.update();
+		}
 	}
 	
 	// temp
@@ -129,6 +142,10 @@ class MapRenderer extends Renderer { // Not a public class.
 			renderers.get(i).render(batch);
 		}
 		
+		// Particle rendering
+		for (AnimatedParticle a : particles) {
+			a.render(batch);
+		}
 	}
 	
 	
@@ -151,24 +168,39 @@ class MapRenderer extends Renderer { // Not a public class.
 		
 		String id = e.getId();
 		
-		if (id.isEmpty()) { //TODO
+		if (id.isEmpty()) {
 			logger.fine("An entity with ID \"\" has dropped and will not be renderer.");
 			return;
 		}
 		
 		/*
-		 * This will require changes if an EntityGroup class comes up.
+		 * This will require changes if an EntityGroup class comes up. And Directional renderer already did.
 		 */
 		try {
-			renderers.add(new EntityRenderer(e, mapRenderingData));
+			
+			if (e.getId().equals("baba") || e.getId().equals("keke"))
+				renderers.add(new DirectionalEntityRenderer(e, mapRenderingData));
+			else if (e.getId().equals("water") && map instanceof LevelMap) {
+				NeightboorRenderer r = new WaterRenderer(e, mapRenderingData, (LevelMap) map);
+				renderers.add(r);
+				neightboor.add(r);
+			} else if (e.getId().equals("wall") && map instanceof LevelMap) {
+				NeightboorRenderer r = new WallRenderer(e, mapRenderingData, (LevelMap) map);
+				renderers.add(r);
+				neightboor.add(r);
+			} else if (e.getId().equals("lava") && map instanceof LevelMap) {
+				NeightboorRenderer r = new LavaRenderer(e, mapRenderingData, (LevelMap) map);
+				renderers.add(r);
+				neightboor.add(r);
+			} else
+				renderers.add(new EntityRenderer(e, mapRenderingData));
+			
 		} catch (MissingResourceException ex) {
 			ex.printStackTrace();
 		}
 		logger.log(Level.FINE, "Created a new EntityRenderer, entity id="+id );
 		
-		
-		
-//		renderers.get(idtable.get(id)).addRenderableEntity(e);
+		mustComputeNeightboor = true;
 		
 	}
 	
@@ -177,22 +209,34 @@ class MapRenderer extends Renderer { // Not a public class.
 		 * - entity does not exist.
 		 * - entity exists.
 		 * That's simpler with no grouped entities.
+		 * But here thay are, if the entity is a neightboor entity, we need to update them all.
 		 */
 		
 		if (e == null)
 			return;
 		
+		EntityRenderer r = null;
 		boolean found = false;
 		for (int i = 0; i < renderers.size(); i++) {
 			if (renderers.get(i).getRenderableEntity() == e) {
-				renderers.remove(i);
+				r = renderers.remove(i);
 				found = true;
 				break;
 			}
 		}
+		
+		if (found) {
+			if (r instanceof NeightboorRenderer) {
+				neightboor.remove( (NeightboorRenderer) r);
+				// Don't forget to update the other renderers.
+				mustComputeNeightboor = true;
+			}
+		}
+		
 		if ( ! found)
 			logger.log(Level.INFO, "Attempted to remove a RenderableEntity which was not found. id=" + e.getId());
 		
+		createExplosion(e);
 	}
 	
 	public final void removeAllEntitiesById(String id) {
@@ -201,21 +245,34 @@ class MapRenderer extends Renderer { // Not a public class.
 			return;
 		
 		// temporary solution
-		ArrayList<EntityRenderer> l=  new ArrayList<>();
+		ArrayList<EntityRenderer> l = new ArrayList<>();
 		boolean found = false;
 		for (int i = 0; i < renderers.size(); i++) {
 			if (renderers.get(i).getRenderableEntity().getId().equals(id)) {
 				l.add(renderers.get(i));//renderers.remove(i--);
 				found = true;
 			}
+			
 		}
 		
 		renderers.removeAll(l);
+		neightboor.removeAll(l);
+		mustComputeNeightboor = true;
 		
 		if ( ! found)
 			logger.log(Level.INFO, "Attempted to remove some RenderableEntities by id but no was found.");
 		else
 			logger.log(Level.FINE, "Removed all RenderableEntity of id " + id);
+	}
+	
+	private void createExplosion(RenderableEntity sourceEntity) {
+		Rsrc.EXPLOSION_SOUND.play();
+		for (int i = 0; i < 7; i++)
+			particles.add(new AnimatedParticle(sourceEntity.getX(),
+											sourceEntity.getY(),
+											Rsrc.random.nextFloat() * 2f * (float)Math.PI,
+											mapRenderingData,
+											particles));
 	}
 	
 }

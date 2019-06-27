@@ -17,8 +17,8 @@ import com.badlogic.gdx.Gdx;
  */
 public abstract class StateBasedGame implements ApplicationListener {
 	
-	private Deque<GameState> stack;
-	private GameState currentState;
+	private static Deque<GameState> stack;
+	private static GameState currentState;
 	
 	public StateBasedGame() {
 		stack = new LinkedList<GameState>();
@@ -98,21 +98,25 @@ public abstract class StateBasedGame implements ApplicationListener {
 	 * @throws RuntimeException - if no game states are left
 	 * for the game.
 	 */
-	public synchronized void pop() {
+	public synchronized static void pop() {
 	
 		assert ! stack.isEmpty(); // Ben ouais.
-		if (stack.isEmpty())
+		if (stack.isEmpty()) {
+			Gdx.app.exit();
 			throw new RuntimeException("The game state stack is empty : it shouldn't be.");
+			}
 		stack.pop();
-		if (stack.isEmpty())
+		if (stack.isEmpty()) {
+			Gdx.app.exit();
 			throw new RuntimeException("The game state stack has been made empty : it shouldn't be.");
+		}
 		// Set the game state to the new head of the stack.
 		setState(stack.peek());
 		
 		System.out.println("Stack length = "+stack.size());
 	}
 	
-	private final void setState(GameState newState) {
+	private final static void setState(GameState newState) {
 		// notify the game states of the change.
 		if (currentState != null)
 			currentState.hide();

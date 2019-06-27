@@ -2,6 +2,9 @@ package com.babachene.logic.data;
 
 import java.util.LinkedList;
 
+import com.babachene.logic.data.entities.Entity;
+import com.babachene.logic.data.entities.EntityEmpty;
+
 public class LevelMapCase {
 	/* A case of the map contains a lot of information. First of all it contains the stack of entities that are located on this case
 	 * but also the properties of the entities that it contains.  
@@ -10,6 +13,18 @@ public class LevelMapCase {
 	private int xPosition;
 	private int yPosition;
 	private LevelMap map;
+	private boolean canMoveRight;
+	private boolean canMoveLeft;
+	private boolean canMoveUp;
+	private boolean canMoveDown;
+	private boolean isUndoing;
+	private boolean isOpen;
+	private LinkedList<Entity> openEntities;
+	private boolean isShut;
+	private boolean isSlide;
+	private LinkedList<Entity> shutEntities;
+	private boolean isKill;
+	private boolean isBlock;
 	private boolean isSink;			 //True if it contains an entity with isSink
 	private boolean isWin;			 //after all the other entities of the case moved.
 	private boolean isFree;			 //Means that there is no pushable or block entities on the case
@@ -23,13 +38,24 @@ public class LevelMapCase {
 		this.xPosition = x;
 		this.yPosition = y;
 		this.map = map;
+		this.isBlock = false;
+		this.isUndoing = false;
 		this.isFree = true;
 		this.isSink = false;
 		this.isWin = false;
+		this.isSlide = false;
+		this.canMoveDown = false;
+		this.canMoveUp = false;
+		this.canMoveLeft = false;
+		this.canMoveRight = false;
 		this.containsPushableEntity = false;
 		this.entityStack = new LinkedList<Entity>();
 		entityEmpty = new EntityEmpty(x, y, map);
 		this.pushableEntityList = new LinkedList<Entity>();
+		this.isOpen = false;
+		this.isShut = false;
+		this.openEntities = new LinkedList<Entity>();
+		this.shutEntities = new LinkedList<Entity>();
 		}
 	public boolean isFree() {
 		return isFree;
@@ -52,9 +78,17 @@ public class LevelMapCase {
 		if (entityStack.size()>1)					 // We remove the EntityEmpty when something else is on the case
 		{
 			removeEntityEmpty();
-		}											 // We look if the new entity has special effects on the case
-		updateIsFree();
+		}
+		if(!isUndoing) {// We look if the new entity has special effects on the case
+		updateIsKill();
+		updateIsBlock();
+		updateIsOpen();
+		updateIsShut();}
+		updateIsSlide();
 		updateContainsPushable();
+		updateIsFree();
+
+
 	}
 	
 	public void removeEntity(Entity entity) {						// /!\ Only removes the entity from the map case and not from the group of entity,
@@ -62,12 +96,19 @@ public class LevelMapCase {
 		pushableEntityList.remove(entity);
 		if (entityStack.isEmpty())
 			this.map.addEntity(xPosition, yPosition, entityEmpty);
-		 															// We look if the removal of the entity has special effects on the case
+		 if(!isUndoing) {														// We look if the removal of the entity has special effects on the case
+		updateIsOpen();
+		updateIsShut();
+		 }
 		updateIsFree();
+		updateIsSlide();
 		updateContainsPushable();
-		
+		updateIsBlock();
 	}
 	
+	public boolean isBlock() {
+		return isBlock;
+	}
 
 	public LinkedList<Entity> getPushableEntityList() {
 		return pushableEntityList;
@@ -98,11 +139,30 @@ public class LevelMapCase {
 		
 	}
 	
+	public void updateIsKill() {
+		if(isKill && entityStack.size()>1) {
+			this.clearEntitiesKill();
+		}
+		this.isKill = false;
+		for (Entity e:entityStack) {
+			if (e.isKill())
+				this.isKill=true;
+		}
+	}
+	
 	public void updateIsFree() {
 		this.isFree = true;
 		for (Entity e:entityStack) {
-			if (e.isBlock() || e.isPushable)
+			if (e.isBlock() || e.isPushable())
 				this.isFree = false;
+		}
+	}
+	
+	public void updateIsBlock() {
+		this.isBlock = true;
+		for (Entity e:entityStack) {
+			if (e.isBlock() )
+				this.isBlock = true;
 		}
 	}
 
@@ -139,7 +199,11 @@ public class LevelMapCase {
 			{Entity entity = entityStack.get(i);
 			if (!entity.getTypeOfEntity().equalsIgnoreCase("empty"))
 				this.map.getMapUpdateQueue().pushRemovedEntity(entity); 
-			this.map.removeEntity(entityStack.get(i)); 
+			if (entity.HasEntity()) {
+				for (String s : entity.getHasEntityType())
+				map.addEntity(this.xPosition, this.yPosition, s);
+			}
+			this.map.removeEntity(entity); 
 			}
 		this.pushableEntityList = new LinkedList<Entity>();
 		this.containsPushableEntity = false;
@@ -147,4 +211,173 @@ public class LevelMapCase {
 		this.isSink = false;
 
 	}
+	
+	public void clearEntitiesKill() {
+		int size = entityStack.size();
+		for (int i =size -1; i>-1;i--) //On retire des éléments d'une liste qu'on parcourt, on les retire donc en partant de la fin.
+			{Entity entity = entityStack.get(i);
+			if(!entity.isKill()) {
+			if (!entity.getTypeOfEntity().equalsIgnoreCase("empty"))
+				this.map.getMapUpdateQueue().pushRemovedEntity(entity); 
+			this.map.removeEntity(entity); 
+			}
+			}
+		this.updateContainsPushable();
+		this.updateIsFree();
+		this.updateIsBlock();
+		this.updateIsSlide();
+		this.updateIsSink();
+		this.updateIsWin();}
+		
+	
+	
+	public void updateCanMove() {
+		updateCanMoveDown();
+		updateCanMoveLeft();
+		updateCanMoveRight();
+		updateCanMoveUp();
+	}
+	
+	public void updateCanMoveRight() {
+		this.canMoveRight = false;
+		int x = this.xPosition;
+		int y = this.yPosition;
+		while (y < map.getyLength() -1)
+		{
+			if(map.getMapMatrix()[x][y+1].isFree()) {
+				this.canMoveRight = true;
+				return;
+				}
+			if(map.getMapMatrix()[x][y+1].containsPushableEntity()) {
+				y++;
+			}
+			else {
+				this.canMoveRight = false;
+				return;
+			}
+		}
+	}
+	public void updateCanMoveLeft() {
+		this.canMoveLeft = false;
+		int x = this.xPosition;
+		int y = this.yPosition;
+		while (y > 0)
+		{
+			if(map.getMapMatrix()[x][y-1].isFree()) {
+				this.canMoveLeft = true;
+				return;
+				}
+			if(map.getMapMatrix()[x][y-1].containsPushableEntity()) {
+				y--;
+			}
+			else {
+			this.canMoveLeft = false;
+			return;}
+				
+		}
+	}
+	public void updateCanMoveUp() {
+		this.canMoveUp = false;
+		int x = this.xPosition;
+		int y = this.yPosition;
+		while (x >0 )
+		{
+			if(map.getMapMatrix()[x-1][y].isFree()) {
+				this.canMoveUp = true;
+				return;
+				}
+			if(map.getMapMatrix()[x-1][y].containsPushableEntity()) {
+				x--;
+			}
+			else {
+			this.canMoveUp = false;
+			return;}
+				
+		}
+	}
+	public void updateCanMoveDown() {
+		this.canMoveDown = false;
+		int x = this.xPosition;
+		int y = this.yPosition;
+		int i = 0;
+		while (x < map.getxLength() -1)
+		{
+			if(map.getMapMatrix()[x+1][y].isFree()) {
+				this.canMoveDown = true;
+				return;
+				}
+			if(map.getMapMatrix()[1+x][y].containsPushableEntity()) {
+				x++;
+			}
+			else {
+				this.canMoveDown = false;
+				return;
+			}
+				
+		}
+	}
+	public boolean isCanMoveRight() {
+		return canMoveRight;
+	}
+	public boolean isCanMoveLeft() {
+		return canMoveLeft;
+	}
+	public boolean isCanMoveUp() {
+		return canMoveUp;
+	}
+	public boolean isCanMoveDown() {
+		return canMoveDown;
+	}
+	
+	public void updateIsOpen() {
+		this.isOpen = false;
+		this.openEntities.clear();
+		for(int i = entityStack.size() -1; i>-1; i--) {
+			if(entityStack.get(i).isOpen()) {
+				this.isOpen = true;
+				this.openEntities.add(entityStack.get(i));
+			}
+		}
+		updateOpenShut();
+	}
+	
+	public void updateIsShut() {
+		this.isShut = false;
+		this.shutEntities.clear();
+		for(int i = entityStack.size() -1; i>-1; i--) {
+			if(entityStack.get(i).isShut()) {
+				this.isShut = true;
+				this.shutEntities.add(entityStack.get(i));
+			}
+		}
+		updateOpenShut();
+	}
+	
+	public void updateOpenShut() {
+		while (shutEntities.size()>0 && openEntities.size()>0) {
+			Entity entity1 = shutEntities.pop();
+			Entity entity2 = openEntities.pop();
+			this.map.removeEntity(entity1);
+			this.map.removeEntity(entity2);
+			
+		}
+	}
+	public void setUndoing(boolean isUndoing) {
+		this.isUndoing = isUndoing;
+	}
+	
+	public void updateIsSlide() {	
+		this.isSlide = false;
+	this.shutEntities.clear();
+	for(int i = entityStack.size() -1; i>-1; i--) {
+		if(entityStack.get(i).isSlide()) 
+			this.isSlide = true;
+	}
+	}
+	public boolean isSlide() {
+		return isSlide;
+	}
+	
+
+	
 }

@@ -2,13 +2,14 @@ package com.babachene.logic.rules;
 
 import java.util.LinkedList;
 
-import com.babachene.logic.data.EntityText;
 import com.babachene.logic.data.LevelGroupOfEntities;
 import com.babachene.logic.data.LevelMap;
+import com.babachene.logic.data.entities.EntityText;
 
 public class RulesUpdater {
 
-	private LinkedList<Rule> ruleList;
+	private LinkedList<Rule> ruleListH;
+	private LinkedList<Rule> ruleListV;
 	private LinkedList<Subject> subjectList;
 	private LinkedList<Attribute> attributeList;
 	private LinkedList<Verb> verbList;
@@ -20,7 +21,8 @@ public class RulesUpdater {
 
 
 	public RulesUpdater(LevelMap map) {
-		this.ruleList = new LinkedList<Rule>();
+		this.ruleListH = new LinkedList<Rule>();
+		this.ruleListV = new LinkedList<Rule>();
 		this.map = map;
 		this.xLength = map.getxLength();
 		this.yLength = map.getyLength();
@@ -55,10 +57,12 @@ public class RulesUpdater {
 			switch(text) { //Ok I know but I don't see another way to do it ..
 			case "is":
 			case "has":
+			case "make":
 				Verb verb = new Verb(x,y,text,this);
 				this.verbList.add(verb);
 				this.textTab[x][y] = verb;
 				break;
+			case "empty":
 			case "rock":
 			case "wall":
 			case "baba":
@@ -68,6 +72,13 @@ public class RulesUpdater {
 			case "water":
 			case "flag":
 			case "grass":
+			case "hug":
+			case "lego":
+			case "love":
+			case "palm":
+			case "bush":
+			case "box" :
+			case "tree":
 				Noun noun = new Noun(x,y,text,this);
 				this.textTab[x][y] = noun;
 				break;
@@ -76,6 +87,7 @@ public class RulesUpdater {
 				LogicWord logic = new LogicWord(x, y, text,this);
 				this.textTab[x][y] = logic;
 				break;
+			case "kill":
 			case "sink":
 			case "push":
 			case "block":
@@ -83,6 +95,10 @@ public class RulesUpdater {
 			case "win":
 			case "p1":
 			case "p2":
+			case "move":
+			case "open":
+			case "shut":
+			case "slide":
 				Property property = new Property(x,y,text,this);
 				this.textTab[x][y] = property;
 				break;
@@ -124,7 +140,7 @@ public class RulesUpdater {
 			}
 		if (!subject.isEmpty() && !attribute.isEmpty())
 		{
-			ruleList.add(new Rule(subject, attribute, verb, this));
+			ruleListH.add(new Rule(subject, attribute, verb, this));
 		}
 	}
 	public void findVRule(Verb verb) {
@@ -152,7 +168,7 @@ public class RulesUpdater {
 			}
 		if (!subject.isEmpty() && !attribute.isEmpty())
 		{
-			ruleList.add(new Rule(subject, attribute, verb, this));
+			ruleListV.add(new Rule(subject, attribute, verb, this));
 		}
 	}
 	private void updateHRules(){
@@ -167,12 +183,16 @@ public class RulesUpdater {
 }
 	public void updateRules() {
 		this.updateTab();
-		this.ruleList = new LinkedList<Rule>();
+		this.ruleListH = new LinkedList<Rule>();
+		this.ruleListV = new LinkedList<Rule>();
 		updateHRules();
 		updateVRules();
 		resetProperties();
-		for(Rule rule:ruleList)
-			rule.applyRules();
+		for(Rule rule:ruleListH)
+			rule.applyRulesH();
+		for(Rule rule:ruleListV)
+			rule.applyRulesV();
+		
 		//add here the method that executes the rules of ruleList
 	}
 	
@@ -180,6 +200,7 @@ public class RulesUpdater {
 		LinkedList<LevelGroupOfEntities> youEntities = this.map.findYou();
 		for (LevelGroupOfEntities entities:youEntities)
 			entities.updateWin();
+		
 	}
 	
 	public void updateIsWinDuo() {
@@ -189,6 +210,8 @@ public class RulesUpdater {
 		LinkedList<LevelGroupOfEntities> p2Entities = this.map.findP2();
 		for (LevelGroupOfEntities entities2:p2Entities)
 			entities2.updateWin();
+		if (map.getHuggedEntities().isWin() && map.getHuggedEntities().getSize()>0)
+			System.out.println("Congratulations, you won");
 	}
 	
 	public void resetProperties() {

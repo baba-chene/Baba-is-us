@@ -31,7 +31,7 @@ public class SoloController extends Controller {
 		this.mainGame = mainGame;
 		giver = new EventGiver();
 		inputProcessor = new LevelInputProcessor(new KeyboardMap(Keys.Z, Keys.S, Keys.Q, Keys.D, Keys.A, Keys.E, Keys.A, Keys.A,
-													Keys.UP, Keys.DOWN, Keys.LEFT, Keys.RIGHT), giver);
+													Keys.UP, Keys.DOWN, Keys.LEFT, Keys.RIGHT), giver, true);
 		
 		// No creation of logic, map. It's in launchLevel
 	}
@@ -62,14 +62,32 @@ public class SoloController extends Controller {
 		map.addEntity(4, 7, "water");
 		map.addEntity(3, 7, "textwater");
 		map.addEntity(7, 2, "wall");
-		map.addEntity(6, 3, "textand");
-		*/
+		map.addEntity(6, 3, "textand");*/
+		
+	/*	LevelMap map = new LevelMap(30,20);
+		map.addEntity(0, 0, "textbaba");
+		map.addEntity(1, 0, "textis");
+		map.addEntity(2, 0, "textyou");
+		map.addEntity(0, 1, "textlava");
+		map.addEntity(1, 1, "textis");
+		map.addEntity(2, 1, "textkill");
+		map.addEntity(0, 2, "baba");
+		map.addEntity(15, 12, "lava");
+		map.addEntity(12,14,"lava");*/
+
+
+			
+		
 		MapEditorConverter mapEditorConverter = new MapEditorConverter(30, 20);
 		try {
 
 			//mapEditorConverter.open("maps\\K�k� is lost.txt\\");
-			//mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\babaLevel4.txt\\");
-			mapEditorConverter.open("maps/"+levelName+".txt");
+			mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\level456.txt\\");
+		//	mapEditorConverter.open("maps/"+levelName+".txt");
+	//	 mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\slide.txt\\");
+		//	mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\missingtextures.txt\\");
+	
+			//mapEditorConverter.open("maps/"+levelName+".txt");
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

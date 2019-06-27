@@ -1,8 +1,8 @@
 package com.babachene.gui.renderer;
 
-import com.babachene.logic.data.Entity;
-import com.babachene.logic.data.EntityWater;
 import com.babachene.logic.data.LevelMap;
+import com.babachene.logic.data.entities.Entity;
+import com.babachene.logic.data.entities.EntityWater;
 
 /* Utilisation:
  * 
@@ -63,7 +63,6 @@ public class WaterTextureChooser {
 43,
 43,
 43,
-32,
 33,
 32,
 33,
@@ -79,6 +78,7 @@ public class WaterTextureChooser {
 33,
 32,
 33,
+32,
 42,
 42,
 42,
@@ -111,8 +111,6 @@ public class WaterTextureChooser {
 45,
 45,
 45,
-38,
-38,
 39,
 39,
 38,
@@ -127,6 +125,8 @@ public class WaterTextureChooser {
 38,
 39,
 39,
+38,
+38,
 22,
 21,
 20,
@@ -159,14 +159,6 @@ public class WaterTextureChooser {
 41,
 41,
 41,
-34,
-34,
-34,
-34,
-34,
-34,
-34,
-34,
 35,
 35,
 35,
@@ -175,6 +167,14 @@ public class WaterTextureChooser {
 35,
 35,
 35,
+34,
+34,
+34,
+34,
+34,
+34,
+34,
+34,
 46,
 46,
 46,
@@ -207,10 +207,6 @@ public class WaterTextureChooser {
 17,
 24,
 17,
-36,
-36,
-36,
-36,
 37,
 37,
 37,
@@ -223,6 +219,10 @@ public class WaterTextureChooser {
 37,
 37,
 37,
+36,
+36,
+36,
+36,
 28,
 28,
 28,
@@ -287,6 +287,30 @@ public class WaterTextureChooser {
 	}
 	
 	
+	/*
+	 * Same as texture(...) but only returns the index.
+	 */
+	static int index(LevelMap map,int x, int y) {
+		
+		boolean [][] v= new boolean [3][3]; // Voisins
+		int hauteur=map.getMapMatrix().length;
+		int largeur=map.getMapMatrix()[0].length;
+		
+		int voisins=0; // nombre entre 0 et 127 qui représente l'état des voisins
+		
+		x--; // Most magical line ever. Don't dare remove it.
+		//calcul de voisins
+		int[][] parcours = { {x-1,y},{x,y+1},{x+1,y},{x,y-1},{x-1,y-1},{x-1,y+1},{x+1,y+1},{x+1,y-1}};
+		int xx,yy;
+		for(int i=0;i<8;i++) {
+			xx=parcours[i][0];
+			yy=parcours[i][1];
+			
+			voisins+=containsWater(map,xx,yy,hauteur,largeur)* (int) Math.pow(2,(7-i));
+			
+		}
+		return hashtable[voisins];
+	}
 	
 	static String texture(LevelMap map,int x, int y) {
 		
@@ -306,7 +330,9 @@ public class WaterTextureChooser {
 			voisins+=containsWater(map,xx,yy,hauteur,largeur)* (int) Math.pow(2,(7-i));
 			
 		}
-		
+		/*
+		 * 
+		 */
 		return ("textures/water/water"+hashtable[voisins]+".png");
 	}
 	

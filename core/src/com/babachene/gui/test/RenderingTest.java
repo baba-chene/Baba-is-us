@@ -10,6 +10,7 @@ import com.babachene.gui.renderer.LevelRenderer;
 import com.babachene.gui.renderer.RenderableEntity;
 import com.babachene.gui.renderer.RenderableLevel;
 import com.babachene.gui.renderer.RenderableMap;
+import com.babachene.logic.data.Direction;
 import com.babachene.gui.renderer.MapUpdateQueue;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
@@ -30,6 +31,27 @@ public class RenderingTest extends GameState {
 	private SpriteBatch batch;
 	private ShapeRenderer shape;
 	
+	public static void main(String[] args) {
+		/*
+		 * Testing the moveing feaure of EntityRenderer.
+		 */
+		RenderingTest rt = new RenderingTest();
+		
+		LevelRenderer levelRenderer = new LevelRenderer(rt.level);
+		
+		rt.batch.begin();
+		levelRenderer.render(rt.batch);
+		rt.e.x ++;
+		levelRenderer.render(rt.batch);
+		rt.e.y ++;
+		levelRenderer.render(rt.batch);
+		rt.batch.end();
+		
+		System.out.println("Fin " + RenderingTest.class.getSimpleName());
+	}
+	
+	Entity e ;
+	
 	// Here are the tests.
 	public RenderingTest() {
 		// INIT
@@ -41,42 +63,43 @@ public class RenderingTest extends GameState {
 		
 		map = new Map();
 		
-		Entity e = new Entity();
+		e = new Entity();
+		e.id = "baba";
 		e.x=4;
 		e.y= 6;
+//		map.add(e);
+//		e = new Entity();
+//		e.x=-2;
+//		e.y= 0;
+//		e.id = 2;
+//		map.add(e);
+//		e = new Entity();
+//		e.x=5;
+//		e.y=5;
+//		e.id = 2;
+//		map.add(e);
+//		e = new Entity();
+//		e.x=5;
+//		e.y=5;
+//		e.id = 2;
+//		map.add(e);
+//		e = new Entity();
+//		e.x=5;
+//		e.y=5;
+//		e.id = 1;
+//		map.add(e);
+//		e = new Entity();
+//		e.x=2;
+//		e.y=1;
+//		map.add(e);
+//		e = new Entity();
+//		e.x=1;
+//		e.y= 1;
+//		e.id = 2;
+//		
+//		
 		map.add(e);
-		e = new Entity();
-		e.x=-2;
-		e.y= 0;
-		e.id = 2;
-		map.add(e);
-		e = new Entity();
-		e.x=5;
-		e.y=5;
-		e.id = 2;
-		map.add(e);
-		e = new Entity();
-		e.x=5;
-		e.y=5;
-		e.id = 2;
-		map.add(e);
-		e = new Entity();
-		e.x=5;
-		e.y=5;
-		e.id = 1;
-		map.add(e);
-		e = new Entity();
-		e.x=2;
-		e.y=1;
-		map.add(e);
-		e = new Entity();
-		e.x=1;
-		e.y= 1;
-		e.id = 2;
-		
-		
-		map.add(e);
-		map.add(new Entity());
+//		map.add(new Entity());
 		
 		// ACTUAL TEST
 		
@@ -131,7 +154,7 @@ public class RenderingTest extends GameState {
 					q.pushCreatedEntity(e);
 
 					e = new Entity();
-					e.id = 1;
+					e.id = "rock";
 					e.x = 0;
 					e.y = 5;
 					q.pushCreatedEntity(e);
@@ -197,13 +220,13 @@ public class RenderingTest extends GameState {
 	
 	private static class Entity implements RenderableEntity {
 		
-		int x = 0;
-		int y = 0;
-		short id = 0;
+		int x = 2;
+		int y = 2;
+		String id = "baba";
 		
 		@Override
 		public String getId() {
-			return "test is outdated !";
+			return id;
 		}
 		@Override
 		public int getX() {
@@ -220,7 +243,7 @@ public class RenderingTest extends GameState {
 		}
 
 		@Override
-		public Object getDirection() {
+		public Direction getDirection() {
 			// TODO Auto-generated method stub
 			return null;
 		}
@@ -238,6 +261,8 @@ public class RenderingTest extends GameState {
 	
 	private class Map extends ArrayList<RenderableEntity> implements RenderableMap {
 		
+		private static final long serialVersionUID = 360L;
+
 		@Override
 		public Iterator<RenderableEntity> iterator() {
 			return super.iterator();
@@ -250,7 +275,7 @@ public class RenderingTest extends GameState {
 
 		@Override
 		public int getHeight() {
-			return 12;
+			return 10;
 		}
 
 		@Override

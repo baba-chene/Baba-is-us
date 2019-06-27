@@ -10,106 +10,41 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
-public class SettingsMenu extends GameState implements Screen {
+public class SettingsMenu extends Menu implements Screen {
 
-	private MainGame parent;
 	
-	private Stage stage;
-	private SpriteBatch batch;
-	private SpriteDrawable title;
-	private ImageButton backButton;
 	
-	public SettingsMenu(MainGame game) {
-		parent=game;
+	public SettingsMenu(MainGame mg, boolean hasBack) {
+		super(mg, hasBack);
 		
-		stage = new Stage(getViewport());
-		batch= new SpriteBatch();
+		super.addTitle("settingsmenu",450, 800, 1000, 250);
 		
-		// Title
-		title = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/menus/settingsmenu.png"))));
-		
-		
-		//BackButton
-		SpriteDrawable backImage = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/menus/back.png"))));
-		backButton = new ImageButton(backImage);
-		backButton.setBounds(100, 80, 200, 120);
-		
-		backButton.addListener(new ClickListener() {
+		Skin skin = new Skin(Gdx.files.internal("skin/pixthulhuui/pixthulhu-ui.json"));
+		final CheckBox fs = new CheckBox("Full screen", skin);
+		fs.setBounds(600,500,400,120);
+			
+		fs.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-							
-				parent.back();
-				
-				return; // The event has been handled.
+
+				if (fs.isChecked()) {
+					Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+				}
+				else {
+					Gdx.graphics.setWindowedMode(800, 600);
+				}
+				return;
 			}
 		});
-		backButton.setDisabled(false);
-		stage.addActor(backButton);
-				
 		
-		
-		
-		// The inputProcessor (here: the stage) must added to the MainGame, and not Gdx.input.
-		parent.setInputProcessor(stage);
-		
+		fs.setDisabled(false);
+		stage.addActor(fs);
 	}
-	
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void render() {
-		Gdx.gl.glClearColor(.1f, .05f, .01f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		batch.setProjectionMatrix(getViewport().getCamera().combined);
-		batch.begin();
-		title.draw(batch, 450, 800, 1000, 250);
-		batch.end();
-		stage.act();
-		stage.draw();
-		
-	}
-
-	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void show() {
-		// The inputProcessor (here: the stage) must added to the MainGame, and not Gdx.input.
-		parent.setInputProcessor(stage);
-		
-	}
-
-	@Override
-	public void hide() {}
-
-	@Override
-	public void render(float delta) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

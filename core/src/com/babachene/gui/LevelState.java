@@ -1,12 +1,16 @@
 package com.babachene.gui;
 
+import java.util.concurrent.TimeUnit;
+
 import com.babachene.gui.renderer.LevelRenderer;
 import com.babachene.gui.renderer.RenderableLevel;
 import com.babachene.userinput.LevelInputProcessor;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
 /**
  * The {@linkplain GameState} that holds a level inside.
@@ -15,10 +19,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 public class LevelState extends GameState {
 	
-	private MainGame parent;
-	private InputProcessor inputProcessor;
+	private static MainGame parent;
+	private LevelInputProcessor inputProcessor;
 	private LevelRenderer levelRenderer;
-	private SpriteBatch batch;
+	private static SpriteBatch batch;
 	
 	
 	public LevelState(MainGame mainGame, RenderableLevel levelToRender, LevelInputProcessor inputProcessor) {
@@ -40,6 +44,30 @@ public class LevelState extends GameState {
 		
 	}
 	
+	public static void win(int type) {
+		
+		SpriteDrawable win = null;
+		switch(type) {
+		
+		case 0 : 
+			win = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/youwin.png"))));
+			break;
+		case 1 : 
+			win = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/p1win.png"))));
+			break;
+		case 2 : 
+			win = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/p2win.png"))));
+			break;
+		}
+		
+		batch.begin();
+		win.draw(batch, 860, 420,200,200);
+		batch.end();
+		
+	
+		
+	}
+	
 	
 //	public RendererUpdateQueue getRendererUpdateQueue() {
 //		return updateQueue;
@@ -51,11 +79,16 @@ public class LevelState extends GameState {
 //	}
 	
 	
-	
+	@Override
+	public void processInput() {
+		/*
+		 * LevelState is a bit different and has to update its LevelInput Processor.
+		 */
+		inputProcessor.update();
+	}
 	
 	@Override
 	public void update() {
-		
 		
 		// Don't put the controller-related calls here.
 		// The belonged to the MetaController.
