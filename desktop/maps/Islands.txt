@@ -13,8 +13,8 @@ textrock textis textblock water water water water water water empty empty water 
 textwater textis textkill water water water water empty empty empty water water water water water water water water water water water water water water water water empty tree water water 
 textbaba textis textp1 water water water water empty water water water empty empty water water water water empty empty empty empty water water water water water empty water water water 
 textkeke textis textp2 water water water water empty water empty empty empty empty textlove empty water water empty empty empty empty empty empty water water water empty water water water 
-water water water water water water water empty empty empty empty empty empty water textis water water empty empty empty empty empty empty empty tree empty empty water water water 
-water water water water water water water water water empty empty empty empty water empty textwin rock empty empty empty empty empty empty water water water water water water water 
+texttree textis textblock water water water water empty empty empty empty empty empty water textis water water empty empty empty empty empty empty empty tree empty empty water water water 
+textpalm textis textblock water water water water water water empty empty empty empty water empty textwin rock empty empty empty empty empty empty water water water water water water water 
 water water water water water water water water water empty empty empty empty water water water water empty empty empty empty empty empty water water water water water water water 
 water water water water water water water water water empty empty empty water water water water water water empty empty empty empty water water water water water water water water 
 water water water water water water water water water water water water water water water water water water water water water water water water water water water water water water 

@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import com.babachene.logic.data.HuggedEntities;
 import com.babachene.logic.data.LevelGroupOfEntities;
 import com.babachene.logic.data.LevelMap;
+import com.babachene.logic.data.LevelMapCase;
 import com.babachene.logic.data.entities.Entity;
 
 public class Rule {
@@ -177,6 +178,14 @@ public class Rule {
 	public void makeHug(String s){
 		HuggedEntities hug = rulesUpdater.getMap().getHuggedEntities();
 		for (int i =0; i< hug.getSize(); i++) {
+			LevelMapCase mapcase = rulesUpdater.getMap().getMapCase((hug.getxHugged().get(i)), hug.getyHugged().get(i));
+			LinkedList<Entity> list = mapcase.getEntityStack();
+			boolean bool = true;
+			for(Entity entity : list) {
+				if (entity.getTypeOfEntity().equalsIgnoreCase(s))
+					bool = false;
+			}
+			if(bool)
 			rulesUpdater.getMap().addEntity(hug.getxHugged().get(i), hug.getyHugged().get(i), s);
 		}
 	}

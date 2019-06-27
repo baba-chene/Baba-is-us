@@ -81,11 +81,14 @@ public class SoloController extends Controller {
 		MapEditorConverter mapEditorConverter = new MapEditorConverter(30, 20);
 		try {
 
-		//	mapEditorConverter.open("maps/"+levelName+".txt");
-		 mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\coop.txt\\");
+
+			mapEditorConverter.open("maps/"+levelName+".txt");
+		// mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\slideduo.txt\\");
+
+
 		//	mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\missingtextures.txt\\");
 	
-			//mapEditorConverter.open("maps/"+levelName+".txt");
+			mapEditorConverter.open("maps/"+levelName+".txt");
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
