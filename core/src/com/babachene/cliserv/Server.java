@@ -264,7 +264,7 @@ public class Server implements Runnable {
 			e.printStackTrace();
 		}
         LOGGER.info("[Server] Connection with client closed.");
-        //disconnectionObserver.update(null, this);
+        disconnectionObserver.update(null, this);
         nextState = State.Opened;
     }
 

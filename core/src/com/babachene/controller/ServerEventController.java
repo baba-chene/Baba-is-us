@@ -142,6 +142,7 @@ public class ServerEventController extends Controller {
 	
 	@Override
 	public void close() {
-		server.shutdown();
+		server.disconnect();
+		//server.shutdown();
 	}
  }
