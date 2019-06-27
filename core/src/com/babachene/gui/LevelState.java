@@ -60,17 +60,13 @@ public class LevelState extends GameState {
 			break;
 		}
 		
+		
+		batch.setProjectionMatrix(getViewport().getCamera().combined);
 		batch.begin();
 		win.draw(batch, 860, 420,200,200);
 		batch.end();
 		
-		try {
-			TimeUnit.SECONDS.sleep(2);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		
-		MainGame.back();
 	}
 	
 	

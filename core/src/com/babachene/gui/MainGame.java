@@ -55,7 +55,7 @@ public class MainGame extends StateBasedGame {
 	
 	private final String[] singleLevelList = {"basic level","the river","find the path","help your friend","empty is baba","keke is lost"} ;
 	private final String[] multiLevelList = {"1v1","help your friend","sandbox2player"};
-	private final String[] arenaList = {"1v1","arene1","lavarene","4 vs 4"};
+	private final String[] arenaList = {"1v1","arene1","lavarene","4 vs 4","Water is push"};
 	
 	
 	private final AppInputProcessor inputProcessor;

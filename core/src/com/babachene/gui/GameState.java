@@ -19,7 +19,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
  */
 public abstract class GameState {
 	
-	private FitViewport viewport;
+	private static FitViewport viewport;
 	
 	// Pour les objets de type Screen, la méthode create() est comme le constructeur.
 	public GameState() {
@@ -57,7 +57,7 @@ public abstract class GameState {
 		viewport.update(width, height, true);
 	}
 	
-	public FitViewport getViewport() {
+	public static FitViewport getViewport() {
 		return viewport;
 	}
 	

@@ -17,4 +17,4 @@ empty empty empty empty water empty empty water empty water rock empty empty tex
 empty empty empty empty water empty empty water water water empty empty empty empty empty empty empty empty empty water water water empty lava empty textrock textis textpush empty empty 
 empty empty empty empty water empty empty empty empty empty empty empty wall wall wall wall wall grass grass empty empty empty empty lava empty empty textis empty empty empty 
 empty empty empty empty empty empty textwater textis empty empty empty empty wall textbaba textis textpush wall grass grass lava lava lava lava lava empty empty empty empty empty empty 
-empty empty empty empty empty empty empty empty empty empty empty empty wall textkeke textis textkill wall empty empty empty empty empty empty empty empty empty empty empty empty empty 
+empty empty empty empty empty empty empty empty empty empty empty empty wall textkeke textis textpush wall empty empty empty empty empty empty empty empty empty empty empty empty empty 
