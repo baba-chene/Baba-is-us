@@ -63,7 +63,7 @@ public class MainGame extends StateBasedGame {
 	
 	
 	private final String[] singleLevelList = {"Read the rules","Who are you","Rocks rock","Words can hurt","Learn to swim","God saves the rock","basic level","the river","find the path","help your friend","empty is baba","keke is lost"} ;
-	private final String[] multiLevelList = {"Help your mate","Hug to win !","Don't hug now","No flag","Just get there","Just get out","Just get out 2","Just get out 3","help your friend","Islands"};
+	private final String[] multiLevelList = {"Help your mate","Hug to win !","Don't hug now","Be careful","No flag","Just get there","Just get out","Just get out 2","Just get out 3","help your friend","Islands"};
 	private final String[] arenaList = {"1v1","arene1","lavarene","4 vs 4","Water is push"};
 	
 	
