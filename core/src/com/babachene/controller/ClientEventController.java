@@ -1,5 +1,6 @@
 package com.babachene.controller;
 
+import java.io.IOException;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.logging.Logger;
 
@@ -16,6 +17,7 @@ import com.babachene.logic.LevelRequest;
 import com.babachene.logic.LevelUpdate;
 import com.babachene.logic.Logic;
 import com.babachene.logic.data.LevelMap;
+import com.babachene.logic.data.MapEditorConverter;
 import com.babachene.userinput.EventGiver;
 import com.babachene.userinput.KeyboardMap;
 import com.babachene.userinput.LevelInputProcessor;
@@ -90,7 +92,7 @@ public class ClientEventController extends Controller {
 				// TODO log
 				// wait, if there is no logic yet, maybe we can receive one through update!
 				if (update instanceof LevelUpdate)
-					launchLevel(null);
+					launchLevel(((LevelUpdate) update).name);
 			} else {
 	        	if (update instanceof InputUpdate)
 	        		checkUpdateAgainstQueue((InputUpdate) update);
@@ -133,12 +135,18 @@ public class ClientEventController extends Controller {
 		/*
 		 * That's where the client should ask the server for the level, or a key to find the level.
 		 */
-		LevelMap lvl = CtrlTest.gimmeLevel();
 		
-		logic = new GameLogic(lvl);
-		eventGiver.clear();
+		MapEditorConverter mapEditorConverter = new MapEditorConverter(30, 20);
+		try {
+			mapEditorConverter.open("maps/"+arg+".txt");
+		} catch (IOException e) {
+			System.out.println("Level doesn't exist");
+			e.printStackTrace();
+		}
+		LevelMap map = mapEditorConverter.getMap();
+		logic = new GameLogic(map);
 		
-		game.push(new LevelState(game, lvl, inputProcessor));
+		game.push(new LevelState(game, map, inputProcessor));
 	}
 	
 	@Override
