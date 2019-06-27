@@ -471,6 +471,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	//*******************Main methods of the class ************************
 	
 	public boolean moveLeft(int player) {
+		updateHug();
 		this.rulesUpdater.updateRules();
 		mapStateList.push(new MapState(this));
 		LinkedList<LevelGroupOfEntities> playerEntities = new LinkedList<LevelGroupOfEntities>();
@@ -486,7 +487,6 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			playerEntities.get(i).moveLeft();
 		}
 		updateSink();
-		updateHug();
 		this.updateSlide();
 		this.updateMove();
 		this.rulesUpdater.updateRules();
@@ -500,6 +500,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		
 	}
 	public boolean moveRight(int player) {
+		updateHug();
 		this.rulesUpdater.updateRules();
 		mapStateList.push(new MapState(this));
 		LinkedList<LevelGroupOfEntities> playerEntities = new LinkedList<LevelGroupOfEntities>();
@@ -515,7 +516,6 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			playerEntities.get(i).moveRight();
 		}
 		updateSink();
-		updateHug();
 		this.updateSlide();
 		this.updateMove();
 		this.rulesUpdater.updateRules();
@@ -528,6 +528,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 
 	}
 	public boolean moveUp(int player) {
+		updateHug();
 		this.rulesUpdater.updateRules();
 		mapStateList.push(new MapState(this));
 		LinkedList<LevelGroupOfEntities> playerEntities = new LinkedList<LevelGroupOfEntities>();
@@ -543,7 +544,6 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			playerEntities.get(i).moveUp();
 		}
 		updateSink();
-		updateHug();
 		this.updateMove();
 		this.rulesUpdater.updateRules();
 		this.updateSlide();
@@ -556,8 +556,10 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 
 	}
 	public boolean moveDown(int player) {
+		updateHug();
 		this.rulesUpdater.updateRules();
 		mapStateList.push(new MapState(this));
+		updateHug();
 		LinkedList<LevelGroupOfEntities> playerEntities = new LinkedList<LevelGroupOfEntities>();
 		switch(player) {
 		case(1):
@@ -571,9 +573,9 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			playerEntities.get(i).moveDown();
 		}
 		updateSink();
-		updateHug();
 		this.updateSlide();
 		this.updateMove();
+		
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWinDuo();
 		if (this.mapStateList.get(0).isEmpty()) {
