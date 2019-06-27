@@ -67,6 +67,7 @@ public final class Rsrc {
 		LOVE_TEXTURE = textureAtlas.findRegion("love");
 		BUSH_TEXTURE = textureAtlas.findRegion("bush");
 		BOX_TEXTURE = textureAtlas.findRegion("box");
+		KEY_TEXTURE = textureAtlas.findRegion("key");
 			
 		TXT_YOU_TEXTURE = textureAtlas.findRegion("txt_you");
 		TXT_P1_TEXTURE = textureAtlas.findRegion("txt_p1");
@@ -107,6 +108,7 @@ public final class Rsrc {
 		TXT_LOVE_TEXTURE = textureAtlas.findRegion("txt_love");
 		TXT_BUSH_TEXTURE = textureAtlas.findRegion("txt_bush");
 		TXT_BOX_TEXTURE = textureAtlas.findRegion("txt_box");
+		TXT_KEY_TEXTURE = textureAtlas.findRegion("txt_key");
 		
 		TXT_PAF_TEXTURE = textureAtlas.findRegion("txt_paf");
 		TXT_HUG_TEXTURE = textureAtlas.findRegion("txt_hug");
@@ -295,6 +297,7 @@ public final class Rsrc {
 								LOVE_TEXTURE,
 								BUSH_TEXTURE,
 								BOX_TEXTURE,
+								KEY_TEXTURE,
 								
 								TXT_YOU_TEXTURE,
 								TXT_P1_TEXTURE,
@@ -335,6 +338,7 @@ public final class Rsrc {
 								TXT_LOVE_TEXTURE,
 								TXT_BUSH_TEXTURE,
 								TXT_BOX_TEXTURE,
+								TXT_KEY_TEXTURE,
 								
 								TXT_PAF_TEXTURE,
 								TXT_HUG_TEXTURE,
@@ -383,6 +387,7 @@ public final class Rsrc {
 		case "love":			return LOVE_TEXTURE;
 		case "bush":			return BUSH_TEXTURE;
 		case "box":				return BOX_TEXTURE;
+		case "key":				return KEY_TEXTURE;
 		
 		// text for attributes
 		case "textyou":			return TXT_YOU_TEXTURE;
@@ -424,6 +429,7 @@ public final class Rsrc {
 		case "textlego":		return TXT_LEGO_TEXTURE;
 		case "textbush":		return TXT_BUSH_TEXTURE;
 		case "textbox":			return TXT_BOX_TEXTURE;
+		case "textkey":			return TXT_KEY_TEXTURE;
 		
 		// non-entity text as subject
 		case "textpaf":			return TXT_PAF_TEXTURE;
