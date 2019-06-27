@@ -5,15 +5,17 @@ public class InputUpdate extends Update {
 	private static final long serialVersionUID = -8465728544238652482L;
 	
 	private final int player;
+	public final boolean updated;
 	
 	public final byte eventType;
 	
-	public InputUpdate(byte type, int player) {
+	public InputUpdate(byte type, int player, boolean updated) {
 		super(20);
 		this.player = player;
+		this.updated = updated;
 		eventType = type;
 	}
-	
+
 	public int getPlayer() {
 		return player;
 	}

@@ -128,10 +128,10 @@ public class JoinMenu extends Menu implements Screen {
 				} catch(NumberFormatException e) {
 					
 				}
-				/*
+				
 				if (intPort != -1)
 					parent.getMetaController().hostServer(intPort);
-				*/
+				
 				game.changeScreen(game.ONLINEMENU);
 				
 				return; // The event has been handled.
