@@ -296,6 +296,7 @@ public class LevelGroupOfEntities {
 		for(Entity entity : entitiesText.getListOfEntities())
 			if (entity.getText().equalsIgnoreCase("win"))
 				isCoop = true;
+		if(!isCoop) {
 		LinkedList<LevelGroupOfEntities> p1 = map.findP1();
 		LinkedList<LevelGroupOfEntities> p2 = map.findP2();
 		int numberP1 = 0;
@@ -315,7 +316,7 @@ public class LevelGroupOfEntities {
 			LevelState.win(1);
 			map.setBricolage (1);
 
-			return;}
+			return;}}
 	}
 	
 	
