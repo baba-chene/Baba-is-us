@@ -487,6 +487,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		}
 		updateSink();
 		updateHug();
+		this.updateSlide();
 		this.updateMove();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWinDuo();
@@ -515,6 +516,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		}
 		updateSink();
 		updateHug();
+		this.updateSlide();
 		this.updateMove();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWinDuo();
@@ -544,6 +546,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		updateHug();
 		this.updateMove();
 		this.rulesUpdater.updateRules();
+		this.updateSlide();
 		this.rulesUpdater.updateIsWinDuo();
 		if (this.mapStateList.get(0).isEmpty()) {
 			this.mapStateList.pop();
@@ -569,6 +572,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		}
 		updateSink();
 		updateHug();
+		this.updateSlide();
 		this.updateMove();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWinDuo();
