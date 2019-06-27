@@ -83,12 +83,6 @@ public class SoloController extends Controller {
 
 
 			mapEditorConverter.open("maps/"+levelName+".txt");
-		// mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\slideduo.txt\\");
-
-
-		//	mapEditorConverter.open("C:\\Users\\Guillaume\\Desktop\\missingtextures.txt\\");
-	
-			mapEditorConverter.open("maps/"+levelName+".txt");
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
