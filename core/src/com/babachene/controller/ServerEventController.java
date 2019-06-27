@@ -136,7 +136,7 @@ public class ServerEventController extends Controller {
 		LevelMap map = mapEditorConverter.getMap();
 		logic = new GameLogic(map);
 		
-		game.push(new LevelState(game, map, inputProcessor));
+		game.push(new LevelState(game, map, inputProcessor, this));
 		
 	}
 	

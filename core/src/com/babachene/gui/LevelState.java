@@ -1,14 +1,11 @@
 package com.babachene.gui;
 
-import java.util.concurrent.TimeUnit;
-
+import com.babachene.controller.Controller;
 import com.babachene.gui.renderer.LevelRenderer;
 import com.babachene.gui.renderer.RenderableLevel;
 import com.babachene.userinput.LevelInputProcessor;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
@@ -23,9 +20,10 @@ public class LevelState extends GameState {
 	private static LevelInputProcessor inputProcessor;
 	private LevelRenderer levelRenderer;
 	private static SpriteBatch batch;
+	private Controller controller;
 	
 	
-	public LevelState(MainGame mainGame, RenderableLevel levelToRender, LevelInputProcessor inputProcessor) {
+	public LevelState(MainGame mainGame, RenderableLevel levelToRender, LevelInputProcessor inputProcessor, Controller controller) {
 		if (mainGame == null)
 			throw new IllegalArgumentException("The MainGame cannot be null");
 		parent = mainGame;
@@ -40,7 +38,7 @@ public class LevelState extends GameState {
 		
 		batch = new SpriteBatch();
 		
-		
+		this.controller = controller;
 		
 	}
 	
@@ -133,7 +131,7 @@ public class LevelState extends GameState {
 	
 	@Override
 	public void hide() {
-		
+		controller.close();
 	}
 	
 }

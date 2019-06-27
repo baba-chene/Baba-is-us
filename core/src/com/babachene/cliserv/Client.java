@@ -147,6 +147,7 @@ public class Client implements Runnable {
     public void shutdown() {
 		LOGGER.info("[Client] Shutting down for good...");
 		try {
+		    out.writeObject(new DisconnectEvent());
 			socket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -214,6 +215,8 @@ public class Client implements Runnable {
             nextState = State.Connected;
             updateTime = System.currentTimeMillis();
         } catch (InterruptedIOException iioe) {
+        	iioe.printStackTrace();
+            //LOGGER.info("[Client] No response from host, trying again...");
         } catch (UnknownHostException e) {
             nextState = State.Disconnected;
             LOGGER.warning("[Client] No host found at " + IPAdress + ":" + port);
