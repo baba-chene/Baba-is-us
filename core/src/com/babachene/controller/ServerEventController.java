@@ -1,5 +1,6 @@
 package com.babachene.controller;
 
+import java.io.IOException;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.logging.Logger;
 
@@ -13,6 +14,7 @@ import com.babachene.logic.LevelRequest;
 import com.babachene.logic.LevelUpdate;
 import com.babachene.logic.Logic;
 import com.babachene.logic.data.LevelMap;
+import com.babachene.logic.data.MapEditorConverter;
 import com.babachene.userinput.EventGiver;
 import com.babachene.userinput.KeyboardMap;
 import com.babachene.userinput.LevelInputProcessor;
@@ -36,6 +38,8 @@ public class ServerEventController extends Controller {
 	private ArrayBlockingQueue<Event> eventBuffer;
 	private int eventBufferLength;
 	private Update update;
+	
+	private String levelName;
 
     public ServerEventController(MainGame mainGame, int port, int eventBufferLength) {
     	this.game = mainGame;
@@ -51,8 +55,6 @@ public class ServerEventController extends Controller {
 		
         
 		LOGGER.info("[Server Event Controller] Started");
-		
-		launchLevel(null);
 	}
     
     //////////////////////////////////////////////////////////
@@ -73,7 +75,7 @@ public class ServerEventController extends Controller {
             
             // Responde to LevelRequest. To delete once the structured is good.
             if (event instanceof LevelRequest)
-            	sendUpdate(new LevelUpdate());
+            	sendUpdate(new LevelUpdate(levelName));
         }
         // If eventGiver is null, only server events are fetched. Is it bad?
         if(eventGiver != null && ! eventGiver.isEmpty()) {
@@ -121,14 +123,20 @@ public class ServerEventController extends Controller {
 	@Override
 	public void launchLevel(String arg) {
 		
-		LevelMap lvl = CtrlTest.gimmeLevel(); // It's for testing purpose.
 		
+		MapEditorConverter mapEditorConverter = new MapEditorConverter(30, 20);
+		try {
+			levelName = arg;
+			mapEditorConverter.open("maps/"+arg+".txt");
+			
+		} catch (IOException e) {
+			System.out.println("Level doesn't exist");
+			e.printStackTrace();
+		}
+		LevelMap map = mapEditorConverter.getMap();
+		logic = new GameLogic(map);
 		
-		
-		logic = new GameLogic(lvl);
-		eventGiver.clear();
-		
-		game.push(new LevelState(game, lvl, inputProcessor));
+		game.push(new LevelState(game, map, inputProcessor));
 		
 	}
 	
