@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -26,12 +27,15 @@ public abstract class Menu extends GameState implements Screen{
 	protected SpriteDrawable title;
 	protected SpriteBatch batch;
 	private int titleX,titleY,titleWidth,titleHeight;
+	private TextureRegion backgroundTexture;
 	
 	public Menu(MainGame mg, boolean hasBack) {
 		parent=mg;
 		title=null;
 		stage = new Stage(getViewport());
 		batch= new SpriteBatch();
+		
+		backgroundTexture = new TextureRegion(new Texture("textures/backgrounds/background.png"), 0, 0, 1920, 1080);
 		
 		if (hasBack) {
 			
@@ -127,7 +131,11 @@ public abstract class Menu extends GameState implements Screen{
 		
 		batch.setProjectionMatrix(getViewport().getCamera().combined);
 		batch.begin();
+		
+		batch.draw(backgroundTexture, 0 ,0 , Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+		
 		if (title != null) {title.draw(batch, titleX, titleY, titleWidth, titleHeight);}
+		
 		batch.end();
 		
 		stage.act();
