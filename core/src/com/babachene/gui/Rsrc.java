@@ -7,6 +7,7 @@ import com.babachene.logic.data.Direction;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -91,6 +92,7 @@ public final class Rsrc {
 		TXT_BUT_TEXTURE = textureAtlas.findRegion("txt_but");
 		TXT_MOVE_TEXTURE = textureAtlas.findRegion("txt_move");
 		TXT_WEAK_TEXTURE = textureAtlas.findRegion("txt_weak");
+		TXT_SLIDE_TEXTURE = textureAtlas.findRegion("txt_slide");
 		
 		TXT_BABA_TEXTURE = textureAtlas.findRegion("txt_baba");
 		TXT_KEKE_TEXTURE = textureAtlas.findRegion("txt_keke");
@@ -321,6 +323,7 @@ public final class Rsrc {
 								TXT_OFF_TEXTURE,
 								TXT_BUT_TEXTURE,
 								TXT_MOVE_TEXTURE,
+								TXT_SLIDE_TEXTURE,
 								
 								TXT_BABA_TEXTURE,
 								TXT_KEKE_TEXTURE,
@@ -414,6 +417,7 @@ public final class Rsrc {
 		case "texton":			return TXT_ON_TEXTURE;
 		case "textbut":			return TXT_BUT_TEXTURE;
 		case "textmove":		return TXT_MOVE_TEXTURE;
+		case "textslide":		return TXT_SLIDE_TEXTURE;
 		
 		// text for verbs
 		case "textbaba":		return TXT_BABA_TEXTURE;
