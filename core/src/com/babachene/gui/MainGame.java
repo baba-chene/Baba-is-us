@@ -62,9 +62,9 @@ public class MainGame extends StateBasedGame {
 	public final static int P2WIN =14;
 	
 	
-	private final String[] singleLevelList = {"Read the rules","Who are you","Rocks rock","Words can hurt","Learn to swim","God saves the rock","basic level","the river","find the path","help your friend","empty is baba","keke is lost"} ;
-	private final String[] multiLevelList = {"1v1","help your friend","Islands","Fast and Grass"};
-	private final String[] arenaList = {"1v1","arene1","lavarene","4 vs 4","Water is push"};
+	private final String[] singleLevelList = {"Read the rules","Who are you","Rocks rock","Words can hurt","Basic","Learn to swim","God saves the rock","find the path","keke is lost"} ;
+	private final String[] multiLevelList = {"1v1","help your friend","Islands","Fast Grass"};
+	private final String[] arenaList = {"Classic Arena","Death Arena","4 vs 4","Water is push","Skull Sniper","The Run"};
 	
 	
 	private final AppInputProcessor inputProcessor;

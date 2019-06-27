@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -33,7 +34,7 @@ public class JoinMenu extends Menu implements Screen {
 	
 	private TextField portHost;
 	private TextButton hostButton;
-	
+	private TextureRegion backgroundTexture;
 	
 	public JoinMenu(final MainGame game,boolean hasBack) {
 		
@@ -42,6 +43,8 @@ public class JoinMenu extends Menu implements Screen {
 		parent=game;
 		//stage = new Stage(getViewport());
 		batch= new SpriteBatch();
+		
+		backgroundTexture = new TextureRegion(new Texture("textures/backgrounds/background.png"), 0, 0, 1920, 1080);
 		
 		// Title
 		//title = new SpriteDrawable(new Sprite(new Texture(Gdx.files.internal("textures/menus/2playermode.png"))));
@@ -159,9 +162,12 @@ public class JoinMenu extends Menu implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		batch.setProjectionMatrix(getViewport().getCamera().combined);
-		//batch.begin();
+		batch.begin();
+		batch.draw(backgroundTexture, 0 ,0 , Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 		//title.draw(batch, 450, 800, 1000, 250);
-		//batch.end();
+		batch.end();
+		
+		
 		stage.act();
 		stage.draw();
 		
