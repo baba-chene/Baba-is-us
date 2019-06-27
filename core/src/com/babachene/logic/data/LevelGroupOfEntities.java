@@ -3,6 +3,7 @@ package com.babachene.logic.data;
 import java.util.Collections;
 import java.util.LinkedList;
 
+import com.babachene.gui.LevelState;
 import com.babachene.logic.data.entities.Entity;
 
 public class LevelGroupOfEntities {
@@ -288,8 +289,29 @@ public class LevelGroupOfEntities {
 	public void updateWin() {
 		for(Entity entity:listOfEntities)
 			if (this.map.getMapCase(entity.getxPosition(), entity.getyPosition()).isWin()) {
-				System.out.println("Congratulations ! You won");
+				LevelState.win(0);
 				return;}		
+		LevelGroupOfEntities entitiesText = map.findGroup("text");
+		boolean isCoop = false;
+		for(Entity entity : entitiesText.getListOfEntities())
+			if (entity.getText().equalsIgnoreCase("win"))
+				isCoop = true;
+		LinkedList<LevelGroupOfEntities> p1 = map.findP1();
+		LinkedList<LevelGroupOfEntities> p2 = map.findP2();
+		int numberP1 = 0;
+		int numberP2 = 0;
+		for(LevelGroupOfEntities entities : p1) {
+			numberP1 += entities.getNumberOfEntities();
+		}
+		for(LevelGroupOfEntities entities : p2) {
+			numberP2 += entities.getNumberOfEntities();
+		}
+		if (numberP1 ==0) {
+			LevelState.win(2);
+		return;}
+		if(numberP2 == 0) {
+			LevelState.win(1);
+			return;}
 	}
 	
 	
