@@ -56,6 +56,7 @@ public class GameLogic implements Logic {
 	public Update processInput(InputEvent inputEvent) {
 		
 		int player = (inputEvent.getPlayer() == 2) ? 2 : 1;
+		boolean updated = false;
 		/*
 		 * For now, there is three players : YOU, P1 and P2.
 		 * so the YOU will be seen as a US and will move should any player asks movement.
@@ -63,27 +64,28 @@ public class GameLogic implements Logic {
 		 */
 		switch(inputEvent.eventType) {
 		case InputEvent.MOVE_DOWN:
-			levelMap.moveDown();
-			levelMap.moveDown(player);
+			updated = levelMap.moveDown() ||
+				levelMap.moveDown(player);
 			break;
 		case InputEvent.MOVE_UP:
-			levelMap.moveUp();
-			levelMap.moveUp(player);
+			updated = levelMap.moveUp() ||
+				levelMap.moveUp(player);
 			break;
 		case InputEvent.MOVE_LEFT:
-			levelMap.moveLeft();
-			levelMap.moveLeft(player);
+			updated = levelMap.moveLeft() ||
+				levelMap.moveLeft(player);
 			break;
 		case InputEvent.MOVE_RIGHT:
-			levelMap.moveRight();
-			levelMap.moveRight(player);
+			updated = levelMap.moveRight() ||
+				levelMap.moveRight(player);
 			break;
 		case InputEvent.Z_REQUEST:
 			levelMap.undo();
+			updated = true;
 			break;
 		default: break;
 		}
-		return new InputUpdate(inputEvent.eventType, inputEvent.getPlayer());
+		return new InputUpdate(inputEvent.eventType, inputEvent.getPlayer(), updated);
 	}
 	
 	/**

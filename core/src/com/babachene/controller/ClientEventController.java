@@ -80,8 +80,8 @@ public class ClientEventController extends Controller {
 			client.addEvent(event);
         	if (event instanceof InputEvent) {
         		event.setPlayer(2);
-    			logic.processEvent(event);
-    			eventsWaitingForACK.add(event);
+    			if(((InputUpdate) logic.processEvent(event)).updated)
+    				eventsWaitingForACK.add(event);
         	}
 		}
 		if(fetchUpdate()) {
@@ -109,7 +109,7 @@ public class ClientEventController extends Controller {
 			int size = eventsWaitingForACK.size();
 			for(int i = 0; i < size; i++) {
 	        	LOGGER.fine("[Client Event Controller] Undoing some events as an update arrived before theirs");
-				logic.processUpdate(new InputUpdate(InputEvent.Z_REQUEST, 2));
+				logic.processUpdate(new InputUpdate(InputEvent.Z_REQUEST, 2, true));
 			}
         	LOGGER.fine("[Client Event Controller] Processing the update");
 			logic.processUpdate(update);
@@ -120,8 +120,10 @@ public class ClientEventController extends Controller {
 			}
 		}
 		else {
-			if(eventsWaitingForACK.poll() == null)
-	        	LOGGER.warning("[Client Event Controller] Update received for client but no event was left in the queue");
+			if (update.updated) {
+				if(eventsWaitingForACK.poll() == null)
+		        	LOGGER.warning("[Client Event Controller] Update received for client but no event was left in the queue");
+			}
 		}
 	}
 	
