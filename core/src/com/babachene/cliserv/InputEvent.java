@@ -12,7 +12,6 @@ public class InputEvent extends Event {
 	private static final long serialVersionUID = -7459899296974359597L;
 	
 	public final byte eventType;
-	
 	public InputEvent(byte type, int player) {
 		super(20);
 		eventType = type;

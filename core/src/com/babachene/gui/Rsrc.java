@@ -379,6 +379,7 @@ public final class Rsrc {
 		case "lava":			return LAVA_TEXTURE;
 		case "wall":			return WALL_TEXTURE;
 		case "tree":			return TREE_TEXTURE;
+		case "palm":			return PALM_TEXTURE;
 		case "flag":			return FLAG_TEXTURE;
 		case "skull":			return SKULL_TEXTURE;
 		case "grass":			return GRASS_ARRAY_TEXTURE[random.nextInt(GRASS_ARRAY_TEXTURE.length)];
