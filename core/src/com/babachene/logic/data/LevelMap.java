@@ -46,6 +46,8 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 	private LinkedList<MapState> mapStateList;
 	private boolean isUndoing;
 	private HuggedEntities huggedEntities;
+	private static int bricolage =0;
+
 
 	public LevelMap(int xLength, int yLength) { //Creates a map of dimension xLength*yLength with cases filled with "empty".
 		super();
@@ -779,6 +781,14 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 			if (entities.getNumberOfEntities()>0)
 				entities.updateSlide();
 		}
+	}
+
+	public static int getBricolage() {
+		return bricolage;
+	}
+
+	public static void setBricolage(int bricolage) {
+		LevelMap.bricolage = bricolage;
 	}
 
 		

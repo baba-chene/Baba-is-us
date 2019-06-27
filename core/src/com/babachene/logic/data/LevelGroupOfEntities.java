@@ -301,16 +301,20 @@ public class LevelGroupOfEntities {
 		int numberP1 = 0;
 		int numberP2 = 0;
 		for(LevelGroupOfEntities entities : p1) {
-			numberP1 += entities.getNumberOfEntities();
+			numberP1 += entities.getNumberOfEntities()+ map.getBricolage();
 		}
 		for(LevelGroupOfEntities entities : p2) {
-			numberP2 += entities.getNumberOfEntities();
+			numberP2 += entities.getNumberOfEntities() +map.getBricolage();
 		}
 		if (numberP1 ==0) {
 			LevelState.win(2);
+			map.setBricolage (1);
+			System.out.println("alo?");
 		return;}
 		if(numberP2 == 0) {
 			LevelState.win(1);
+			map.setBricolage (1);
+
 			return;}
 	}
 	
