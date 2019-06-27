@@ -290,6 +290,7 @@ public class LevelGroupOfEntities {
 		for(Entity entity:listOfEntities)
 			if (this.map.getMapCase(entity.getxPosition(), entity.getyPosition()).isWin()) {
 				LevelState.win(0);
+				System.out.println("0");
 				return;}		
 		LevelGroupOfEntities entitiesText = map.findGroup("text");
 		boolean isCoop = false;
@@ -309,12 +310,10 @@ public class LevelGroupOfEntities {
 		}
 		if (numberP1 ==0) {
 			LevelState.win(2);
-			map.setBricolage (1);
 			System.out.println("alo?");
 		return;}
 		if(numberP2 == 0) {
 			LevelState.win(1);
-			map.setBricolage (1);
 
 			return;}}
 	}

@@ -30,7 +30,8 @@ public class P1Win extends Menu{
 
 				parent.back();
 				parent.back();
-				
+				parent.back();
+
 				return;
 			}
 		});
