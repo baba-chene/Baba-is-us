@@ -487,6 +487,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		}
 		updateSink();
 		updateHug();
+		this.updateMove();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWinDuo();
 		if (this.mapStateList.get(0).isEmpty()) {
@@ -514,6 +515,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		}
 		updateSink();
 		updateHug();
+		this.updateMove();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWinDuo();
 		if (this.mapStateList.get(0).isEmpty()) {
@@ -540,6 +542,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		}
 		updateSink();
 		updateHug();
+		this.updateMove();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWinDuo();
 		if (this.mapStateList.get(0).isEmpty()) {
@@ -566,6 +569,7 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		}
 		updateSink();
 		updateHug();
+		this.updateMove();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWinDuo();
 		if (this.mapStateList.get(0).isEmpty()) {
@@ -586,7 +590,6 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		}
 		updateSink();
 		this.updateSlide();
-		this.updateMove();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
 		if (this.mapStateList.get(0).isEmpty()) {
@@ -605,7 +608,6 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		}
 		updateSink();
 		this.updateSlide();
-		this.updateMove();
 		this.rulesUpdater.updateRules();
 		this.rulesUpdater.updateIsWin();
 		if (this.mapStateList.get(0).isEmpty()) {
@@ -623,7 +625,6 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		{
 			youEntities.get(i).moveUp();
 		}
-		this.updateMove();
 		this.updateSlide();
 		updateSink();
 		this.rulesUpdater.updateRules();
@@ -641,7 +642,6 @@ public class LevelMap implements RenderableMap,RenderableLevel {
 		{
 			youEntities.get(i).moveDown();
 		}
-		this.updateMove();
 		this.updateSlide();
 		updateSink();
 		this.rulesUpdater.updateRules();
