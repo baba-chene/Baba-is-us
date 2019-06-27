@@ -422,6 +422,7 @@ public final class Rsrc {
 		case "textlava":		return TXT_LAVA_TEXTURE;
 		case "textwall":		return TXT_WALL_TEXTURE;
 		case "texttree":		return TXT_TREE_TEXTURE;
+		case "textpalm":		return TXT_PALM_TEXTURE;
 		case "textflag":		return TXT_FLAG_TEXTURE;
 		case "textskull":		return TXT_SKULL_TEXTURE;
 		case "textgrass":		return TXT_GRASS_TEXTURE;
