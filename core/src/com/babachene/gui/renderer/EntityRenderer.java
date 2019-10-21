@@ -57,14 +57,10 @@ class EntityRenderer extends Renderer { // Not a public class
 	@Override
 	public void render(SpriteBatch batch) {
 		
-		/*
-		 * TODO Make fast speed come back. How? By introducing the 'moving' boolean
-		 * inside the block right below.
-		 */
 		
 		/*
-		 * Here is the system that handle the movement of the texture.
-		 * It is not perfect and frenetically typing the keys may
+		 * Here is the system that handles the movement of the texture.
+		 * It is perfect and frenetically typing the keys should not
 		 * lead to a wrong texture position.
 		 */
 		// Verify if the entity has not moved.

@@ -6,8 +6,8 @@ import com.babachene.logic.data.Direction;
  * Represents an entity that is to be rendered. It must provide
  * information about the entity only.
  * <p>
- * These methods can be called during in the renderer objects'
- * constructors or at each game loop render.
+ * Some of these methods can be called during in the renderer objects'
+ * constructors and some others at each game loop render.
  * @author jeremy
  *
  */
@@ -18,7 +18,7 @@ public interface RenderableEntity {
 	 * the renderers will match the correct texture.<br>
 	 * This method will not be frequently called, the
 	 * renderer will store the texture in order to save the
-	 * macth research cost.
+	 * match searching cost.
 	 * @return Entity's id
 	 */
 	String getId();

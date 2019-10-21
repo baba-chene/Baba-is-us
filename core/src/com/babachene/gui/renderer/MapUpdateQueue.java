@@ -7,7 +7,7 @@ import java.util.Queue;
  * A queue for storing events about a RenderableMap's structure.<p>
  * The renderer classes will fetch this object to get updates from the game
  * module. This queue is at best use if it stores events that are fired at
- * a low frequency (lower then the render() loop) and that operate expensive
+ * a low frequency (lower than the render() loop) and that operate expensive
  * changes on the renderers. For example: adding a new entity to the map.
  * <p>
  * A counter-example is the (x, y) coord that are fetched at every render()
